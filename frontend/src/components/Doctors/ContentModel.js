@@ -1,0 +1,92 @@
+import React from 'react';
+import { useFormContext } from "react-hook-form";
+import { makeStyles } from '@material-ui/core/styles';
+import {
+  Table,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  TableCell,
+  TableBody,
+  Button,
+  Typography,
+  TextField,
+  DialogTitle,
+  Container,
+  DialogContent,
+  DialogContentText
+} from '@material-ui/core';
+import moment from 'moment';
+
+export default function ContentModel(props) {
+  const classes = useStyles();
+  const { register, formState: { errors }, } = useFormContext();
+
+  const { row, handleNext } = props
+
+  return (
+    <Container maxwidth="md" className={classes.paper}>
+      <DialogTitle id="alert-dialog-title">{"เลือกวันนัด"}</DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center">ชื่อ</TableCell>
+                  <TableCell align="center">เวลา</TableCell>
+                  <TableCell align="center">Actions</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {row.history.map((historyRow) => (
+                  <TableRow key={historyRow.id}>
+                    <TableCell align="center">
+                      <TextField
+                        id="appointments"
+                        label="ชื่อ"
+                        variant="outlined"
+                        fullWidth
+                        disabled
+                        {...register("appointments", { value: row.name })}
+                        error={Boolean(errors?.appointments)}
+                        helperText={errors.appointments?.message}
+                      />
+                    </TableCell>
+                    <TableCell align="center">
+                      <TextField
+                        id="MUIPickerNew"
+                        label="เวลานัดใหม่ที่คนไข้ต้องการ"
+                        variant="outlined"
+                        fullWidth
+                        disabled
+                        {...register("MUIPickerNew", { value: historyRow.startDate })}
+                        error={Boolean(errors?.MUIPickerNew)}
+                        helperText={errors.MUIPickerNew?.message}
+                      />
+                    </TableCell>
+
+                    <TableCell align="center">
+                      <Button variant="contained" color="primary" onClick={() => handleNext({ appointments: row.name, MUIPickerNew: historyRow.startDate })}>เลือกเวลานัด</Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </DialogContentText>
+      </DialogContent>
+    </Container>
+  )
+}
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    width: '70%',
+    textAlign: 'center',
+    borderRadius: '2rem'
+  },
+}));

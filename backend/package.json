@@ -1,0 +1,30 @@
+{
+  "name": "basic_node_init",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khemmanat/basic_node_init.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/khemmanat/basic_node_init/issues"
+  },
+  "homepage": "https://github.com/khemmanat/basic_node_init#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "multer": "^1.4.3",
+    "mysql2": "^2.3.2",
+    "nodemon": "^2.0.12",
+    "sequelize": "^6.6.5"
+  }
+}
