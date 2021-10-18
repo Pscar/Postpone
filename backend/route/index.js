@@ -5,7 +5,9 @@ const { Router } = require('express');
 const router = express.Router();
 
 const UserController = require('../controllers/UserController');
-const InformationsController = require('../controllers/InformationsController');
+const PostPoneController = require('../controllers/PostPoneController');
+const DoctorController = require('../controllers/DoctorController');
+const ScheduleDoctorController = require('../controllers/ScheduleDoctorController');
 
 // !API 1XX - User
 //!API 101 - Create User
@@ -28,5 +30,5 @@ router.delete("/user/deletebyemail", UserController.DeleteUserByEmail);
 
 // !API 1XX - Information
 //!API 101 - Create Information
-router.post("/information/create", InformationsController.CreateInformation);
+router.post("/information/create", PostPoneController.CreatePostPone);
 module.exports = router;

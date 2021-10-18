@@ -1,4 +1,4 @@
-const InformationsService = require('../service/informations_service');
+const DoctorService = require('../service/doctor_service');
 
 const get_nowdate = new Date();
 let get_date = ("0" + get_nowdate.getDate()).slice(-2);
@@ -12,21 +12,14 @@ let get_second = get_nowdate.getSeconds();
 var date_now = (`${get_date}/${get_month}/${get_year}`);
 var time_now = (`${get_hour}:${get_minute}:${get_second}`);
 
-exports.CreateInformation = async (req, res) => {
+exports.CreateDoctor = async (req, res) => {
 
   const {
-    user_id,
-    hn,
+    doc_id,
     firstname,
     lastname,
-    locations,
-    appointments,
-    dateOld,
-    dateNew,
-    course,
-    phone,
-    status
-
+    examination_room,
+    schedule_id,
   } = req.body;
 
   try {
@@ -39,23 +32,17 @@ exports.CreateInformation = async (req, res) => {
     //         data: "Not Data"
     //       });
     // }else{
-    const CreateNewInformations = await InformationsService.create({
-      user_id: user_id,
-      hn: hn,
+    const CreateNewDoctor = await DoctorService.create({
+      doc_id: doc_id,
       firstname: firstname,
       lastname: lastname,
-      locations: locations,
-      appointments: appointments,
-      dateOld: dateOld,
-      dateNew: dateNew,
-      course: course,
-      phone: phone,
-      status: status
+      examination_room: examination_room,
+      schedule_id: schedule_id,
     });
 
     return res.status(200).send({
       status: "success",
-      data: CreateNewInformations
+      data: CreateNewDoctor
     });
 
     //}   

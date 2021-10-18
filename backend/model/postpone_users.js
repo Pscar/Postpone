@@ -1,13 +1,13 @@
 module.exports = (sequelize, Sequelize) => {
   // ชื่อ ตัวแปร ที่ให้เหมือนกับชื่อ table
-  const informations = sequelize.define(
+  const postpone_user = sequelize.define(
     //ชื่อ ตาราง
-    "informations",
+    "postpone_user",
     {
       // แต่ละ column พร้อมประเภทตัวแปร
-      info_id: {
+      postpone_id: {
         type: Sequelize.INTEGER,
-        field: "info_id",
+        field: "postpone_id",
         primaryKey: true,
         autoIncrement: true,
       },
@@ -31,9 +31,9 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
         field: "locations"
       },
-      appointments: {
-        type: Sequelize.STRING,
-        field: "appointments"
+      doc_id: {
+        type: Sequelize.INTEGER,
+        field: "doc_id"
       },
       dateOld: {
         type: Sequelize.STRING,
@@ -61,5 +61,5 @@ module.exports = (sequelize, Sequelize) => {
       underscored: true,
     }
   );
-  return informations;
+  return postpone_user;
 };
