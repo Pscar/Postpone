@@ -12,221 +12,204 @@ let get_second = get_nowdate.getSeconds();
 var date_now = (`${get_date}/${get_month}/${get_year}`);
 var time_now = (`${get_hour}:${get_minute}:${get_second}`);
 
-exports.CreateUser = async (req,res) => {
+exports.CreateUser = async (req, res) => {
 
-    const {
-        email,
-        password,
+  const {
+    email,
+    password,
 
-    } = req.body;
+  } = req.body;
 
-    try{
-        const getUserExist = await UserService.getByEmail(email);
-        
-        if(getUserExist){
-            console.log("User already registered");
+  try {
+    const getUserExist = await UserService.getByEmail(email);
 
-            return res.status(200).send({
-                status: "error",
-                data: "Not Data"
-              });
-        }else{
-            const CreateNewUser = await UserService.create({
-                email: email,
-                password: password
-            });
+    if (getUserExist) {
+      console.log("User already registered");
 
-            return res.status(200).send({
-                status: "success",
-                data: CreateNewUser
-              });
-
-        }   
-        
-
-        
-    }catch(err){
-        console.log("==== ERROR =====", err);
-        return res.status(500).send({
+      return res.status(200).send({
         status: "error",
-        message: err.message,
-        });
+        data: "Not Data"
+      });
+    } else {
+      const CreateNewUser = await UserService.create({
+        email: email,
+        password: password
+      });
+
+      return res.status(200).send({
+        status: "success",
+        data: CreateNewUser
+      });
+
     }
+
+
+
+  } catch (err) {
+    console.log("==== ERROR =====", err);
+    return res.status(500).send({
+      status: "error",
+      message: err.message,
+    });
+  }
 
 }
 
-exports.GetUserByID = async (req,res) => {
+exports.GetUserByID = async (req, res) => {
 
-    const user_id = req.query.user_id;
+  const user_id = req.query.user_id;
 
-    try{
-        const GetUserAccountByID = await UserService.getByID(user_id);
+  try {
+    const GetUserAccountByID = await UserService.getByID(user_id);
 
-        return res.status(200).send({
-            status: "success",
-            data: GetUserAccountByID
-          });
-    }catch(err){
-        console.log("==== ERROR =====", err);
-        return res.status(500).send({
-        status: "error",
-        message: err.message,
+    return res.status(200).send({
+      status: "success",
+      data: GetUserAccountByID
     });
-    }
+  } catch (err) {
+    console.log("==== ERROR =====", err);
+    return res.status(500).send({
+      status: "error",
+      message: err.message,
+    });
+  }
 }
 
-exports.GetUserAll = async (req,res) => {
+exports.GetUserAll = async (req, res) => {
 
-    // const user_id = req.query.user_id;
+  // const user_id = req.query.user_id;
 
-    try{
-        const GetUserAccountAll = await UserService.getAll();
+  try {
+    const GetUserAccountAll = await UserService.getAll();
 
-        return res.status(200).send({
-            status: "success",
-            data: GetUserAccountAll
-          });
-    }catch(err){
-        console.log("==== ERROR =====", err);
-        return res.status(500).send({
-        status: "error",
-        message: err.message,
+    return res.status(200).send({
+      status: "success",
+      data: GetUserAccountAll
     });
-    }
+  } catch (err) {
+    console.log("==== ERROR =====", err);
+    return res.status(500).send({
+      status: "error",
+      message: err.message,
+    });
+  }
 }
 
-exports.GetUserByEmail = async (req,res) => {
+exports.GetUserByEmail = async (req, res) => {
 
-    const user_email = req.query.email;
+  const user_email = req.query.email;
 
-    try{
-        const GetUserAccountByEmail = await UserService.getByEmail(user_email);
+  try {
+    const GetUserAccountByEmail = await UserService.getByEmail(user_email);
 
-        return res.status(200).send({
-            status: "success",
-            data: GetUserAccountByEmail
-          });
-    }catch(err){
-        console.log("==== ERROR =====", err);
-        return res.status(500).send({
-        status: "error",
-        message: err.message,
+    return res.status(200).send({
+      status: "success",
+      data: GetUserAccountByEmail
     });
-    }
-    
-}
-
-exports.EditUserByID = async (req,res) => {
-
-    const {
-        user_id,
-        firstname,
-        lastname,
-        telno,
-        email,
-        username,
-        password,
-
-    } = req.body;
-
-    try{
-        const EditUserByID = await UserService.editByID(user_id,{
-            firstname: firstname,
-            lastname: lastname,
-            telno: telno,
-            email: email,
-            username : username,
-            password : password,
-        });
-
-        return res.status(200).send({
-            status: "success",
-            data: EditUserByID
-          });
-    }catch(err){
-        console.log("==== ERROR =====", err);
-        return res.status(500).send({
-        status: "error",
-        message: err.message,
+  } catch (err) {
+    console.log("==== ERROR =====", err);
+    return res.status(500).send({
+      status: "error",
+      message: err.message,
     });
-    }
-    
-}
-
-exports.EditUserByEmail = async (req,res) => {
-
-    const {
-        user_id,
-        firstname,
-        lastname,
-        telno,
-        email,
-        username,
-        password,
-
-    } = req.body;
-
-    try{
-        const EditUserByEmail = await UserService.editByEmail(email,{
-            firstname: firstname,
-            lastname: lastname,
-            telno: telno,
-            username : username,
-            password : password,
-        });
-
-        return res.status(200).send({
-            status: "success",
-            data: EditUserByEmail
-          });
-    }catch(err){
-        console.log("==== ERROR =====", err);
-        return res.status(500).send({
-        status: "error",
-        message: err.message,
-    });
-    }
-    
-}
-
-exports.DeleteUserByID = async (req,res) =>{
-
-    const user_id = req.query.user_id;
-
-    try{
-        const DeleteUserByID = await UserService.DeleteByID(user_id);
-
-        return res.status(200).send({
-            status: "success",
-            data: DeleteUserByID
-          });
-    }catch(err){
-        console.log("==== ERROR =====", err);
-        return res.status(500).send({
-        status: "error",
-        message: err.message,
-    });
-    }
+  }
 
 }
 
-exports.DeleteUserByEmail = async (req,res) =>{
+exports.EditUserByID = async (req, res) => {
 
-    const user_email = req.query.email;
+  const {
+    user_id,
+    email,
+    password,
 
-    try{
-        const DeleteUserByEmail = await UserService.DeleteByEmail(user_email);
+  } = req.body;
 
-        return res.status(200).send({
-            status: "success",
-            data: DeleteUserByEmail
-          });
-    }catch(err){
-        console.log("==== ERROR =====", err);
-        return res.status(500).send({
-        status: "error",
-        message: err.message,
+  try {
+    const EditUserByID = await UserService.editByID(user_id, {
+      email: email,
+      password: password,
     });
-    }
-    
+
+    return res.status(200).send({
+      status: "success",
+      data: EditUserByID
+    });
+  } catch (err) {
+    console.log("==== ERROR =====", err);
+    return res.status(500).send({
+      status: "error",
+      message: err.message,
+    });
+  }
+
+}
+
+exports.EditUserByEmail = async (req, res) => {
+
+  const {
+    email,
+    password,
+  } = req.body;
+
+  try {
+    const EditUserByEmail = await UserService.editByEmail(email, {
+      email: email,
+      password: password,
+    });
+
+    return res.status(200).send({
+      status: "success",
+      data: EditUserByEmail
+    });
+  } catch (err) {
+    console.log("==== ERROR =====", err);
+    return res.status(500).send({
+      status: "error",
+      message: err.message,
+    });
+  }
+
+}
+
+exports.DeleteUserByID = async (req, res) => {
+
+  const user_id = req.query.user_id;
+
+  try {
+    const DeleteUserByID = await UserService.DeleteByID(user_id);
+
+    return res.status(200).send({
+      status: "success",
+      data: DeleteUserByID
+    });
+  } catch (err) {
+    console.log("==== ERROR =====", err);
+    return res.status(500).send({
+      status: "error",
+      message: err.message,
+    });
+  }
+
+}
+
+exports.DeleteUserByEmail = async (req, res) => {
+
+  const user_email = req.query.email;
+
+  try {
+    const DeleteUserByEmail = await UserService.DeleteByEmail(user_email);
+
+    return res.status(200).send({
+      status: "success",
+      data: DeleteUserByEmail
+    });
+  } catch (err) {
+    console.log("==== ERROR =====", err);
+    return res.status(500).send({
+      status: "error",
+      message: err.message,
+    });
+  }
+
 }

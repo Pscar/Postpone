@@ -39,7 +39,7 @@ db.sequelize = sequelize;
 db.user = require("../model/user")(sequelize, Sequelize);
 db.postpone = require("../model/postpone_users")(sequelize, Sequelize);
 db.doctor = require("../model/doctors")(sequelize, Sequelize);
-db.schduledoctor = require("../model/schedule_doctor")(sequelize, Sequelize);
+db.schdule_doctor = require("../model/schedule_doctor")(sequelize, Sequelize);
 
 
 /////////////////////////////// Relation //////////////////////////////////////
@@ -63,12 +63,12 @@ db.postpone.belongsTo(db.doctor, {
   foreignKey: "doc_id",
 });
 
-db.doctor.hasMany(db.schduledoctor,{
-  foreignKey: "schedule_id",
+db.doctor.hasMany(db.schdule_doctor,{
+  foreignKey: "doc_id",
 });
 
-db.schduledoctor.belongsTo(db.doctor, {
-  foreignKey: "schedule_id",
+db.schdule_doctor.belongsTo(db.doctor, {
+  foreignKey: "doc_id",
 });
 
 

@@ -17,6 +17,7 @@ exports.CreatePostPone = async (req, res) => {
   const {
     user_id,
     hn,
+    doc_id,
     firstname,
     lastname,
     locations,
@@ -26,22 +27,13 @@ exports.CreatePostPone = async (req, res) => {
     course,
     phone,
     status
-
   } = req.body;
 
   try {
-    // const getInformationsExist = await InformationsService.getByEmail(email);
-    // if(getUserExist){
-    //     console.log("User already registered");
-
-    //     return res.status(200).send({
-    //         status: "error",
-    //         data: "Not Data"
-    //       });
-    // }else{
     const CreateNewPostPone = await PostPoneService.create({
       user_id: user_id,
       hn: hn,
+      doc_id: doc_id,
       firstname: firstname,
       lastname: lastname,
       locations: locations,
@@ -58,10 +50,111 @@ exports.CreatePostPone = async (req, res) => {
       data: CreateNewPostPone
     });
 
-    //}   
+  } catch (err) {
+    console.log("==== ERROR =====", err);
+    return res.status(500).send({
+      status: "error",
+      message: err.message,
+    });
+  }
 
+}
+exports.GetPostPoneByID = async (req, res) => {
 
+  const postpone_id = req.query.postpone_id;
 
+  try {
+    const GetPostPoneByID = await PostPoneService.getByID(postpone_id);
+
+    return res.status(200).send({
+      status: "success",
+      data: GetPostPoneByID
+    });
+  } catch (err) {
+    console.log("==== ERROR =====", err);
+    return res.status(500).send({
+      status: "error",
+      message: err.message,
+    });
+  }
+}
+exports.GetPostPoneAll = async (req, res) => {
+
+  try {
+    const GetPostPoneAll = await PostPoneService.getAll();
+
+    return res.status(200).send({
+      status: "success",
+      data: GetPostPoneAll
+    });
+  } catch (err) {
+    console.log("==== ERROR =====", err);
+    return res.status(500).send({
+      status: "error",
+      message: err.message,
+    });
+  }
+}
+exports.EditPostPoneByID = async (req, res) => {
+
+  const {
+    postpone_id,
+    user_id,
+    hn,
+    firstname,
+    lastname,
+    locations,
+    appointments,
+    dateOld,
+    dateNew,
+    course,
+    phone,
+    doc_id,
+    status
+
+  } = req.body;
+
+  try {
+    const EditPostPoneByID = await PostPoneService.editByID(postpone_id, {
+      postpone_id: postpone_id,
+      user_id: user_id,
+      hn: hn,
+      firstname: firstname,
+      lastname: lastname,
+      locations: locations,
+      appointments: appointments,
+      dateOld: dateOld,
+      dateNew: dateNew,
+      course: course,
+      phone: phone,
+      doc_id: doc_id,
+      status: status
+    });
+
+    return res.status(200).send({
+      status: "success",
+      data: EditPostPoneByID
+    });
+  } catch (err) {
+    console.log("==== ERROR =====", err);
+    return res.status(500).send({
+      status: "error",
+      message: err.message,
+    });
+  }
+
+}
+exports.DeletePostPoneID = async (req, res) => {
+
+  const postpone_id = req.query.postpone_id;
+
+  try {
+    const DeletePostPoneByID = await PostPoneService.DeleteByID(postpone_id);
+
+    return res.status(200).send({
+      status: "success",
+      data: DeletePostPoneByID
+    });
   } catch (err) {
     console.log("==== ERROR =====", err);
     return res.status(500).send({

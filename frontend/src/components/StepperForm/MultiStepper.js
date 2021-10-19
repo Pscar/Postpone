@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import axios from 'axios';
 import { useForm, FormProvider } from "react-hook-form";
 import { StoreContext } from '../../Context/Store';
 import PostPoneForm from "./PostPoneForm";
@@ -63,26 +64,35 @@ export default function MultiStepper() {
     return skippedSteps.includes(step);
   };
 
+
   const createInformations = (data) => {
-    setInformation([
-      ...informations, {
-        id: informations.length + 1,
-        HN: data.HN,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        locations: data.locations,
-        appointments: data.appointments,
-        MUIPickerOld: data.MUIPickerOld,
-        MUIPickerNew: data.MUIPickerNew,
-        course: data.course,
-        email: data.email,
-        phone: data.phone,
-        password: data.password,
-        confirmPassword: data.confirmPassword,
-        status: data.status
-      }
-    ]);
-    console.log("create", data)
+
+    axios.post('http://localhost:5000/api/user/create', {
+      email: data.email,
+      password: data.password,
+    }).then((res) => {
+      setInformation(res.data);
+    })
+
+    axios.post('http://localhost:5000/api/postpone/create', {
+      hn: data.HN,
+      user_id: informations.user_id,
+      firstname: data.firstName,
+      lastname: data.lastName,
+      locations: data.locations,
+      appointments: data.appointments,
+      dateOld: data.MUIPickerOld,
+      dateNew: data.MUIPickerNew,
+      course: data.course,
+      email: data.email,
+      phone: data.phone,
+      password: data.password,
+      confirmPassword: data.confirmPassword,
+      status: data.status
+    }).then((res) => {
+      setInformation(res.data);
+    })
+  
   }
   const updateInformations = (id, data) => {
     const updateItem = informations.map((inf) => {

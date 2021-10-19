@@ -28,7 +28,41 @@ router.delete("/user/deletebyid", UserController.DeleteUserByID);
 router.delete("/user/deletebyemail", UserController.DeleteUserByEmail);
 
 
-// !API 1XX - Information
-//!API 101 - Create Information
-router.post("/information/create", PostPoneController.CreatePostPone);
+// !API 2XX - Postpone
+//!API 201 - Create Postpone
+router.post("/postpone/create", PostPoneController.CreatePostPone);
+//!API 202 - Get Postpone All
+router.get("/postpone/get", PostPoneController.GetPostPoneAll);
+//!API 203 - Get Postpone By ID
+router.get("/postpone/getbyid", PostPoneController.GetPostPoneByID);
+// !API 204 - Edit Postpone By ID
+router.post("/postpone/editbyid", PostPoneController.EditPostPoneByID);
+// !API 205 - Delete Postpone By ID
+router.delete("/postpone/deletebyid", PostPoneController.DeletePostPoneID)
+
+// !API 3XX - Doctor
+//!API 301 - Create Doctor
+router.post("/doctor/create", DoctorController.CreateDoctor);
+//!API 302 - Get Doctor All
+router.get("/doctor/get", DoctorController.GetDoctorAll);
+//!API 303 - Get Doctor By ID
+router.get("/doctor/getbyid", DoctorController.GetDoctorByID);
+// !API 304 - Edit Doctor By ID
+router.post("/doctor/editbyid", DoctorController.EditDoctorID);
+// !API 305 - Delete Doctor By ID
+router.delete("/doctor/deletebyid", DoctorController.DeleteDoctorID)
+
+
+// !API 4XX - ScheduleDoctor
+//!API 401 - Create ScheduleDoctor
+router.post("/schedule/create", ScheduleDoctorController.CreateScheduleDoctor);
+//!API 402 - Get ScheduleDoctor All
+router.get("/schedule/get", ScheduleDoctorController.GetScheduleDoctorAll);
+//!API 403 - Get ScheduleDoctor By ID
+router.get("/schedule/getbyid", ScheduleDoctorController.GetScheduleDoctorByID);
+// !API 404 - Edit ScheduleDoctor By ID
+router.post("/schedule/editbyid", ScheduleDoctorController.EditScheduleByID);
+// !API 405 - Delete ScheduleDoctor By ID
+router.delete("/schedule/deletebyid", ScheduleDoctorController.DeleteScheduleByID)
+
 module.exports = router;

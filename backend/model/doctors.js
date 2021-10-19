@@ -2,7 +2,7 @@ module.exports = (sequelize, Sequelize) => {
   // ชื่อ ตัวแปร ที่ให้เหมือนกับชื่อ table
   const doctors = sequelize.define(
     //ชื่อ ตาราง
-    "doctor",
+    "doctors",
     {
       // แต่ละ column พร้อมประเภทตัวแปร
       doc_id: {
@@ -14,10 +14,6 @@ module.exports = (sequelize, Sequelize) => {
       examination_room: {
         type: Sequelize.STRING,
         field: "examination_room",
-      },
-      schedule_id: {
-        type: Sequelize.INTEGER,
-        field: "schedule_id",
       },
       firstname: {
         type: Sequelize.STRING,

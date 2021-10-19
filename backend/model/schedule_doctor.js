@@ -11,12 +11,16 @@ module.exports = (sequelize, Sequelize) => {
         primaryKey: true,
         autoIncrement: true,
       },
+      doc_id: {
+        type: Sequelize.INTEGER,
+        field: "doc_id",
+      },
       startTime: {
         type: Sequelize.STRING,
         field: "startTime",
       },
       endTime: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         field: "endTime",
       },
     },
