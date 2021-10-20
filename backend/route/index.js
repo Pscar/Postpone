@@ -33,6 +33,7 @@ router.delete("/user/deletebyemail", UserController.DeleteUserByEmail);
 router.post("/postpone/create", PostPoneController.CreatePostPone);
 //!API 202 - Get Postpone All
 router.get("/postpone/get", PostPoneController.GetPostPoneAll);
+router.get("/postpone/now",PostPoneController.GetPostPoneNow);
 //!API 203 - Get Postpone By ID
 router.get("/postpone/getbyid", PostPoneController.GetPostPoneByID);
 // !API 204 - Edit Postpone By ID

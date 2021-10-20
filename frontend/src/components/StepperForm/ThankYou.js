@@ -17,13 +17,13 @@ export default function ThankYou() {
 
   const { informations } = useContext(StoreContext)
 
-  const datas = informations.slice(-1);
+  // const datas = informations.slice(-1);
 
   return (
     <React.Fragment>
       <Container maxWidth="md">
         <Paper className={classes.paper} variant="outlined">
-          {datas.map((data) => (
+          {/* {datas.map((data) => (
             <>
               <Grid container spacing={2}>
                 <Grid item xs={12} md={12}>
@@ -39,7 +39,7 @@ export default function ThankYou() {
                 </Grid>
               </Grid>
             </>
-          ))}
+          ))} */}
         </Paper>
       </Container>
     </React.Fragment>

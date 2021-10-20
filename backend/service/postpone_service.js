@@ -11,13 +11,22 @@ exports.create = async (data) => {
     throw err;
   }
 };
-
 exports.getByID = async (postpone_id) => {
   try {
     return await Postpone.findOne({
       where: {
         postpone_id: postpone_id,
       },
+    });
+  } catch (err) {
+    throw err;
+  };
+};
+exports.getByIdNow = async (postpone_id) => {
+  try {
+    return await Postpone.findOne({
+      key: postpone_id,
+      order: [['created_at', 'DESC']]
     });
   } catch (err) {
     throw err;

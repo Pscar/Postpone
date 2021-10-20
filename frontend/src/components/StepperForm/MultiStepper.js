@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from 'axios';
 import { useForm, FormProvider } from "react-hook-form";
 import { StoreContext } from '../../Context/Store';
@@ -23,11 +23,10 @@ export default function MultiStepper() {
   const [isEditing, setEditing] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [skippedSteps, setSkippedSteps] = useState([]);
-  const { informations, setInformation } = useContext(StoreContext)
+  const { createPostpone, setCreatePostPone } = useContext(StoreContext)
 
   const methods = useForm({
     defaultValues: {
-      id: informations.length + 1,
       HN: "",
       firstName: "",
       lastName: "",
@@ -66,17 +65,8 @@ export default function MultiStepper() {
 
 
   const createInformations = (data) => {
-
-    axios.post('http://localhost:5000/api/user/create', {
-      email: data.email,
-      password: data.password,
-    }).then((res) => {
-      setInformation(res.data);
-    })
-
     axios.post('http://localhost:5000/api/postpone/create', {
       hn: data.HN,
-      user_id: informations.user_id,
       firstname: data.firstName,
       lastname: data.lastName,
       locations: data.locations,
@@ -88,25 +78,26 @@ export default function MultiStepper() {
       phone: data.phone,
       password: data.password,
       confirmPassword: data.confirmPassword,
-      status: data.status
+      status: data.status,
     }).then((res) => {
-      setInformation(res.data);
+      setCreatePostPone(res.data);
     })
-  
+    console.log("create", data)
+
   }
   const updateInformations = (id, data) => {
-    const updateItem = informations.map((inf) => {
-      return data.id === inf.id ? data : inf
-    });
-    setInformation(updateItem);
-    console.log("update", data)
+    // const updateItem = informations.map((inf) => {
+    //   return data.id === inf.id ? data : inf
+    // });
+    // setInformation(updateItem);
+    // console.log("update", data)
   }
   const handleNext = (data) => {
-    console.log("next", data)
 
     if (activeStep === steps.length - 1) {
       setActiveStep(activeStep + 1);
     } else if (activeStep === 1) {
+      // setEditing(true)
       setActiveStep(activeStep + 1);
       return !isEditing ? createInformations(data)
         : updateInformations(data.id, data)
@@ -144,7 +135,9 @@ export default function MultiStepper() {
         return "unknown step";
     }
   }
+  useEffect(() => {
 
+  }, [])
   return (
     <div className={classes.root}>
       <Stepper alternativeLabel activeStep={activeStep}>

@@ -1,5 +1,5 @@
 const PostPoneService = require('../service/postpone_service');
-
+const UserService = require('../service/user_service');
 const get_nowdate = new Date();
 let get_date = ("0" + get_nowdate.getDate()).slice(-2);
 let get_month = ("0" + (get_nowdate.getMonth() + 1)).slice(-2);
@@ -11,6 +11,7 @@ let get_second = get_nowdate.getSeconds();
 
 var date_now = (`${get_date}/${get_month}/${get_year}`);
 var time_now = (`${get_hour}:${get_minute}:${get_second}`);
+
 
 exports.CreatePostPone = async (req, res) => {
 
@@ -26,29 +27,67 @@ exports.CreatePostPone = async (req, res) => {
     dateNew,
     course,
     phone,
-    status
+    status,
+    email,
+    password,
   } = req.body;
 
   try {
-    const CreateNewPostPone = await PostPoneService.create({
-      user_id: user_id,
-      hn: hn,
-      doc_id: doc_id,
-      firstname: firstname,
-      lastname: lastname,
-      locations: locations,
-      appointments: appointments,
-      dateOld: dateOld,
-      dateNew: dateNew,
-      course: course,
-      phone: phone,
-      status: status
-    });
+    const getUserExist = await UserService.getByEmail(email);
 
-    return res.status(200).send({
-      status: "success",
-      data: CreateNewPostPone
-    });
+    if (getUserExist) {
+      console.log("User already registered // create Postpone");
+
+      const CreatePostPone = await PostPoneService.create({
+        user_id: getUserExist.user_id,
+        hn: hn,
+        doc_id: doc_id,
+        firstname: firstname,
+        lastname: lastname,
+        locations: locations,
+        appointments: appointments,
+        dateOld: dateOld,
+        dateNew: dateNew,
+        course: course,
+        phone: phone,
+        status: status,
+      });
+
+      return res.status(200).send({
+        status: "success",
+        data: [CreatePostPone]
+      });
+      
+    } else {
+
+      const CreateNewUser = await UserService.create({
+        email: email,
+        password: password
+      });
+
+      const CreateNewPostPone = await PostPoneService.create({
+        user_id: CreateNewUser.user_id,
+        hn: hn,
+        doc_id: doc_id,
+        firstname: firstname,
+        lastname: lastname,
+        locations: locations,
+        appointments: appointments,
+        dateOld: dateOld,
+        dateNew: dateNew,
+        course: course,
+        phone: phone,
+        status: status,
+        email: CreateNewUser.email,
+        password: CreateNewUser.password
+      });
+
+      return res.status(200).send({
+        status: "success",
+        data: [CreateNewPostPone]
+      });
+
+    }
 
   } catch (err) {
     console.log("==== ERROR =====", err);
@@ -58,6 +97,23 @@ exports.CreatePostPone = async (req, res) => {
     });
   }
 
+}
+exports.GetPostPoneNow = async (req, res) => {
+
+  try {
+    const GetPostPoneByNow = await PostPoneService.getByIdNow();
+
+    return res.status(200).send({
+      status: "success",
+      data: GetPostPoneByNow
+    });
+  } catch (err) {
+    console.log("==== ERROR =====", err);
+    return res.status(500).send({
+      status: "error",
+      message: err.message,
+    });
+  }
 }
 exports.GetPostPoneByID = async (req, res) => {
 
