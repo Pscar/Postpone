@@ -17,6 +17,7 @@ import {
 
 import { makeStyles } from "@material-ui/core/styles";
 import ThankYou from "./ThankYou";
+import Services from '../../services/postpone-serveice';
 
 export default function MultiStepper() {
   const classes = useStyles();
@@ -27,18 +28,18 @@ export default function MultiStepper() {
 
   const methods = useForm({
     defaultValues: {
-      HN: "",
-      firstName: "",
-      lastName: "",
+      hn: "",
+      firstname: "",
+      lastname: "",
       locations: "",
       appointments: "",
-      MUIPickerOld: "",
-      MUIPickerNew: "",
+      dateOld: "",
+      dateNew: "",
       course: "",
       email: "",
       phone: "",
       password: "",
-      confirmPassword: "",
+      confirmpassword: "",
       status: "อยู่ระหว่างดำเนินการ"
     }
   });
@@ -65,25 +66,27 @@ export default function MultiStepper() {
 
 
   const createInformations = (data) => {
-    axios.post('http://localhost:5000/api/postpone/create', {
-      hn: data.HN,
-      firstname: data.firstName,
-      lastname: data.lastName,
-      locations: data.locations,
-      appointments: data.appointments,
-      dateOld: data.MUIPickerOld,
-      dateNew: data.MUIPickerNew,
-      course: data.course,
-      email: data.email,
-      phone: data.phone,
-      password: data.password,
-      confirmPassword: data.confirmPassword,
-      status: data.status,
-    }).then((res) => {
-      setCreatePostPone(res.data);
-    })
-    console.log("create", data)
-
+    Services.createPostpones(data)
+      .then(res => {
+        setCreatePostPone({
+          hn: res.data.HN,
+          firstname: res.data.firstName,
+          lastname: res.data.lastName,
+          locations: res.data.locations,
+          appointments: res.data.appointments,
+          dateOld: res.data.MUIPickerOld,
+          dateNew: res.data.MUIPickerNew,
+          course: res.data.course,
+          email: res.data.email,
+          phone: res.data.phone,
+          password: res.data.password,
+          confirmpassword: res.data.confirmpassword,
+          status: res.data.status,
+        })
+      })
+      .catch(e => {
+        console.log(e);
+      });
   }
   const updateInformations = (id, data) => {
     // const updateItem = informations.map((inf) => {
@@ -93,7 +96,6 @@ export default function MultiStepper() {
     // console.log("update", data)
   }
   const handleNext = (data) => {
-
     if (activeStep === steps.length - 1) {
       setActiveStep(activeStep + 1);
     } else if (activeStep === 1) {

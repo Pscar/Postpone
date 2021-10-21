@@ -56,19 +56,19 @@ export default function ContentModel(props) {
                     </TableCell>
                     <TableCell align="center">
                       <TextField
-                        id="MUIPickerNew"
+                        id="dateNew"
                         label="เวลานัดใหม่ที่คนไข้ต้องการ"
                         variant="outlined"
                         fullWidth
                         disabled
-                        {...register("MUIPickerNew", { value: historyRow.startDate })}
-                        error={Boolean(errors?.MUIPickerNew)}
-                        helperText={errors.MUIPickerNew?.message}
+                        {...register("dateNew", { value: historyRow.startDate })}
+                        error={Boolean(errors?.dateNew)}
+                        helperText={errors.dateNew?.message}
                       />
                     </TableCell>
 
                     <TableCell align="center">
-                      <Button variant="contained" color="primary" onClick={() => handleNext({ appointments: row.name, MUIPickerNew: historyRow.startDate })}>เลือกเวลานัด</Button>
+                      <Button variant="contained" color="primary" onClick={() => handleNext({ appointments: row.name, dateNew: historyRow.startDate })}>เลือกเวลานัด</Button>
                     </TableCell>
                   </TableRow>
                 ))}

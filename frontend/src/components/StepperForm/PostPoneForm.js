@@ -50,7 +50,7 @@ export default function PostPoneForm() {
             <Grid item xs={12} md={12}>
               <Controller
                 control={control}
-                name="HN"
+                name="hn"
                 rules={{
                   required: "this field is required.",
                   pattern: /[1-9]{3}/,
@@ -61,15 +61,15 @@ export default function PostPoneForm() {
                 }}
                 render={({ field }) => (
                   <TextField
-                    id="HN"
-                    label="HN"
+                    id="hn"
+                    label="hn"
                     variant="outlined"
                     placeholder="HN"
                     fullWidth
                     margin="normal"
                     {...field}
-                    error={Boolean(errors?.HN)}
-                    helperText={errors.HN?.message}
+                    error={Boolean(errors?.hn)}
+                    helperText={errors.hn?.message}
                   />
                 )}
               />
@@ -77,7 +77,7 @@ export default function PostPoneForm() {
             <Grid item xs={12} md={6}>
               <Controller
                 control={control}
-                name="firstName"
+                name="firstname"
                 rules={{
                   required: "this field is required.",
                   maxLength: {
@@ -87,14 +87,14 @@ export default function PostPoneForm() {
                 }}
                 render={({ field }) => (
                   <TextField
-                    id="firstName"
+                    id="firstname"
                     label="ชื่อ"
                     variant="outlined"
-                    placeholder="firstName"
+                    placeholder="ชื่อ"
                     fullWidth
                     {...field}
-                    error={Boolean(errors?.firstName)}
-                    helperText={errors.firstName?.message}
+                    error={Boolean(errors?.firstname)}
+                    helperText={errors.firstname?.message}
                   />
                 )}
               />
@@ -102,7 +102,7 @@ export default function PostPoneForm() {
             <Grid item xs={12} md={6}>
               <Controller
                 control={control}
-                name="lastName"
+                name="lastname"
                 rules={{
                   required: "this field is required.",
                   maxLength: {
@@ -113,14 +113,14 @@ export default function PostPoneForm() {
                 }}
                 render={({ field }) => (
                   <TextField
-                    id="lastName"
+                    id="lastname"
                     label="นามสกุล"
                     variant="outlined"
-                    placeholder="lastName"
+                    placeholder="นามสกุล"
                     fullWidth
                     {...field}
-                    error={Boolean(errors?.lastName)}
-                    helperText={errors.lastName?.message}
+                    error={Boolean(errors?.lastname)}
+                    helperText={errors.lastname?.message}
                   />
                 )}
               />
@@ -155,7 +155,7 @@ export default function PostPoneForm() {
             <Grid item xs={12} md={6}>
               <MuiPickersUtilsProvider utils={MomentUtils}>
                 <Controller
-                  name="MUIPickerOld"
+                  name="dateOld"
                   control={control}
                   render={({ field: { ref, ...datetimeold } }) => (
                     <KeyboardDateTimePicker
@@ -170,8 +170,8 @@ export default function PostPoneForm() {
                       defaultValue={moment(new Date()).format('DD-MM-YYYY')}
                       {...datetimeold}
                       fullWidth
-                      error={Boolean(errors.MUIPickerOld)}
-                      helperText={errors.MUIPickerOld?.message}
+                      error={Boolean(errors.dateOld)}
+                      helperText={errors.dateOld?.message}
                     />
                   )}
                 />
@@ -254,7 +254,7 @@ export default function PostPoneForm() {
             <Grid item xs={12} md={6}>
               <Controller
                 control={control}
-                name="confirmPassword"
+                name="confirmpassword"
                 rules={{
                   required: "this field is required.",
                   validate: value =>
@@ -269,8 +269,8 @@ export default function PostPoneForm() {
                     autoComplete="current-password-confirmPassword"
                     variant="outlined"
                     {...field}
-                    error={Boolean(errors?.confirmPassword)}
-                    helperText={errors.confirmPassword?.message}
+                    error={Boolean(errors?.confirmpassword)}
+                    helperText={errors.confirmpassword?.message}
                   />
                 )}
               />

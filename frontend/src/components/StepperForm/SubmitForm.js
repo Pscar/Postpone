@@ -10,16 +10,21 @@ import {
   Grid,
   Container
 } from "@material-ui/core";
-
+import Services from '../../services/postpone-serveice';
 export default function SubmitForm() {
   const classes = useStyles();
   const { postPoneNow, dataUser, setDataUser } = React.useContext(StoreContext)
- 
+  console.log("🚀 ~ file: SubmitForm.js ~ line 17 ~ SubmitForm ~ dataUser", dataUser)
+
   React.useEffect(() => {
     const user_id = postPoneNow.data.user_id
-    axios.get(`http://localhost:5000/api/user/getbyid?user_id=${user_id}`)
-      .then((res => setDataUser(res.data)))
-      .catch(err => console.log(err));
+    Services.getUserById(user_id)
+      .then(res => {
+        setDataUser(res.data)
+      })
+      .catch(e => {
+        console.log(e);
+      });
   }, [postPoneNow])
 
   return (
