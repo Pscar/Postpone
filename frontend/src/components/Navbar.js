@@ -45,7 +45,7 @@ export default function Navbar() {
           <Typography variant="h6" className={classes.title}>
             ระบบเลื่อนนัดออนไลน์
           </Typography>
-          {Object.keys(dataUser).length > 0 &&
+          {/* {Object.keys(dataUser).length > 0 && */}
             <div>
               <IconButton
                 aria-label="account of current user"
@@ -56,14 +56,14 @@ export default function Navbar() {
                 <AccountCircle />
               </IconButton>
             </div>
-          }
-          <Button color="inherit" onClick={handlLogin}>{Object.keys(dataUser).length > 0 ? `${dataUser.firstName}` : "ตรวจสอบการเลื่อนนัด"}</Button>
+          {/* } */}
+          {/* <Button color="inherit" onClick={handlLogin}>{Object.keys(dataUser).length > 0 ? `${dataUser.firstName}` : "ตรวจสอบการเลื่อนนัด"}</Button>
           {Object.keys(dataUser).length > 0 ?
             <>
               <Button color="inherit" onClick={handleClickOpen}>Logout</Button>
               <DialogLogout handleClose={handleClose} handleLogout={handleLogout} open={open} />
             </>
-            : ""}
+            : ""} */}
 
         </Toolbar>
       </AppBar>

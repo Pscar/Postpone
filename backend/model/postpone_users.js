@@ -19,6 +19,14 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.INTEGER,
         field: "hn",
       },
+      email: {
+        type: Sequelize.STRING,
+        field: "email"
+      },
+      appointments:{
+        type: Sequelize.STRING,
+        field: "appointments"
+      },
       firstname: {
         type: Sequelize.STRING,
         field: "firstname"

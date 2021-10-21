@@ -14,7 +14,7 @@ import Schedule from './components/Doctors/Schedule';
 import PostPoneDetail from './components/Showdata/PostPoneDetail';
 
 export default function Routers() {
-  const { auth, dataUser } = React.useContext(StoreContext);
+  // const { auth, dataUser } = React.useContext(StoreContext);
   return (
     <Router>
       <Navbar />
@@ -23,9 +23,9 @@ export default function Routers() {
         <Route path="/postpone" component={PostPoneShow} />
         {/* <Route path="/sc" component={Schedule} /> */}
         <Route path="/login" component={LoginsForm} />
-         {!!auth || Object.keys(dataUser).length > 0 ?
+         {/* {!!auth || Object.keys(dataUser).length > 0 ?
           <Route path="/postpone" component={PostPoneShow} /> : <h1>ต้อง login</h1>
-        } 
+        }  */}
         <Route path="/admin" component={AdminForm} />
         <Route path="/detail/:id" component={PostPoneDetail} />
         <Route path="/change_dr/:id" component={ChangeDr} />

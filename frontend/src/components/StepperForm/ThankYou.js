@@ -11,35 +11,44 @@ import {
 
 } from "@material-ui/core";
 import CheckIcon from '@material-ui/icons/Check';
+// import Services from '../../services/postpone-serveice';
 
 export default function ThankYou() {
   const classes = useStyles();
 
-  const { informations } = useContext(StoreContext)
+  const { postPoneNow, setDataUserNow } = React.useContext(StoreContext)
 
-  // const datas = informations.slice(-1);
+  // React.useEffect(() => {
+  //   const user_id = postPoneNow.data.user_id
+  //   Services.getUserById(user_id)
+  //     .then(res => {
+  //       setDataUserNow(res.data)
+  //     })
+  //     .catch(e => {
+  //       console.log(e);
+  //     });
+  // }, [postPoneNow])
+
 
   return (
     <React.Fragment>
       <Container maxWidth="md">
         <Paper className={classes.paper} variant="outlined">
-          {/* {datas.map((data) => (
-            <>
-              <Grid container spacing={2}>
-                <Grid item xs={12} md={12}>
-                  <Fab size="small" aria-label="check" className={classes.MuiFab}>
-                    <CheckIcon />
-                  </Fab>
-                  <Typography variant="h5" className={classes.item}>
-                    <b>บันทึกข้อมูลการเลื่อนนัดเรียบร้อย</b>
-                  </Typography>
-                  <Typography variant="h5">
-                    ระบบจะตอบกลับ คุณ {data.firstName} ภายใน 1 วันทำการ
-                  </Typography>
-                </Grid>
-              </Grid>
-            </>
-          ))} */}
+
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={12}>
+              <Fab size="small" aria-label="check" className={classes.MuiFab}>
+                <CheckIcon />
+              </Fab>
+              <Typography variant="h5" className={classes.item}>
+                <b>บันทึกข้อมูลการเลื่อนนัดเรียบร้อย</b>
+              </Typography>
+              <Typography variant="h5">
+                ระบบจะตอบกลับคุณ {postPoneNow.data.firstname} ภายใน 1 วันทำการ
+              </Typography>
+            </Grid>
+          </Grid>
+
         </Paper>
       </Container>
     </React.Fragment>

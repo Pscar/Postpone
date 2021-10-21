@@ -3,29 +3,19 @@ import { StoreContext } from '../../Context/Store';
 import { makeStyles } from "@material-ui/core/styles";
 import moment from 'moment';
 import Moment from 'react-moment';
-import axios from 'axios';
+
 import {
   Typography,
   Paper,
   Grid,
   Container
 } from "@material-ui/core";
-import Services from '../../services/postpone-serveice';
+
 export default function SubmitForm() {
   const classes = useStyles();
-  const { postPoneNow, dataUser, setDataUser } = React.useContext(StoreContext)
-  console.log("🚀 ~ file: SubmitForm.js ~ line 17 ~ SubmitForm ~ dataUser", dataUser)
+  const { postPoneNow, postPoneEdit } = React.useContext(StoreContext)
+  console.log("🚀 ~ file: SubmitForm.js ~ line 17 ~ SubmitForm ~ postPoneEdit", postPoneEdit)
 
-  React.useEffect(() => {
-    const user_id = postPoneNow.data.user_id
-    Services.getUserById(user_id)
-      .then(res => {
-        setDataUser(res.data)
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }, [postPoneNow])
 
   return (
     <Container maxWidth="md">
@@ -39,7 +29,7 @@ export default function SubmitForm() {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                {postPoneNow.data.hn}
+                {postPoneEdit ? postPoneEdit.hn : postPoneNow.data.hn}
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -49,7 +39,7 @@ export default function SubmitForm() {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                {postPoneNow.data.firstname} &#160; {postPoneNow.data.lastname}
+                {postPoneEdit ? postPoneEdit.firstname : postPoneNow.data.firstname} &#160; {postPoneEdit ? postPoneEdit.lastname : postPoneNow.data.lastname}
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -59,7 +49,7 @@ export default function SubmitForm() {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                {postPoneNow.data.locations}
+                {postPoneEdit ? postPoneEdit.locations : postPoneNow.data.locations}
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -69,7 +59,7 @@ export default function SubmitForm() {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                {postPoneNow.data.appointments}
+                {postPoneEdit ? postPoneEdit.appointments : postPoneNow.data.appointments}
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -79,7 +69,7 @@ export default function SubmitForm() {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                <Moment format="DD-MM-YYYY HH:mm" date={postPoneNow.data.dateOld} />
+                <Moment format="DD-MM-YYYY HH:mm" date={postPoneEdit ? postPoneEdit.dateOld : postPoneNow.data.dateOld} />
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -89,7 +79,7 @@ export default function SubmitForm() {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                {postPoneNow.data.phone}
+                {postPoneEdit ? postPoneEdit.phone : postPoneNow.data.phone}
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -99,7 +89,7 @@ export default function SubmitForm() {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                {dataUser.data.email}
+                {postPoneEdit ? postPoneEdit.email : postPoneNow.data.email}
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -109,7 +99,7 @@ export default function SubmitForm() {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                {moment(postPoneNow.data.dateNew).format('DD-MM-YYYY hh:mm')}
+                {moment(postPoneEdit ? postPoneEdit.dateNew : postPoneNow.data.dateNew).format('DD-MM-YYYY hh:mm')}
               </Typography>
             </Grid>
 
@@ -120,7 +110,7 @@ export default function SubmitForm() {
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="body" gutterBottom>
-                {postPoneNow.data.course}
+                {postPoneEdit ? postPoneEdit.course : postPoneNow.data.course}
               </Typography>
             </Grid>
           </Grid>

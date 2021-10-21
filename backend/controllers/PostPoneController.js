@@ -51,6 +51,7 @@ exports.CreatePostPone = async (req, res) => {
         course: course,
         phone: phone,
         status: status,
+        email: getUserExist.email,
       });
 
       return res.status(200).send({

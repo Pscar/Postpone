@@ -17,14 +17,14 @@ import {
 
 import { makeStyles } from "@material-ui/core/styles";
 import ThankYou from "./ThankYou";
-import Services from '../../services/postpone-serveice';
+import { createPostPones, updatePostPoneById } from '../../services/postpone-serveice';
 
 export default function MultiStepper() {
   const classes = useStyles();
   const [isEditing, setEditing] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [skippedSteps, setSkippedSteps] = useState([]);
-  const { createPostpone, setCreatePostPone } = useContext(StoreContext)
+  const { postPoneNow, setCreatePostPone, setPostPoneEdit } = useContext(StoreContext)
 
   const methods = useForm({
     defaultValues: {
@@ -66,48 +66,46 @@ export default function MultiStepper() {
 
 
   const createInformations = (data) => {
-    Services.createPostpones(data)
+    createPostPones(data)
       .then(res => {
-        setCreatePostPone({
-          hn: res.data.HN,
-          firstname: res.data.firstName,
-          lastname: res.data.lastName,
-          locations: res.data.locations,
-          appointments: res.data.appointments,
-          dateOld: res.data.MUIPickerOld,
-          dateNew: res.data.MUIPickerNew,
-          course: res.data.course,
-          email: res.data.email,
-          phone: res.data.phone,
-          password: res.data.password,
-          confirmpassword: res.data.confirmpassword,
-          status: res.data.status,
-        })
+        setCreatePostPone(res.data)
       })
       .catch(e => {
         console.log(e);
       });
   }
-  const updateInformations = (id, data) => {
-    // const updateItem = informations.map((inf) => {
-    //   return data.id === inf.id ? data : inf
-    // });
-    // setInformation(updateItem);
-    // console.log("update", data)
+
+  const updateInformations = (postpone_id, data) => {
+    updatePostPoneById(postpone_id, data)
+      .then(res => {
+        setPostPoneEdit(data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
   }
+
   const handleNext = (data) => {
-    if (activeStep === steps.length - 1) {
+    
+    const postpone_id = postPoneNow.data.postpone_id
+
+    if (activeStep === steps.length - 1) 
+    {
       setActiveStep(activeStep + 1);
+
     } else if (activeStep === 1) {
-      // setEditing(true)
+
       setActiveStep(activeStep + 1);
       return !isEditing ? createInformations(data)
-        : updateInformations(data.id, data)
+        : updateInformations(postpone_id, data)
+
     } else {
+
       setActiveStep(activeStep + 1);
       setSkippedSteps(
         skippedSteps.filter((skipItem) => skipItem !== activeStep)
       );
+
     }
   };
 
