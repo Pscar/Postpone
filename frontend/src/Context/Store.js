@@ -6,14 +6,10 @@ export const StoreContextProvider = ({ children }) => {
   // initail State
   // data 1 array
   const [createPostpone, setCreatePostPone] = useState();
-  console.log("🚀 ~ file: Store.js ~ line 10 ~ StoreContextProvider ~ createPostpone", createPostpone)
   const [postPoneNow, setPostPoneNow] = useState();
-  console.log("🚀 ~ file: Store.js ~ line 11 ~ StoreContextProvider ~ postPoneNow", postPoneNow)
-  const [dataUserNow, setDataUserNow] = useState([]);
   const [postPoneEdit, setPostPoneEdit] = useState();
+
   const [dataUser, setDataUser] = useState([]);
-  const [postPoneUpdate, setPostPoneUpdate] = useState();
-  const [postPoneAll, setPostPoneAll] = useState([]);
 
   const [ownerDrData, setOwnerDrData] = useState([
     { name: 'Nancy', Id: 1, OwnerColor: '#ffaa00' },
@@ -47,12 +43,6 @@ export const StoreContextProvider = ({ children }) => {
   //   }
   // }, []);
 
-  // React.useEffect(() => {
-  //   axios.get(`http://localhost:5000/api/postpone/get`)
-  //     .then((res => setPostPoneAll(res.data)))
-  //     .catch(err => console.log(err));
-  // }, [createPostpone])
-
 
   React.useEffect(() => {
     getPostPonesNow()
@@ -65,21 +55,18 @@ export const StoreContextProvider = ({ children }) => {
   }, [scheduleDr]);
 
   return <StoreContext.Provider value={{
-    createPostpone,
-    setCreatePostPone,
-    postPoneEdit,
-    setPostPoneEdit,
-    postPoneUpdate,
-    setPostPoneUpdate,
     auth,
     setAuth,
     dataUser,
     setDataUser,
-    setDataUserNow,
     scheduleDr,
     setScheduleDr,
     ownerDrData,
     setOwnerDrData,
+    createPostpone,
+    setCreatePostPone,
+    postPoneEdit,
+    setPostPoneEdit,
     postPoneNow,
     setPostPoneNow
   }}>{children}</StoreContext.Provider>
