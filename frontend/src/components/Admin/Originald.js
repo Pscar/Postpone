@@ -28,7 +28,7 @@ export default function Originald(props) {
             required
             id="filled-required-HN"
             label="HN"
-            defaultValue={data.HN}
+            defaultValue={data.hn}
             variant="filled"
             disabled
             fullWidth
@@ -39,7 +39,7 @@ export default function Originald(props) {
             required
             id="filled-required-firstName"
             label="ชื่อ"
-            defaultValue={data.firstName}
+            defaultValue={data.firstname}
             variant="filled"
             disabled
             fullWidth
@@ -50,7 +50,7 @@ export default function Originald(props) {
             required
             id="filled-required-lastName"
             label="นามสกุล"
-            defaultValue={data.lastName}
+            defaultValue={data.lastname}
             variant="filled"
             disabled
             fullWidth

@@ -22,7 +22,7 @@ export default function LoginsForm() {
   const [alert, setAlert] = useState(false);
   const [alertContent, setAlertContent] = useState('');
   const classes = useStyles();
-  const { informations, setAuth, setDataUser } = useContext(StoreContext)
+  const { dataUser, setDataUserNow, setAuth } = useContext(StoreContext)
 
   const handleClick = () => {
     if (isLogin === true) {
@@ -37,19 +37,20 @@ export default function LoginsForm() {
 
   const submitUser = (event) => {
     event.preventDefault();
-    for (let i = 0; i < informations.length; i++) {
-      if (stateEvent.email === informations[i].email && stateEvent.password === informations[i].password) {
+    for (let i = 0; i < dataUser.data.length; i++) {
+      if (stateEvent.email === dataUser.data[i].email && stateEvent.password === dataUser.data[i].password) {
         setAuth(true)
         setIsLogin(true)
-        setDataUser(informations[i])
-      } else if (stateEvent.email === "admin1@admin.com" && stateEvent.password === "123456789") {
+        setDataUserNow(dataUser.data[i])
+      }
+      else if (stateEvent.email === "admin1@admin.com" && stateEvent.password === "123456789") {
         setIsLogin(true)
         setAuth(true)
         history.push("/admin");
-      } else if (stateEvent.email !== informations[i].email) {
+      } else if (stateEvent.email !== dataUser.data[i].email) {
         setAlert(true)
         setAlertContent("กรุณากรอก email ใหม่")
-      } else if (stateEvent.password !== informations[i].password) {
+      } else if (stateEvent.password !== dataUser.data[i].password) {
         setAlert(true)
         setAlertContent("กรุณากรอก password ใหม่")
       }

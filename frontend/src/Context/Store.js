@@ -1,15 +1,17 @@
 import React, { useState, createContext } from 'react'
-import { getPostPonesNow } from '../services/postpone-serveice';
+import { getPostPonesNow, getUserAll, getPostPoneAll } from '../services/postpone-serveice';
 export const StoreContext = createContext({})
 
 export const StoreContextProvider = ({ children }) => {
   // initail State
   // data 1 array
   const [createPostpone, setCreatePostPone] = useState();
+  const [postPoneAll, setPostPoneAll] = useState([]);
   const [postPoneNow, setPostPoneNow] = useState();
   const [postPoneEdit, setPostPoneEdit] = useState();
 
   const [dataUser, setDataUser] = useState([]);
+  const [dataUserNow, setDataUserNow] = useState([]);
 
   const [ownerDrData, setOwnerDrData] = useState([
     { name: 'Nancy', Id: 1, OwnerColor: '#ffaa00' },
@@ -27,28 +29,44 @@ export const StoreContextProvider = ({ children }) => {
     }
   });
 
-
-
   const [auth, setAuth] = useState(() => {
     if (dataUser.length === 0) {
       return false
     }
   });
 
-  // React.useEffect(() => {
-  //   const loggedInUser = localStorage.getItem("login");
-  //   if (loggedInUser) {
-  //     const foundUser = JSON.parse(loggedInUser);
-  //     setDataUser(foundUser);
-  //   }
-  // }, []);
+  React.useEffect(() => {
+    const loggedInUser = localStorage.getItem("login");
+    if (loggedInUser) {
+      setAuth(true)
+      const foundUser = JSON.parse(loggedInUser);
+      setDataUserNow(foundUser);
+    } else {
+      setAuth(false)
+    }
+  }, []);
 
+  React.useEffect(() => {
+    window.localStorage.setItem('login', JSON.stringify(dataUserNow));
+  }, [dataUserNow])
+
+  React.useEffect(() => {
+    getPostPoneAll()
+      .then((res) => setPostPoneAll(res.data.data))
+      .catch(err => console.log(err))
+  }, [])
+  
+  React.useEffect(() => {
+    getUserAll()
+      .then((res => setDataUser(res.data)))
+      .catch(err => console.log(err));
+  }, []);
 
   React.useEffect(() => {
     getPostPonesNow()
       .then((res => setPostPoneNow(res.data)))
       .catch(err => console.log(err));
-  }, [createPostpone])
+  }, [createPostpone]);
 
   React.useEffect(() => {
     localStorage.setItem('scheduleDr', JSON.stringify(scheduleDr));
@@ -59,15 +77,22 @@ export const StoreContextProvider = ({ children }) => {
     setAuth,
     dataUser,
     setDataUser,
+    dataUserNow,
+    setDataUserNow,
+
     scheduleDr,
     setScheduleDr,
+
     ownerDrData,
     setOwnerDrData,
+
     createPostpone,
     setCreatePostPone,
     postPoneEdit,
     setPostPoneEdit,
     postPoneNow,
-    setPostPoneNow
+    setPostPoneNow,
+    postPoneAll,
+    setPostPoneAll,
   }}>{children}</StoreContext.Provider>
 }

@@ -16,19 +16,7 @@ import CheckIcon from '@material-ui/icons/Check';
 export default function ThankYou() {
   const classes = useStyles();
 
-  const { postPoneNow, setDataUserNow } = React.useContext(StoreContext)
-
-  // React.useEffect(() => {
-  //   const user_id = postPoneNow.data.user_id
-  //   Services.getUserById(user_id)
-  //     .then(res => {
-  //       setDataUserNow(res.data)
-  //     })
-  //     .catch(e => {
-  //       console.log(e);
-  //     });
-  // }, [postPoneNow])
-
+  const { postPoneNow, postPoneEdit } = React.useContext(StoreContext)
 
   return (
     <React.Fragment>
@@ -44,7 +32,7 @@ export default function ThankYou() {
                 <b>บันทึกข้อมูลการเลื่อนนัดเรียบร้อย</b>
               </Typography>
               <Typography variant="h5">
-                ระบบจะตอบกลับคุณ {postPoneNow.data.firstname} ภายใน 1 วันทำการ
+                ระบบจะตอบกลับคุณ {postPoneEdit ? postPoneEdit.firstname : postPoneNow.data.firstname} ภายใน 1 วันทำการ
               </Typography>
             </Grid>
           </Grid>

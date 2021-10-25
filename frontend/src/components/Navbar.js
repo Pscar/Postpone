@@ -15,13 +15,12 @@ import DialogLogout from './DialogLogout';
 export default function Navbar() {
   let history = useHistory();
   const classes = useStyles();
-  const { dataUser, setAuth, setDataUser } = useContext(StoreContext);
+  const { dataUserNow, setAuth, setDataUserNow } = useContext(StoreContext);
+
   const [open, setOpen] = React.useState(false);
 
   const handlLogin = () => {
-    if (Object.keys(dataUser).length === 0) {
-      history.push("/login");
-    }
+    history.push("/login");
   }
   const handleClickOpen = () => {
     setOpen(true);
@@ -29,9 +28,9 @@ export default function Navbar() {
   const handleClose = () => {
     setOpen(false);
   };
-  
+
   const handleLogout = () => {
-    setDataUser({});
+    setDataUserNow({});
     setAuth(false)
     window.localStorage.removeItem("login");
     history.push("/");
@@ -45,7 +44,7 @@ export default function Navbar() {
           <Typography variant="h6" className={classes.title}>
             ระบบเลื่อนนัดออนไลน์
           </Typography>
-          {/* {Object.keys(dataUser).length > 0 && */}
+          {dataUserNow.email ?
             <div>
               <IconButton
                 aria-label="account of current user"
@@ -54,16 +53,14 @@ export default function Navbar() {
                 color="inherit"
               >
                 <AccountCircle />
-              </IconButton>
-            </div>
-          {/* } */}
-          {/* <Button color="inherit" onClick={handlLogin}>{Object.keys(dataUser).length > 0 ? `${dataUser.firstName}` : "ตรวจสอบการเลื่อนนัด"}</Button>
-          {Object.keys(dataUser).length > 0 ?
-            <>
-              <Button color="inherit" onClick={handleClickOpen}>Logout</Button>
-              <DialogLogout handleClose={handleClose} handleLogout={handleLogout} open={open} />
-            </>
-            : ""} */}
+                </IconButton>
+                
+                {dataUserNow.email}
+                <Button color="inherit" onClick={handleClickOpen}>Logout</Button>
+                <DialogLogout handleClose={handleClose} handleLogout={handleLogout} open={open} />
+              
+            </div> : <Button color="inherit" onClick={handlLogin}>ตรวจสอบผลการเลื่อนนัด</Button>
+          }
 
         </Toolbar>
       </AppBar>

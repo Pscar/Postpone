@@ -18,60 +18,56 @@ import { StoreContext } from '../../Context/Store';
 import PostPoneRow from './PostPoneRow';
 import PostPoneNoRow from './PostPoneNoRow';
 
-export default function PostPoneShow() {
+export default function PostPoneShow(props) {
+  const { dataUserNow } = props;
   const classes = useStyles();
-  const { informations, dataUser } = useContext(StoreContext);
-  const [dataSearch, setDataSearch] = useState(informations);
+  const { postPoneAll, setPostPoneAll } = useContext(StoreContext);
+  const [dataSearch, setDataSearch] = useState([]);
   const [searched, setSearched] = useState("");
 
-  const createData = (id, HN, firstName, lastName, status, phone, MUIPickerNew, MUIPickerOld, course, email, password) => {
-    return {
-      id,
-      HN,
-      firstName,
-      lastName,
-      status,
-      phone,
-      course,
-      email,
-      password,
-      history:
-        informations.map((data) => {
-          return {
-            id: data.id,
-            locations: data.locations,
-            appointments: data.appointments,
-            email: data.email,
-            password: data.password,
-            course: data.course,
-            status: data.status,
-            appointmentsNew: data.appointmentsNew,
-            MUIPickerOld: data.MUIPickerOld,
-            MUIPickerNew: moment(data.MUIPickerNew).format('DD-MM-YYYY HH:mm'),
-          }
-        })
-    }
+
+  const dataPostPone = () => {
+    const rows = postPoneAll.map((data) => {
+      const historys = {
+        postpone_id: data.postpone_id,
+        user_id: data.user_id,
+        hn: data.hn,
+        firstname: data.firstname,
+        lastname: data.lastname,
+        status: data.status,
+        history:
+          postPoneAll.filter(function (item) {
+            return item.postpone_id === data.postpone_id;
+          }).map(function (item) {
+            return {
+              id: item.postpone_id,
+              user_id: item.user_id,
+              locations: item.locations,
+              appointments: data.appointments,
+              status: item.status,
+              appointmentsNew: item.appointmentsNew,
+              dateOld: item.dateOld,
+              dateNew: moment(item.dateNew).format('DD-MM-YYYY HH:mm'),
+            }
+          })
+      }
+      return historys
+    })
+    return rows
   }
 
-  const rows = dataSearch.map((data) =>
-    createData(
-      data.id,
-      data.HN,
-      data.firstName,
-      data.lastName,
-      data.status,
-      data.phone,
-      data.MUIPickerNew,
-      data.MUIPickerOld,
-      data.course,
-      data.email,
-      data.password,
-    ))
+  const data = dataPostPone();
+
   const requestSearch = (searchedVal) => {
-    const filteredRows = informations.filter((row) => {
-      return row.HN.toLowerCase().includes(searchedVal.toLowerCase());
-    });
-    setDataSearch(filteredRows);
+    const data = dataPostPone();
+    if (searchedVal) {
+      const filteredRows = data.filter((row) => {
+        return row.firstname.toLowerCase().includes(searchedVal.toLowerCase());
+      });
+      setPostPoneAll(filteredRows);
+    } else {
+      setPostPoneAll(postPoneAll);
+    }
   };
 
   const cancelSearch = () => {
@@ -100,12 +96,12 @@ export default function PostPoneShow() {
                   <TableCell align="center">Action</TableCell>
                 </TableRow>
               </TableHead>
-              {rows.map((row) => (row.email === dataUser.email && row.password === dataUser.password && row.status === 'อยู่ระหว่างดำเนินการ' ? (
+              {data.map((row) => (row.user_id === dataUserNow.user_id && row.status === 'อยู่ระหว่างดำเนินการ' ? (
                 <TableBody>
-                  <PostPoneRow key={row.id} row={row} />
+                  <PostPoneRow key={row.postpone_id} row={row} dataUserNow={dataUserNow} />
                 </TableBody>
               ) :
-                <PostPoneNoRow key={row.id} row={row} />
+                <PostPoneNoRow key={row.postpone_id} row={row} />
               ))}
             </Table>
           </TableContainer>

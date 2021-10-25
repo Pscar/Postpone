@@ -14,7 +14,6 @@ import {
 export default function SubmitForm() {
   const classes = useStyles();
   const { postPoneNow, postPoneEdit } = React.useContext(StoreContext)
-  console.log("🚀 ~ file: SubmitForm.js ~ line 17 ~ SubmitForm ~ postPoneEdit", postPoneEdit)
 
 
   return (

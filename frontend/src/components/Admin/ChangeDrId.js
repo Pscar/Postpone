@@ -39,7 +39,7 @@ export default function ChangeDrId(props) {
             required
             id="filled-required-HN"
             label="HN"
-            defaultValue={data.HN}
+            defaultValue={data.hn}
             variant="filled"
             disabled
             fullWidth
@@ -50,7 +50,7 @@ export default function ChangeDrId(props) {
             required
             id="filled-required-firstName"
             label="ชื่อ"
-            defaultValue={data.firstName}
+            defaultValue={data.firstname}
             variant="filled"
             disabled
             fullWidth
@@ -61,7 +61,7 @@ export default function ChangeDrId(props) {
             required
             id="filled-required-lastName"
             label="นามสกุล"
-            defaultValue={data.lastName}
+            defaultValue={data.lastname}
             variant="filled"
             disabled
             fullWidth
@@ -103,7 +103,7 @@ export default function ChangeDrId(props) {
         <Grid item xs={12} md={6}>
           <MuiPickersUtilsProvider utils={MomentUtils}>
             <Controller
-              name="MUIPickerOld"
+              name="dateOld"
               control={control}
               render={({ field: { ref, ...datetimeold } }) => (
                 <KeyboardDatePicker
@@ -114,12 +114,12 @@ export default function ChangeDrId(props) {
                   KeyboardButtonProps={{
                     "aria-label": "change date"
                   }}
-                  value={data.MUIPickerOld}
+                  value={data.dateOld}
                   {...datetimeold}
                   fullWidth
                   disabled
-                  error={Boolean(errors.MUIPickerOld)}
-                  helperText={errors.MUIPickerOld?.message}
+                  error={Boolean(errors.dateOld)}
+                  helperText={errors.dateOld?.message}
                 />
               )}
             />
@@ -128,9 +128,9 @@ export default function ChangeDrId(props) {
         <Grid item xs={12} md={6}>
           <TextField
             required
-            id="MUIPickerNew"
+            id="dateNew"
             label="วัน/เดือน/ปี ที่นัดตรวจเดิมที่คนไข้ต้องการ"
-            defaultValue={moment(data.MUIPickerNew).format('DD-MM-YYYY HH:mm')}
+            defaultValue={moment(data.dateNew).format('DD-MM-YYYY HH:mm')}
             variant="filled"
             disabled
             fullWidth

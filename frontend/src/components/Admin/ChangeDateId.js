@@ -33,7 +33,7 @@ export default function ChangeDateId(props) {
             required
             id="filled-required-HN"
             label="HN"
-            defaultValue={data.HN}
+            defaultValue={data.hn}
             variant="filled"
             disabled
             fullWidth
@@ -44,7 +44,7 @@ export default function ChangeDateId(props) {
             required
             id="filled-required-firstName"
             label="ชื่อ"
-            defaultValue={data.firstName}
+            defaultValue={data.firstname}
             variant="filled"
             disabled
             fullWidth
@@ -55,7 +55,7 @@ export default function ChangeDateId(props) {
             required
             id="filled-required-lastName"
             label="นามสกุล"
-            defaultValue={data.lastName}
+            defaultValue={data.lastname}
             variant="filled"
             disabled
             fullWidth
@@ -97,7 +97,7 @@ export default function ChangeDateId(props) {
         <Grid item xs={12} md={6}>
           <MuiPickersUtilsProvider utils={MomentUtils}>
             <Controller
-              name="MUIPickerOld"
+              name="dateOld"
               control={control}
               render={({ field: { ref, ...datetimeold } }) => (
                 <KeyboardDatePicker
@@ -108,12 +108,12 @@ export default function ChangeDateId(props) {
                   KeyboardButtonProps={{
                     "aria-label": "change date"
                   }}
-                  value={data.MUIPickerOld}
+                  value={data.dateOld}
                   {...datetimeold}
                   fullWidth
                   disabled
-                  error={Boolean(errors.MUIPickerOld)}
-                  helperText={errors.MUIPickerOld?.message}
+                  error={Boolean(errors.dateOld)}
+                  helperText={errors.dateOld?.message}
                 />
               )}
             />
@@ -122,7 +122,7 @@ export default function ChangeDateId(props) {
         <Grid item xs={12} md={6}>
           <MuiPickersUtilsProvider utils={MomentUtils}>
             <Controller
-              name="MUIPickerNew"
+              name="dateNew"
               control={control}
               render={({ field: { ref, ...datetimenew } }) => (
                 <KeyboardDatePicker
@@ -138,8 +138,8 @@ export default function ChangeDateId(props) {
                   minDate={new Date()}
                   fullWidth
                   defaultValue="01/01/1999"
-                  error={Boolean(errors.MUIPickerNew)}
-                  helperText={errors.MUIPickerNew?.message}
+                  error={Boolean(errors.dateNew)}
+                  helperText={errors.dateNew?.message}
                 />
               )}
             />

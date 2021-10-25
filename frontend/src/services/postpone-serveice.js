@@ -4,10 +4,13 @@ export const createPostPones = async (data) => {
   const response = await http.post('/postpone/create', data);
   return response
 };
+
 export const getPostPonesNow = async () => {
   const response = await http.get('/postpone/now');
   return response
 };
+
+
 export const updatePostPoneById = async (postpone_id, data) => {
   const response = await http.post('/postpone/editbyid', {
     postpone_id: postpone_id,
@@ -28,7 +31,15 @@ export const updatePostPoneById = async (postpone_id, data) => {
   return response
 }
 
-// export const getUserById = (user_id) => {
-//   return http.get(`/user/getbyid?user_id=${user_id}`)
-// };
-
+export const getPostPonesById = async (postpone_id) => {
+  const response = await http.get(`/postpone/getbyid?postpone_id=${postpone_id}`)
+  return response
+}
+export const getPostPoneAll = async () => {
+  const response = await http.get(`/postpone/get`)
+  return response
+}
+export const getUserAll = async () => {
+  const response = await http.get(`/user/get`)
+  return response
+};

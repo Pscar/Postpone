@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useParams, useHistory } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
 import { StoreContext } from '../../Context/Store';
@@ -13,36 +13,51 @@ import {
   Button,
   Container,
 } from "@material-ui/core";
+import { getPostPonesById } from '../../services/postpone-serveice';
 
 import emailjs from 'emailjs-com';
 import moment from 'moment';
 
-export default function ChangeDate() {
-  let { id } = useParams();
+export default function ChangeDate(row) {
+  console.log("🚀 ~ file: ChangeDate.js ~ line 22 ~ ChangeDate ~ row", row.match.params.id)
   let history = useHistory();
   let infData;
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const { informations, setInformation } = useContext(StoreContext);
+  const { postPoneAll } = useContext(StoreContext);
 
+  const [postPoneById, setPostPoneById] = useState()
 
-  const rows = informations.find(row => row.id === Number(id));
+  const rows = postPoneAll.map(row => {
+    return row
+  });
+
+  const getDataPostPone = (rows) => {
+
+    getPostPonesById(rows)
+      .then(response => {
+        console.log(response.data);
+        setPostPoneById(response.data);
+      })
+  }
+
+  useEffect(() => {
+    getDataPostPone()
+  }, [])
 
   const methods = useForm({
     defaultValues: {
-      HN: rows.HN,
-      id: rows.id,
-      firstName: rows.firstName,
-      lastName: rows.lastName,
-      email: rows.email,
-      password: rows.password,
-      phone: rows.phone,
-      MUIPickerNew: rows.MUIPickerNew,
-      MUIPickerOld: rows.MUIPickerOld,
-      locations: rows.locations,
-      course: rows.course,
-      appointments: rows.appointments,
-      status: rows.status,
+      // hn: rows.hn,
+      // firstname: rows.firstname,
+      // lastname: rows.lastname,
+      // locations: rows.locations,
+      // appointments: rows.appointments,
+      // dateOld: rows.dateOld,
+      // dateNew: rows.dateNew,
+      // course: rows.course,
+      // email: rows.email,
+      // phone: rows.phone,
+      // status: rows.status
     }
   });
 
@@ -56,10 +71,11 @@ export default function ChangeDate() {
   };
 
   const handleNext = (data) => {
-    const updateItem = informations.map((inf) => {
-      return data.id === inf.id ? data : inf
-    });
-    setInformation(updateItem);
+
+    // const updateItem = informations.map((inf) => {
+    //   return data.id === inf.id ? data : inf
+    // });
+    // setInformation(updateItem);
 
     // let templateParams = {
     //   name: data.firstName,
@@ -107,7 +123,7 @@ export default function ChangeDate() {
     <React.Fragment>
       <Container maxWidth="md">
         <Paper variant="outlined" square className={classes.paper}>
-          แก้ไขสถานะ และ วันที่เลื่อนนัด # {rows.id}
+          {/* แก้ไขสถานะ และ วันที่เลื่อนนัด # {rows.postpone_id} */}
         </Paper>
         <Paper variant="outlined" className={classes.paper}>
           {infData}

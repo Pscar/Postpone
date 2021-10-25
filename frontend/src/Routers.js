@@ -12,26 +12,25 @@ import ChangeDate from './components/Admin/ChangeDate';
 import ChangeDr from './components/Admin/ChangeDr';
 import Schedule from './components/Doctors/Schedule';
 import PostPoneDetail from './components/Showdata/PostPoneDetail';
+import PrivateRoute from './Context/PrivateRoute';
 
 export default function Routers() {
-  // const { auth, dataUser } = React.useContext(StoreContext);
+  const { dataUserNow } = React.useContext(StoreContext);
+
   return (
     <Router>
       <Navbar />
       <Switch>
         <Route exact path="/" component={MultiStepper} />
-        <Route path="/postpone" component={PostPoneShow} />
-        {/* <Route path="/sc" component={Schedule} /> */}
         <Route path="/login" component={LoginsForm} />
-         {/* {!!auth || Object.keys(dataUser).length > 0 ?
-          <Route path="/postpone" component={PostPoneShow} /> : <h1>ต้อง login</h1>
-        }  */}
-        <Route path="/admin" component={AdminForm} />
-        <Route path="/detail/:id" component={PostPoneDetail} />
-        <Route path="/change_dr/:id" component={ChangeDr} />
-        <Route path="/original/:id" component={OriginalForm} />
-        <Route path="/change_date/:id" component={ChangeDate} />
+        
+        <PrivateRoute dataUserNow={dataUserNow} component={PostPoneShow} path="/postpone" />
+        <PrivateRoute dataUserNow={dataUserNow} component={AdminForm} path="/admin" />
+        <PrivateRoute dataUserNow={dataUserNow} component={PostPoneDetail} path="/detail/:id" />
+        <PrivateRoute dataUserNow={dataUserNow} component={ChangeDr} path="/change_dr/:id" />
+        <PrivateRoute dataUserNow={dataUserNow} component={OriginalForm} path="/original/:id" />
+        <PrivateRoute dataUserNow={dataUserNow} component={ChangeDate} ath="/change_date/:id" />
       </Switch>
-    </Router >
+    </Router>
   )
 }

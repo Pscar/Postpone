@@ -18,30 +18,32 @@ import {
 import emailjs from 'emailjs-com';
 import moment from 'moment';
 
-export default function OriginalForm() {
+export default function OriginalForm(row) {
+console.log("🚀 ~ file: OriginalForm.js ~ line 22 ~ OriginalForm ~ row", row)
 
   let { id } = useParams();
   let history = useHistory();
   let infData;
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const { informations, setInformation } = useContext(StoreContext);
+  const { postPoneAll } = useContext(StoreContext);
 
-  const rows = informations.find(row => row.id === Number(id));
+  const rows = postPoneAll.find(row => row.id === (id));
+  console.log("🚀 ~ file: OriginalForm.js ~ line 31 ~ OriginalForm ~ rows", rows)
+
   const methods = useForm({
     defaultValues: {
-      HN: rows.HN,
-      id: rows.id,
-      firstName: rows.firstName,
-      lastName: rows.lastName,
-      email: rows.email,
-      password: rows.password,
-      phone: rows.phone,
-      MUIPickerNew: rows.MUIPickerNew,
-      MUIPickerOld: rows.MUIPickerOld,
+      id: rows.postpone_id,
+      hn: rows.hn,
+      firstname: rows.firstname,
+      lastname: rows.lastname,
       locations: rows.locations,
-      course: rows.course,
       appointments: rows.appointments,
+      dateOld: rows.dateOld,
+      dateNew: rows.dateNew,
+      course: rows.course,
+      email: rows.email,
+      phone: rows.phone,
       status: rows.status
     }
   });
@@ -56,28 +58,28 @@ export default function OriginalForm() {
   };
 
   const handleNext = (data) => {
-    const updateItem = informations.map((inf) => {
-      return data.id === inf.id ? data : inf
-    });
-    setInformation(updateItem);
+    // const updateItem = informations.map((inf) => {
+    //   return data.id === inf.id ? data : inf
+    // });
+    // setInformation(updateItem);
 
-    let templateParams = {
-      name: data.firstName,
-      lastname: data.lastName,
-      HN: data.HN,
-      dateOld: moment(data.MUIPickerOld).format('DD/MM/YYYY HH:mm'),
-      dateNew: moment(data.MUIPickerNew).format('DD/MM/YYYY HH:mm'),
-      appDr: data.appointments,
-      check: data.status,
-      to: data.email
-    };
+    // let templateParams = {
+    //   name: data.firstName,
+    //   lastname: data.lastName,
+    //   HN: data.HN,
+    //   dateOld: moment(data.MUIPickerOld).format('DD/MM/YYYY HH:mm'),
+    //   dateNew: moment(data.MUIPickerNew).format('DD/MM/YYYY HH:mm'),
+    //   appDr: data.appointments,
+    //   check: data.status,
+    //   to: data.email
+    // };
 
-    emailjs.send('service_apfny9b', 'template_oliy0om', templateParams, 'user_Khbgb7HTDcAO6gFQnuCFU')
-      .then(function (response) {
-        console.log('SUCCESS!', response.status, response.text);
-      }, function (error) {
-        console.log('FAILED...', error);
-      });
+    // emailjs.send('service_apfny9b', 'template_oliy0om', templateParams, 'user_Khbgb7HTDcAO6gFQnuCFU')
+    //   .then(function (response) {
+    //     console.log('SUCCESS!', response.status, response.text);
+    //   }, function (error) {
+    //     console.log('FAILED...', error);
+    //   });
 
 
   }

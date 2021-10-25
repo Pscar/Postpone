@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { StoreContext } from '../../Context/Store';
@@ -24,13 +24,41 @@ import EnhancedTableToolbar from './EnhancedTableToolbar';
 
 export default function AdminForm() {
   const classes = useStyles();
-  const { informations } = useContext(StoreContext);
+  const { postPoneAll } = useContext(StoreContext);
   const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('calories');
+  const [orderBy, setOrderBy] = useState('firstname');
   const [selected, setSelected] = useState([]);
+ 
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
+
+  const dataPostPone = () => {
+    const rows = postPoneAll.map((data) => {
+      const historys = {
+        postpone_id: data.postpone_id,
+        user_id: data.user_id,
+        hn: data.hn,
+        firstname: data.firstname,
+        lastname: data.lastname,
+        status: data.status,
+        locations: data.locations,
+        appointments: data.appointments,
+        appointmentsNew: data.appointmentsNew,
+        dateOld: data.dateOld,
+        dateNew: data.dateNew,
+        course: data.course,
+        phone: data.phone
+      }
+      return historys
+    })
+    return rows
+  }
+
+  const data = dataPostPone();
+  
+ 
   const descendingComparator = (a, b, orderBy) => {
     if (b[orderBy] < a[orderBy]) {
       return -1;
@@ -65,19 +93,19 @@ export default function AdminForm() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.id);
+      const newSelecteds = data.map((n) => n.postpone_id);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, id) => {
-    const selectedIndex = selected.indexOf(id);
+  const handleClick = (event, postpone_id) => {
+    const selectedIndex = selected.indexOf(postpone_id);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
+      newSelected = newSelected.concat(selected, postpone_id);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -103,29 +131,13 @@ export default function AdminForm() {
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
-  const createData = (id, HN, firstName, lastName, locations, status, phone, MUIPickerNew, MUIPickerOld, appointments, course) => {
-    return { id, HN, firstName, lastName, locations, status, phone, MUIPickerNew, MUIPickerOld, appointments, course };
-  }
 
-  const rows = informations.map((data) => createData(
-    data.id,
-    data.HN,
-    data.firstName,
-    data.lastName,
-    data.locations,
-    data.status,
-    data.phone,
-    data.MUIPickerNew,
-    data.MUIPickerOld,
-    data.appointments,
-    data.course,
-  ))
 
   return (
     <React.Fragment>
       <Container maxWidth="lg">
         <Paper className={classes.paper}>
-          <EnhancedTableToolbar numSelected={selected.length} rows={rows} />
+          <EnhancedTableToolbar numSelected={selected.length} />
           <TableContainer>
             <Table
               className={classes.table}
@@ -139,22 +151,22 @@ export default function AdminForm() {
                 orderBy={orderBy}
                 onSelectAllClick={handleSelectAllClick}
                 onRequestSort={handleRequestSort}
-                rowCount={rows.length}
+                rowCount={data.length}
               />
               <TableBody>
-                {stableSort(rows, getComparator(order, orderBy))
+                {stableSort(data, getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
-                    const isItemSelected = isSelected(row.id);
+                    const isItemSelected = isSelected(row.postpone_id);
                     const labelId = `enhanced-table-checkbox-${index}`;
                     return (
                       <TableRow
                         hover
-                        onClick={(event) => handleClick(event, row.id)}
+                        onClick={(event) => handleClick(event, row.postpone_id)}
                         role="checkbox"
                         aria-checked={isItemSelected}
                         tabIndex={-1}
-                        key={row.id}
+                        key={row.postpone_id}
                         selected={isItemSelected}
                       >
                         <TableCell padding="checkbox">
@@ -164,9 +176,9 @@ export default function AdminForm() {
                           />
                         </TableCell>
                         <TableCell align="center" component="th" id={labelId} scope="row" padding="none">
-                          {row.id}
+                          {row.postpone_id}
                         </TableCell>
-                        <TableCell align="center">{row.firstName}-{row.lastName}</TableCell>
+                        <TableCell align="center">{row.firstname}-{row.lastname}</TableCell>
                         <TableCell align="center">{row.course}</TableCell>
                         <TableCell align="center">{row.phone}</TableCell>
                         {row.status === "อยู่ระหว่างดำเนินการ"
@@ -189,19 +201,19 @@ export default function AdminForm() {
                         <TableCell align="center">
                           {row.course === "ขอพบแพทย์ท่านเดิม วันเวลาใดก็ได้"
                             ?
-                            <Link to={`/change_date/${row.id}`} style={{ textDecoration: 'none', color: 'white' }}>
+                            <Link to={`/change_date/${row.postpone_id}`} style={{ textDecoration: 'none', color: 'white' }}>
                               <Fab color="primary" aria-label="edit" size="small">
                                 <EditIcon />
                               </Fab>
                             </Link>
                             : row.course === "เลือกตามวันเวลาเป็นหลัก พบแพทย์ท่านใดก็ได้" ?
-                              <Link to={`/change_dr/${row.id}`} style={{ textDecoration: 'none', color: 'white' }}>
+                              <Link to={`/change_dr/${row.postpone_id}`} style={{ textDecoration: 'none', color: 'white' }}>
                                 <Fab color="primary" aria-label="edit" size="small">
                                   <EditIcon />
                                 </Fab>
                               </Link>
                               : row.course === "ขอรับการรักษาตามวันนัดหมายเดิม และ พบแพทย์ท่านเดิม" ?
-                                <Link to={`/original/${row.id}`} style={{ textDecoration: 'none', color: 'white' }}>
+                                <Link to={`/original/${row.postpone_id}`} style={{ textDecoration: 'none', color: 'white' }}>
                                   <Fab color="primary" aria-label="edit" size="small">
                                     <EditIcon />
                                   </Fab>
@@ -218,7 +230,7 @@ export default function AdminForm() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={rows.length}
+            count={data.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
@@ -263,18 +275,3 @@ EnhancedTableHead.propTypes = {
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
 };
-{/* {row.course === "ขอพบแพทย์ท่านเดิม วันเวลาใดก็ได้"
-                              ?
-                              <Link to={`/change_date/${row.id}`} style={{ textDecoration: 'none', color: 'white' }}>
-                                <EditIcon />
-                              </Link>
-                              : row.course === "เลือกตามวันเวลาเป็นหลัก พบแพทย์ท่านใดก็ได้" ?
-                                <Link to={`/change_dr/${row.id}`} style={{ textDecoration: 'none', color: 'white' }}>
-                                  <EditIcon />
-                                </Link>
-                                : row.course === "ขอรับการรักษาตามวันนัดหมายเดิม และ พบแพทย์ท่านเดิม" ?
-                                  <Link to={`/original/${row.id}`} style={{ textDecoration: 'none', color: 'white' }}>
-                                    <EditIcon />
-                                  </Link>
-                                  : null
-                            } */}
