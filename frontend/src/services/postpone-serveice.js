@@ -30,7 +30,10 @@ export const updatePostPoneById = async (postpone_id, data) => {
   })
   return response
 }
-
+export const deletePostPonesById = async (postpone_id) => {
+  const response = await http.delete(`/postpone/deletebyid?postpone_id=${postpone_id}`)
+  return response
+}
 export const getPostPonesById = async (postpone_id) => {
   const response = await http.get(`/postpone/getbyid?postpone_id=${postpone_id}`)
   return response

@@ -1,14 +1,18 @@
 import React, { useState, createContext } from 'react'
-import { getPostPonesNow, getUserAll, getPostPoneAll } from '../services/postpone-serveice';
+import { getPostPonesNow, getUserAll, getPostPoneAll, createPostPones } from '../services/postpone-serveice';
 export const StoreContext = createContext({})
 
 export const StoreContextProvider = ({ children }) => {
   // initail State
   // data 1 array
   const [createPostpone, setCreatePostPone] = useState();
+  console.log("🚀 ~ file: Store.js ~ line 9 ~ StoreContextProvider ~ createPostpone", createPostpone)
   const [postPoneAll, setPostPoneAll] = useState([]);
+
   const [postPoneNow, setPostPoneNow] = useState();
   const [postPoneEdit, setPostPoneEdit] = useState();
+  const [postPoneById, setPostPoneById] = useState();
+
 
   const [dataUser, setDataUser] = useState([]);
   const [dataUserNow, setDataUserNow] = useState([]);
@@ -55,24 +59,20 @@ export const StoreContextProvider = ({ children }) => {
       .then((res) => setPostPoneAll(res.data.data))
       .catch(err => console.log(err))
   }, [])
-  
+
   React.useEffect(() => {
     getUserAll()
       .then((res => setDataUser(res.data)))
       .catch(err => console.log(err));
   }, []);
 
-  React.useEffect(() => {
-    getPostPonesNow()
-      .then((res => setPostPoneNow(res.data)))
-      .catch(err => console.log(err));
-  }, [createPostpone]);
 
   React.useEffect(() => {
     localStorage.setItem('scheduleDr', JSON.stringify(scheduleDr));
   }, [scheduleDr]);
 
   return <StoreContext.Provider value={{
+    
     auth,
     setAuth,
     dataUser,
@@ -88,11 +88,15 @@ export const StoreContextProvider = ({ children }) => {
 
     createPostpone,
     setCreatePostPone,
+
     postPoneEdit,
     setPostPoneEdit,
     postPoneNow,
     setPostPoneNow,
     postPoneAll,
     setPostPoneAll,
+    postPoneById,
+    setPostPoneById,
+
   }}>{children}</StoreContext.Provider>
 }

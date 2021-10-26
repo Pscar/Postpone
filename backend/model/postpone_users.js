@@ -16,7 +16,7 @@ module.exports = (sequelize, Sequelize) => {
         field: "user_id",
       },
       hn: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         field: "hn",
       },
       email: {

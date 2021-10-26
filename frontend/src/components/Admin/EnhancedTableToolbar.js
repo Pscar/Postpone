@@ -1,5 +1,6 @@
 import React from 'react';
 import { StoreContext } from '../../Context/Store';
+import { useParams } from "react-router-dom";
 
 import {
   Toolbar,
@@ -11,18 +12,22 @@ import { makeStyles, lighten } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import { deletePostPonesById } from '../../services/postpone-serveice';
 
 export default function EnhancedTableToolbar(props) {
 
   const classes = useToolbarStyles();
-  const { numSelected, rows } = props;
-  const { setInformation } = React.useContext(StoreContext);
+  const { numSelected, selected } = props;
+
 
   const handleDeleteClick = () => {
-    const removeItem = rows.filter((row) => {
-      return row.id !== rows.id
-    })
-    setInformation(removeItem);
+    deletePostPonesById(selected)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
   }
 
   return (
@@ -57,6 +62,7 @@ export default function EnhancedTableToolbar(props) {
     </Toolbar>
   );
 }
+
 const useToolbarStyles = makeStyles((theme) => ({
   root: {
     margin: '1rem',

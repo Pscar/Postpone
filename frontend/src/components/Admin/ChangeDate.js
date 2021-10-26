@@ -1,82 +1,95 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useParams, useHistory } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
-import { StoreContext } from '../../Context/Store';
 
 //component
 import ChangeDateId from './ChangeDateId';
 import DialogChangeDate from './DialogChangeDate';
-//style 
+//style
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Paper,
   Button,
   Container,
 } from "@material-ui/core";
-import { getPostPonesById } from '../../services/postpone-serveice';
-
+import { getPostPonesById, updatePostPoneById } from '../../services/postpone-serveice';
+import { StoreContext } from '../../Context/Store';
 import emailjs from 'emailjs-com';
 import moment from 'moment';
 
-export default function ChangeDate(row) {
-  console.log("🚀 ~ file: ChangeDate.js ~ line 22 ~ ChangeDate ~ row", row.match.params.id)
+export default function ChangeDate() {
+  let { id } = useParams();
   let history = useHistory();
   let infData;
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const { postPoneAll } = useContext(StoreContext);
 
   const [postPoneById, setPostPoneById] = useState()
+  const { postPoneAll, setPostPoneEdit } = useContext(StoreContext);
 
-  const rows = postPoneAll.map(row => {
-    return row
+  const dataPostPone = () => {
+    const rows = postPoneAll.map((data) => {
+      const historys = {
+        id: data.postpone_id,
+        user_id: data.user_id,
+        hn: data.hn,
+        firstname: data.firstname,
+        lastname: data.lastname,
+        status: data.status,
+        locations: data.locations,
+        appointments: data.appointments,
+        appointmentsNew: data.appointmentsNew,
+        dateOld: data.dateOld,
+        dateNew: data.dateNew,
+        course: data.course,
+        phone: data.phone
+      }
+      return historys
+    })
+    return rows
+  }
+
+  const data = dataPostPone();
+
+  const methods = useForm({
+    defaultValues: {
+      hn: data.hn,
+      firstname: data.firstname,
+      lastname: data.lastname,
+      locations: data.locations,
+      appointments: data.appointments,
+      dateOld: data.dateOld,
+      dateNew: data.dateNew,
+      course: data.course,
+      email: data.email,
+      phone: data.phone,
+      status: data.status
+    }
   });
 
-  const getDataPostPone = (rows) => {
-
-    getPostPonesById(rows)
+  const getDataPostPone = (id) => {
+    getPostPonesById(id)
       .then(response => {
-        console.log(response.data);
-        setPostPoneById(response.data);
+        setPostPoneById(response.data.data);
       })
   }
 
   useEffect(() => {
-    getDataPostPone()
-  }, [])
+    getDataPostPone(id)
+  }, [id])
 
-  const methods = useForm({
-    defaultValues: {
-      // hn: rows.hn,
-      // firstname: rows.firstname,
-      // lastname: rows.lastname,
-      // locations: rows.locations,
-      // appointments: rows.appointments,
-      // dateOld: rows.dateOld,
-      // dateNew: rows.dateNew,
-      // course: rows.course,
-      // email: rows.email,
-      // phone: rows.phone,
-      // status: rows.status
-    }
-  });
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-    history.push("/admin");
-  };
+  const updatePostPonesById = (id, data) => {
+    updatePostPoneById(id, data)
+      .then(res => {
+        setPostPoneEdit(data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
 
   const handleNext = (data) => {
-
-    // const updateItem = informations.map((inf) => {
-    //   return data.id === inf.id ? data : inf
-    // });
-    // setInformation(updateItem);
-
+    updatePostPonesById(id, data)
     // let templateParams = {
     //   name: data.firstName,
     //   lastname: data.lastName,
@@ -96,13 +109,21 @@ export default function ChangeDate(row) {
     //   });
 
   }
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-  if (rows) {
+  const handleClose = () => {
+    setOpen(false);
+    history.push("/admin");
+  };
+  
+  if (postPoneById) {
     infData = (
       <React.Fragment>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(handleNext)}>
-            <ChangeDateId data={rows} />
+            <ChangeDateId data={postPoneById} />
             <Button
               onClick={handleClickOpen}
               className={classes.button}
@@ -123,7 +144,7 @@ export default function ChangeDate(row) {
     <React.Fragment>
       <Container maxWidth="md">
         <Paper variant="outlined" square className={classes.paper}>
-          {/* แก้ไขสถานะ และ วันที่เลื่อนนัด # {rows.postpone_id} */}
+          แก้ไขสถานะ และ วันที่เลื่อนนัด # {id}
         </Paper>
         <Paper variant="outlined" className={classes.paper}>
           {infData}

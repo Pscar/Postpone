@@ -18,7 +18,8 @@ import {
 } from '@material-ui/pickers';
 
 import MomentUtils from '@date-io/moment';
-import moment from 'moment'
+import moment from 'moment';
+
 export default function ChangeDrId(props) {
   const { data } = props
   const classes = useStyles();

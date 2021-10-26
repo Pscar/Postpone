@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useParams } from "react-router-dom";
 import { StoreContext } from '../../Context/Store';
 import { makeStyles } from "@material-ui/core/styles";
@@ -10,15 +10,25 @@ import {
   Container
 } from "@material-ui/core";
 import moment from 'moment';
+import { getPostPonesById } from '../../services/postpone-serveice';
 
 export default function PostPoneDetail() {
   const { id } = useParams();
   const classes = useStyles();
 
-  const { informations } = useContext(StoreContext);
+  const [postPoneById, setPostPoneById] = useState()
+  console.log("🚀 ~ file: PostPoneDetail.js ~ line 20 ~ PostPoneDetail ~ postPoneById", postPoneById)
 
-  const rows = informations.find(row => row.id === Number(id));
+  const getDataPostPone = (id) => {
+    getPostPonesById(id)
+      .then(response => {
+        setPostPoneById(response.data.data);
+      })
+  }
 
+  useEffect(() => {
+    getDataPostPone(id)
+  }, [id])
   return (
     <React.Fragment>
       <Container fixed>
@@ -36,7 +46,7 @@ export default function PostPoneDetail() {
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="h6" gutterBottom>
-                {rows.HN}
+                {postPoneById ? postPoneById.hn : ""}
               </Typography>
             </Grid>
             <Grid item xs={12} md={6}>
@@ -46,7 +56,7 @@ export default function PostPoneDetail() {
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="h6" gutterBottom>
-                {rows.firstName} &#160; {rows.lastName}
+                {postPoneById ? postPoneById.firstname : ""} &#160; {postPoneById ? postPoneById.lastname : ""}
               </Typography>
             </Grid>
             <Grid item xs={12} md={6}>
@@ -56,7 +66,7 @@ export default function PostPoneDetail() {
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="h6" gutterBottom>
-                {rows.locations}
+                {postPoneById ? postPoneById.locations : ""}
               </Typography>
             </Grid>
             <Grid item xs={12} md={6}>
@@ -66,7 +76,7 @@ export default function PostPoneDetail() {
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="h6" gutterBottom>
-                {rows.appointments}
+                {postPoneById ? postPoneById.appointments : ""}
               </Typography>
             </Grid>
             <Grid item xs={12} md={6}>
@@ -76,7 +86,7 @@ export default function PostPoneDetail() {
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="h6" gutterBottom>
-                {moment(rows.MUIPickerNew).format('DD-MM-YYYY HH:mm')}
+                {moment(postPoneById ? postPoneById.dateNew : "").format('DD-MM-YYYY HH:mm')}
               </Typography>
             </Grid>
           </Grid>

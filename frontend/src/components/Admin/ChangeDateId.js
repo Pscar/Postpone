@@ -21,6 +21,7 @@ import MomentUtils from '@date-io/moment';
 
 export default function ChangeDateId(props) {
   const { data } = props
+  console.log("🚀 ~ file: ChangeDateId.js ~ line 24 ~ ChangeDateId ~ data", data)
   const classes = useStyles();
   const { register, control, formState: { errors } } = useFormContext();
 

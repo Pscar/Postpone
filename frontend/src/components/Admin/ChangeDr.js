@@ -1,7 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useParams, useHistory } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
-import { StoreContext } from '../../Context/Store';
 
 //component
 import ChangeDrId from './ChangeDrId';
@@ -14,52 +13,86 @@ import {
   Button,
   Container
 } from "@material-ui/core";
+import { getPostPonesById, updatePostPoneById } from '../../services/postpone-serveice';
 
 
 import emailjs from 'emailjs-com';
 import moment from 'moment';
+import { StoreContext } from '../../Context/Store';
 
-export default function ChangeDr(row) {
-console.log("🚀 ~ file: ChangeDr.js ~ line 23 ~ ChangeDr ~ row", row)
-
+export default function ChangeDr() {
   let { id } = useParams();
   let history = useHistory();
   let infData;
+
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const { postPoneAll } = useContext(StoreContext);
+  const [postPoneById, setPostPoneById] = useState()
+  const { postPoneAll, setPostPoneEdit } = useContext(StoreContext);
 
+  const dataPostPone = () => {
+    const rows = postPoneAll.map((data) => {
+      const historys = {
+        id: data.postpone_id,
+        user_id: data.user_id,
+        hn: data.hn,
+        firstname: data.firstname,
+        lastname: data.lastname,
+        status: data.status,
+        locations: data.locations,
+        appointments: data.appointments,
+        appointmentsNew: data.appointmentsNew,
+        dateOld: data.dateOld,
+        dateNew: data.dateNew,
+        course: data.course,
+        phone: data.phone
+      }
+      return historys
+    })
+    return rows
+  }
 
-  const rows = postPoneAll.find(row => row.id === (id));
-  console.log("🚀 ~ file: ChangeDr.js ~ line 32 ~ ChangeDr ~ rows", rows)
+  const data = dataPostPone();
 
   const methods = useForm({
     defaultValues: {
-      postpone_id: rows.postpone_id,
-      hn: rows.hn,
-      firstname: rows.firstname,
-      lastname: rows.lastname,
-      locations: rows.locations,
-      appointments: rows.appointments,
-      dateOld: rows.dateOld,
-      dateNew: rows.dateNew,
-      course: rows.course,
-      email: rows.email,
-      phone: rows.phone,
-      status: rows.status
+      hn: data.hn,
+      firstname: data.firstname,
+      lastname: data.lastname,
+      locations: data.locations,
+      appointments: data.appointments,
+      dateOld: data.dateOld,
+      dateNew: data.dateNew,
+      course: data.course,
+      email: data.email,
+      phone: data.phone,
+      status: data.status
     }
   });
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  const getDataPostPone = (id) => {
+    getPostPonesById(id)
+      .then(response => {
+        setPostPoneById(response.data.data);
+      })
+  }
 
-  const handleClose = () => {
-    setOpen(false);
-    history.push("/admin");
-  };
+  useEffect(() => {
+    getDataPostPone(id)
+  }, [id])
+
+  const updatePostPonesById = (id, data) => {
+    updatePostPoneById(id, data)
+      .then(res => {
+        setPostPoneEdit(data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
 
   const handleNext = (data) => {
+    updatePostPonesById(id, data)
     // const updateItem = informations.map((inf) => {
     //   return data.id === inf.id ? data : inf
     // });
@@ -84,13 +117,22 @@ console.log("🚀 ~ file: ChangeDr.js ~ line 23 ~ ChangeDr ~ row", row)
     //   });
 
   }
+  
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-  if (rows) {
+  const handleClose = () => {
+    setOpen(false);
+    history.push("/admin");
+  };
+
+  if (postPoneById) {
     infData = (
       <React.Fragment>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(handleNext)}>
-            <ChangeDrId data={rows} />
+            <ChangeDrId data={postPoneById} />
             <Button
               onClick={handleClickOpen}
               className={classes.button}
@@ -111,7 +153,7 @@ console.log("🚀 ~ file: ChangeDr.js ~ line 23 ~ ChangeDr ~ row", row)
     <React.Fragment>
       <Container maxWidth="md">
         <Paper variant="outlined" square className={classes.paper}>
-          แก้ไขสถานะ และ เปลี่ยนแพทย์ # {rows.postpone_id}
+          แก้ไขสถานะ และ เปลี่ยนแพทย์ # {id}
         </Paper>
         <Paper variant="outlined" className={classes.paper}>
           {infData}

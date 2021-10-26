@@ -14,7 +14,7 @@ export default function EnhancedTableHead(props) {
     onRequestSort(event, property);
   };
   const headCells = [
-    { id: 'id', numeric: false, disablePadding: true, label: 'ลำดับ' },
+    { id: 'postpone_id', numeric: false, disablePadding: true, label: 'ลำดับ' },
     { id: 'firstName', numeric: false, disablePadding: false, label: 'รายชื่อคนไข้' },
     { id: 'course', numeric: false, disablePadding: false, label: 'เงื่อนไขของคนไข้' },
     { id: 'phone', numeric: false, disablePadding: false, label: 'เบอร์ติดต่อคนไข้' },

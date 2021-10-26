@@ -32,7 +32,7 @@ export default function ThankYou() {
                 <b>บันทึกข้อมูลการเลื่อนนัดเรียบร้อย</b>
               </Typography>
               <Typography variant="h5">
-                ระบบจะตอบกลับคุณ {postPoneEdit ? postPoneEdit.firstname : postPoneNow.data.firstname} ภายใน 1 วันทำการ
+                ระบบจะตอบกลับคุณ {postPoneEdit ? postPoneEdit.firstname : postPoneNow.firstname} ภายใน 1 วันทำการ
               </Typography>
             </Grid>
           </Grid>

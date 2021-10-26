@@ -14,9 +14,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import SearchBar from "material-ui-search-bar";
-import { StoreContext } from '../../Context/Store';
-import PostPoneRow from './PostPoneRow';
-import PostPoneNoRow from './PostPoneNoRow';
+import { StoreContext } from '../Context/Store';
+import PostPoneRow from '../components/Showdata/PostPoneRow';
+import PostPoneNoRow from '../components/Showdata/PostPoneNoRow';
 
 export default function PostPoneShow(props) {
   const { dataUserNow } = props;
@@ -37,7 +37,7 @@ export default function PostPoneShow(props) {
         status: data.status,
         history:
           postPoneAll.filter(function (item) {
-            return item.postpone_id === data.postpone_id;
+            return item.user_id === data.user_id;
           }).map(function (item) {
             return {
               id: item.postpone_id,
@@ -96,12 +96,12 @@ export default function PostPoneShow(props) {
                   <TableCell align="center">Action</TableCell>
                 </TableRow>
               </TableHead>
+
               {data.map((row) => (row.user_id === dataUserNow.user_id && row.status === 'อยู่ระหว่างดำเนินการ' ? (
                 <TableBody>
                   <PostPoneRow key={row.postpone_id} row={row} dataUserNow={dataUserNow} />
                 </TableBody>
-              ) :
-                <PostPoneNoRow key={row.postpone_id} row={row} />
+              ) : <PostPoneNoRow key={row.postpone_id} row={row} dataUserNow={dataUserNow} />
               ))}
             </Table>
           </TableContainer>

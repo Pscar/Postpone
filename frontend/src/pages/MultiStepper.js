@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
-import axios from 'axios';
+import React, { useState, useContext } from "react";
 import { useForm, FormProvider } from "react-hook-form";
-import { StoreContext } from '../../Context/Store';
-import PostPoneForm from "./PostPoneForm";
-import HomePage from "./HomePage";
-import SubmitForm from './SubmitForm';
+import { StoreContext } from '../Context/Store';
+import PostPoneForm from "../components/StepperForm/PostPoneForm";
+import HomePage from "../components/StepperForm/HomePage";
+import SubmitForm from '../components/StepperForm/SubmitForm';
 
 import {
   Typography,
@@ -16,15 +15,17 @@ import {
 } from "@material-ui/core";
 
 import { makeStyles } from "@material-ui/core/styles";
-import ThankYou from "./ThankYou";
-import { createPostPones, updatePostPoneById } from '../../services/postpone-serveice';
+import ThankYou from "../components/StepperForm/ThankYou";
+
+import { createPostPones, getPostPonesNow, updatePostPoneById } from '../services/postpone-serveice';
 
 export default function MultiStepper() {
+
   const classes = useStyles();
   const [isEditing, setEditing] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [skippedSteps, setSkippedSteps] = useState([]);
-  const { postPoneNow, setCreatePostPone, setPostPoneEdit } = useContext(StoreContext)
+  const { postPoneNow, setCreatePostPone, setPostPoneEdit, setPostPoneNow } = useContext(StoreContext)
 
   const methods = useForm({
     defaultValues: {
@@ -43,7 +44,7 @@ export default function MultiStepper() {
       status: "อยู่ระหว่างดำเนินการ"
     }
   });
-  
+
   const getSteps = () => {
     return [
       "ขั้นตอนการเลื่อนนัด",
@@ -70,6 +71,9 @@ export default function MultiStepper() {
     createPostPones(data)
       .then(res => {
         setCreatePostPone(res.data)
+        getPostPonesNow()
+          .then((res => setPostPoneNow(res.data.data)))
+          .catch(err => console.log(err));
       })
       .catch(e => {
         console.log(e);
@@ -88,13 +92,11 @@ export default function MultiStepper() {
 
   const handleNext = (data) => {
 
-    const postpone_id = postPoneNow.data.postpone_id
-
-    if (activeStep === steps.length - 1) 
-    {
+    if (activeStep === steps.length - 1) {
       setActiveStep(activeStep + 1);
 
     } else if (activeStep === 1) {
+      const postpone_id = postPoneNow ? postPoneNow.postpone_id : "";
 
       setActiveStep(activeStep + 1);
       return !isEditing ? createInformations(data)
@@ -136,9 +138,8 @@ export default function MultiStepper() {
         return "unknown step";
     }
   }
-  useEffect(() => {
 
-  }, [])
+
   return (
     <div className={classes.root}>
       <Stepper alternativeLabel activeStep={activeStep}>

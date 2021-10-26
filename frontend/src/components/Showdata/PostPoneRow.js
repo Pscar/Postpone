@@ -37,39 +37,40 @@ export default function PostPoneRow(props) {
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-          {row.history.map((historyRow) => (
-            historyRow.status !== 'อยู่ระหว่างดำเนินการ' ? (
-              <Collapse in={open} timeout="auto" unmountOnExit>
-                <Box margin={1}>
-                  <Typography variant="h6" gutterBottom component="div">
-                    รายละเอียด
-                  </Typography>
-                  <Table size="small" aria-label="purchases">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>
-                          <Typography variant="h6" gutterBottom component="div" align='center'>
-                            ลำดับ
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography variant="h6" gutterBottom component="div" align='center'>
-                            สถานที่ตรวจ
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography variant="h6" gutterBottom component="div" align='center'>
-                            แพทย์ที่ตรวจ
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography variant="h6" gutterBottom component="div" align='center'>
-                            วันที่นัดล่าสุด
-                          </Typography>
-                        </TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+
+            <Box margin={1}>
+              <Typography variant="h6" gutterBottom component="div">
+                รายละเอียด
+              </Typography>
+              <Table size="small" aria-label="purchases">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>
+                      <Typography variant="h6" gutterBottom component="div" align='center'>
+                        ลำดับ
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="h6" gutterBottom component="div" align='center'>
+                        สถานที่ตรวจ
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="h6" gutterBottom component="div" align='center'>
+                        แพทย์ที่ตรวจ
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="h6" gutterBottom component="div" align='center'>
+                        วันที่นัดล่าสุด
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {row.history.map((historyRow) => (
+                    historyRow.status !== 'อยู่ระหว่างดำเนินการ' ? (
                       <TableRow>
                         <TableCell>
                           <Typography variant="body" component="div" align='center'>
@@ -92,12 +93,14 @@ export default function PostPoneRow(props) {
                           </Typography>
                         </TableCell>
                       </TableRow>
-                    </TableBody>
-                  </Table>
-                </Box>
-              </Collapse>
-            ) : null
-          ))}
+                    ) : null
+                  ))}
+                </TableBody>
+              </Table>
+            </Box>
+
+          </Collapse>
+
         </TableCell>
       </TableRow>
     </React.Fragment >
