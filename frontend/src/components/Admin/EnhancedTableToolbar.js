@@ -1,13 +1,11 @@
 import React from 'react';
-import { StoreContext } from '../../Context/Store';
-import { useParams } from "react-router-dom";
-
 import {
   Toolbar,
   Tooltip,
   IconButton,
   Typography,
 } from '@material-ui/core';
+
 import { makeStyles, lighten } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -18,7 +16,6 @@ export default function EnhancedTableToolbar(props) {
 
   const classes = useToolbarStyles();
   const { numSelected, selected } = props;
-
 
   const handleDeleteClick = () => {
     deletePostPonesById(selected)
