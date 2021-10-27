@@ -5,23 +5,19 @@ module.exports = (sequelize, Sequelize) => {
     "doctors",
     {
       // แต่ละ column พร้อมประเภทตัวแปร
-      doc_id: {
+      Doc_id: {
         type: Sequelize.INTEGER,
-        field: "doc_id",
+        field: "Doc_id",
         primaryKey: true,
         autoIncrement: true,
       },
-      examination_room: {
+      name: {
         type: Sequelize.STRING,
-        field: "examination_room",
+        field: "name",
       },
-      firstname: {
+      DocColor: {
         type: Sequelize.STRING,
-        field: "firstname"
-      },
-      lastname: {
-        type: Sequelize.STRING,
-        field: "lastname"
+        field: "DocColor"
       },
     },
     {

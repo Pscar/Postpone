@@ -12,11 +12,11 @@ exports.create = async (data) => {
   }
 };
 
-exports.getByID = async (schedule_id) => {
+exports.getByID = async (Id) => {
   try {
     return await Schedule.findOne({
       where: {
-        schedule_id: schedule_id,
+        Id: Id,
       },
     });
   } catch (err) {
@@ -31,11 +31,11 @@ exports.getAll = async () => {
   }
 };
 
-exports.editByID = async (schedule_id, data) => {
+exports.editByID = async (Id, data) => {
   try {
     return await Schedule.update(data, {
       where: {
-        schedule_id: schedule_id,
+        Id: Id,
       },
     });
   } catch (err) {
@@ -43,11 +43,11 @@ exports.editByID = async (schedule_id, data) => {
   }
 };
 
-exports.DeleteByID = async (schedule_id) => {
+exports.DeleteByID = async (Id) => {
   try {
     return await Schedule.destroy({
       where: {
-        schedule_id: schedule_id,
+        Id: Id,
       }
     })
   } catch (err) {

@@ -17,9 +17,9 @@ export const StoreContextProvider = ({ children }) => {
   const [dataUserNow, setDataUserNow] = useState([]);
 
   const [ownerDrData, setOwnerDrData] = useState([
-    { name: 'Nancy', Id: 1, OwnerColor: '#ffaa00' },
-    { name: 'Steven', Id: 2, OwnerColor: '#f8a398' },
-    { name: 'Michael', Id: 3, OwnerColor: '#7499e1' },
+    { name: 'Nancy', Doc_id: 1, OwnerColor: '#ffaa00' },
+    { name: 'Steven', Doc_id: 2, OwnerColor: '#f8a398' },
+    { name: 'Michael', Doc_id: 3, OwnerColor: '#7499e1' },
 
   ]);
 

@@ -12,7 +12,7 @@ import { useTheme } from '@material-ui/core/styles';
 
 export default function DialogDelete(props) {
 
-  const { open, handleClose } = props;
+  const { open, handleClose, handleSubmit } = props;
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -24,19 +24,18 @@ export default function DialogDelete(props) {
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title">{"Use Google's location service?"}</DialogTitle>
+        <DialogTitle id="responsive-dialog-title">{"คุณต้องการลบข้อมูลหรือไม่"}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Let Google help apps determine location. This means sending anonymous location data to
-            Google, even when no apps are running.
+            ลบข้อมูลคนไข้
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
-            Disagree
+            Close
           </Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
-            Agree
+          <Button onClick={handleSubmit} color="primary" autoFocus>
+            Submit
           </Button>
         </DialogActions>
       </Dialog>

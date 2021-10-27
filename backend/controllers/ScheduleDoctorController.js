@@ -15,16 +15,22 @@ var time_now = (`${get_hour}:${get_minute}:${get_second}`);
 exports.CreateScheduleDoctor = async (req, res) => {
 
   const {
-    doc_id,
-    startTime,
-    endTime,
+    Description,
+    Subject,
+    Location,
+    StartTime,
+    EndTime,
+    Doc_id
   } = req.body;
 
   try {
     const CreateNewScheduleDoctor = await ScheduleDoctorService.create({
-      doc_id: doc_id,
-      startTime: startTime,
-      endTime: endTime
+      Description: Description,
+      Subject: Subject,
+      Location: Location,
+      StartTime: StartTime,
+      EndTime: EndTime,
+      Doc_id: Doc_id,
     });
 
     return res.status(200).send({
@@ -43,10 +49,10 @@ exports.CreateScheduleDoctor = async (req, res) => {
 }
 exports.GetScheduleDoctorByID = async (req, res) => {
 
-  const schedule_id = req.query.schedule_id;
+  const Id = req.query.Id;
 
   try {
-    const GetScheduleDoctorByID = await ScheduleDoctorService.getByID(schedule_id);
+    const GetScheduleDoctorByID = await ScheduleDoctorService.getByID(Id);
 
     return res.status(200).send({
       status: "success",
@@ -80,18 +86,24 @@ exports.GetScheduleDoctorAll = async (req, res) => {
 exports.EditScheduleByID = async (req, res) => {
 
   const {
-    schedule_id,
-    doc_id,
-    startTime,
-    endTime,
+    Id,
+    Description,
+    Subject,
+    Location,
+    StartTime,
+    EndTime,
+    Doc_id
   } = req.body;
 
   try {
-    const EditScheduleByID = await ScheduleDoctorService.editByID(schedule_id, {
-      schedule_id: schedule_id,
-      doc_id: doc_id,
-      startTime: startTime,
-      endTime: endTime
+    const EditScheduleByID = await ScheduleDoctorService.editByID(Id, {
+      Id: Id,
+      Description: Description,
+      Subject: Subject,
+      Location: Location,
+      StartTime: StartTime,
+      EndTime: EndTime,
+      Doc_id: Doc_id
     });
 
     return res.status(200).send({
@@ -109,10 +121,10 @@ exports.EditScheduleByID = async (req, res) => {
 }
 exports.DeleteScheduleByID = async (req, res) => {
 
-  const schedule_id = req.query.schedule_id;
+  const Id = req.query.Id;
 
   try {
-    const DeleteScheduleByID = await ScheduleDoctorService.DeleteByID(schedule_id);
+    const DeleteScheduleByID = await ScheduleDoctorService.DeleteByID(Id);
 
     return res.status(200).send({
       status: "success",

@@ -15,17 +15,15 @@ var time_now = (`${get_hour}:${get_minute}:${get_second}`);
 exports.CreateDoctor = async (req, res) => {
 
   const {
-    firstname,
-    lastname,
-    examination_room,
+    name,
+    DocColor,
   } = req.body;
 
   try {
 
     const CreateNewDoctor = await DoctorService.create({
-      firstname: firstname,
-      lastname: lastname,
-      examination_room: examination_room,
+      name: name,
+      DocColor: DocColor
     });
 
     return res.status(200).send({
@@ -45,10 +43,10 @@ exports.CreateDoctor = async (req, res) => {
 
 exports.GetDoctorByID = async (req, res) => {
 
-  const doc_id = req.query.doc_id;
+  const Doc_id = req.query.Doc_id;
 
   try {
-    const GetDoctorID = await DoctorService.getByID(doc_id);
+    const GetDoctorID = await DoctorService.getByID(Doc_id);
 
     return res.status(200).send({
       status: "success",
@@ -85,18 +83,16 @@ exports.GetDoctorAll = async (req, res) => {
 exports.EditDoctorID = async (req, res) => {
 
   const {
-    doc_id,
-    firstname,
-    lastname,
-    examination_room,
+    Doc_id,
+    name,
+    DocColor,
   } = req.body;
 
   try {
-    const EditDoctorByID = await DoctorService.editByID(doc_id, {
-      doc_id: doc_id,
-      firstname: firstname,
-      lastname: lastname,
-      examination_room: examination_room,
+    const EditDoctorByID = await DoctorService.editByID(Doc_id, {
+      Doc_id: Doc_id,
+      name: name,
+      DocColor: DocColor
     });
 
     return res.status(200).send({
@@ -114,10 +110,10 @@ exports.EditDoctorID = async (req, res) => {
 }
 exports.DeleteDoctorID = async (req, res) => {
 
-  const doc_id = req.query.doc_id;
+  const Doc_id = req.query.Id;
 
   try {
-    const DeleteDoctorByID = await DoctorService.DeleteByID(doc_id);
+    const DeleteDoctorByID = await DoctorService.DeleteByID(Doc_id);
 
     return res.status(200).send({
       status: "success",

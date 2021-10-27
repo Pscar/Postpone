@@ -39,9 +39,9 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
         field: "locations"
       },
-      doc_id: {
+      Doc_id: {
         type: Sequelize.INTEGER,
-        field: "doc_id"
+        field: "Doc_id"
       },
       dateOld: {
         type: Sequelize.STRING,

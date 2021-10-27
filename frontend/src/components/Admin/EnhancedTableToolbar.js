@@ -18,23 +18,28 @@ export default function EnhancedTableToolbar(props) {
   const classes = useToolbarStyles();
   const { numSelected, selected } = props;
   const [open, setOpen] = useState(false);
+  console.log("🚀 ~ file: EnhancedTableToolbar.js ~ line 21 ~ EnhancedTableToolbar ~ open", open)
+
 
   const handleDeleteClick = () => {
-
     setOpen(true);
-
-    if (!open) {
-      deletePostPonesById(selected)
-        .then(response => {
-          console.log(response.data);
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    }
-
   }
 
+  const DeletePostPone = () => {
+    deletePostPonesById(selected)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+  
+  const handleSubmit = async () => {
+    await DeletePostPone();
+    await setOpen(false);
+    await window.location.reload(true);
+  };
   const handleClose = () => {
     setOpen(false);
   };
@@ -62,7 +67,7 @@ export default function EnhancedTableToolbar(props) {
               <DeleteIcon onClick={handleDeleteClick} />
             </IconButton>
           </Tooltip>
-          <DialogDelete handleClose={handleClose} open={open} />
+          <DialogDelete handleClose={handleClose} handleSubmit={handleSubmit} open={open} />
         </React.Fragment>
 
 

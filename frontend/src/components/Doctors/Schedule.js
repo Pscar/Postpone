@@ -1,28 +1,48 @@
 import React, { useEffect, useState, useContext } from 'react';
 import {
-  TimelineViews,
-  TimelineMonth,
   Day,
   Week,
   WorkWeek,
   Month,
   Print,
+  DragAndDrop,
+  Resize,
+  Inject,
+  TimelineViews,
+  TimelineMonth,
+
   ScheduleComponent,
   ViewsDirective,
   ViewDirective,
-  ResourcesDirective,
   ResourceDirective,
-  Inject,
-  Resize,
-  DragAndDrop
+  ResourcesDirective
 } from '@syncfusion/ej2-react-schedule';
 import { StoreContext } from '../../Context/Store';
+import { getScheduleAll, getDoctorAll } from '../../services/postpone-serveice';
 
 function Schedule() {
-  const { scheduleDr, setScheduleDr, ownerDrData } = useContext(StoreContext)
+  const { scheduleDr, setScheduleDr, } = useContext(StoreContext)
   const [showScheduleDr] = useState(scheduleDr)
   const [saveScheduleDr, setSaveScheduleDr] = useState();
   const [rfcScheduleDr, setRfcScheduleDr] = useState();
+  const [dataManger, setDataManager] = useState();
+  const [doctor, setDoctor] = useState()
+
+  const getDataManager = () => {
+    getScheduleAll()
+      .then(res => {
+        setDataManager(res.data.data)
+        getDoctorAll()
+          .then((res => setDoctor(res.data.data)))
+          .catch(err => console.log(err));
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+  useEffect(() => {
+    getDataManager();
+  }, [])
 
   const onActionBegin = (args, id) => {
 
@@ -32,7 +52,7 @@ function Schedule() {
       // const eventField = rfcScheduleDr.eventFields;
       // const startDate = eventData[eventField.startTime];
       // const endDate = eventData[eventField.endTime];
-      
+
       // if (!rfcScheduleDr.isSlotAvailable(startDate, endDate)) {
       //   args.cancel = true;
       // }
@@ -43,11 +63,11 @@ function Schedule() {
     }
   }
 
-  useEffect(() => {
-    if (saveScheduleDr) {
-      setScheduleDr([...scheduleDr, saveScheduleDr])
-    }
-  }, [saveScheduleDr])
+  // useEffect(() => {
+  //   if (saveScheduleDr) {
+  //     setScheduleDr([...scheduleDr, saveScheduleDr])
+  //   }
+  // }, [saveScheduleDr])
 
   return (
     <React.Fragment>
@@ -57,7 +77,7 @@ function Schedule() {
         selectedDate={new Date()}
         ref={schedule => setRfcScheduleDr(schedule)}
         eventSettings={{
-          dataSource: showScheduleDr, scheduleDr,
+          dataSource: dataManger,
           fields: {
             id: 'Id',
             subject: { title: 'Summary', name: 'Subject' },
@@ -73,7 +93,7 @@ function Schedule() {
         firstDayOfWeek={1}
         group={{
           byDate: false,
-          resources: ['Owners'],
+          resources: ['Doctors'],
           enableCompactView: false
         }}
         currentView="TimelineDay"
@@ -87,14 +107,14 @@ function Schedule() {
         </ViewsDirective>
         <ResourcesDirective>
           <ResourceDirective
-            field="OwnerId"
-            title="Owner"
-            name="Owners"
+            field="Doc_id"
+            title="Doctor"
+            name="Doctors"
             allowMultiple={true}
-            dataSource={ownerDrData}
+            dataSource={doctor}
             textField="name"
-            idField="Id"
-            colorField="OwnerColor"
+            idField="Doc_id"
+            colorField="DocColor"
           />
         </ResourcesDirective>
         <Inject
@@ -107,7 +127,7 @@ function Schedule() {
             TimelineMonth,
             DragAndDrop,
             Resize,
-            Print
+            Print,
           ]}
         />
       </ScheduleComponent>

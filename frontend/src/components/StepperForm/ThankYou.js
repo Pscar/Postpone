@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useHistory } from "react-router-dom";
+import React from 'react';
+
 
 import { StoreContext } from '../../Context/Store';
 import { makeStyles } from "@material-ui/core/styles";
@@ -10,13 +10,12 @@ import {
   Paper,
   Container,
   Fab,
-
 } from "@material-ui/core";
+
 import CheckIcon from '@material-ui/icons/Check';
 
 export default function ThankYou() {
   const classes = useStyles();
-  let history = useHistory();
 
   const { postPoneNow, postPoneEdit } = React.useContext(StoreContext)
 

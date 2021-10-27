@@ -19,7 +19,7 @@ exports.CreatePostPone = async (req, res) => {
   const {
     user_id,
     hn,
-    doc_id,
+    Doc_id,
     firstname,
     lastname,
     locations,
@@ -42,7 +42,7 @@ exports.CreatePostPone = async (req, res) => {
       const CreatePostPone = await PostPoneService.create({
         user_id: getUserExist.user_id,
         hn: hn,
-        doc_id: doc_id,
+        Doc_id: Doc_id,
         firstname: firstname,
         lastname: lastname,
         locations: locations,
@@ -70,7 +70,7 @@ exports.CreatePostPone = async (req, res) => {
       const CreateNewPostPone = await PostPoneService.create({
         user_id: CreateNewUser.user_id,
         hn: hn,
-        doc_id: doc_id,
+        Doc_id: Doc_id,
         firstname: firstname,
         lastname: lastname,
         locations: locations,
@@ -167,7 +167,7 @@ exports.EditPostPoneByID = async (req, res) => {
     dateNew,
     course,
     phone,
-    doc_id,
+    Doc_id,
     status
 
   } = req.body;
@@ -185,7 +185,7 @@ exports.EditPostPoneByID = async (req, res) => {
       dateNew: dateNew,
       course: course,
       phone: phone,
-      doc_id: doc_id,
+      Doc_id: Doc_id,
       status: status
     });
 

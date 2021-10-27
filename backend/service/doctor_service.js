@@ -11,11 +11,11 @@ exports.create = async (data) => {
     throw err;
   }
 };
-exports.getByID = async (doc_id) => {
+exports.getByID = async (Doc_id) => {
   try {
     return await Doctor.findOne({
       where: {
-        doc_id: doc_id,
+        Doc_id: Doc_id,
       },
     });
   } catch (err) {
@@ -30,11 +30,11 @@ exports.getAll = async () => {
   }
 };
 
-exports.editByID = async (doc_id, data) => {
+exports.editByID = async (Doc_id, data) => {
   try {
     return await Doctor.update(data, {
       where: {
-        doc_id: doc_id,
+        Doc_id: Doc_id,
       },
     });
   } catch (err) {
@@ -42,11 +42,11 @@ exports.editByID = async (doc_id, data) => {
   }
 };
 
-exports.DeleteByID = async (doc_id) => {
+exports.DeleteByID = async (Doc_id) => {
   try {
     return await Doctor.destroy({
       where: {
-        doc_id: doc_id,
+        Doc_id: Doc_id,
       }
     })
   } catch (err) {

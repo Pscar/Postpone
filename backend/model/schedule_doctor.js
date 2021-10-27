@@ -5,24 +5,36 @@ module.exports = (sequelize, Sequelize) => {
     "schedule_doctor",
     {
       // แต่ละ column พร้อมประเภทตัวแปร
-      schedule_id: {
+      Id: {
         type: Sequelize.INTEGER,
-        field: "schedule_id",
+        field: "Id",
         primaryKey: true,
         autoIncrement: true,
       },
-      doc_id: {
+      Description: {
+        type: Sequelize.STRING,
+        field: "Description",
+      },
+      Subject: {
+        type: Sequelize.STRING,
+        field: "Subject"
+      },
+      Location: {
+        type: Sequelize.STRING,
+        field: "Location"
+      },
+      StartTime: {
+        type: Sequelize.STRING,
+        field: "StartTime"
+      },
+      EndTime: {
+        type: Sequelize.STRING,
+        field: "EndTime"
+      },
+      Doc_id: {
         type: Sequelize.INTEGER,
-        field: "doc_id",
-      },
-      startTime: {
-        type: Sequelize.STRING,
-        field: "startTime",
-      },
-      endTime: {
-        type: Sequelize.STRING,
-        field: "endTime",
-      },
+        field: "Doc_id",
+      }
     },
     {
       freezeTableName: true,

@@ -55,20 +55,20 @@ db.postpone.belongsTo(db.user, {
   foreignKey: "user_id",
 });
 
-db.doctor.hasOne(db.postpone, {
-  foreignKey: "doc_id",
+db.doctor.hasMany(db.postpone, {
+  foreignKey: "Doc_id",
 });
 
 db.postpone.belongsTo(db.doctor, {
-  foreignKey: "doc_id",
+  foreignKey: "Doc_id",
 });
 
 db.doctor.hasMany(db.schdule_doctor,{
-  foreignKey: "doc_id",
+  foreignKey: "Doc_id",
 });
 
 db.schdule_doctor.belongsTo(db.doctor, {
-  foreignKey: "doc_id",
+  foreignKey: "Doc_id",
 });
 
 
