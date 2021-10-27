@@ -10,7 +10,7 @@ export default function DialogLogout(props) {
   const { open, handleClose, handleLogout } = props
 
   return (
-    <>
+    <React.Fragment>
       <Dialog
         // fullScreen={fullScreen}
         open={open}
@@ -28,6 +28,6 @@ export default function DialogLogout(props) {
         </DialogActions>
       </Dialog>
 
-    </>
+    </React.Fragment>
   )
 }

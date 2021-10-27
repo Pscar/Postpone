@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { StoreContext } from '../Context/Store';
 import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -9,8 +10,7 @@ import {
   IconButton,
 } from '@material-ui/core';
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import { StoreContext } from '../Context/Store';
-import DialogLogout from '../components/DialogLogout';
+import DialogLogout from '../components/Dialog/DialogLogout';
 
 export default function Navbar() {
   let history = useHistory();

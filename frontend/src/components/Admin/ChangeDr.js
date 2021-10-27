@@ -4,7 +4,7 @@ import { useForm, FormProvider } from "react-hook-form";
 
 //component
 import ChangeDrId from './ChangeDrId';
-import DialogChangeDr from './DialogChangeDr';
+import DialogChangeDr from '../Dialog/DialogChangeDr';
 
 //style
 import { makeStyles } from "@material-ui/core/styles";

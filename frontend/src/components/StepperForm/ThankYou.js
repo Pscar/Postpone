@@ -1,4 +1,6 @@
-import React, { useContext } from 'react'
+import React, { useEffect } from 'react';
+import { useHistory } from "react-router-dom";
+
 import { StoreContext } from '../../Context/Store';
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -11,10 +13,10 @@ import {
 
 } from "@material-ui/core";
 import CheckIcon from '@material-ui/icons/Check';
-// import Services from '../../services/postpone-serveice';
 
 export default function ThankYou() {
   const classes = useStyles();
+  let history = useHistory();
 
   const { postPoneNow, postPoneEdit } = React.useContext(StoreContext)
 
@@ -42,6 +44,7 @@ export default function ThankYou() {
     </React.Fragment>
   )
 }
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,

@@ -125,7 +125,9 @@ export default function MultiStepper() {
     }
     setActiveStep(activeStep + 1);
   };
-
+  const handleReset = () => {
+    setActiveStep(0);
+  };
   const getStepContent = (step) => {
     switch (step) {
       case 0:
@@ -171,9 +173,15 @@ export default function MultiStepper() {
         })}
       </Stepper>
       {activeStep === steps.length ? (
-        <ThankYou />
+        <React.Fragment>
+          <ThankYou />
+          <Button variant="contained" color="primary" onClick={handleReset} className={classes.button}>
+            กลับสู่หน้าหลัก
+          </Button>
+        </React.Fragment>
+
       ) : (
-        <>
+        <React.Fragment>
           <Grid item xs={12} md={12}>
             <FormProvider {...methods}>
               <form onSubmit={methods.handleSubmit(handleNext)} className={classes.forms}>
@@ -209,7 +217,7 @@ export default function MultiStepper() {
               </form>
             </FormProvider>
           </Grid>
-        </>
+        </React.Fragment>
       )}
     </div>
   );

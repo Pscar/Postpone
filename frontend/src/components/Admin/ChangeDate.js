@@ -4,7 +4,7 @@ import { useForm, FormProvider } from "react-hook-form";
 
 //component
 import ChangeDateId from './ChangeDateId';
-import DialogChangeDate from './DialogChangeDate';
+import DialogChangeDate from '../Dialog/DialogChangeDate';
 //style
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -12,8 +12,9 @@ import {
   Button,
   Container,
 } from "@material-ui/core";
-import { getPostPonesById, updatePostPoneById } from '../../services/postpone-serveice';
+
 import { StoreContext } from '../../Context/Store';
+import { getPostPonesById, updatePostPoneById } from '../../services/postpone-serveice';
 // import emailjs from 'emailjs-com';
 // import moment from 'moment';
 

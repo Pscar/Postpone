@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { StoreContext } from '../../Context/Store';
+import { StoreContext } from '../Context/Store';
 import { makeStyles } from '@material-ui/core/styles';
 
 import EditIcon from '@material-ui/icons/Edit';
@@ -19,8 +19,8 @@ import {
   Container
 } from '@material-ui/core';
 
-import EnhancedTableHead from './EnhancedTableHead';
-import EnhancedTableToolbar from './EnhancedTableToolbar';
+import EnhancedTableHead from '../components/Admin/EnhancedTableHead';
+import EnhancedTableToolbar from '../components/Admin/EnhancedTableToolbar';
 
 export default function AdminForm() {
   const classes = useStyles();

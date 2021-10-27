@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Toolbar,
   Tooltip,
@@ -11,21 +11,33 @@ import clsx from 'clsx';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { deletePostPonesById } from '../../services/postpone-serveice';
+import DialogDelete from '../Dialog/DialogDelete';
 
 export default function EnhancedTableToolbar(props) {
 
   const classes = useToolbarStyles();
   const { numSelected, selected } = props;
+  const [open, setOpen] = useState(false);
 
   const handleDeleteClick = () => {
-    deletePostPonesById(selected)
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+
+    setOpen(true);
+
+    if (!open) {
+      deletePostPonesById(selected)
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
+
   }
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Toolbar
@@ -44,11 +56,16 @@ export default function EnhancedTableToolbar(props) {
       )}
 
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton aria-label="delete">
-            <DeleteIcon onClick={handleDeleteClick} />
-          </IconButton>
-        </Tooltip>
+        <React.Fragment>
+          <Tooltip title="Delete" disableFocusListener={true}>
+            <IconButton aria-label="delete">
+              <DeleteIcon onClick={handleDeleteClick} />
+            </IconButton>
+          </Tooltip>
+          <DialogDelete handleClose={handleClose} open={open} />
+        </React.Fragment>
+
+
       ) : (
         <Tooltip title="Filter list">
           <IconButton aria-label="filter list">

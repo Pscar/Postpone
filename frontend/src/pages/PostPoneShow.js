@@ -15,14 +15,13 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import SearchBar from "material-ui-search-bar";
 import { StoreContext } from '../Context/Store';
-import PostPoneRow from '../components/Showdata/PostPoneRow';
-import PostPoneNoRow from '../components/Showdata/PostPoneNoRow';
+import PostPoneRow from '../components/User/PostPoneRow';
+import PostPoneNoRow from '../components/User/PostPoneNoRow';
 
 export default function PostPoneShow(props) {
   const { dataUserNow } = props;
   const classes = useStyles();
   const { postPoneAll, setPostPoneAll } = useContext(StoreContext);
-  const [dataSearch, setDataSearch] = useState([]);
   const [searched, setSearched] = useState("");
 
 

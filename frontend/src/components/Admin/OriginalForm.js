@@ -4,7 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 
 //component
 import Originald from './Originald';
-import DialogChangeO from './DialogChangeO';
+import DialogChangeO from '../Dialog/DialogChangeO';
 
 //style
 import { makeStyles } from "@material-ui/core/styles";
