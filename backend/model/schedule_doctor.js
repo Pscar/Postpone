@@ -34,6 +34,10 @@ module.exports = (sequelize, Sequelize) => {
       Doc_id: {
         type: Sequelize.INTEGER,
         field: "Doc_id",
+      },
+      name: {
+        type: Sequelize.STRING,
+        field: "name"
       }
     },
     {

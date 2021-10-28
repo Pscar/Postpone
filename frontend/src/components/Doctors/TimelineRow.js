@@ -31,6 +31,7 @@ import moment from 'moment';
 
 export default function TimelineRow(props) {
   const { row, searched, scheduleDr, handleNext } = props;
+  console.log("🚀 ~ file: TimelineRow.js ~ line 34 ~ TimelineRow ~ scheduleDr", scheduleDr)
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
 
@@ -56,7 +57,7 @@ export default function TimelineRow(props) {
           {row.Doc_id}
         </TableCell>
         <TableCell align="center">
-          {row.name}
+          {searched ? scheduleDr.name : row.name}
         </TableCell>
       </TableRow>
       <TableRow>

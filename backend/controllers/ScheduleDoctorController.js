@@ -25,6 +25,8 @@ exports.CreateScheduleDoctor = async (req, res) => {
   } = req.body;
 
   try {
+    const getDoctor = await DoctorService.getByID(Doc_id);
+
     const CreateNewScheduleDoctor = await ScheduleDoctorService.create({
       Description: Description,
       Subject: Subject,
@@ -32,6 +34,7 @@ exports.CreateScheduleDoctor = async (req, res) => {
       StartTime: StartTime,
       EndTime: EndTime,
       Doc_id: Doc_id,
+      name: getDoctor.name
     });
 
     return res.status(200).send({

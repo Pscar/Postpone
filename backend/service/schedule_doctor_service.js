@@ -26,12 +26,7 @@ exports.getByID = async (Id) => {
 };
 exports.getAll = async () => {
   try {
-    return await Schedule.findAll({
-      include: {
-        model: Doctor,
-        attributes: ['name']
-      }
-    });
+    return await Schedule.findAll({});
   } catch (err) {
     throw err;
   }
