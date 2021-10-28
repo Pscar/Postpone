@@ -33,7 +33,7 @@ router.delete("/user/deletebyemail", UserController.DeleteUserByEmail);
 router.post("/postpone/create", PostPoneController.CreatePostPone);
 //!API 202 - Get Postpone All
 router.get("/postpone/get", PostPoneController.GetPostPoneAll);
-router.get("/postpone/now",PostPoneController.GetPostPoneNow);
+router.get("/postpone/now", PostPoneController.GetPostPoneNow);
 //!API 203 - Get Postpone By ID
 router.get("/postpone/getbyid", PostPoneController.GetPostPoneByID);
 // !API 204 - Edit Postpone By ID
@@ -65,5 +65,5 @@ router.get("/schedule/getbyid", ScheduleDoctorController.GetScheduleDoctorByID);
 router.post("/schedule/editbyid", ScheduleDoctorController.EditScheduleByID);
 // !API 405 - Delete ScheduleDoctor By ID
 router.delete("/schedule/deletebyid", ScheduleDoctorController.DeleteScheduleByID)
-
+router.get("/schedule/getdoctor", ScheduleDoctorController.GetScheduleDoctor);
 module.exports = router;

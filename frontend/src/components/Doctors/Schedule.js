@@ -21,28 +21,11 @@ import { StoreContext } from '../../Context/Store';
 import { getScheduleAll, getDoctorAll } from '../../services/postpone-serveice';
 
 function Schedule() {
-  const { scheduleDr, setScheduleDr, } = useContext(StoreContext)
+  const { scheduleDr, doctor } = useContext(StoreContext);
   const [showScheduleDr] = useState(scheduleDr)
   const [saveScheduleDr, setSaveScheduleDr] = useState();
   const [rfcScheduleDr, setRfcScheduleDr] = useState();
-  const [dataManger, setDataManager] = useState();
-  const [doctor, setDoctor] = useState()
 
-  const getDataManager = () => {
-    getScheduleAll()
-      .then(res => {
-        setDataManager(res.data.data)
-        getDoctorAll()
-          .then((res => setDoctor(res.data.data)))
-          .catch(err => console.log(err));
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }
-  useEffect(() => {
-    getDataManager();
-  }, [])
 
   const onActionBegin = (args, id) => {
 
@@ -77,7 +60,7 @@ function Schedule() {
         selectedDate={new Date()}
         ref={schedule => setRfcScheduleDr(schedule)}
         eventSettings={{
-          dataSource: dataManger,
+          dataSource: scheduleDr,
           fields: {
             id: 'Id',
             subject: { title: 'Summary', name: 'Subject' },

@@ -30,7 +30,7 @@ import ContentModel from './ContentModel';
 import moment from 'moment';
 
 export default function TimelineRow(props) {
-  const { row, handleNext } = props;
+  const { row, searched, scheduleDr, handleNext } = props;
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
 
@@ -53,7 +53,7 @@ export default function TimelineRow(props) {
           </IconButton>
         </TableCell>
         <TableCell align="center">
-          {row.id}
+          {row.Doc_id}
         </TableCell>
         <TableCell align="center">
           {row.name}
@@ -75,8 +75,8 @@ export default function TimelineRow(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.id}>
+                  {row.schedule.map((historyRow) => (
+                    <TableRow key={historyRow.Id}>
                       <TableCell align="center">
                         {row.name}
                       </TableCell>
@@ -87,13 +87,13 @@ export default function TimelineRow(props) {
                               <TimelineDot variant="outlined" />
                               <TimelineConnector />
                             </TimelineSeparator>
-                            <TimelineContent>{moment(historyRow.startDate).format('DD-MM-YYYY HH:mm')}</TimelineContent>
+                            <TimelineContent>{moment(historyRow.StartTime).format('DD-MM-YYYY HH:mm')}</TimelineContent>
                           </TimelineItem>
                           <TimelineItem>
                             <TimelineSeparator>
                               <TimelineDot />
                             </TimelineSeparator>
-                            <TimelineContent>{moment(historyRow.endDate).format('DD-MM-YYYY HH:mm')}</TimelineContent>
+                            <TimelineContent>{moment(historyRow.EndTime).format('DD-MM-YYYY HH:mm')}</TimelineContent>
                           </TimelineItem>
                         </Timeline>
                       </TableCell>

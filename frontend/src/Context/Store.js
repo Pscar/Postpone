@@ -1,5 +1,5 @@
 import React, { useState, createContext } from 'react'
-import { getUserAll, getPostPoneAll,  } from '../services/postpone-serveice';
+import { getUserAll, getPostPoneAll, getScheduleAll, getDoctorAll } from '../services/postpone-serveice';
 export const StoreContext = createContext({})
 
 export const StoreContextProvider = ({ children }) => {
@@ -16,21 +16,8 @@ export const StoreContextProvider = ({ children }) => {
   const [dataUser, setDataUser] = useState([]);
   const [dataUserNow, setDataUserNow] = useState([]);
 
-  const [ownerDrData, setOwnerDrData] = useState([
-    { name: 'Nancy', Doc_id: 1, OwnerColor: '#ffaa00' },
-    { name: 'Steven', Doc_id: 2, OwnerColor: '#f8a398' },
-    { name: 'Michael', Doc_id: 3, OwnerColor: '#7499e1' },
-
-  ]);
-
-  const [scheduleDr, setScheduleDr] = useState(() => {
-    const saveSchDr = window.localStorage.getItem("scheduleDr")
-    if (saveSchDr) {
-      return JSON.parse(saveSchDr);
-    } else {
-      return []
-    }
-  });
+  const [scheduleDr, setScheduleDr] = useState([]);
+  const [doctor, setDoctor] = useState([]);
 
   const [auth, setAuth] = useState(() => {
     if (dataUser.length === 0) {
@@ -65,13 +52,25 @@ export const StoreContextProvider = ({ children }) => {
       .catch(err => console.log(err));
   }, []);
 
-
   React.useEffect(() => {
-    localStorage.setItem('scheduleDr', JSON.stringify(scheduleDr));
-  }, [scheduleDr]);
+    getScheduleAll()
+      .then(res => {
+        setScheduleDr(res.data.data)
+        getDoctorAll()
+          .then((res => setDoctor(res.data.data)))
+          .catch(err => console.log(err));
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }, [])
+
+  // React.useEffect(() => {
+  //   localStorage.setItem('scheduleDr', JSON.stringify(scheduleDr));
+  // }, [scheduleDr]);
 
   return <StoreContext.Provider value={{
-    
+
     auth,
     setAuth,
     dataUser,
@@ -82,8 +81,8 @@ export const StoreContextProvider = ({ children }) => {
     scheduleDr,
     setScheduleDr,
 
-    ownerDrData,
-    setOwnerDrData,
+    doctor,
+    setDoctor,
 
     createPostpone,
     setCreatePostPone,

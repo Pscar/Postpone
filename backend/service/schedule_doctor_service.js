@@ -3,12 +3,13 @@ const { Op } = require("sequelize");
 const moment = require("moment");
 const database = require("../util/database");
 const Schedule = database.schdule_doctor;
+const Doctor = database.doctor;
 
 exports.create = async (data) => {
-  try{
-      return await Schedule.create(data);
-  } catch(err){
-      throw err;
+  try {
+    return await Schedule.create(data);
+  } catch (err) {
+    throw err;
   }
 };
 
@@ -25,7 +26,12 @@ exports.getByID = async (Id) => {
 };
 exports.getAll = async () => {
   try {
-    return await Schedule.findAll();
+    return await Schedule.findAll({
+      include: {
+        model: Doctor,
+        attributes: ['name']
+      }
+    });
   } catch (err) {
     throw err;
   }
@@ -54,3 +60,4 @@ exports.DeleteByID = async (Id) => {
     throw err;
   };
 };
+

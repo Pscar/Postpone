@@ -30,6 +30,7 @@ export default function MultiStepper() {
   const methods = useForm({
     defaultValues: {
       hn: "",
+      Doc_id: parseInt,
       firstname: "",
       lastname: "",
       locations: "",
@@ -91,6 +92,7 @@ export default function MultiStepper() {
   }
 
   const handleNext = (data) => {
+    console.log("🚀 ~ file: MultiStepper.js ~ line 94 ~ handleNext ~ data", data)
 
     if (activeStep === steps.length - 1) {
       setActiveStep(activeStep + 1);
@@ -128,6 +130,7 @@ export default function MultiStepper() {
   const handleReset = () => {
     setActiveStep(0);
   };
+
   const getStepContent = (step) => {
     switch (step) {
       case 0:

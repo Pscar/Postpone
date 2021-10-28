@@ -1,4 +1,5 @@
 const ScheduleDoctorService = require('../service/schedule_doctor_service');
+const DoctorService = require('../service/doctor_service');
 
 const get_nowdate = new Date();
 let get_date = ("0" + get_nowdate.getDate()).slice(-2);
@@ -96,6 +97,7 @@ exports.EditScheduleByID = async (req, res) => {
   } = req.body;
 
   try {
+
     const EditScheduleByID = await ScheduleDoctorService.editByID(Id, {
       Id: Id,
       Description: Description,
@@ -110,6 +112,7 @@ exports.EditScheduleByID = async (req, res) => {
       status: "success",
       data: EditScheduleByID
     });
+
   } catch (err) {
     console.log("==== ERROR =====", err);
     return res.status(500).send({
@@ -138,4 +141,21 @@ exports.DeleteScheduleByID = async (req, res) => {
     });
   }
 
+}
+exports.GetScheduleDoctor = async (req, res) => {
+  try {
+    const getDoctor = await DoctorService.getAll();
+    const getScheduleAll = await ScheduleDoctorService.getAll();
+
+    return res.status(200).send({
+      status: "success",
+      data: getScheduleAll
+    });
+  } catch (err) {
+    console.log("==== ERROR =====", err);
+    return res.status(500).send({
+      status: "error",
+      message: err.message,
+    });
+  }
 }

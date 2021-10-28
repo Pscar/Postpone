@@ -18,51 +18,62 @@ import {
 
 import moment from 'moment';
 import { DateRangePickerComponent } from '@syncfusion/ej2-react-calendars';
+import { getScheduleAll, getDoctorAll } from '../../services/postpone-serveice';
 import { StoreContext } from '../../Context/Store';
 import TimelineRow from './TimelineRow';
 
 
 export default function TimelineDr(props) {
-  const { scheduleDr, ownerDrData } = useContext(StoreContext)
-  const { handleNext } = props;
   const classes = useStyles();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const { scheduleDr, doctor } = useContext(StoreContext);
+  const { handleNext } = props;
+
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searched, setSearched] = useState("");
+  const [displayDoctor, setDisplayDoctor] = useState([]);
+  console.log("🚀 ~ file: TimelineDr.js ~ line 35 ~ TimelineDr ~ displayDoctor", displayDoctor)
+  const [displayScheduleDr, setDisplayScheduleDr] = useState([]);
 
-  const [dataSearch, setDataSearch] = useState(ownerDrData);
 
-
-  const createData = (id, name) => {
-    return {
-      id,
-      name,
-      history:
-        scheduleDr.filter(function (item) {
-          return item.OwnerId === id;
-        }).map(function (item) {
-          return {
-            id: item.Id,
-            subject: item.Subject,
-            startDate: item.StartTime,
-            endDate: item.EndTime,
-
-          }
-        })
-    };
+  const dataSchedule = () => {
+    const rows = displayDoctor.map((data) => {
+      const historys = {
+        Doc_id: data.Doc_id,
+        name: data.name,
+        schedule:
+          displayScheduleDr.filter(function (item) {
+            return item.Doc_id === data.Doc_id;
+          }).map(function (item) {
+            return {
+              Id: item.Id,
+              Doc_id: item.Doc_id,
+              Description: item.Description,
+              EndTime: item.EndTime,
+              StartTime: item.StartTime,
+              Subject: item.Subject,
+            }
+          })
+      }
+      return historys
+    })
+    return rows
   }
-  const rows = dataSearch.map((data) =>
-    createData(
-      data.Id,
-      data.name,
-    ));
+
+  const data = dataSchedule();
+
 
   const requestSearch = (searchedVal) => {
-    const filteredRows = ownerDrData.filter((row) => {
-      const filterName = row.name.toLowerCase().includes(searchedVal.toLowerCase());
-      return filterName
-    });
-    setDataSearch(filteredRows);
+    if (searchedVal) {
+      const filteredRows = data.filter((row) => {
+        const filterName = row.name.toLowerCase().includes(searchedVal.toLowerCase());
+        return filterName
+      });
+      setDisplayDoctor(filteredRows);
+    } else {
+      //ถ้าไม่มีค่า searchedVal จะแสดงค่าใน useContext
+      setDisplayDoctor(doctor);
+    }
   };
 
   const cancelSearch = () => {
@@ -94,12 +105,20 @@ export default function TimelineDr(props) {
         return filterdate
       });
 
-      setDataSearch(filterDateRow);
+      setDisplayDoctor(filterDateRow);
     } else {
-      setDataSearch(ownerDrData);
+      setDisplayDoctor(doctor);
     }
   };
 
+  //แสดงผลหลังจาก get api 
+  React.useEffect(() => {
+    setDisplayDoctor([...doctor])
+  }, [doctor])
+
+  React.useEffect(() => {
+    setDisplayScheduleDr([...scheduleDr])
+  }, [scheduleDr])
 
   return (
 
@@ -140,9 +159,14 @@ export default function TimelineDr(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+              {/* {displayDoctor.map((item) => {
                 return (
-                  <TimelineRow key={row.id} row={row} handleNext={handleNext} />
+                  <h1>{item.name}</h1>
+                )
+              })} */}
+              {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                return (
+                  <TimelineRow key={row.Doc_id} row={row} searched={searched} scheduleDr={scheduleDr} handleNext={handleNext} />
                 );
               })}
             </TableBody>
@@ -151,7 +175,7 @@ export default function TimelineDr(props) {
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={rows.length}
+          count={data.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

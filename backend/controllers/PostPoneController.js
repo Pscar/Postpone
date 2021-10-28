@@ -1,5 +1,6 @@
 const PostPoneService = require('../service/postpone_service');
 const UserService = require('../service/user_service');
+const DoctorService = require('../service/doctor_service');
 
 const get_nowdate = new Date();
 let get_date = ("0" + get_nowdate.getDate()).slice(-2);
@@ -15,6 +16,7 @@ var time_now = (`${get_hour}:${get_minute}:${get_second}`);
 
 
 exports.CreatePostPone = async (req, res) => {
+  console.log("🚀 ~ file: PostPoneController.js ~ line 19 ~ exports.CreatePostPone= ~ req", req)
 
   const {
     user_id,
@@ -35,7 +37,7 @@ exports.CreatePostPone = async (req, res) => {
 
   try {
     const getUserExist = await UserService.getByEmail(email);
-
+    
     if (getUserExist) {
       console.log("User already registered // create Postpone");
 
@@ -59,7 +61,7 @@ exports.CreatePostPone = async (req, res) => {
         status: "success",
         data: [CreatePostPone]
       });
-      
+
     } else {
 
       const CreateNewUser = await UserService.create({

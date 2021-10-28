@@ -3,6 +3,7 @@ const { Op } = require("sequelize");
 const moment = require("moment");
 const database = require("../util/database");
 const Doctor = database.doctor;
+const Schedule = database.schdule_doctor;
 
 exports.create = async (data) => {
   try {
@@ -24,7 +25,11 @@ exports.getByID = async (Doc_id) => {
 };
 exports.getAll = async () => {
   try {
-    return await Doctor.findAll();
+    return await Doctor.findAll({
+      include: {
+        model: Schedule,
+      }
+    });
   } catch (err) {
     throw err;
   }

@@ -34,14 +34,27 @@ export default function ContentModel(props) {
             <Table>
               <TableHead>
                 <TableRow>
+                  <TableCell align="center">ลำดับ</TableCell>
                   <TableCell align="center">ชื่อ</TableCell>
                   <TableCell align="center">เวลา</TableCell>
                   <TableCell align="center">Actions</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {row.history.map((historyRow) => (
-                  <TableRow key={historyRow.id}>
+                {row.schedule.map((historyRow) => (
+                  <TableRow key={historyRow.Id}>
+                    <TableCell align="center">
+                      <TextField
+                        id="Doc_id"
+                        label="ลำดับ"
+                        variant="outlined"
+                        fullWidth
+                        disabled
+                        {...register("Doc_id", { value: row.Doc_id })}
+                        error={Boolean(errors?.Doc_id)}
+                        helperText={errors.Doc_id?.message}
+                      />
+                    </TableCell>
                     <TableCell align="center">
                       <TextField
                         id="appointments"
@@ -61,14 +74,14 @@ export default function ContentModel(props) {
                         variant="outlined"
                         fullWidth
                         disabled
-                        {...register("dateNew", { value: historyRow.startDate })}
+                        {...register("dateNew", { value: historyRow.StartTime })}
                         error={Boolean(errors?.dateNew)}
                         helperText={errors.dateNew?.message}
                       />
                     </TableCell>
 
                     <TableCell align="center">
-                      <Button variant="contained" color="primary" onClick={() => handleNext({ appointments: row.name, dateNew: historyRow.startDate })}>เลือกเวลานัด</Button>
+                      <Button variant="contained" color="primary" onClick={() => handleNext({ appointments: row.name, dateNew: historyRow.StartTime, Doc_id: row.Doc_id })}>เลือกเวลานัด</Button>
                     </TableCell>
                   </TableRow>
                 ))}
