@@ -13,7 +13,7 @@ import TimelineDr from '../Doctors/TimelineDr';
 export default function HomePage(props) {
   const classes = useStyles();
 
-  const { handleNext, scheduleDr, doctor } = props
+  const { handleNext } = props
 
 
   const conditionPostPone = [

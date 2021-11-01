@@ -6,18 +6,15 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
   TableCell,
   TableBody,
   Button,
-  Typography,
   TextField,
   DialogTitle,
   Container,
   DialogContent,
   DialogContentText
 } from '@material-ui/core';
-import moment from 'moment';
 
 export default function ContentModel(props) {
   const classes = useStyles();

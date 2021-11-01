@@ -96,10 +96,11 @@ exports.EditScheduleByID = async (req, res) => {
     Location,
     StartTime,
     EndTime,
-    Doc_id
+    Doc_id,
   } = req.body;
 
   try {
+    const getDoctor = await DoctorService.getByID(Doc_id);
 
     const EditScheduleByID = await ScheduleDoctorService.editByID(Id, {
       Id: Id,
@@ -108,7 +109,8 @@ exports.EditScheduleByID = async (req, res) => {
       Location: Location,
       StartTime: StartTime,
       EndTime: EndTime,
-      Doc_id: Doc_id
+      Doc_id: Doc_id,
+      name: getDoctor.name
     });
 
     return res.status(200).send({
@@ -144,21 +146,4 @@ exports.DeleteScheduleByID = async (req, res) => {
     });
   }
 
-}
-exports.GetScheduleDoctor = async (req, res) => {
-  try {
-    const getDoctor = await DoctorService.getAll();
-    const getScheduleAll = await ScheduleDoctorService.getAll();
-
-    return res.status(200).send({
-      status: "success",
-      data: getScheduleAll
-    });
-  } catch (err) {
-    console.log("==== ERROR =====", err);
-    return res.status(500).send({
-      status: "error",
-      message: err.message,
-    });
-  }
 }

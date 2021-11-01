@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from "react-router-dom";
-import { StoreContext } from '../../Context/Store';
 import { makeStyles } from "@material-ui/core/styles";
 
 import {
@@ -17,7 +16,6 @@ export default function PostPoneDetail() {
   const classes = useStyles();
 
   const [postPoneById, setPostPoneById] = useState()
-  console.log("🚀 ~ file: PostPoneDetail.js ~ line 20 ~ PostPoneDetail ~ postPoneById", postPoneById)
 
   const getDataPostPone = (id) => {
     getPostPonesById(id)

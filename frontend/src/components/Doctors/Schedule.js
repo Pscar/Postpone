@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   Day,
   Week,
@@ -18,40 +18,84 @@ import {
   ResourcesDirective
 } from '@syncfusion/ej2-react-schedule';
 import { StoreContext } from '../../Context/Store';
-import { getScheduleAll, getDoctorAll } from '../../services/postpone-serveice';
+import { createSchedule, updateScheduleById, deleteScheduleById } from '../../services/postpone-serveice';
 
 function Schedule() {
-  const { scheduleDr, doctor } = useContext(StoreContext);
-  const [showScheduleDr] = useState(scheduleDr)
-  const [saveScheduleDr, setSaveScheduleDr] = useState();
+
+  const { scheduleDr, setScheduleDr, doctor } = useContext(StoreContext);
+  const [saveScheduleDr, setSaveScheduleDr] = useState([]);
   const [rfcScheduleDr, setRfcScheduleDr] = useState();
+  const [editScheduleDr, setEditScheduleDr] = useState([]);
 
+  const createSchedules = (data) => {
+    createSchedule(data)
+      .then(res => {
+        setSaveScheduleDr(res.data.data)
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+  const updateSchedules = (Id, data) => {
+    updateScheduleById(Id, data)
+      .then(res => {
+        setEditScheduleDr(data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+  const DeleteSchedule = (Id) => {
+    deleteScheduleById(Id)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
 
-  const onActionBegin = (args, id) => {
+  const onActionBegin = (args) => {
 
     if (args.requestType === 'eventCreate') {
-      const eventData = args.data[0];
-      setSaveScheduleDr(eventData)
-      // const eventField = rfcScheduleDr.eventFields;
-      // const startDate = eventData[eventField.startTime];
-      // const endDate = eventData[eventField.endTime];
+      const eventData = args.addedRecords[0];
+      createSchedules(eventData)
+      const eventField = rfcScheduleDr.eventFields;
+      const startDate = eventData[eventField.startTime];
+      const endDate = eventData[eventField.endTime];
 
-      // if (!rfcScheduleDr.isSlotAvailable(startDate, endDate)) {
-      //   args.cancel = true;
-      // }
+      if (!rfcScheduleDr.isSlotAvailable(startDate, endDate)) {
+        args.cancel = true;
+      }
     } else if (args.requestType === "eventChange") {
+      const Id = args.changedRecords[0].Id
+
+      updateSchedules(Id, {
+        Description: args.changedRecords[0].Description,
+        EndTime: args.changedRecords[0].EndTime,
+        Location: args.changedRecords[0].Location,
+        locations: args.changedRecords[0].locations,
+        StartTime: args.changedRecords[0].StartTime,
+        Doc_id: args.changedRecords[0].Doc_id,
+        Subject: args.changedRecords[0].Subject,
+
+      })
 
     } else if (args.requestType === "eventRemove") {
-
+      const eventData = args.deletedRecords[0]
+      DeleteSchedule(eventData.Id)
     }
   }
 
-  // useEffect(() => {
-  //   if (saveScheduleDr) {
-  //     setScheduleDr([...scheduleDr, saveScheduleDr])
-  //   }
-  // }, [saveScheduleDr])
+  useEffect(() => {
+    if (saveScheduleDr) {
+      setScheduleDr([...scheduleDr, saveScheduleDr])
+    }
+  }, [saveScheduleDr])
 
+  useEffect(() => {
+    console.log("🚀 ~ file: Schedule.js ~ line 131 ~ Schedule ~ editScheduleDr", editScheduleDr)
+  }, [editScheduleDr])
   return (
     <React.Fragment>
       <ScheduleComponent

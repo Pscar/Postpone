@@ -65,5 +65,4 @@ router.get("/schedule/getbyid", ScheduleDoctorController.GetScheduleDoctorByID);
 router.post("/schedule/editbyid", ScheduleDoctorController.EditScheduleByID);
 // !API 405 - Delete ScheduleDoctor By ID
 router.delete("/schedule/deletebyid", ScheduleDoctorController.DeleteScheduleByID)
-router.get("/schedule/getdoctor", ScheduleDoctorController.GetScheduleDoctor);
 module.exports = router;

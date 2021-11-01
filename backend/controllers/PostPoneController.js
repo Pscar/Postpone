@@ -19,7 +19,6 @@ exports.CreatePostPone = async (req, res) => {
   console.log("🚀 ~ file: PostPoneController.js ~ line 19 ~ exports.CreatePostPone= ~ req", req)
 
   const {
-    user_id,
     hn,
     Doc_id,
     firstname,

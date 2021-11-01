@@ -92,7 +92,6 @@ export default function MultiStepper() {
   }
 
   const handleNext = (data) => {
-    console.log("🚀 ~ file: MultiStepper.js ~ line 94 ~ handleNext ~ data", data)
 
     if (activeStep === steps.length - 1) {
       setActiveStep(activeStep + 1);

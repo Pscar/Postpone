@@ -13,12 +13,10 @@ import {
   TableHead,
   TableCell,
   Grid,
-  Container
 } from "@material-ui/core";
 
 import moment from 'moment';
 import { DateRangePickerComponent } from '@syncfusion/ej2-react-calendars';
-import { getScheduleAll, getDoctorAll } from '../../services/postpone-serveice';
 import { StoreContext } from '../../Context/Store';
 import TimelineRow from './TimelineRow';
 
@@ -32,7 +30,6 @@ export default function TimelineDr(props) {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searched, setSearched] = useState("");
   const [displayDoctor, setDisplayDoctor] = useState([]);
-  console.log("🚀 ~ file: TimelineDr.js ~ line 35 ~ TimelineDr ~ displayDoctor", displayDoctor)
   const [displayScheduleDr, setDisplayScheduleDr] = useState([]);
 
 
