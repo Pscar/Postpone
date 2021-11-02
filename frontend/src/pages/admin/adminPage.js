@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { StoreContext } from '../Context/Store';
+import { StoreContext } from '../../Context/Store';
 import { makeStyles } from '@material-ui/core/styles';
 
 import EditIcon from '@material-ui/icons/Edit';
@@ -16,13 +16,14 @@ import {
   Fab,
   Typography,
   Checkbox,
-  Container
+  Container,
 } from '@material-ui/core';
 
-import EnhancedTableHead from '../components/Admin/EnhancedTableHead';
-import EnhancedTableToolbar from '../components/Admin/EnhancedTableToolbar';
+import TableHeads from '../../components/Admin/tableHeads';
+import TableToolBar from '../../components/Admin/tableToolBar';
 
-export default function AdminForm() {
+export default function AdminPage() {
+
   const classes = useStyles();
   const { postPoneAll } = useContext(StoreContext);
   const [order, setOrder] = useState('asc');
@@ -32,7 +33,6 @@ export default function AdminForm() {
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-
 
   const dataPostPone = () => {
     const rows = postPoneAll.map((data) => {
@@ -116,6 +116,7 @@ export default function AdminForm() {
       );
     }
     setSelected(newSelected);
+
   };
 
   const handleChangePage = (event, newPage) => {
@@ -129,13 +130,11 @@ export default function AdminForm() {
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
-
-
   return (
     <React.Fragment>
       <Container maxWidth="lg">
         <Paper className={classes.paper}>
-          <EnhancedTableToolbar
+          <TableToolBar
             numSelected={selected.length}
             data={data}
             selected={selected}
@@ -146,7 +145,7 @@ export default function AdminForm() {
               aria-labelledby="tableTitle"
               aria-label="enhanced table"
             >
-              <EnhancedTableHead
+              <TableHeads
                 classes={classes}
                 numSelected={selected.length}
                 order={order}
@@ -215,6 +214,7 @@ export default function AdminForm() {
                                       <EditIcon />
                                     </Fab>
                                   </Link>
+
                                 )
                               case 'เลือกตามวันเวลาเป็นหลัก พบแพทย์ท่านใดก็ได้':
                                 return (
@@ -281,9 +281,16 @@ const useStyles = makeStyles((theme) => ({
     top: 20,
     width: 1,
   },
+  appBar: {
+    position: 'relative',
+  },
+  title: {
+    marginLeft: theme.spacing(2),
+    flex: 1,
+  },
 }));
 
-EnhancedTableHead.propTypes = {
+TableHeads.propTypes = {
   classes: PropTypes.object.isRequired,
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
@@ -292,3 +299,4 @@ EnhancedTableHead.propTypes = {
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
 };
+

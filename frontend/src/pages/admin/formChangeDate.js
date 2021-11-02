@@ -3,28 +3,19 @@ import { useParams, useHistory } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
 
 //component
-import ChangeDateId from './ChangeDateId';
-import DialogChangeDate from '../Dialog/DialogChangeDate';
-//style
-import { makeStyles } from "@material-ui/core/styles";
-import {
-  Paper,
-  Button,
-  Container,
-} from "@material-ui/core";
+import DialogChangeDate from '../../components/Dialog/DialogChangeDate';
+import FieldFormChangeDate from '../../components/Admin/fieldFormChangeDate';
 
 import { StoreContext } from '../../Context/Store';
 import { getPostPonesById, updatePostPoneById } from '../../services/postpone-serveice';
-// import emailjs from 'emailjs-com';
-// import moment from 'moment';
 
-export default function ChangeDate() {
+
+export default function FormChangeDate() {
+
   let { id } = useParams();
   let history = useHistory();
-  let infData;
-  const classes = useStyles();
-  const [open, setOpen] = useState(false);
 
+  const [open, setOpen] = useState(false);
   const [postPoneById, setPostPoneById] = useState()
   const { postPoneAll, setPostPoneEdit } = useContext(StoreContext);
 
@@ -88,87 +79,58 @@ export default function ChangeDate() {
         console.log(e);
       });
   }
+  // const postPoneSendEmail = (data) => {
+  //   let templateParams = {
+  //     name: data.firstName,
+  //     lastname: data.lastName,
+  //     HN: data.HN,
+  //     dateOld: moment(data.MUIPickerOld).format('DD/MM/YYYY HH:mm'),
+  //     dateNew: moment(data.MUIPickerNew).format('DD/MM/YYYY HH:mm'),
+  //     appDr: data.appointments,
+  //     check: data.status,
+  //     to: data.email
+  //   };
 
-  const handleNext = (data) => {
-    updatePostPonesById(id, data)
-    // let templateParams = {
-    //   name: data.firstName,
-    //   lastname: data.lastName,
-    //   HN: data.HN,
-    //   dateOld: moment(data.MUIPickerOld).format('DD/MM/YYYY HH:mm'),
-    //   dateNew: moment(data.MUIPickerNew).format('DD/MM/YYYY HH:mm'),
-    //   appDr: data.appointments,
-    //   check: data.status,
-    //   to: data.email
-    // };
+  //   emailjs.send('service_apfny9b', 'template_oliy0om', templateParams, 'user_Khbgb7HTDcAO6gFQnuCFU')
+  //     .then(function (response) {
+  //       console.log('SUCCESS!', response.status, response.text);
+  //     }, function (error) {
+  //       console.log('FAILED...', error);
+  //     });
+  // }
 
-    // emailjs.send('service_apfny9b', 'template_oliy0om', templateParams, 'user_Khbgb7HTDcAO6gFQnuCFU')
-    //   .then(function (response) {
-    //     console.log('SUCCESS!', response.status, response.text);
-    //   }, function (error) {
-    //     console.log('FAILED...', error);
-    //   });
-
+  const handleNext = async (data) => {
+    await updatePostPonesById(id, data)
+    // await postPoneSendEmail(data)
   }
   const handleClickOpen = () => {
     setOpen(true);
   };
 
+  const handleSubmitChangeDate = async () => {
+    await window.location.reload(true);
+  }
   const handleClose = () => {
     setOpen(false);
     history.push("/admin");
   };
-  
+
   if (postPoneById) {
-    infData = (
+    return (
       <React.Fragment>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(handleNext)}>
-            <ChangeDateId data={postPoneById} />
-            <Button
-              onClick={handleClickOpen}
-              className={classes.button}
-              variant="contained"
-              color="primary"
-              type="submit"
-            >
-              ยืนยันการแก้ไข
-            </Button>
-            <DialogChangeDate handleClose={handleClose} open={open} />
+            <FieldFormChangeDate data={postPoneById} handleClickOpen={handleClickOpen} />
+            <DialogChangeDate handleClose={handleClose} handleSubmitChangeDate={handleSubmitChangeDate} open={open} />
           </form>
         </FormProvider>
       </React.Fragment >
-    );
+    )
   }
-
   return (
     <React.Fragment>
-      <Container maxWidth="md">
-        <Paper variant="outlined" square className={classes.paper}>
-          แก้ไขสถานะ และ วันที่เลื่อนนัด # {id}
-        </Paper>
-        <Paper variant="outlined" className={classes.paper}>
-          {infData}
-        </Paper>
-      </Container>
-    </React.Fragment >
-  );
-};
+      <h1>ไม่มีข้อมูล</h1>
+    </React.Fragment>
+  )
 
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    color: theme.palette.text.secondary,
-    margin: '2rem',
-    fontSize: 45,
-    textAlign: 'center'
-  },
-  button: {
-    display: 'flex',
-    marginTop: '1rem',
-  }
-}));
+} 

@@ -21,14 +21,14 @@ exports.CreateDoctor = async (req, res) => {
 
   try {
 
-    const CreateNewDoctor = await DoctorService.create({
+    const createNewDoctor = await DoctorService.create({
       name: name,
       DocColor: DocColor
     });
 
     return res.status(200).send({
       status: "success",
-      data: CreateNewDoctor
+      data: createNewDoctor
     });
 
   } catch (err) {
@@ -46,11 +46,11 @@ exports.GetDoctorByID = async (req, res) => {
   const Doc_id = req.query.Doc_id;
 
   try {
-    const GetDoctorID = await DoctorService.getByID(Doc_id);
+    const getDoctorID = await DoctorService.getByID(Doc_id);
 
     return res.status(200).send({
       status: "success",
-      data: GetDoctorID
+      data: getDoctorID
     });
   } catch (err) {
     console.log("==== ERROR =====", err);
@@ -60,15 +60,33 @@ exports.GetDoctorByID = async (req, res) => {
     });
   }
 }
+exports.GetDoctorByName = async (req, res) => {
 
-exports.GetDoctorAll = async (req, res) => {
+  const name = req.query.name;
 
   try {
-    const GetDoctorAccountAll = await DoctorService.getAll();
+    const getDoctorByName = await DoctorService.getByID(name);
 
     return res.status(200).send({
       status: "success",
-      data: GetDoctorAccountAll
+      data: getDoctorByName
+    });
+  } catch (err) {
+    console.log("==== ERROR =====", err);
+    return res.status(500).send({
+      status: "error",
+      message: err.message,
+    });
+  }
+}
+exports.GetDoctorAll = async (req, res) => {
+
+  try {
+    const getDoctorAccountAll = await DoctorService.getAll();
+
+    return res.status(200).send({
+      status: "success",
+      data: getDoctorAccountAll
     });
   } catch (err) {
     console.log("==== ERROR =====", err);
@@ -89,7 +107,7 @@ exports.EditDoctorID = async (req, res) => {
   } = req.body;
 
   try {
-    const EditDoctorByID = await DoctorService.editByID(Doc_id, {
+    const editDoctorByID = await DoctorService.editByID(Doc_id, {
       Doc_id: Doc_id,
       name: name,
       DocColor: DocColor
@@ -97,7 +115,7 @@ exports.EditDoctorID = async (req, res) => {
 
     return res.status(200).send({
       status: "success",
-      data: EditDoctorByID
+      data: editDoctorByID
     });
   } catch (err) {
     console.log("==== ERROR =====", err);
@@ -113,11 +131,11 @@ exports.DeleteDoctorID = async (req, res) => {
   const Doc_id = req.query.Id;
 
   try {
-    const DeleteDoctorByID = await DoctorService.DeleteByID(Doc_id);
+    const deleteDoctorByID = await DoctorService.DeleteByID(Doc_id);
 
     return res.status(200).send({
       status: "success",
-      data: DeleteDoctorByID
+      data: deleteDoctorByID
     });
   } catch (err) {
     console.log("==== ERROR =====", err);

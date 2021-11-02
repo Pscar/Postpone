@@ -13,12 +13,11 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import { deletePostPonesById } from '../../services/postpone-serveice';
 import DialogDelete from '../Dialog/DialogDelete';
 
-export default function EnhancedTableToolbar(props) {
+export default function TableToolBar(props) {
 
   const classes = useToolbarStyles();
   const { numSelected, selected } = props;
   const [open, setOpen] = useState(false);
-  console.log("🚀 ~ file: EnhancedTableToolbar.js ~ line 21 ~ EnhancedTableToolbar ~ open", open)
 
 
   const handleDeleteClick = () => {

@@ -23,6 +23,17 @@ exports.getByID = async (Doc_id) => {
     throw err;
   };
 };
+exports.getByName = async (name) => {
+  try {
+    return await Doctor.findOne({
+      where: {
+        name: name,
+      },
+    });
+  } catch (err) {
+    throw err;
+  };
+};
 exports.getAll = async () => {
   try {
     return await Doctor.findAll({});

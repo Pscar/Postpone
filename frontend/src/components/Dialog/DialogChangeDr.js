@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core";
 
 export default function DialogChangeDr(props) {
-  const { open, handleClose } = props
+  const { open, handleClose, handleSubmitChangDr } = props
 
   return (
     <React.Fragment>
@@ -29,7 +29,7 @@ export default function DialogChangeDr(props) {
           <Button onClick={handleClose} color="primary">
             Close
           </Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
+          <Button onClick={handleSubmitChangDr} color="primary" autoFocus>
             Submit
           </Button>
         </DialogActions>

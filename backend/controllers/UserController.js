@@ -31,14 +31,14 @@ exports.CreateUser = async (req, res) => {
         data: "Not Data"
       });
     } else {
-      const CreateNewUser = await UserService.create({
+      const createNewUser = await UserService.create({
         email: email,
         password: password
       });
 
       return res.status(200).send({
         status: "success",
-        data: CreateNewUser
+        data: createNewUser
       });
 
     }
@@ -60,11 +60,11 @@ exports.GetUserByID = async (req, res) => {
   const user_id = req.query.user_id;
 
   try {
-    const GetUserAccountByID = await UserService.getByID(user_id);
+    const getUserAccountByID = await UserService.getByID(user_id);
 
     return res.status(200).send({
       status: "success",
-      data: GetUserAccountByID
+      data: getUserAccountByID
     });
   } catch (err) {
     console.log("==== ERROR =====", err);
@@ -80,11 +80,11 @@ exports.GetUserAll = async (req, res) => {
   // const user_id = req.query.user_id;
 
   try {
-    const GetUserAccountAll = await UserService.getAll();
+    const getUserAccountAll = await UserService.getAll();
 
     return res.status(200).send({
       status: "success",
-      data: GetUserAccountAll
+      data: getUserAccountAll
     });
   } catch (err) {
     console.log("==== ERROR =====", err);
@@ -100,11 +100,11 @@ exports.GetUserByEmail = async (req, res) => {
   const user_email = req.query.email;
 
   try {
-    const GetUserAccountByEmail = await UserService.getByEmail(user_email);
+    const getUserAccountByEmail = await UserService.getByEmail(user_email);
 
     return res.status(200).send({
       status: "success",
-      data: GetUserAccountByEmail
+      data: getUserAccountByEmail
     });
   } catch (err) {
     console.log("==== ERROR =====", err);
@@ -126,14 +126,14 @@ exports.EditUserByID = async (req, res) => {
   } = req.body;
 
   try {
-    const EditUserByID = await UserService.editByID(user_id, {
+    const editUserByID = await UserService.editByID(user_id, {
       email: email,
       password: password,
     });
 
     return res.status(200).send({
       status: "success",
-      data: EditUserByID
+      data: editUserByID
     });
   } catch (err) {
     console.log("==== ERROR =====", err);
@@ -153,14 +153,14 @@ exports.EditUserByEmail = async (req, res) => {
   } = req.body;
 
   try {
-    const EditUserByEmail = await UserService.editByEmail(email, {
+    const editUserByEmail = await UserService.editByEmail(email, {
       email: email,
       password: password,
     });
 
     return res.status(200).send({
       status: "success",
-      data: EditUserByEmail
+      data: editUserByEmail
     });
   } catch (err) {
     console.log("==== ERROR =====", err);
@@ -177,11 +177,11 @@ exports.DeleteUserByID = async (req, res) => {
   const user_id = req.query.user_id;
 
   try {
-    const DeleteUserByID = await UserService.DeleteByID(user_id);
+    const deleteUserByID = await UserService.DeleteByID(user_id);
 
     return res.status(200).send({
       status: "success",
-      data: DeleteUserByID
+      data: deleteUserByID
     });
   } catch (err) {
     console.log("==== ERROR =====", err);
@@ -198,11 +198,11 @@ exports.DeleteUserByEmail = async (req, res) => {
   const user_email = req.query.email;
 
   try {
-    const DeleteUserByEmail = await UserService.DeleteByEmail(user_email);
+    const deleteUserByEmail = await UserService.DeleteByEmail(user_email);
 
     return res.status(200).send({
       status: "success",
-      data: DeleteUserByEmail
+      data: deleteUserByEmail
     });
   } catch (err) {
     console.log("==== ERROR =====", err);

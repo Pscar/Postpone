@@ -7,7 +7,7 @@ import {
   Checkbox
 } from '@material-ui/core';
 
-export default function EnhancedTableHead(props) {
+export default function TableHeads(props) {
   const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
   
   const createSortHandler = (property) => (event) => {

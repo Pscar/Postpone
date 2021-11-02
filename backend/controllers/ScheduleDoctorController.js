@@ -27,7 +27,7 @@ exports.CreateScheduleDoctor = async (req, res) => {
   try {
     const getDoctor = await DoctorService.getByID(Doc_id);
 
-    const CreateNewScheduleDoctor = await ScheduleDoctorService.create({
+    const createNewScheduleDoctor = await ScheduleDoctorService.create({
       Description: Description,
       Subject: Subject,
       Location: Location,
@@ -39,7 +39,7 @@ exports.CreateScheduleDoctor = async (req, res) => {
 
     return res.status(200).send({
       status: "success",
-      data: CreateNewScheduleDoctor
+      data: createNewScheduleDoctor
     });
 
   } catch (err) {
@@ -56,11 +56,11 @@ exports.GetScheduleDoctorByID = async (req, res) => {
   const Id = req.query.Id;
 
   try {
-    const GetScheduleDoctorByID = await ScheduleDoctorService.getByID(Id);
+    const getScheduleDoctorByID = await ScheduleDoctorService.getByID(Id);
 
     return res.status(200).send({
       status: "success",
-      data: GetScheduleDoctorByID
+      data: getScheduleDoctorByID
     });
   } catch (err) {
     console.log("==== ERROR =====", err);
@@ -73,11 +73,11 @@ exports.GetScheduleDoctorByID = async (req, res) => {
 exports.GetScheduleDoctorAll = async (req, res) => {
 
   try {
-    const GetScheduleAll = await ScheduleDoctorService.getAll();
+    const getScheduleAll = await ScheduleDoctorService.getAll();
 
     return res.status(200).send({
       status: "success",
-      data: GetScheduleAll
+      data: getScheduleAll
     });
   } catch (err) {
     console.log("==== ERROR =====", err);
@@ -102,7 +102,7 @@ exports.EditScheduleByID = async (req, res) => {
   try {
     const getDoctor = await DoctorService.getByID(Doc_id);
 
-    const EditScheduleByID = await ScheduleDoctorService.editByID(Id, {
+    const editScheduleByID = await ScheduleDoctorService.editByID(Id, {
       Id: Id,
       Description: Description,
       Subject: Subject,
@@ -115,7 +115,7 @@ exports.EditScheduleByID = async (req, res) => {
 
     return res.status(200).send({
       status: "success",
-      data: EditScheduleByID
+      data: editScheduleByID
     });
 
   } catch (err) {
@@ -132,11 +132,11 @@ exports.DeleteScheduleByID = async (req, res) => {
   const Id = req.query.Id;
 
   try {
-    const DeleteScheduleByID = await ScheduleDoctorService.DeleteByID(Id);
+    const deleteScheduleByID = await ScheduleDoctorService.DeleteByID(Id);
 
     return res.status(200).send({
       status: "success",
-      data: DeleteScheduleByID
+      data: deleteScheduleByID
     });
   } catch (err) {
     console.log("==== ERROR =====", err);
