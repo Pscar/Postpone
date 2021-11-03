@@ -1,10 +1,10 @@
 import React, { useState, createContext } from 'react'
 import { getUserAll, getPostPoneAll, getScheduleAll, getDoctorAll } from '../services/postpone-serveice';
+
 export const StoreContext = createContext({})
 
 export const StoreContextProvider = ({ children }) => {
-  // initail State
-  // data 1 array
+
   const [createPostpone, setCreatePostPone] = useState();
   const [postPoneAll, setPostPoneAll] = useState([]);
 
@@ -64,10 +64,6 @@ export const StoreContextProvider = ({ children }) => {
         console.log(e);
       });
   }, [])
-
-  // React.useEffect(() => {
-  //   localStorage.setItem('scheduleDr', JSON.stringify(scheduleDr));
-  // }, [scheduleDr]);
 
   return <StoreContext.Provider value={{
 

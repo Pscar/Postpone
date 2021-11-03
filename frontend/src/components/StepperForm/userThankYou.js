@@ -14,7 +14,7 @@ import {
 
 import CheckIcon from '@material-ui/icons/Check';
 
-export default function ThankYou() {
+export default function UserThankYou() {
   const classes = useStyles();
 
   const { postPoneNow, postPoneEdit } = React.useContext(StoreContext)

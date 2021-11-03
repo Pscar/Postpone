@@ -10,7 +10,7 @@ import {
   IconButton,
 } from '@material-ui/core';
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import DialogLogout from '../components/Dialog/DialogLogout';
+import DialogLogout from '../components/Dialog/dialogLogout';
 
 export default function Navbar() {
   let history = useHistory();

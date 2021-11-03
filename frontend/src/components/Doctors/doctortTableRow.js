@@ -26,12 +26,11 @@ import {
 } from "@material-ui/lab";
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import ContentModel from './ContentModel';
+import DoctorSelectModel from './doctorSelectModel';
 import moment from 'moment';
 
 export default function TimelineRow(props) {
   const { row, searched, scheduleDr, handleNext } = props;
-  console.log("🚀 ~ file: TimelineRow.js ~ line 34 ~ TimelineRow ~ scheduleDr", scheduleDr)
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
 
@@ -115,7 +114,7 @@ export default function TimelineRow(props) {
                           }}
                         >
                           <Fade in={openModel}>
-                            <ContentModel row={row} handleNext={handleNext} />
+                            <DoctorSelectModel row={row} handleNext={handleNext} />
                           </Fade>
                         </Modal>
                       </TableCell>

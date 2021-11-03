@@ -8,8 +8,8 @@ import {
   DialogTitle
 } from "@material-ui/core";
 
-export default function DialogChangeO(props) {
-  const { open, handleClose } = props
+export default function DialogChangegOriginal(props) {
+  const { open, handleClose, handleSubmitChangOriginal } = props
   return (
     <React.Fragment>
       <Dialog
@@ -28,7 +28,7 @@ export default function DialogChangeO(props) {
           <Button onClick={handleClose} color="primary">
             Close
           </Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
+          <Button onClick={handleSubmitChangOriginal} color="primary" autoFocus>
             Submit
           </Button>
         </DialogActions>

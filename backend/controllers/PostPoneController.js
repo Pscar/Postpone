@@ -35,13 +35,14 @@ exports.CreatePostPone = async (req, res) => {
 
   try {
     const getUserExist = await UserService.getByEmail(email);
-    
+    const getDoctorByName = await DoctorService.getByName(appointments);
+
     if (getUserExist) {
 
       const createPostPone = await PostPoneService.create({
         user_id: getUserExist.user_id,
         hn: hn,
-        Doc_id: Doc_id,
+        Doc_id: getDoctorByName.Doc_id,
         firstname: firstname,
         lastname: lastname,
         locations: locations,
@@ -69,7 +70,7 @@ exports.CreatePostPone = async (req, res) => {
       const createNewPostPone = await PostPoneService.create({
         user_id: createNewUser.user_id,
         hn: hn,
-        Doc_id: Doc_id,
+        Doc_id: getDoctorByName.Doc_id,
         firstname: firstname,
         lastname: lastname,
         locations: locations,
@@ -172,7 +173,34 @@ exports.EditPostPoneByID = async (req, res) => {
   } = req.body;
 
   try {
-    const getDoctorByName = await DoctorService.getByName(appointments)
+
+    if (appointments) {
+
+      const getDoctorByName = await DoctorService.getByName(appointments)
+      const editPostPoneByID = await PostPoneService.editByID(postpone_id, {
+        
+        postpone_id: postpone_id,
+        user_id: user_id,
+        hn: hn,
+        firstname: firstname,
+        lastname: lastname,
+        locations: locations,
+        appointments: appointments,
+        dateOld: dateOld,
+        dateNew: dateNew,
+        course: course,
+        phone: phone,
+        Doc_id: getDoctorByName.Doc_id,
+        status: status
+      });
+
+      return res.status(200).send({
+        status: "success",
+        data: editPostPoneByID
+      });
+
+    }
+
     const editPostPoneByID = await PostPoneService.editByID(postpone_id, {
       postpone_id: postpone_id,
       user_id: user_id,
@@ -185,7 +213,7 @@ exports.EditPostPoneByID = async (req, res) => {
       dateNew: dateNew,
       course: course,
       phone: phone,
-      Doc_id: getDoctorByName.Doc_id,
+      Doc_id: Doc_id,
       status: status
     });
 
@@ -193,6 +221,7 @@ exports.EditPostPoneByID = async (req, res) => {
       status: "success",
       data: editPostPoneByID
     });
+
   } catch (err) {
     console.log("==== ERROR =====", err);
     return res.status(500).send({

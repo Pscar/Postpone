@@ -20,7 +20,7 @@ import moment from 'moment';
 
 export default function FieldFormChangeDr(props) {
   const { doctor } = useContext(StoreContext);
-  const { data, handleClickOpen} = props
+  const { data, handleClickOpen } = props
   const classes = useStyles();
   const { register, control, formState: { errors } } = useFormContext();
 
@@ -199,16 +199,15 @@ export default function FieldFormChangeDr(props) {
               </FormControl>
             </Grid>
             <Grid item xs={12} md={6}>
-
               <Button
-                  onClick={handleClickOpen}
-                  className={classes.button}
-                  variant="contained"
-                  color="primary"
-                  type="submit"
-                >
-                  ยืนยันการแก้ไข
-                </Button>
+                onClick={handleClickOpen}
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                type="submit"
+              >
+                ยืนยันการแก้ไข
+              </Button>
             </Grid>
           </Grid>
         </Paper>

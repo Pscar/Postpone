@@ -4,7 +4,7 @@ import {
   Grid,
   Typography
 } from '@material-ui/core';
-export default function CardCondition({ data }) {
+export default function UserCondition({ data }) {
 
   return (
     <Grid container spacing={2}>

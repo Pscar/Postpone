@@ -7,10 +7,10 @@ import {
   Typography
 } from '@material-ui/core';
 
-import CardCondition from '../CardHomePage/CardCondition';
-import TimelineDr from '../Doctors/TimelineDr';
+import UserCondition from './userCondition';
+import DoctorTableHeadDr from '../Doctors/doctorTableHeadDr';
 
-export default function HomePage(props) {
+export default function UserSearchDrAndTimeline(props) {
   const classes = useStyles();
 
   const { handleNext } = props
@@ -43,12 +43,12 @@ export default function HomePage(props) {
     <Container maxWidth="md">
       <Grid container className={classes.root}>
         <Grid item xs={12} md={12}>
-          <TimelineDr handleNext={handleNext} />
+          <DoctorTableHeadDr handleNext={handleNext} />
         </Grid>
         <Grid item xs={12} md={12}>
           <Paper className={classes.paper}>
             <Typography variant="h6" className={classes.typography}>เงื่อนไขการเลื่อนนัดออนไลน์</Typography>
-            <CardCondition data={conditionPostPone} />
+            <UserCondition data={conditionPostPone} />
           </Paper>
         </Grid>
       </Grid>

@@ -11,7 +11,7 @@ import clsx from 'clsx';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { deletePostPonesById } from '../../services/postpone-serveice';
-import DialogDelete from '../Dialog/DialogDelete';
+import DialogDelete from '../Dialog/dialogDelete';
 
 export default function TableToolBar(props) {
 

@@ -13,24 +13,18 @@ import {
   Button
 } from "@material-ui/core";
 
-import {
-  MuiPickersUtilsProvider,
-  DateTimePicker
-} from '@material-ui/pickers';
-import MomentUtils from '@date-io/moment';
-import moment from 'moment';
+import moment from 'moment'
 
-export default function FieldFormChangeDate(props) {
+export default function FieldFormOriginal(props) {
   const { data, handleClickOpen } = props
   const classes = useStyles();
   const { register, control, formState: { errors } } = useFormContext();
-
 
   return (
     <React.Fragment>
       <Container maxWidth="md">
         <Paper variant="outlined" square className={classes.paper}>
-          แก้ไขสถานะ และ วันที่เลื่อนนัด # {data.postpone_id}
+          แก้ไขสถานะ  # {data.postpone_id}
         </Paper>
         <Paper variant="outlined" className={classes.paper}>
           <Grid container spacing={3}>
@@ -104,7 +98,7 @@ export default function FieldFormChangeDate(props) {
               <TextField
                 required
                 id="filled-required-dateOld"
-                label="วัน/เดือน/ปี ที่นัดตรวจเดิม"
+                label="วัน/เดือน/ปี เลื่อนนัดถัดไปใหม่"
                 defaultValue={moment(data.dateOld).format('DD-MM-YYYY HH:mm')}
                 variant="filled"
                 disabled
@@ -115,63 +109,14 @@ export default function FieldFormChangeDate(props) {
               <TextField
                 required
                 id="filled-required-dateNew"
-                label="วัน/เดือน/ปี ที่นัดตรวจใหม่ที่คนไข้ต้องการ"
+                label="วัน/เดือน/ปี เลื่อนนัดถัดไปใหม่"
                 defaultValue={moment(data.dateNew).format('DD-MM-YYYY HH:mm')}
                 variant="filled"
                 disabled
                 fullWidth
               />
             </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                required
-                id="filled-required-email"
-                label="email"
-                defaultValue={data.email}
-                variant="filled"
-                disabled
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                required
-                id="filled-required-phone"
-                label="กรณีที่ไม่สามารถเลื่อนนัดให้พบแพทย์ท่านเดิม"
-                defaultValue={data.course}
-                variant="filled"
-                disabled
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <MuiPickersUtilsProvider utils={MomentUtils}>
-                <Controller
-                  name="dateNew"
-                  control={control}
-                  render={({ field: { ref, ...datetimenew } }) => (
-                    <DateTimePicker
-                      margin="none"
-                      id="date-picker-dialog-datetimenew"
-                      label="วัน/เดือน/ปี เลื่อนนัดถัดไปใหม่"
-                      inputVariant="outlined"
-                      format="DD-MM-YYYY HH:mm"
-                      KeyboardButtonProps={{
-                        "aria-label": "change date"
-                      }}
-                      {...datetimenew}
-                      minDate={new Date()}
-                      fullWidth
-                      defaultValue="01/01/1999"
-                      error={Boolean(errors.dateNew)}
-                      helperText={errors.dateNew?.message}
-                    />
-                  )}
-                />
-              </MuiPickersUtilsProvider>
-            </Grid>
-
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={12}>
               <FormControl className={classes.formControl}
                 error={Boolean(errors.course)}
               >
@@ -202,7 +147,17 @@ export default function FieldFormChangeDate(props) {
                 />
               </FormControl>
             </Grid>
-
+            <Grid item xs={12} md={12}>
+              <TextField
+                required
+                id="filled-required-course"
+                label="กรณีที่ไม่สามารถเลื่อนนัดให้พบแพทย์ท่านเดิม"
+                defaultValue={data.course}
+                variant="filled"
+                disabled
+                fullWidth
+              />
+            </Grid>
             <Grid item xs={12} md={6}>
               <Button
                 onClick={handleClickOpen}
@@ -217,18 +172,13 @@ export default function FieldFormChangeDate(props) {
           </Grid>
         </Paper>
       </Container>
+
     </React.Fragment>
   )
 }
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-  },
-  formControl: {
-    width: '100%'
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
   },
   paper: {
     padding: theme.spacing(2),
@@ -240,7 +190,13 @@ const useStyles = makeStyles((theme) => ({
   button: {
     display: 'flex',
     marginTop: '1rem',
-  }
+  },
+  formControl: {
+    width: '100%'
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
 }));
 
 const statuss = [

@@ -1,9 +1,11 @@
 import React, { useState, useContext } from "react";
 import { useForm, FormProvider } from "react-hook-form";
-import { StoreContext } from '../Context/Store';
-import PostPoneForm from "../components/StepperForm/PostPoneForm";
-import HomePage from "../components/StepperForm/HomePage";
-import SubmitForm from '../components/StepperForm/SubmitForm';
+import { StoreContext } from "../../Context/Store";
+
+import UserSearchDrAndTimeline from "../../components/StepperForm/userSearchDrAndTimeline";
+import UserFieldFormRegister from "../../components/StepperForm/userFieldFormRegister";
+import UserSubmitForm from "../../components/StepperForm/userSubmitForm";
+import UserThankYou from "../../components/StepperForm/userThankYou";
 
 import {
   Typography,
@@ -15,11 +17,10 @@ import {
 } from "@material-ui/core";
 
 import { makeStyles } from "@material-ui/core/styles";
-import ThankYou from "../components/StepperForm/ThankYou";
 
-import { createPostPones, getPostPonesNow, updatePostPoneById } from '../services/postpone-serveice';
+import { createPostPones, getPostPonesNow, updatePostPoneById } from "../../services/postpone-serveice";
 
-export default function MultiStepper() {
+export default function UserRegister() {
 
   const classes = useStyles();
   const [isEditing, setEditing] = useState(false);
@@ -133,11 +134,11 @@ export default function MultiStepper() {
   const getStepContent = (step) => {
     switch (step) {
       case 0:
-        return <HomePage handleNext={handleNext} />;
+        return <UserSearchDrAndTimeline handleNext={handleNext} />;
       case 1:
-        return <PostPoneForm />;
+        return <UserFieldFormRegister />;
       case 2:
-        return <SubmitForm />;
+        return <UserSubmitForm />;
       default:
         return "unknown step";
     }
@@ -176,7 +177,7 @@ export default function MultiStepper() {
       </Stepper>
       {activeStep === steps.length ? (
         <React.Fragment>
-          <ThankYou />
+          <UserThankYou />
           <Button variant="contained" color="primary" onClick={handleReset} className={classes.button}>
             กลับสู่หน้าหลัก
           </Button>

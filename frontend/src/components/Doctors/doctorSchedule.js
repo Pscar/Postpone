@@ -20,7 +20,7 @@ import {
 import { StoreContext } from '../../Context/Store';
 import { createSchedule, updateScheduleById, deleteScheduleById } from '../../services/postpone-serveice';
 
-function Schedule() {
+export default function DoctorSchedule() {
 
   const { scheduleDr, setScheduleDr, doctor } = useContext(StoreContext);
   const [saveScheduleDr, setSaveScheduleDr] = useState([]);
@@ -93,9 +93,10 @@ function Schedule() {
     }
   }, [saveScheduleDr])
 
-  useEffect(() => {
-    console.log("🚀 ~ file: Schedule.js ~ line 131 ~ Schedule ~ editScheduleDr", editScheduleDr)
-  }, [editScheduleDr])
+  // useEffect(() => {
+  //   console.log("🚀 ~ file: Schedule.js ~ line 131 ~ Schedule ~ editScheduleDr", editScheduleDr)
+  // }, [editScheduleDr])
+
   return (
     <React.Fragment>
       <ScheduleComponent
@@ -161,4 +162,3 @@ function Schedule() {
     </React.Fragment>
   );
 }
-export default Schedule;

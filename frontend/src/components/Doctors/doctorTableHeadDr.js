@@ -18,7 +18,7 @@ import {
 import moment from 'moment';
 import { DateRangePickerComponent } from '@syncfusion/ej2-react-calendars';
 import { StoreContext } from '../../Context/Store';
-import TimelineRow from './TimelineRow';
+import DoctortTableRow from './doctortTableRow';
 
 
 export default function TimelineDr(props) {
@@ -156,14 +156,9 @@ export default function TimelineDr(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {/* {displayDoctor.map((item) => {
-                return (
-                  <h1>{item.name}</h1>
-                )
-              })} */}
               {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                 return (
-                  <TimelineRow key={row.Doc_id} row={row} searched={searched} scheduleDr={scheduleDr} handleNext={handleNext} />
+                  <DoctortTableRow key={row.Doc_id} row={row} searched={searched} scheduleDr={scheduleDr} handleNext={handleNext} />
                 );
               })}
             </TableBody>
@@ -183,16 +178,18 @@ export default function TimelineDr(props) {
   )
 }
 
-TimelineRow.propTypes = {
+DoctortTableRow.propTypes = {
   row: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    Doc_id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    history: PropTypes.arrayOf(
+    schedule: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        subject: PropTypes.string.isRequired,
-        startDate: PropTypes.string.isRequired,
-        endDate: PropTypes.string.isRequired,
+        Id: PropTypes.number.isRequired,
+        Doc_id: PropTypes.string.isRequired,
+        Description: PropTypes.string.isRequired,
+        EndTime: PropTypes.string.isRequired,
+        StartTime: PropTypes.string.isRequired,
+        Subject: PropTypes.string.isRequired,
       }),
     ).isRequired,
   }).isRequired,

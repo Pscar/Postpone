@@ -3,7 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
 
 //component
-import DialogChangeDate from '../../components/Dialog/DialogChangeDate';
+import DialogChangeDate from '../../components/Dialog/dialogChangeDate';
 import FieldFormChangeDate from '../../components/Admin/fieldFormChangeDate';
 
 import { StoreContext } from '../../Context/Store';
@@ -100,6 +100,7 @@ export default function FormChangeDate() {
   // }
 
   const handleNext = async (data) => {
+  console.log("🚀 ~ file: formChangeDate.js ~ line 103 ~ handleNext ~ data", data)
     await updatePostPonesById(id, data)
     // await postPoneSendEmail(data)
   }

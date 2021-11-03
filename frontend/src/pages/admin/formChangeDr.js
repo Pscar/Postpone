@@ -6,7 +6,7 @@ import { useForm, FormProvider } from "react-hook-form";
 
 //component
 import FieldFormChangeDr from '../../components/Admin/fieldFormChangeDr';
-import DialogChangeDr from '../../components/Dialog/DialogChangeDr';
+import DialogChangeDr from '../../components/Dialog/dialogChangeDr';
 
 //service
 import { getPostPonesById, updatePostPoneById } from '../../services/postpone-serveice';
@@ -107,7 +107,6 @@ export default function FormChangeDr() {
   }
   const handleSubmitChangDr = async () => {
      await window.location.reload(true);
-     history.push("/admin");
 
   }
   const handleClickOpen = () => {

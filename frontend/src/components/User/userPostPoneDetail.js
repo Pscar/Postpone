@@ -11,11 +11,12 @@ import {
 import moment from 'moment';
 import { getPostPonesById } from '../../services/postpone-serveice';
 
-export default function PostPoneDetail() {
+export default function UserPostPoneDetail() {
   const { id } = useParams();
   const classes = useStyles();
 
   const [postPoneById, setPostPoneById] = useState()
+  console.log("🚀 ~ file: PostPoneDetail.js ~ line 19 ~ PostPoneDetail ~ postPoneById", postPoneById)
 
   const getDataPostPone = (id) => {
     getPostPonesById(id)

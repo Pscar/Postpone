@@ -226,7 +226,7 @@ export default function AdminPage() {
                                 )
                               case 'ขอรับการรักษาตามวันนัดหมายเดิม และ พบแพทย์ท่านเดิม':
                                 return (
-                                  <Link to={`/change_dr/${row.id}`} style={{ textDecoration: 'none', color: 'white' }}>
+                                  <Link to={`/original/${row.id}`} style={{ textDecoration: 'none', color: 'white' }}>
                                     <Fab color="primary" aria-label="edit" size="small">
                                       <EditIcon id={row.id} />
                                     </Fab>
