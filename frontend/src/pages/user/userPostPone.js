@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext } from "react";
 import {
   Paper,
   TableContainer,
@@ -10,13 +10,13 @@ import {
   Container,
   Grid
 } from "@material-ui/core";
-import { makeStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
+import { makeStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
 import SearchBar from "material-ui-search-bar";
-import { StoreContext } from '../../Context/Store';
-import PostPoneRow from '../../components/User/userPostPoneActualize';
-import PostPoneNoRow from '../../components/User/userPostPoneSucceed';
-
+import { StoreContext } from "../../Context/Store";
+import PostPoneRow from "../../components/User/userPostPoneActualize";
+import PostPoneNoRow from "../../components/User/userPostPoneSucceed";
+import moment from "moment";
 export default function UserPostPone(props) {
   const { dataUserNow } = props;
   const classes = useStyles();
@@ -44,7 +44,7 @@ export default function UserPostPone(props) {
               appointments: data.appointments,
               status: item.status,
               dateOld: item.dateOld,
-              dateNew: item.dateNew,
+              dateNew: moment(item.dateNew).format('DD-MM-YYYY HH:mm'),
             }
           })
       }
