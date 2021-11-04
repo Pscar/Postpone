@@ -193,6 +193,7 @@ exports.EditPostPoneByID = async (req, res) => {
         Doc_id: getDoctorByName.Doc_id,
         status: status
       });
+      console.log("🚀 ~ file: PostPoneController.js ~ line 196 ~ exports.EditPostPoneByID= ~ editPostPoneByID", editPostPoneByID)
 
       return res.status(200).send({
         status: "success",
@@ -215,8 +216,7 @@ exports.EditPostPoneByID = async (req, res) => {
       phone: phone,
       Doc_id: Doc_id,
       status: status
-    });
-
+    });    
     return res.status(200).send({
       status: "success",
       data: editPostPoneByID

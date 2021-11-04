@@ -17,8 +17,8 @@ import {
 } from "@material-ui/core";
 
 import { makeStyles } from "@material-ui/core/styles";
-
-import { createPostPones, getPostPonesNow, updatePostPoneById } from "../../services/postpone-serveice";
+import { useDispatch, useSelector } from 'react-redux'
+import { createPostPone, getPostPoneNow, updatePostPoneById } from "../../services/redux-service";
 
 export default function UserRegister() {
 
@@ -27,6 +27,8 @@ export default function UserRegister() {
   const [activeStep, setActiveStep] = useState(0);
   const [skippedSteps, setSkippedSteps] = useState([]);
   const { postPoneNow, setCreatePostPone, setPostPoneEdit, setPostPoneNow } = useContext(StoreContext)
+
+  const dispatch = useDispatch();
 
   const methods = useForm({
     defaultValues: {
@@ -43,7 +45,7 @@ export default function UserRegister() {
       phone: "",
       password: "",
       confirmpassword: "",
-      status: "อยู่ระหว่างดำเนินการ"
+      status: ""
     }
   });
 
@@ -68,44 +70,98 @@ export default function UserRegister() {
     return skippedSteps.includes(step);
   };
 
-
-  const createInformations = (data) => {
-    createPostPones(data)
-      .then(res => {
-        setCreatePostPone(res.data)
-        getPostPonesNow()
-          .then((res => setPostPoneNow(res.data.data)))
-          .catch(err => console.log(err));
-      })
-      .catch(e => {
-        console.log(e);
-      });
+  const createUserPostPone = async (data) => {
+    await dispatch(createPostPone({
+      hn: data.hn,
+      firstname: data.firstname,
+      lastname: data.lastname,
+      locations: data.locations,
+      appointments: data.appointments,
+      dateOld: data.dateOld,
+      dateNew: data.dateNew,
+      course: data.course,
+      email: data.email,
+      phone: data.phone,
+      password: data.password,
+      confirmpassword: data.confirmpassword,
+      status: "อยู่ระหว่างดำเนินการ"
+    }));
+    return await dispatch(getPostPoneNow())
   }
+  const { postpones } = useSelector((state) => state.postpones);
 
-  const updateInformations = (postpone_id, data) => {
-    updatePostPoneById(postpone_id, data)
-      .then(res => {
-        setPostPoneEdit(data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+
+  // const createInformations = (data) => {
+  //   createPostPones(data)
+  //     .then(res => {
+  //       setCreatePostPone(res.data)
+  //       getPostPonesNow()
+  //         .then((res => setPostPoneNow(res.data.data)))
+  //         .catch(err => console.log(err));
+  //     })
+  //     .catch(e => {
+  //       console.log(e);
+  //     });
+  // }
+
+  const updateUserPostPone = async (postpone_id, data) => {
+    console.log("🚀 ~ file: userRegister.js ~ line 109 ~ updateUserPostPone ~ data", data)
+    console.log("🚀 ~ file: userRegister.js ~ line 109 ~ updateUserPostPone ~ postpone_id", postpone_id)
+    // send data to redux toolkit
+    const updateItem = await dispatch(updatePostPoneById({
+      postpone_id: postpone_id,
+      hn: data.hn,
+      firstname: data.firstname,
+      lastname: data.lastname,
+      locations: data.locations,
+      appointments: data.appointments,
+      dateOld: data.dateOld,
+      dateNew: data.dateNew,
+      course: data.course,
+      email: data.email,
+      phone: data.phone,
+      password: data.password,
+      confirmpassword: data.confirmpassword,
+      status: "อยู่ระหว่างดำเนินการ"
+    }));
+    setPostPoneEdit(updateItem)
+    return updateItem
+    // updatePostPoneById(postpone_id, data)
+    //   .then(res => {
+    //     setPostPoneEdit(data);
+    //   })
+    //   .catch(e => {
+    //     console.log(e);
+    //   });
   }
 
   const handleNext = (data) => {
+    // const postpone_id = postPoneNow ? postPoneNow.postpone_id : "";
+    const postpone_id = postpones ? postpones.postpone_id : "";
 
     if (activeStep === steps.length - 1) {
       setActiveStep(activeStep + 1);
-
     } else if (activeStep === 1) {
-      const postpone_id = postPoneNow ? postPoneNow.postpone_id : "";
-
       setActiveStep(activeStep + 1);
-      return !isEditing ? createInformations(data)
-        : updateInformations(postpone_id, data)
-
+      // แก้ไขข้อมูลในส่วนของ frontend
+      return !isEditing ? createUserPostPone(data)
+        : updateUserPostPone(postpone_id, {
+          postpone_id: postpone_id,
+          hn: data.hn,
+          firstname: data.firstname,
+          lastname: data.lastname,
+          locations: data.locations,
+          appointments: data.appointments,
+          dateOld: data.dateOld,
+          dateNew: data.dateNew,
+          course: data.course,
+          email: data.email,
+          phone: data.phone,
+          password: data.password,
+          confirmpassword: data.confirmpassword,
+          status: "อยู่ระหว่างดำเนินการ"
+        })
     } else {
-
       setActiveStep(activeStep + 1);
       setSkippedSteps(
         skippedSteps.filter((skipItem) => skipItem !== activeStep)

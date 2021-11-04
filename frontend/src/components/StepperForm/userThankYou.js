@@ -3,6 +3,7 @@ import React from 'react';
 
 import { StoreContext } from '../../Context/Store';
 import { makeStyles } from "@material-ui/core/styles";
+import { useSelector } from 'react-redux';
 
 import {
   Typography,
@@ -16,14 +17,13 @@ import CheckIcon from '@material-ui/icons/Check';
 
 export default function UserThankYou() {
   const classes = useStyles();
-
-  const { postPoneNow, postPoneEdit } = React.useContext(StoreContext)
+  const { postPoneEdit } = React.useContext(StoreContext)
+  const { postpones } = useSelector((state) => state.postpones);
 
   return (
     <React.Fragment>
       <Container maxWidth="md">
         <Paper className={classes.paper} variant="outlined">
-
           <Grid container spacing={2}>
             <Grid item xs={12} md={12}>
               <Fab size="small" aria-label="check" className={classes.MuiFab}>
@@ -33,11 +33,10 @@ export default function UserThankYou() {
                 <b>บันทึกข้อมูลการเลื่อนนัดเรียบร้อย</b>
               </Typography>
               <Typography variant="h5">
-                ระบบจะตอบกลับคุณ {postPoneEdit ? postPoneEdit.firstname : postPoneNow.firstname} ภายใน 1 วันทำการ
+                ระบบจะตอบกลับคุณ {postPoneEdit ? postPoneEdit.meta.arg.firstname : postpones.firstname} ภายใน 1 วันทำการ
               </Typography>
             </Grid>
           </Grid>
-
         </Paper>
       </Container>
     </React.Fragment>

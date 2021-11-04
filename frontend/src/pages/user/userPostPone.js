@@ -17,6 +17,7 @@ import { StoreContext } from "../../Context/Store";
 import PostPoneRow from "../../components/User/userPostPoneActualize";
 import PostPoneNoRow from "../../components/User/userPostPoneSucceed";
 import moment from "moment";
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function UserPostPone(props) {
   const { dataUserNow } = props;
@@ -24,6 +25,10 @@ export default function UserPostPone(props) {
   const { postPoneAll } = useContext(StoreContext);
   const [searched, setSearched] = useState("");
   const [displaySearch, setDisplaySearch] = useState([])
+    const dispatch = useDispatch();
+  const postpones = useSelector(state => state.postpones);
+
+
 
   const dataPostPone = () => {
     const rows = displaySearch.map((data) => {

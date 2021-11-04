@@ -1,7 +1,7 @@
 import http from './http-common';
 
 //service frontend create
-export const createPostPones = async (data) => {
+export const createPostPoneServeice = async (data) => {
   const response = await http.post('/postpone/create', data);
   return response
 };
