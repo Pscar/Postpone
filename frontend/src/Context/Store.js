@@ -55,13 +55,10 @@ export const StoreContextProvider = ({ children }) => {
     doctor,
     setDoctor,
 
-    // createPostpone,
-    // setCreatePostPone,
 
     postPoneEdit,
     setPostPoneEdit,
-    // postPoneNow,
-    // setPostPoneNow,
+
     postPoneAll,
     setPostPoneAll,
     postPoneById,

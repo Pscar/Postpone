@@ -5,13 +5,15 @@ import {
   TableRow,
   Button,
 } from "@material-ui/core";
+import { useSelector } from 'react-redux';
 export default function PostPoneNoRow(props) {
 
   const { row, dataUserNow } = props
+  const { users } = useSelector(state => state.users);
 
   return (
     <React.Fragment>
-      {row.user_id === dataUserNow.user_id && row.status !== 'อยู่ระหว่างดำเนินการ' ?
+      {row.user_id === users.user_id && row.status !== 'อยู่ระหว่างดำเนินการ' ?
         <TableRow>
           <TableCell align="center">{row.postpone_id}</TableCell>
           <TableCell align="center">{row.hn}</TableCell>

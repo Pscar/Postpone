@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getUserAll } from '../services/redux-service';
+
 const initialUser = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null
 
 
@@ -21,7 +22,7 @@ const userSlice = createSlice({
   },
   extraReducers: {
     [getUserAll.fulfilled]: (state, action) => {
-      state.dataUsers = action.payload;
+      return state.dataUsers = [...action.payload];
     },
   },
 });

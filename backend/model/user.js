@@ -18,7 +18,7 @@ module.exports = (sequelize, Sequelize) => {
       password: {
         type: Sequelize.STRING,
         field: "password",
-      }
+      },
     },
     {
       freezeTableName: true,

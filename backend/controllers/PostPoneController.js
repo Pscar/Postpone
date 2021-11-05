@@ -64,7 +64,7 @@ exports.CreatePostPone = async (req, res) => {
 
       const createNewUser = await UserService.create({
         email: email,
-        password: password
+        password: password,
       });
 
       const createNewPostPone = await PostPoneService.create({
@@ -178,7 +178,7 @@ exports.EditPostPoneByID = async (req, res) => {
 
       const getDoctorByName = await DoctorService.getByName(appointments)
       const editPostPoneByID = await PostPoneService.editByID(postpone_id, {
-        
+
         postpone_id: postpone_id,
         user_id: user_id,
         hn: hn,
@@ -216,7 +216,7 @@ exports.EditPostPoneByID = async (req, res) => {
       phone: phone,
       Doc_id: Doc_id,
       status: status
-    });    
+    });
     return res.status(200).send({
       status: "success",
       data: editPostPoneByID

@@ -14,9 +14,9 @@ export const updatePostPoneById = createAsyncThunk(
 );
 export const getPostPoneNow = createAsyncThunk(
   "postpones/getPostponeNow",
-  async () => await await (await axios.get(`${baseURL}/postpone/now`)).data.data
+  async () => await (await axios.get(`${baseURL}/postpone/now`)).data.data
 );
 export const getUserAll = createAsyncThunk(
   "postpones/getuser",
-  async () => await await (await axios.get(`${baseURL}/user/get`)).data.data
+  async () => await (await axios.get(`${baseURL}/user/get`)).data.data
 );

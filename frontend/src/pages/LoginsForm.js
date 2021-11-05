@@ -28,6 +28,7 @@ export default function LoginsForm() {
   const [alertContent, setAlertContent] = useState('');
 
 
+
   const handleClick = () => {
     if (isLogin === true) {
       history.push("/postpone");
@@ -46,7 +47,7 @@ export default function LoginsForm() {
         setIsLogin(true)
         dispatch(loginSuccess(dataUser.data[i]))
       }
-      else if (stateEvent.email === "admin1@admin.com" && stateEvent.password === "123456789") {
+      else if (stateEvent.email === 'admin@admin.com' && stateEvent.password === '123456789') {
         setIsLogin(true)
         history.push("/admin");
       } else if (stateEvent.email !== dataUser.data[i].email) {
