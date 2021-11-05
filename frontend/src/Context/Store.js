@@ -5,40 +5,17 @@ export const StoreContext = createContext({})
 
 export const StoreContextProvider = ({ children }) => {
 
-  const [createPostpone, setCreatePostPone] = useState();
   const [postPoneAll, setPostPoneAll] = useState([]);
 
-  const [postPoneNow, setPostPoneNow] = useState();
   const [postPoneEdit, setPostPoneEdit] = useState();
   const [postPoneById, setPostPoneById] = useState();
 
 
   const [dataUser, setDataUser] = useState([]);
-  const [dataUserNow, setDataUserNow] = useState([]);
 
   const [scheduleDr, setScheduleDr] = useState([]);
   const [doctor, setDoctor] = useState([]);
 
-  const [auth, setAuth] = useState(() => {
-    if (dataUser.length === 0) {
-      return false
-    }
-  });
-
-  React.useEffect(() => {
-    const loggedInUser = localStorage.getItem("login");
-    if (loggedInUser) {
-      setAuth(true)
-      const foundUser = JSON.parse(loggedInUser);
-      setDataUserNow(foundUser);
-    } else {
-      setAuth(false)
-    }
-  }, []);
-
-  React.useEffect(() => {
-    window.localStorage.setItem('login', JSON.stringify(dataUserNow));
-  }, [dataUserNow])
 
   React.useEffect(() => {
     getPostPoneAll()
@@ -67,12 +44,10 @@ export const StoreContextProvider = ({ children }) => {
 
   return <StoreContext.Provider value={{
 
-    auth,
-    setAuth,
+
     dataUser,
     setDataUser,
-    dataUserNow,
-    setDataUserNow,
+
 
     scheduleDr,
     setScheduleDr,
@@ -80,13 +55,13 @@ export const StoreContextProvider = ({ children }) => {
     doctor,
     setDoctor,
 
-    createPostpone,
-    setCreatePostPone,
+    // createPostpone,
+    // setCreatePostPone,
 
     postPoneEdit,
     setPostPoneEdit,
-    postPoneNow,
-    setPostPoneNow,
+    // postPoneNow,
+    // setPostPoneNow,
     postPoneAll,
     setPostPoneAll,
     postPoneById,

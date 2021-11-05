@@ -3,7 +3,6 @@ const { Op } = require("sequelize");
 const moment = require("moment");
 const database = require("../util/database");
 const Doctor = database.doctor;
-const Schedule = database.schdule_doctor;
 
 exports.create = async (data) => {
   try {

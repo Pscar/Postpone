@@ -11,11 +11,15 @@ import {
 } from '@material-ui/core';
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import DialogLogout from '../components/Dialog/dialogLogout';
+import { logoutSuccess } from '../slices/userLoginSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Navbar() {
+  const dispatch = useDispatch()
+  const { users } = useSelector((state) => state.users);
+
   let history = useHistory();
   const classes = useStyles();
-  const { dataUserNow, setAuth, setDataUserNow } = useContext(StoreContext);
 
   const [open, setOpen] = React.useState(false);
 
@@ -30,9 +34,7 @@ export default function Navbar() {
   };
 
   const handleLogout = () => {
-    setDataUserNow({});
-    setAuth(false)
-    window.localStorage.removeItem("login");
+    dispatch(logoutSuccess());
     history.push("/");
     setOpen(false);
   }
@@ -44,8 +46,8 @@ export default function Navbar() {
           <Typography variant="h6" className={classes.title}>
             ระบบเลื่อนนัดออนไลน์
           </Typography>
-          {dataUserNow.email ?
-            <div>
+          {users ?
+            <React.Fragment>
               <IconButton
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
@@ -53,15 +55,14 @@ export default function Navbar() {
                 color="inherit"
               >
                 <AccountCircle />
-                </IconButton>
-                
-                {dataUserNow.email}
-                <Button color="inherit" onClick={handleClickOpen}>Logout</Button>
-                <DialogLogout handleClose={handleClose} handleLogout={handleLogout} open={open} />
-              
-            </div> : <Button color="inherit" onClick={handlLogin}>ตรวจสอบผลการเลื่อนนัด</Button>
-          }
+              </IconButton>
 
+              {users ? users.email : ""}
+              <Button color="inherit" onClick={handleClickOpen}>Logout</Button>
+              <DialogLogout handleClose={handleClose} handleLogout={handleLogout} open={open} />
+            </React.Fragment>
+            : <Button color="inherit" onClick={handlLogin}>ตรวจสอบผลการเลื่อนนัด</Button>
+          }
         </Toolbar>
       </AppBar>
     </div>

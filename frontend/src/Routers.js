@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, } from "react-router-dom";
-import { StoreContext } from './Context/Store';
 
 import PrivateRoute from './PrivateRoute';
 import Navbar from './pages/navbar';
@@ -18,10 +17,11 @@ import formOriginal from './pages/admin/formOriginal';
 import userPostPoneDetail from './pages/user/userPostPoneDetail';
 import userRegister from './pages/user/userRegister';
 import userPostPone from './pages/user/userPostPone';
+import { useSelector } from 'react-redux';
 
 
 export default function Routers() {
-  const { dataUserNow } = React.useContext(StoreContext);
+  const { users } = useSelector((state) => state.users);
 
   return (
     <Router>
@@ -31,12 +31,12 @@ export default function Routers() {
         <Route path="/login" component={loginsForm} />
         <Route path="/doctor" component={doctorSchedule} />
 
-        <PrivateRoute path="/postpone" dataUserNow={dataUserNow} component={userPostPone} />
-        <PrivateRoute path="/admin" dataUserNow={dataUserNow} component={adminPage} />
-        <PrivateRoute path="/detail/:id" dataUserNow={dataUserNow} component={userPostPoneDetail} />
-        <PrivateRoute path="/change_dr/:id" dataUserNow={dataUserNow} component={formChangeDr} />
-        <PrivateRoute path="/original/:id" dataUserNow={dataUserNow} component={formOriginal} />
-        <PrivateRoute path="/change_date/:id" dataUserNow={dataUserNow} component={formChangeDate} />
+        <PrivateRoute path="/postpone" users={users} component={userPostPone} />
+        <PrivateRoute path="/admin" users={users} component={adminPage} />
+        <PrivateRoute path="/detail/:id" users={users} component={userPostPoneDetail} />
+        <PrivateRoute path="/change_dr/:id" users={users} component={formChangeDr} />
+        <PrivateRoute path="/original/:id" users={users} component={formOriginal} />
+        <PrivateRoute path="/change_date/:id" users={users} component={formChangeDate} />
       </Switch>
     </Router>
   )

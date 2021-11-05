@@ -17,16 +17,16 @@ import { StoreContext } from "../../Context/Store";
 import PostPoneRow from "../../components/User/userPostPoneActualize";
 import PostPoneNoRow from "../../components/User/userPostPoneSucceed";
 import moment from "moment";
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 export default function UserPostPone(props) {
-  const { dataUserNow } = props;
+  // const { dataUserNow } = props;
   const classes = useStyles();
   const { postPoneAll } = useContext(StoreContext);
   const [searched, setSearched] = useState("");
   const [displaySearch, setDisplaySearch] = useState([])
-    const dispatch = useDispatch();
-  const postpones = useSelector(state => state.postpones);
+  // const dispatch = useDispatch();
+  const { users } = useSelector(state => state.users);
 
 
 
@@ -103,11 +103,11 @@ export default function UserPostPone(props) {
                   <TableCell align="center">Action</TableCell>
                 </TableRow>
               </TableHead>
-              {data.map((row) => (row.user_id === dataUserNow.user_id && row.status === 'อยู่ระหว่างดำเนินการ' ? (
+              {data.map((row) => (row.user_id === users.user_id && row.status === 'อยู่ระหว่างดำเนินการ' ? (
                 <TableBody>
-                  <PostPoneRow key={row.postpone_id} row={row} dataUserNow={dataUserNow} />
+                  <PostPoneRow key={row.postpone_id} row={row} users={users} />
                 </TableBody>
-              ) : <PostPoneNoRow key={row.postpone_id} row={row} dataUserNow={dataUserNow} />
+              ) : <PostPoneNoRow key={row.postpone_id} row={row} users={users} />
               ))}
             </Table>
           </TableContainer>

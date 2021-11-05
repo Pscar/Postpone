@@ -10,19 +10,23 @@ import {
   Typography,
 } from "@material-ui/core";
 import Alert from '@material-ui/lab/Alert';
-
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { StoreContext } from '../Context/Store';
-
+import { loginSuccess } from '../slices/userLoginSlice';
+import { useDispatch } from 'react-redux';
 
 export default function LoginsForm() {
+
   let history = useHistory();
+  const classes = useStyles();
+  const dispatch = useDispatch()
+  const { dataUser } = useContext(StoreContext)
+
   const [stateEvent, setStateEvent] = useState({ email: '', password: '' });
   const [isLogin, setIsLogin] = useState(false);
   const [alert, setAlert] = useState(false);
   const [alertContent, setAlertContent] = useState('');
-  const classes = useStyles();
-  const { dataUser, setDataUserNow, setAuth } = useContext(StoreContext)
+
 
   const handleClick = () => {
     if (isLogin === true) {
@@ -39,13 +43,11 @@ export default function LoginsForm() {
     event.preventDefault();
     for (let i = 0; i < dataUser.data.length; i++) {
       if (stateEvent.email === dataUser.data[i].email && stateEvent.password === dataUser.data[i].password) {
-        setAuth(true)
         setIsLogin(true)
-        setDataUserNow(dataUser.data[i])
+        dispatch(loginSuccess(dataUser.data[i]))
       }
       else if (stateEvent.email === "admin1@admin.com" && stateEvent.password === "123456789") {
         setIsLogin(true)
-        setAuth(true)
         history.push("/admin");
       } else if (stateEvent.email !== dataUser.data[i].email) {
         setAlert(true)

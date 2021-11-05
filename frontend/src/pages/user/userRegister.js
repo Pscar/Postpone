@@ -26,7 +26,7 @@ export default function UserRegister() {
   const [isEditing, setEditing] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [skippedSteps, setSkippedSteps] = useState([]);
-  const { postPoneNow, setCreatePostPone, setPostPoneEdit, setPostPoneNow } = useContext(StoreContext)
+  const { setPostPoneEdit } = useContext(StoreContext)
 
   const dispatch = useDispatch();
 
@@ -90,23 +90,7 @@ export default function UserRegister() {
   }
   const { postpones } = useSelector((state) => state.postpones);
 
-
-  // const createInformations = (data) => {
-  //   createPostPones(data)
-  //     .then(res => {
-  //       setCreatePostPone(res.data)
-  //       getPostPonesNow()
-  //         .then((res => setPostPoneNow(res.data.data)))
-  //         .catch(err => console.log(err));
-  //     })
-  //     .catch(e => {
-  //       console.log(e);
-  //     });
-  // }
-
   const updateUserPostPone = async (postpone_id, data) => {
-    console.log("🚀 ~ file: userRegister.js ~ line 109 ~ updateUserPostPone ~ data", data)
-    console.log("🚀 ~ file: userRegister.js ~ line 109 ~ updateUserPostPone ~ postpone_id", postpone_id)
     // send data to redux toolkit
     const updateItem = await dispatch(updatePostPoneById({
       postpone_id: postpone_id,
@@ -126,17 +110,9 @@ export default function UserRegister() {
     }));
     setPostPoneEdit(updateItem)
     return updateItem
-    // updatePostPoneById(postpone_id, data)
-    //   .then(res => {
-    //     setPostPoneEdit(data);
-    //   })
-    //   .catch(e => {
-    //     console.log(e);
-    //   });
   }
 
   const handleNext = (data) => {
-    // const postpone_id = postPoneNow ? postPoneNow.postpone_id : "";
     const postpone_id = postpones ? postpones.postpone_id : "";
 
     if (activeStep === steps.length - 1) {
