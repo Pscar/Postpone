@@ -8,7 +8,7 @@ import {
 import { useSelector } from 'react-redux';
 export default function PostPoneNoRow(props) {
 
-  const { row, dataUserNow } = props
+  const { row } = props
   const { users } = useSelector(state => state.users);
 
   return (

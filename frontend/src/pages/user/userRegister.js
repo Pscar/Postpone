@@ -152,17 +152,15 @@ export default function UserRegister() {
     }
     setActiveStep(activeStep - 1);
   };
-
   const handleSkip = () => {
     if (!isStepSkipped(activeStep)) {
       setSkippedSteps([...skippedSteps, activeStep]);
     }
     setActiveStep(activeStep + 1);
   };
-  const handleReset = () => {
-    setActiveStep(0);
-  };
-
+  // const handleReset = () => {
+  //   setActiveStep(0);
+  // };
   const getStepContent = (step) => {
     switch (step) {
       case 0:
@@ -175,7 +173,6 @@ export default function UserRegister() {
         return "unknown step";
     }
   }
-
 
   return (
     <div className={classes.root}>
@@ -210,9 +207,9 @@ export default function UserRegister() {
       {activeStep === steps.length ? (
         <React.Fragment>
           <UserThankYou />
-          <Button variant="contained" color="primary" onClick={handleReset} className={classes.button}>
+          {/* <Button variant="contained" color="primary" onClick={handleReset} className={classes.button}>
             กลับสู่หน้าหลัก
-          </Button>
+          </Button> */}
         </React.Fragment>
 
       ) : (

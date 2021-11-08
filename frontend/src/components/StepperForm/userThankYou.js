@@ -20,6 +20,11 @@ export default function UserThankYou() {
   const { postPoneEdit } = React.useContext(StoreContext)
   const { postpones } = useSelector((state) => state.postpones);
 
+  React.useEffect(() => {
+    setInterval(() => {
+      window.location.reload(true);
+    }, 5000);
+  }, []);
   return (
     <React.Fragment>
       <Container maxWidth="md">
@@ -32,9 +37,11 @@ export default function UserThankYou() {
               <Typography variant="h5" className={classes.item}>
                 <b>บันทึกข้อมูลการเลื่อนนัดเรียบร้อย</b>
               </Typography>
-              <Typography variant="h5">
-                ระบบจะตอบกลับคุณ {postPoneEdit ? postPoneEdit.meta.arg.firstname : postpones.firstname} ภายใน 1 วันทำการ
-              </Typography>
+              {postpones && postpones.map((item) => (
+                <Typography variant="h5">
+                  ระบบจะตอบกลับคุณ {postPoneEdit ? postPoneEdit.meta.arg.firstname : item.firstname} ภายใน 1 วันทำการ
+                </Typography>
+              ))}
             </Grid>
           </Grid>
         </Paper>

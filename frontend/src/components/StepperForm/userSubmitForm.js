@@ -15,104 +15,105 @@ export default function UserSubmitForm() {
   const { postPoneEdit } = React.useContext(StoreContext)
   const { postpones } = useSelector((state) => state.postpones);
 
-
   return (
     <Container maxWidth="md">
       <Paper className={classes.paper}>
         <React.Fragment>
-          <Grid container spacing={2} key={postPoneEdit ? postPoneEdit.meta.arg.postpone_id : postpones.postpone_id}>
-            <Grid item xs={12} md={4}>
-              <Typography variant="h6">
-                HN
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={8}>
-              <Typography variant="body" gutterBottom>
-                {postPoneEdit ? postPoneEdit.meta.arg.hn : postpones.hn}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <Typography variant="h6">
-                ชื่อ - นามสกุล
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={8}>
-              <Typography variant="body" gutterBottom>
-                {postPoneEdit ? postPoneEdit.meta.arg.firstname : postpones.firstname} &#160; {postPoneEdit ? postPoneEdit.meta.arg.lastname : postpones.lastname}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <Typography variant="h6">
-                สถานที่ตรวจ
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={8}>
-              <Typography variant="body" gutterBottom>
-                {postPoneEdit ? postPoneEdit.meta.arg.locations : postpones.locations}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <Typography variant="h6">
-                นัดพบแพทย์
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={8}>
-              <Typography variant="body" gutterBottom>
-                {postPoneEdit ? postPoneEdit.meta.arg.appointments : postpones.appointments}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <Typography variant="h6">
-                วัน/เดือน/ปี ที่นัดตรวจเดิม
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={8}>
-              <Typography variant="body" gutterBottom>
-                <Moment format="DD-MM-YYYY HH:mm" date={postPoneEdit ? postPoneEdit.meta.arg.dateOld : postpones.dateOld} />
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <Typography variant="h6">
-                เบอร์โทรศัพท์ติดต่อผู้ป่วย
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={8}>
-              <Typography variant="body" gutterBottom>
-                {postPoneEdit ? postPoneEdit.meta.arg.phone : postpones.phone}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <Typography variant="h6">
-                E-mail
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={8}>
-              <Typography variant="body" gutterBottom>
-                {postPoneEdit ? postPoneEdit.meta.arg.email : postpones.email}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <Typography variant="h6">
-                เลื่อนนัดถัดไป
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={8}>
-              <Typography variant="body" gutterBottom>
-                {moment(postPoneEdit ? postPoneEdit.meta.arg.dateNew : postpones.dateNew).format('DD-MM-YYYY hh:mm')}
-              </Typography>
-            </Grid>
+          {postpones && postpones.map((item) => (
+            <Grid container spacing={2} key={postPoneEdit ? postPoneEdit.meta.arg.postpone_id : item.postpone_id}>
+              <Grid item xs={12} md={4}>
+                <Typography variant="h6">
+                  HN
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={8}>
+                <Typography variant="body" gutterBottom>
+                  {postPoneEdit ? postPoneEdit.meta.arg.hn : item.hn}
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Typography variant="h6">
+                  ชื่อ - นามสกุล
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={8}>
+                <Typography variant="body" gutterBottom>
+                  {postPoneEdit ? postPoneEdit.meta.arg.firstname : item.firstname} &#160; {postPoneEdit ? postPoneEdit.meta.arg.lastname : item.lastname}
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Typography variant="h6">
+                  สถานที่ตรวจ
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={8}>
+                <Typography variant="body" gutterBottom>
+                  {postPoneEdit ? postPoneEdit.meta.arg.locations : item.locations}
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Typography variant="h6">
+                  นัดพบแพทย์
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={8}>
+                <Typography variant="body" gutterBottom>
+                  {postPoneEdit ? postPoneEdit.meta.arg.appointments : item.appointments}
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Typography variant="h6">
+                  วัน/เดือน/ปี ที่นัดตรวจเดิม
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={8}>
+                <Typography variant="body" gutterBottom>
+                  <Moment format="DD-MM-YYYY HH:mm" date={postPoneEdit ? postPoneEdit.meta.arg.dateOld : item.dateOld} />
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Typography variant="h6">
+                  เบอร์โทรศัพท์ติดต่อผู้ป่วย
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={8}>
+                <Typography variant="body" gutterBottom>
+                  {postPoneEdit ? postPoneEdit.meta.arg.phone : item.phone}
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Typography variant="h6">
+                  E-mail
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={8}>
+                <Typography variant="body" gutterBottom>
+                  {postPoneEdit ? postPoneEdit.meta.arg.email : item.email}
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Typography variant="h6">
+                  เลื่อนนัดถัดไป
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={8}>
+                <Typography variant="body" gutterBottom>
+                  {moment(postPoneEdit ? postPoneEdit.meta.arg.dateNew : item.dateNew).format('DD-MM-YYYY hh:mm')}
+                </Typography>
+              </Grid>
 
-            <Grid item xs={12} md={6}>
-              <Typography variant="h6">
-                กรณีที่ไม่สามารถเลื่อนนัดให้พบแพทย์ท่านเดิม
-              </Typography>
+              <Grid item xs={12} md={6}>
+                <Typography variant="h6">
+                  กรณีที่ไม่สามารถเลื่อนนัดให้พบแพทย์ท่านเดิม
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Typography variant="body" gutterBottom>
+                  {postPoneEdit ? postPoneEdit.meta.arg.course : item.course}
+                </Typography>
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={6}>
-              <Typography variant="body" gutterBottom>
-                {postPoneEdit ? postPoneEdit.meta.arg.course : postpones.course}
-              </Typography>
-            </Grid>
-          </Grid>
+          ))}
         </React.Fragment>
       </Paper>
     </Container>

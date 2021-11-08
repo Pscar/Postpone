@@ -17,21 +17,29 @@ import { StoreContext } from "../../Context/Store";
 import PostPoneRow from "../../components/User/userPostPoneActualize";
 import PostPoneNoRow from "../../components/User/userPostPoneSucceed";
 import moment from "moment";
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { getPostPoneAll } from "../../services/redux-service";
 
-export default function UserPostPone(props) {
-  // const { dataUserNow } = props;
+export default function UserPostPone() {
   const classes = useStyles();
-  const { postPoneAll } = useContext(StoreContext);
   const [searched, setSearched] = useState("");
   const [displaySearch, setDisplaySearch] = useState([])
-  // const dispatch = useDispatch();
-  const { users } = useSelector(state => state.users);
 
+  const dispatch = useDispatch();
+  const { users } = useSelector(state => state.users);
+  const postpones = useSelector(state => state.postpones);
+
+  const initFetch = React.useCallback(() => {
+    dispatch(getPostPoneAll());
+  }, [dispatch])
+
+  React.useEffect(() => {
+    initFetch()
+  }, [initFetch])
 
 
   const dataPostPone = () => {
-    const rows = displaySearch.map((data) => {
+    const rows = postpones.length > 0 && postpones.map((data) => {
       const historys = {
         postpone_id: data.postpone_id,
         user_id: data.user_id,
@@ -68,7 +76,7 @@ export default function UserPostPone(props) {
       });
       setDisplaySearch(filteredRows);
     } else {
-      setDisplaySearch(postPoneAll);
+      setDisplaySearch(postpones);
 
     }
   };
@@ -77,11 +85,6 @@ export default function UserPostPone(props) {
     setSearched("");
     requestSearch(searched);
   };
-
-  //แสดงผลหลังจาก get api 
-  React.useEffect(() => {
-    setDisplaySearch([...postPoneAll])
-  }, [postPoneAll])
 
   return (
     <Container maxWidth="md">
@@ -103,7 +106,7 @@ export default function UserPostPone(props) {
                   <TableCell align="center">Action</TableCell>
                 </TableRow>
               </TableHead>
-              {data.map((row) => (row.user_id === users.user_id && row.status === 'อยู่ระหว่างดำเนินการ' ? (
+              {data && data.map((row) => (row.user_id === users.user_id && row.status === 'อยู่ระหว่างดำเนินการ' ? (
                 <TableBody>
                   <PostPoneRow key={row.postpone_id} row={row} users={users} />
                 </TableBody>

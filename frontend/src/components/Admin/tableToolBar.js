@@ -9,7 +9,6 @@ import {
 import { makeStyles, lighten } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import DeleteIcon from '@material-ui/icons/Delete';
-import FilterListIcon from '@material-ui/icons/FilterList';
 import { deletePostPonesById } from '../../services/postpone-serveice';
 import DialogDelete from '../Dialog/dialogDelete';
 
@@ -71,11 +70,7 @@ export default function TableToolBar(props) {
 
 
       ) : (
-        <Tooltip title="Filter list">
-          <IconButton aria-label="filter list">
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
+        null
       )}
     </Toolbar>
   );

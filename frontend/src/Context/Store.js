@@ -1,27 +1,17 @@
 import React, { useState, createContext } from 'react'
-import { getUserAll, getPostPoneAll, getScheduleAll, getDoctorAll } from '../services/postpone-serveice';
+import { getUserAll, getScheduleAll, getDoctorAll } from '../services/postpone-serveice';
 
 export const StoreContext = createContext({})
 
 export const StoreContextProvider = ({ children }) => {
 
-  const [postPoneAll, setPostPoneAll] = useState([]);
-
   const [postPoneEdit, setPostPoneEdit] = useState();
-  const [postPoneById, setPostPoneById] = useState();
-
-
   const [dataUser, setDataUser] = useState([]);
 
   const [scheduleDr, setScheduleDr] = useState([]);
   const [doctor, setDoctor] = useState([]);
+  const [postPoneById, setPostPoneById] = useState();
 
-
-  React.useEffect(() => {
-    getPostPoneAll()
-      .then((res) => setPostPoneAll(res.data.data))
-      .catch(err => console.log(err))
-  }, [])
 
   React.useEffect(() => {
     getUserAll()
@@ -43,24 +33,14 @@ export const StoreContextProvider = ({ children }) => {
   }, [])
 
   return <StoreContext.Provider value={{
-
-
     dataUser,
     setDataUser,
-
-
     scheduleDr,
     setScheduleDr,
-
     doctor,
     setDoctor,
-
-
     postPoneEdit,
     setPostPoneEdit,
-
-    postPoneAll,
-    setPostPoneAll,
     postPoneById,
     setPostPoneById,
 

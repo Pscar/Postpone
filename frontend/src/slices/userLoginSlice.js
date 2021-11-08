@@ -8,7 +8,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState: {
     users: initialUser,
-    dataUsers: []
+    dataUserAll: []
   },
   reducers: {
     loginSuccess: (state, action) => {
@@ -22,7 +22,7 @@ const userSlice = createSlice({
   },
   extraReducers: {
     [getUserAll.fulfilled]: (state, action) => {
-      return state.dataUsers = [...action.payload];
+      return state.dataUserAll = action.payload;
     },
   },
 });
