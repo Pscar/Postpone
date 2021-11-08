@@ -37,11 +37,9 @@ export default function UserThankYou() {
               <Typography variant="h5" className={classes.item}>
                 <b>บันทึกข้อมูลการเลื่อนนัดเรียบร้อย</b>
               </Typography>
-              {postpones && postpones.map((item) => (
-                <Typography variant="h5">
-                  ระบบจะตอบกลับคุณ {postPoneEdit ? postPoneEdit.meta.arg.firstname : item.firstname} ภายใน 1 วันทำการ
-                </Typography>
-              ))}
+              <Typography variant="h5">
+                ระบบจะตอบกลับคุณ {postPoneEdit ? postPoneEdit.meta.arg.firstname : postpones.firstname} ภายใน 1 วันทำการ
+              </Typography>
             </Grid>
           </Grid>
         </Paper>

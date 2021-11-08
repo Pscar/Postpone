@@ -17,7 +17,7 @@ export const getPostPoneNow = createAsyncThunk(
   async () => (await axios.get(`${baseURL}/postpone/now`)).data.data
 );
 export const getPostPoneAll = createAsyncThunk(
-  "postpones/getPostponeNow",
+  "postpones/getPostponeAll",
   async () => (await axios.get(`${baseURL}/postpone/get`)).data.data
 );
 export const getUserAll = createAsyncThunk(

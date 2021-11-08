@@ -10,7 +10,7 @@ import { makeStyles, lighten } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { deletePostPonesById } from '../../services/postpone-serveice';
-import DialogDelete from '../Dialog/dialogDelete';
+import DialogDelete from '../Dialog/DialogDelete';
 
 export default function TableToolBar(props) {
 
