@@ -22,7 +22,7 @@ const userSlice = createSlice({
   },
   extraReducers: {
     [getUserAll.fulfilled]: (state, action) => {
-      return state.dataUserAll = action.payload;
+      return action.payload;
     },
   },
 });

@@ -1,28 +1,29 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { useParams, useHistory } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useHistory } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
 
 //component
 import DialogChangeDate from '../../components/Dialog/DialogChangeDate';
 import FieldFormChangeDate from '../../components/Admin/fieldFormChangeDate';
 
-import { StoreContext } from '../../Context/Store';
-import { getPostPonesById, updatePostPoneById } from '../../services/postpone-serveice';
+import { getPostPonesById } from '../../services/postpone-serveice';
+import { useSelector, useDispatch } from 'react-redux'
+import { updatePostPoneById } from '../../services/redux-service';
 
+export default function FormChangeDate(props) {
 
-export default function FormChangeDate() {
-
-  let { id } = useParams();
   let history = useHistory();
 
   const [open, setOpen] = useState(false);
   const [postPoneById, setPostPoneById] = useState()
-  const { postPoneAll, setPostPoneEdit } = useContext(StoreContext);
+
+  const dispatch = useDispatch();
+  const postpones = useSelector(state => state.postpones);
 
   const dataPostPone = () => {
-    const rows = postPoneAll.map((data) => {
+    const rows = postpones.length > 0 && postpones.map((data) => {
       const historys = {
-        id: data.postpone_id,
+        postpone_id: data.postpone_id,
         user_id: data.user_id,
         hn: data.hn,
         firstname: data.firstname,
@@ -67,18 +68,9 @@ export default function FormChangeDate() {
   }
 
   useEffect(() => {
-    getDataPostPone(id)
-  }, [id])
+    getDataPostPone(props.match.params.id)
+  }, [props.match.params.id])
 
-  const updatePostPonesById = (id, data) => {
-    updatePostPoneById(id, data)
-      .then(res => {
-        setPostPoneEdit(data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }
   // const postPoneSendEmail = (data) => {
   //   let templateParams = {
   //     name: data.firstName,
@@ -100,8 +92,23 @@ export default function FormChangeDate() {
   // }
 
   const handleNext = async (data) => {
-  console.log("🚀 ~ file: formChangeDate.js ~ line 103 ~ handleNext ~ data", data)
-    await updatePostPonesById(id, data)
+    const updateItem = {
+      postpone_id: postPoneById.postpone_id,
+      Doc_id: postPoneById.Doc_id,
+      appointments: postPoneById.appointments,
+      course: postPoneById.course,
+      dateOld: postPoneById.dateOld,
+      email: postPoneById.email,
+      firstname: postPoneById.firstname,
+      hn: postPoneById.hn,
+      lastname: postPoneById.lastname,
+      locations: postPoneById.locations,
+      phone: postPoneById.phone,
+      user_id: postPoneById.user_id,
+      status: data.status,
+      dateNew: data.dateNew,
+    }
+    await dispatch(updatePostPoneById(updateItem))
     // await postPoneSendEmail(data)
   }
   const handleClickOpen = () => {

@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { StoreContext } from '../../Context/Store';
 import { makeStyles } from '@material-ui/core/styles';
 
 import EditIcon from '@material-ui/icons/Edit';
@@ -23,15 +22,13 @@ import TableHeads from '../../components/Admin/tableHeads';
 import TableToolBar from '../../components/Admin/tableToolBar';
 import { useDispatch, useSelector } from "react-redux";
 import { getPostPoneAll } from '../../services/redux-service';
+
 export default function AdminPage() {
 
   const classes = useStyles();
-  const { postPoneAll } = useContext(StoreContext);
-  const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('postpone_id');
+  const [order] = useState('asc');
+  const [orderBy] = useState('postpone_id');
   const [selected, setSelected] = useState([]);
-
-
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -61,6 +58,7 @@ export default function AdminPage() {
         dateOld: data.dateOld,
         dateNew: data.dateNew,
         course: data.course,
+        email: data.email,
         phone: data.phone
       }
       return historys
@@ -69,6 +67,18 @@ export default function AdminPage() {
   }
 
   const data = dataPostPone();
+
+
+
+  const stableSort = (array, comparator) => {
+    const stabilizedThis = Object.entries(array).map((el) => [...el]);
+    stabilizedThis.sort((a, b) => {
+      const order = comparator(a[0], b[0]);
+      if (order !== 0) return order;
+      return a[1] - b[1];
+    });
+    return stabilizedThis.map((el) => el);
+  }
 
   const descendingComparator = (a, b, orderBy) => {
     if (b[orderBy] < a[orderBy]) {
@@ -79,29 +89,11 @@ export default function AdminPage() {
     }
     return 0;
   }
-
   const getComparator = (order, orderBy) => {
     return order === 'desc'
       ? (a, b) => descendingComparator(a, b, orderBy)
       : (a, b) => -descendingComparator(a, b, orderBy);
   }
-
-  const stableSort = (array, comparator) => {
-    const stabilizedThis = Object.entries(array).map((el, index) => [el, index]);
-    stabilizedThis.sort((a, b) => {
-      const order = comparator(a[0], b[0]);
-      if (order !== 0) return order;
-      return a[1] - b[1];
-    });
-    return stabilizedThis.map((el) => el[0]);
-  }
-
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-  };
-
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
       const newSelecteds = data.map((n) => n.id);
@@ -163,23 +155,22 @@ export default function AdminPage() {
                 order={order}
                 orderBy={orderBy}
                 onSelectAllClick={handleSelectAllClick}
-                onRequestSort={handleRequestSort}
                 rowCount={data.length}
               />
               <TableBody>
                 {stableSort(data, getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row, index) => {
-                    const isItemSelected = isSelected(row.id);
-                    const labelId = `enhanced-table-checkbox-${index}`;
+                  .map((row) => {
+                    const isItemSelected = isSelected(row[1].id);
+                    const labelId = `enhanced-table-checkbox-${row[1].id}`;
                     return (
                       <TableRow
                         hover
-                        onClick={(event) => handleClick(event, row.id)}
+                        onClick={(event) => handleClick(event, row[1].id)}
                         role="checkbox"
                         aria-checked={isItemSelected}
                         tabIndex={-1}
-                        key={row.id}
+                        key={row[1].id}
                         selected={isItemSelected}
                       >
                         <TableCell padding="checkbox">
@@ -189,25 +180,25 @@ export default function AdminPage() {
                           />
                         </TableCell>
                         <TableCell align="center" component="th" id={labelId} scope="row" padding="none">
-                          {row.id}
+                          {row[1].id}
                         </TableCell>
-                        <TableCell align="center">{row.firstname}-{row.lastname}</TableCell>
-                        <TableCell align="center">{row.course}</TableCell>
-                        <TableCell align="center">{row.phone}</TableCell>
+                        <TableCell align="center">{row[1].firstname}-{row[1].lastname}</TableCell>
+                        <TableCell align="center">{row[1].course}</TableCell>
+                        <TableCell align="center">{row[1].phone}</TableCell>
                         <TableCell align="center">
                           {(() => {
-                            switch (row.status) {
+                            switch (row[1].status) {
                               case 'อยู่ระหว่างดำเนินการ':
                                 return (
-                                  <Typography style={{ color: 'blue' }}>{row.status}</Typography>
+                                  <Typography style={{ color: 'blue' }}>{row[1].status}</Typography>
                                 )
                               case 'ยืนยันแบบฟอร์มการเลื่อนนัด':
                                 return (
-                                  <Typography style={{ color: 'green' }}>{row.status}</Typography>
+                                  <Typography style={{ color: 'green' }}>{row[1].status}</Typography>
                                 )
                               case 'ไม่สามารถเลื่อนนัดได้':
                                 return (
-                                  <Typography style={{ color: 'red' }}>{row.status}</Typography>
+                                  <Typography style={{ color: 'red' }}>{row[1].status}</Typography>
                                 )
                               default:
                                 return null
@@ -218,10 +209,10 @@ export default function AdminPage() {
 
                         <TableCell align="center">
                           {(() => {
-                            switch (row.course) {
+                            switch (row[1].course) {
                               case 'ขอพบแพทย์ท่านเดิม วันเวลาใดก็ได้':
                                 return (
-                                  <Link to={`/change_date/${row.id}`} style={{ textDecoration: 'none', color: 'white' }}>
+                                  <Link to={`/change_date/${row[1].id}`} style={{ textDecoration: 'none', color: 'white' }}>
                                     <Fab color="primary" aria-label="edit" size="small">
                                       <EditIcon />
                                     </Fab>
@@ -230,17 +221,17 @@ export default function AdminPage() {
                                 )
                               case 'เลือกตามวันเวลาเป็นหลัก พบแพทย์ท่านใดก็ได้':
                                 return (
-                                  <Link to={`/change_dr/${row.id}`} style={{ textDecoration: 'none', color: 'white' }}>
+                                  <Link to={`/change_dr/${row[1].id}`} style={{ textDecoration: 'none', color: 'white' }}>
                                     <Fab color="primary" aria-label="edit" size="small">
-                                      <EditIcon id={row.id} />
+                                      <EditIcon id={row[1].id} />
                                     </Fab>
                                   </Link>
                                 )
                               case 'ขอรับการรักษาตามวันนัดหมายเดิม และ พบแพทย์ท่านเดิม':
                                 return (
-                                  <Link to={`/original/${row.id}`} style={{ textDecoration: 'none', color: 'white' }}>
+                                  <Link to={`/original/${row[1].id}`} style={{ textDecoration: 'none', color: 'white' }}>
                                     <Fab color="primary" aria-label="edit" size="small">
-                                      <EditIcon id={row.id} />
+                                      <EditIcon id={row[1].id} />
                                     </Fab>
                                   </Link>
                                 )
@@ -282,33 +273,11 @@ const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 750,
   },
-  visuallyHidden: {
-    border: 0,
-    clip: 'rect(0 0 0 0)',
-    height: 1,
-    margin: -1,
-    overflow: 'hidden',
-    padding: 0,
-    position: 'absolute',
-    top: 20,
-    width: 1,
-  },
-  appBar: {
-    position: 'relative',
-  },
-  title: {
-    marginLeft: theme.spacing(2),
-    flex: 1,
-  },
 }));
 
 TableHeads.propTypes = {
-  classes: PropTypes.object.isRequired,
   numSelected: PropTypes.number.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
   onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
-  orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
 };
 

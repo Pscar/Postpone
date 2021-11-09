@@ -175,88 +175,29 @@ exports.EditPostPoneByID = async (req, res) => {
   } = req.body;
 
   try {
-    if (appointments) {
-      const getUserExist = await UserService.getByEmail(email);
-      const getDoctorByName = await DoctorService.getByName(appointments)
-      if (getUserExist) {
-        const editPostPoneByID = await PostPoneService.editByID(postpone_id, {
-          postpone_id: postpone_id,
-          user_id: user_id,
-          hn: hn,
-          firstname: firstname,
-          lastname: lastname,
-          locations: locations,
-          appointments: appointments,
-          dateOld: dateOld,
-          dateNew: dateNew,
-          course: course,
-          phone: phone,
-          email: getUserExist.email,
-          password: getUserExist.password,
-          Doc_id: getDoctorByName.Doc_id,
-          status: status
-        });
+    const editPostPoneByID = await PostPoneService.editByID(postpone_id, {
+      postpone_id: postpone_id,
+      user_id: user_id,
+      hn: hn,
+      firstname: firstname,
+      lastname: lastname,
+      locations: locations,
+      appointments: appointments,
+      dateOld: dateOld,
+      dateNew: dateNew,
+      course: course,
+      email: email,
+      password: password,
+      phone: phone,
+      Doc_id: Doc_id,
+      status: status
+    });
 
-        return res.status(200).send({
-          status: "success",
-          data: editPostPoneByID
-        });
-      } else {
-        const createNewUser = await UserService.create({
-          email: email,
-          password: password,
-        });
 
-        const editPostPoneByID = await PostPoneService.editByID(postpone_id, {
-          postpone_id: postpone_id,
-          user_id: user_id,
-          hn: hn,
-          firstname: firstname,
-          lastname: lastname,
-          locations: locations,
-          appointments: appointments,
-          dateOld: dateOld,
-          dateNew: dateNew,
-          course: course,
-          phone: phone,
-          Doc_id: Doc_id,
-          email: createNewUser.email,
-          password: createNewUser.password,
-          status: status
-        });
-        return res.status(200).send({
-          status: "success",
-          data: editPostPoneByID
-        });
-      }
-    } else {
-      const createNewUser = await UserService.create({
-        email: email,
-        password: password,
-      });
-
-      const editPostPoneByID = await PostPoneService.editByID(postpone_id, {
-        postpone_id: postpone_id,
-        user_id: user_id,
-        hn: hn,
-        firstname: firstname,
-        lastname: lastname,
-        locations: locations,
-        appointments: appointments,
-        dateOld: dateOld,
-        dateNew: dateNew,
-        course: course,
-        phone: phone,
-        Doc_id: Doc_id,
-        email: createNewUser.email,
-        password: createNewUser.password,
-        status: status
-      });
-      return res.status(200).send({
-        status: "success",
-        data: editPostPoneByID
-      });
-    }
+    return res.status(200).send({
+      status: "success",
+      data: editPostPoneByID
+    });
   } catch (err) {
     console.log("==== ERROR =====", err);
     return res.status(500).send({

@@ -45,11 +45,12 @@ exports.getAll = async () => {
 
 exports.editByID = async (postpone_id, data) => {
   try {
-    return await Postpone.update(data, {
+    await Postpone.update(data, {
       where: {
         postpone_id: postpone_id,
       },
     });
+    return data
   } catch (err) {
     throw err;
   }

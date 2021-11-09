@@ -46,11 +46,12 @@ exports.getByEmail = async (email) => {
 
 exports.editByID = async (user_id, data) => {
   try {
-    return await User.update(data, {
+    await User.update(data, {
       where: {
         user_id: user_id,
       },
     });
+    return data
   } catch (err) {
     throw err;
   }
@@ -58,11 +59,13 @@ exports.editByID = async (user_id, data) => {
 
 exports.editByEmail = async (email, data) => {
   try {
-    return await User.update(data, {
+    await User.update(data, {
       where: {
         email: email,
       },
     });
+    return data
+
   } catch (err) {
     throw err;
   }

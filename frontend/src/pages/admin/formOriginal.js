@@ -9,6 +9,7 @@ import DialogChangeOrinal from '../../components/Dialog/dialogChangeOriginal';
 
 import { getPostPonesById, updatePostPoneById } from '../../services/postpone-serveice';
 import { StoreContext } from '../../Context/Store';
+import { useSelector } from 'react-redux'
 
 // import emailjs from 'emailjs-com';
 // import moment from 'moment';
@@ -19,10 +20,11 @@ export default function FormOriginal() {
 
   const [open, setOpen] = useState(false);
   const [postPoneById, setPostPoneById] = useState()
-  const { postPoneAll, setPostPoneEdit } = useContext(StoreContext);
+  const { setPostPoneEdit } = useContext(StoreContext);
+  const postpones = useSelector(state => state.postpones);
 
   const dataPostPone = () => {
-    const rows = postPoneAll.map((data) => {
+    const rows = postpones.length > 0 && postpones.map((data) => {
       const historys = {
         id: data.postpone_id,
         user_id: data.user_id,
@@ -104,7 +106,7 @@ export default function FormOriginal() {
   // }
 
   const handleNext = async (data) => {
-  console.log("🚀 ~ file: formOriginal.js ~ line 107 ~ handleNext ~ data", data)
+    console.log("🚀 ~ file: formOriginal.js ~ line 107 ~ handleNext ~ data", data)
     await updatePostPonesById(id, data)
     // await postPoneSendEmail(data)
   }

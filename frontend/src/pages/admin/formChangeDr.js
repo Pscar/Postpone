@@ -12,6 +12,7 @@ import FieldFormChangeDr from '../../components/Admin/fieldFormChangeDr';
 //service
 import { getPostPonesById, updatePostPoneById } from '../../services/postpone-serveice';
 import { StoreContext } from '../../Context/Store';
+import { useSelector } from 'react-redux'
 
 export default function FormChangeDr() {
   let { id } = useParams();
@@ -19,10 +20,12 @@ export default function FormChangeDr() {
 
   const [open, setOpen] = useState(false);
   const [postPoneById, setPostPoneById] = useState()
-  const { postPoneAll, setPostPoneEdit } = useContext(StoreContext);
+  const { setPostPoneEdit } = useContext(StoreContext);
+
+  const postpones = useSelector(state => state.postpones);
 
   const dataPostPone = () => {
-    const rows = postPoneAll.map((data) => {
+    const rows = postpones.length > 0 && postpones.map((data) => {
       const historys = {
         id: data.postpone_id,
         user_id: data.user_id,
@@ -32,7 +35,6 @@ export default function FormChangeDr() {
         status: data.status,
         locations: data.locations,
         appointments: data.appointments,
-        appointmentsNew: data.appointmentsNew,
         dateOld: data.dateOld,
         dateNew: data.dateNew,
         course: data.course,
@@ -107,7 +109,7 @@ export default function FormChangeDr() {
     // await postPoneSendEmail(data)
   }
   const handleSubmitChangDr = async () => {
-     await window.location.reload(true);
+    await window.location.reload(true);
 
   }
   const handleClickOpen = () => {
