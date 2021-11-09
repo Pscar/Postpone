@@ -1,26 +1,26 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm, FormProvider } from "react-hook-form";
-import { useParams, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 //component
 import FieldFormOriginal from '../../components/Admin/fieldFormOriginal';
 import DialogChangeOrinal from '../../components/Dialog/dialogChangeOriginal';
 
 
-import { getPostPonesById, updatePostPoneById } from '../../services/postpone-serveice';
-import { StoreContext } from '../../Context/Store';
-import { useSelector } from 'react-redux'
+import { getPostPonesById } from '../../services/postpone-serveice';
+import { useSelector, useDispatch } from 'react-redux'
+import { updatePostPoneById } from '../../services/redux-service';
 
 // import emailjs from 'emailjs-com';
 // import moment from 'moment';
 
-export default function FormOriginal() {
-  let { id } = useParams();
+export default function FormOriginal(props) {
   let history = useHistory();
 
   const [open, setOpen] = useState(false);
   const [postPoneById, setPostPoneById] = useState()
-  const { setPostPoneEdit } = useContext(StoreContext);
+  
+  const dispatch = useDispatch();
   const postpones = useSelector(state => state.postpones);
 
   const dataPostPone = () => {
@@ -71,19 +71,9 @@ export default function FormOriginal() {
   }
 
   useEffect(() => {
-    getDataPostPone(id)
-  }, [id])
+    getDataPostPone(props.match.params.id)
+  }, [props.match.params.id])
 
-
-  const updatePostPonesById = (id, data) => {
-    updatePostPoneById(id, data)
-      .then(res => {
-        setPostPoneEdit(data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }
 
   // const postPoneSendEmail = () => {
   //   let templateParams = {
@@ -106,8 +96,24 @@ export default function FormOriginal() {
   // }
 
   const handleNext = async (data) => {
-    console.log("🚀 ~ file: formOriginal.js ~ line 107 ~ handleNext ~ data", data)
-    await updatePostPonesById(id, data)
+    const updateItem = {
+      postpone_id: postPoneById.postpone_id,
+      Doc_id: postPoneById.Doc_id,
+      course: postPoneById.course,
+      dateOld: postPoneById.dateOld,
+      email: postPoneById.email,
+      firstname: postPoneById.firstname,
+      hn: postPoneById.hn,
+      lastname: postPoneById.lastname,
+      locations: postPoneById.locations,
+      phone: postPoneById.phone,
+      user_id: postPoneById.user_id,
+      dateNew: postPoneById.dateNew,
+      appointments: postPoneById.appointments,
+      status: data.status,
+    }
+
+    await dispatch(updatePostPoneById(updateItem))
     // await postPoneSendEmail(data)
   }
 

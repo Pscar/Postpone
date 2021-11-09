@@ -20,12 +20,9 @@ import {
 import MomentUtils from '@date-io/moment';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import moment from 'moment';
-import { StoreContext } from '../../Context/Store';
+
 export default function UserFieldFormRegister() {
   const password = React.useRef({});
-  const { postPoneEdit } = React.useContext(StoreContext)
-
-
   const classes = useStyles();
   const { register, control, formState: { errors }, watch } = useFormContext();
   password.current = watch("password", "");

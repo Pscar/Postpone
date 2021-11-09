@@ -8,7 +8,6 @@ const userSlice = createSlice({
   name: 'user',
   initialState: {
     users: initialUser,
-    dataUserAll: []
   },
   reducers: {
     loginSuccess: (state, action) => {

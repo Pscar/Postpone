@@ -13,25 +13,25 @@ export const createSchedule = async (data) => {
 
 //service frontend update
 
-export const updatePostPoneById = async (postpone_id, postpones) => {
-  const response = await http.post('/postpone/editbyid', {
-    postpone_id: postpone_id,
-    hn: postpones.hn,
-    firstname: postpones.firstname,
-    lastname: postpones.lastname,
-    locations: postpones.locations,
-    appointments: postpones.appointments,
-    dateOld: postpones.dateOld,
-    dateNew: postpones.dateNew,
-    course: postpones.course,
-    email: postpones.email,
-    phone: postpones.phone,
-    password: postpones.password,
-    confirmPassword: postpones.confirmPassword,
-    status: postpones.status
-  })
-  return response
-}
+// export const updatePostPoneById = async (postpone_id, postpones) => {
+//   const response = await http.post('/postpone/editbyid', {
+//     postpone_id: postpone_id,
+//     hn: postpones.hn,
+//     firstname: postpones.firstname,
+//     lastname: postpones.lastname,
+//     locations: postpones.locations,
+//     appointments: postpones.appointments,
+//     dateOld: postpones.dateOld,
+//     dateNew: postpones.dateNew,
+//     course: postpones.course,
+//     email: postpones.email,
+//     phone: postpones.phone,
+//     password: postpones.password,
+//     confirmPassword: postpones.confirmPassword,
+//     status: postpones.status
+//   })
+//   return response
+// }
 export const updateScheduleById = async (Id, data) => {
   const response = await http.post('/schedule/editbyid', {
     Id: Id,

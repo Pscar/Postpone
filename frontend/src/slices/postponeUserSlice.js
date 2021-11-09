@@ -7,7 +7,6 @@ export const postPoneSlice = createSlice({
   initialState: {
     postpones: [],
     postponesEdit: [],
-    postponesEditForm: [],
     loading: false,
     error: null,
   },
@@ -16,7 +15,6 @@ export const postPoneSlice = createSlice({
       state.postpones.shift(action.payload);
     },
     [updatePostPoneById.fulfilled]: (state, action) => {
-    console.log("🚀 ~ file: postponeUserSlice.js ~ line 19 ~ state", action)
       state.postponesEdit.push(action.payload);
     },
     [getPostPoneNow.fulfilled]: (state, action) => {

@@ -106,7 +106,7 @@ export default function FormChangeDate(props) {
       phone: postPoneById.phone,
       user_id: postPoneById.user_id,
       status: data.status,
-      dateNew: data.dateNew,
+      dateNew: postPoneById ? postPoneById.dateNew : data.dateNew,
     }
     await dispatch(updatePostPoneById(updateItem))
     // await postPoneSendEmail(data)
