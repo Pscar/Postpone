@@ -9,30 +9,33 @@ import {
 import { makeStyles, lighten } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { deletePostPonesById } from '../../services/postpone-serveice';
+// import { deletePostPonesById } from '../../services/postpone-serveice';
 import DialogDelete from '../Dialog/DialogDelete';
-
+import { useDispatch } from "react-redux";
+import { deletePostPoneById } from '../../services/redux-service';
 export default function TableToolBar(props) {
 
   const classes = useToolbarStyles();
   const { numSelected, selected } = props;
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
 
 
   const handleDeleteClick = () => {
     setOpen(true);
   }
 
-  const DeletePostPone = () => {
-    deletePostPonesById(selected)
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+  const DeletePostPone = async () => {
+    await dispatch(deletePostPoneById(selected))
+    // deletePostPonesById(selected)
+    //   .then(response => {
+    //     console.log(response.data);
+    //   })
+    //   .catch(e => {
+    //     console.log(e);
+    //   });
   }
-  
+
   const handleSubmit = async () => {
     await DeletePostPone();
     await setOpen(false);
