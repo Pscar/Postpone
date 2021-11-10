@@ -169,35 +169,88 @@ exports.EditPostPoneByID = async (req, res) => {
     dateNew,
     course,
     phone,
-    Doc_id,
     status
 
   } = req.body;
 
+  const getDoctorByName = await DoctorService.getByName(appointments);
+  const getUserExist = await UserService.getByEmail(email);
   try {
-    const editPostPoneByID = await PostPoneService.editByID(postpone_id, {
-      postpone_id: postpone_id,
-      user_id: user_id,
-      hn: hn,
-      firstname: firstname,
-      lastname: lastname,
-      locations: locations,
-      appointments: appointments,
-      dateOld: dateOld,
-      dateNew: dateNew,
-      course: course,
-      email: email,
-      password: password,
-      phone: phone,
-      Doc_id: Doc_id,
-      status: status
-    });
+    if (getUserExist) {
+      // เมื่อ user ต้องการแก้ไข อีเมล พาสเวิร์ด ในกรณีที่เคยสมัครไว้แล้ว
+      const editPostPoneByID = await PostPoneService.editByID(postpone_id, {
+        postpone_id: postpone_id,
+        user_id: getUserExist.user_id,
+        hn: hn,
+        firstname: firstname,
+        lastname: lastname,
+        locations: locations,
+        appointments: appointments,
+        dateOld: dateOld,
+        dateNew: dateNew,
+        course: course,
+        email: getUserExist.email,
+        password: getUserExist.password,
+        phone: phone,
+        Doc_id: getDoctorByName.Doc_id,
+        status: status
+      });
+      return res.status(200).send({
+        status: "success",
+        data: editPostPoneByID
+      });
+    } else if (!getUserExist) {
+      //เมื่อ user ต้องการแก้ไข อีเมล พาสเวิร์ด แต่ไม่เคยลงทะเบียนไว้เลย
+      const createNewUser = await UserService.create({
+        email: email,
+        password: password,
+      });
+      const editPostPoneByID = await PostPoneService.editByID(postpone_id, {
+        postpone_id: postpone_id,
+        user_id: createNewUser.user_id,
+        hn: hn,
+        firstname: firstname,
+        lastname: lastname,
+        locations: locations,
+        appointments: appointments,
+        dateOld: dateOld,
+        dateNew: dateNew,
+        course: course,
+        email: createNewUser.email,
+        password: createNewUser.password,
+        phone: phone,
+        Doc_id: getDoctorByName.Doc_id,
+        status: status
+      });
+      return res.status(200).send({
+        status: "success",
+        data: editPostPoneByID
+      });
+    } else {
+      //เมื่อ user ต้องการแก้ไขข้อมูลปกติ
+      const editPostPoneByID = await PostPoneService.editByID(postpone_id, {
+        postpone_id: postpone_id,
+        user_id: user_id,
+        hn: hn,
+        firstname: firstname,
+        lastname: lastname,
+        locations: locations,
+        appointments: appointments,
+        dateOld: dateOld,
+        dateNew: dateNew,
+        course: course,
+        email: email,
+        password: password,
+        phone: phone,
+        Doc_id: getDoctorByName.Doc_id,
+        status: status
+      });
 
-
-    return res.status(200).send({
-      status: "success",
-      data: editPostPoneByID
-    });
+      return res.status(200).send({
+        status: "success",
+        data: editPostPoneByID
+      });
+    }
   } catch (err) {
     console.log("==== ERROR =====", err);
     return res.status(500).send({

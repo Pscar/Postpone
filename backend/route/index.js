@@ -19,7 +19,7 @@ router.get("/user/getbyid", UserController.GetUserByID);
 // //!API 104 - Get User By email
 router.get("/user/getbyemail", UserController.GetUserByEmail);
 // //!API 105 - Edit User By ID
-router.post("/user/editbyid", UserController.EditUserByID);
+router.put("/user/editbyid", UserController.EditUserByID);
 // //!API 106 - Edit User By Email
 router.post("/user/editbyemail", UserController.EditUserByEmail);
 // //!API 107 - Delete User By ID
@@ -37,7 +37,7 @@ router.get("/postpone/now", PostPoneController.GetPostPoneNow);
 //!API 203 - Get Postpone By ID
 router.get("/postpone/getbyid", PostPoneController.GetPostPoneByID);
 // !API 204 - Edit Postpone By ID
-router.post("/postpone/editbyid", PostPoneController.EditPostPoneByID);
+router.put("/postpone/editbyid", PostPoneController.EditPostPoneByID);
 // !API 205 - Delete Postpone By ID
 router.delete("/postpone/deletebyid", PostPoneController.DeletePostPoneID)
 

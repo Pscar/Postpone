@@ -10,7 +10,7 @@ export const createPostPone = createAsyncThunk(
 );
 export const updatePostPoneById = createAsyncThunk(
   "postpones/updatePostPoneById",
-  async (postpone_id, postpones) => (await axios.post(`${baseURL}/postpone/editbyid`, postpone_id, postpones)).data.data
+  async (postpone_id, postpones) => (await axios.put(`${baseURL}/postpone/editbyid`, postpone_id, postpones)).data.data
 );
 export const deletePostPoneById = createAsyncThunk(
   "postpones/deletePostPoneById",

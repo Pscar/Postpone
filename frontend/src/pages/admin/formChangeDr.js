@@ -106,9 +106,9 @@ export default function FormChangeDr(props) {
       locations: postPoneById.locations,
       phone: postPoneById.phone,
       user_id: postPoneById.user_id,
-      dateNew: data.dateNew,
+      dateNew: postPoneById.dateNew,
       status: data.status,
-      appointments: postPoneById ? postPoneById.appointments : data.appointments,
+      appointments: data.appointments,
     }
     await dispatch(updatePostPoneById(updateItem))
     // await postPoneSendEmail(data)

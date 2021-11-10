@@ -9,7 +9,6 @@ import {
 import { makeStyles, lighten } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import DeleteIcon from '@material-ui/icons/Delete';
-// import { deletePostPonesById } from '../../services/postpone-serveice';
 import DialogDelete from '../Dialog/DialogDelete';
 import { useDispatch } from "react-redux";
 import { deletePostPoneById } from '../../services/redux-service';
@@ -27,13 +26,6 @@ export default function TableToolBar(props) {
 
   const DeletePostPone = async () => {
     await dispatch(deletePostPoneById(selected))
-    // deletePostPonesById(selected)
-    //   .then(response => {
-    //     console.log(response.data);
-    //   })
-    //   .catch(e => {
-    //     console.log(e);
-    //   });
   }
 
   const handleSubmit = async () => {

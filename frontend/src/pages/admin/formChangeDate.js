@@ -31,7 +31,6 @@ export default function FormChangeDate(props) {
         status: data.status,
         locations: data.locations,
         appointments: data.appointments,
-        appointmentsNew: data.appointmentsNew,
         dateOld: data.dateOld,
         dateNew: data.dateNew,
         course: data.course,
@@ -106,7 +105,7 @@ export default function FormChangeDate(props) {
       phone: postPoneById.phone,
       user_id: postPoneById.user_id,
       status: data.status,
-      dateNew: postPoneById ? postPoneById.dateNew : data.dateNew,
+      dateNew: data.dateNew,
     }
     await dispatch(updatePostPoneById(updateItem))
     // await postPoneSendEmail(data)
