@@ -21,7 +21,7 @@ import { StoreContext } from '../../Context/Store';
 import DoctortTableRow from './doctortTableRow';
 
 
-export default function TimelineDr(props) {
+export default function DoctorTableHeadDr(props) {
   const classes = useStyles();
   const { scheduleDr, doctor } = useContext(StoreContext);
   const { handleNext } = props;

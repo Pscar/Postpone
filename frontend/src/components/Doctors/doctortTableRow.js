@@ -29,7 +29,7 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import DoctorSelectModel from './doctorSelectModel';
 import moment from 'moment';
 
-export default function TimelineRow(props) {
+export default function DoctortTableRow(props) {
   const { row, searched, scheduleDr, handleNext } = props;
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
