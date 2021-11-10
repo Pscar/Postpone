@@ -16,7 +16,7 @@ import {
   DialogContentText
 } from '@material-ui/core';
 
-export default function ContentModel(props) {
+export default function DoctorSelectModel(props) {
   const classes = useStyles();
   const { register, formState: { errors }, } = useFormContext();
 

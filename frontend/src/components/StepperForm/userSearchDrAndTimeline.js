@@ -9,12 +9,14 @@ import {
 
 import UserCondition from './userCondition';
 import DoctorTableHeadDr from '../Doctors/doctorTableHeadDr';
+import { useSelector } from 'react-redux';
 
 export default function UserSearchDrAndTimeline(props) {
   const classes = useStyles();
 
   const { handleNext } = props
-
+  const { doctors } = useSelector((state) => state.doctors);
+  console.log("🚀 ~ file: doctorTableHeadDr.js ~ line 35 ~ TimelineDr ~ doctors", doctors)
 
   const conditionPostPone = [
     {

@@ -20,26 +20,49 @@ import { DateRangePickerComponent } from '@syncfusion/ej2-react-calendars';
 import { StoreContext } from '../../Context/Store';
 import DoctortTableRow from './doctortTableRow';
 
-
-export default function TimelineDr(props) {
+import { useSelector, useDispatch } from 'react-redux';
+import { getDoctorAll, getScheduleAll } from '../../services/redux-service';
+export default function DoctorTableHeadDr(props) {
   const classes = useStyles();
-  const { scheduleDr, doctor } = useContext(StoreContext);
+  // const { scheduleDr, doctor } = useContext(StoreContext);
   const { handleNext } = props;
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searched, setSearched] = useState("");
   const [displayDoctor, setDisplayDoctor] = useState([]);
-  const [displayScheduleDr, setDisplayScheduleDr] = useState([]);
+  console.log("🚀 ~ file: doctorTableHeadDr.js ~ line 34 ~ DoctorTableHeadDr ~ displayDoctor", displayDoctor)
+  // const [displayScheduleDr, setDisplayScheduleDr] = useState([]);
 
+  const doctors = useSelector((state) => state.doctors);
+  const schedules = useSelector((state) => state.schedules)
+  const dispatch = useDispatch();
+
+
+  const getSchedulesAll = React.useCallback(() => {
+    dispatch(getScheduleAll());
+  }, [dispatch])
+
+  React.useEffect(() => {
+    getSchedulesAll()
+  }, [getSchedulesAll])
+
+
+  const getDoctorsAll = React.useCallback(() => {
+    dispatch(getDoctorAll());
+  }, [dispatch])
+
+  React.useEffect(() => {
+    getDoctorsAll()
+  }, [getDoctorsAll])
 
   const dataSchedule = () => {
-    const rows = displayDoctor.map((data) => {
+    const rows = doctors.length > 0 && doctors.map((data) => {
       const historys = {
         Doc_id: data.Doc_id,
         name: data.name,
         schedule:
-          displayScheduleDr.filter(function (item) {
+          schedules.length > 0 && schedules.filter(function (item) {
             return item.Doc_id === data.Doc_id;
           }).map(function (item) {
             return {
@@ -62,14 +85,14 @@ export default function TimelineDr(props) {
 
   const requestSearch = (searchedVal) => {
     if (searchedVal) {
-      const filteredRows = data.filter((row) => {
+      const filteredRows = data.length > 0 && data.filter((row) => {
         const filterName = row.name.toLowerCase().includes(searchedVal.toLowerCase());
         return filterName
       });
       setDisplayDoctor(filteredRows);
     } else {
       //ถ้าไม่มีค่า searchedVal จะแสดงค่าใน useContext
-      setDisplayDoctor(doctor);
+      setDisplayDoctor(doctors);
     }
   };
 
@@ -95,7 +118,7 @@ export default function TimelineDr(props) {
       const startDate = moment(e.startDate).format('DD-MM-YYYY');
       const endDate = moment(e.endDate).format('DD-MM-YYYY');
 
-      const filterDateRow = scheduleDr.filter((row) => {
+      const filterDateRow = schedules.length > 0 && schedules.filter((row) => {
         const StartTime = moment(row.StartTime).format('DD-MM-YYYY');
         const EndTime = moment(row.EndTime).format('DD-MM-YYYY');
         const filterdate = StartTime >= startDate && EndTime <= endDate
@@ -104,18 +127,18 @@ export default function TimelineDr(props) {
 
       setDisplayDoctor(filterDateRow);
     } else {
-      setDisplayDoctor(doctor);
+      setDisplayDoctor(doctors);
     }
   };
 
-  //แสดงผลหลังจาก get api 
-  React.useEffect(() => {
-    setDisplayDoctor([...doctor])
-  }, [doctor])
+  // //แสดงผลหลังจาก get api 
+  // React.useEffect(() => {
+  //   setDisplayDoctor([...doctor])
+  // }, [doctor])
 
-  React.useEffect(() => {
-    setDisplayScheduleDr([...scheduleDr])
-  }, [scheduleDr])
+  // React.useEffect(() => {
+  //   setDisplayScheduleDr([...scheduleDr])
+  // }, [scheduleDr])
 
   return (
 
@@ -156,9 +179,9 @@ export default function TimelineDr(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+              {data.length > 0 && data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                 return (
-                  <DoctortTableRow key={row.Doc_id} row={row} searched={searched} scheduleDr={scheduleDr} handleNext={handleNext} />
+                  <DoctortTableRow key={row.Doc_id} row={row} searched={searched} scheduleDr={schedules} handleNext={handleNext} />
                 );
               })}
             </TableBody>

@@ -21,11 +21,20 @@ export const getPostPoneNow = createAsyncThunk(
   "postpones/getPostPoneNow",
   async () => (await axios.get(`${baseURL}/postpone/now`)).data.data
 );
+
 export const getPostPoneAll = createAsyncThunk(
   "postpones/getPostPoneAll",
   async () => (await axios.get(`${baseURL}/postpone/get`)).data.data
 );
+export const getScheduleAll = createAsyncThunk(
+  "schedule/getScheduleAll",
+  async () => (await axios.get(`${baseURL}/schedule/get`)).data.data
+);
+export const getDoctorAll = createAsyncThunk(
+  "doctors/getDoctorAll",
+  async () => (await axios.get(`${baseURL}/doctor/get`)).data.data
+);
 export const getUserAll = createAsyncThunk(
-  "postpones/getUser",
+  "users/getUser",
   async () => (await axios.get(`${baseURL}/user/get`)).data
 );
