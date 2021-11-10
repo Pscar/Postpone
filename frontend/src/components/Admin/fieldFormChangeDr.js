@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useFormContext, Controller } from "react-hook-form";
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,14 +15,26 @@ import {
 } from "@material-ui/core";
 
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { StoreContext } from '../../Context/Store';
-import moment from 'moment';
+import { useSelector, useDispatch } from 'react-redux'
+import { getDoctorAll } from '../../services/redux-service';
 
+import moment from 'moment';
 export default function FieldFormChangeDr(props) {
-  const { doctor } = useContext(StoreContext);
+
   const { data, handleClickOpen } = props
   const classes = useStyles();
   const { register, control, formState: { errors } } = useFormContext();
+
+  const doctors = useSelector(state => state.doctors);
+  const dispatch = useDispatch();
+
+  const getDoctorsAll = React.useCallback(() => {
+    dispatch(getDoctorAll());
+  }, [dispatch])
+
+  React.useEffect(() => {
+    getDoctorsAll()
+  }, [getDoctorsAll])
 
   return (
     <React.Fragment>
@@ -145,7 +157,7 @@ export default function FieldFormChangeDr(props) {
             <Grid item xs={12} md={6}>
               <Autocomplete
                 id="custom-appointments"
-                options={doctor}
+                options={doctors}
                 fullWidth
                 getOptionLabel={(option) => `${option.name}`}
                 renderInput={(params) => {

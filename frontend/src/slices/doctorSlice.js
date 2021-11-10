@@ -12,6 +12,7 @@ export const doctorSlice = createSlice({
     [getDoctorAll.fulfilled]: (state, action) => {
       return action.payload;
     },
+    
   },
 });
 

@@ -35,13 +35,13 @@ export default function AdminPage() {
   const postpones = useSelector(state => state.postpones);
   const dispatch = useDispatch();
 
-  const initFetch = useCallback(() => {
+  const getPostPonesAll = useCallback(() => {
     dispatch(getPostPoneAll());
   }, [dispatch])
 
   useEffect(() => {
-    initFetch()
-  }, [initFetch])
+    getPostPonesAll()
+  }, [getPostPonesAll])
 
   const dataPostPone = () => {
     const rows = postpones.length > 0 && postpones.map((data) => {

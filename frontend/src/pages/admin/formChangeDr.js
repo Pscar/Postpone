@@ -5,7 +5,7 @@ import { useForm, FormProvider } from "react-hook-form";
 // import moment from 'moment';
 
 //component
-import DialogChangeDr from '../../components/Dialog/DialogChangeDr';
+import DialogChangeDr from '../../components/Dialog/dialogChangeDr';
 
 import FieldFormChangeDr from '../../components/Admin/fieldFormChangeDr';
 
@@ -18,6 +18,7 @@ export default function FormChangeDr(props) {
   let history = useHistory();
   const [open, setOpen] = useState(false);
   const [postPoneById, setPostPoneById] = useState()
+  console.log("🚀 ~ file: formChangeDr.js ~ line 21 ~ FormChangeDr ~ postPoneById", postPoneById)
 
   const dispatch = useDispatch();
   const postpones = useSelector(state => state.postpones);

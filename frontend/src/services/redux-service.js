@@ -35,6 +35,6 @@ export const getDoctorAll = createAsyncThunk(
   async () => (await axios.get(`${baseURL}/doctor/get`)).data.data
 );
 export const getUserAll = createAsyncThunk(
-  "users/getUser",
+  "users/getUserAll",
   async () => (await axios.get(`${baseURL}/user/get`)).data
 );

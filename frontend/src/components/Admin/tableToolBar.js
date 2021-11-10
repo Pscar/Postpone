@@ -9,7 +9,7 @@ import {
 import { makeStyles, lighten } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import DeleteIcon from '@material-ui/icons/Delete';
-import DialogDelete from '../Dialog/DialogDelete';
+import DialogDelete from '../Dialog/dialogDelete';
 import { useDispatch } from "react-redux";
 import { deletePostPoneById } from '../../services/redux-service';
 export default function TableToolBar(props) {

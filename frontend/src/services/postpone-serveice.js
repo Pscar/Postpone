@@ -1,5 +1,11 @@
 import http from './http-common';
 
+
+export const getPostPonesById = async (postpone_id) => {
+  const response = await http.get(`/postpone/getbyid?postpone_id=${postpone_id}`)
+  return response
+}
+
 export const createSchedule = async (data) => {
   const response = await http.post('/schedule/create', data);
   return response
@@ -21,23 +27,19 @@ export const deleteScheduleById = async (Id) => {
   const response = await http.delete(`/schedule/deletebyid?Id=${Id}`)
   return response
 }
-export const getPostPonesById = async (postpone_id) => {
-  const response = await http.get(`/postpone/getbyid?postpone_id=${postpone_id}`)
-  return response
-}
-export const getUserAll = async () => {
-  const response = await http.get(`/user/get`)
-  return response
-};
 
-export const getDoctorAll = async () => {
-  const response = await http.get(`/doctor/get`)
-  return response
-}
-export const getScheduleAll = async () => {
-  const response = await http.get(`/schedule/get`)
-  return response
-}
+// export const getUserAll = async () => {
+//   const response = await http.get(`/user/get`)
+//   return response
+// };
+// export const getDoctorAll = async () => {
+//   const response = await http.get(`/doctor/get`)
+//   return response
+// }
+// export const getScheduleAll = async () => {
+//   const response = await http.get(`/schedule/get`)
+//   return response
+// }
 
 
 //service frontend update

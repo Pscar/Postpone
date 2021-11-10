@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,25 +17,25 @@ import {
 
 import moment from 'moment';
 import { DateRangePickerComponent } from '@syncfusion/ej2-react-calendars';
-import { StoreContext } from '../../Context/Store';
+import { useDispatch, useSelector } from "react-redux";
+import { getDoctorAll, getScheduleAll } from '../../services/redux-service';
+
+
 import DoctortTableRow from './doctortTableRow';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { getDoctorAll, getScheduleAll } from '../../services/redux-service';
 export default function DoctorTableHeadDr(props) {
+
   const classes = useStyles();
-  // const { scheduleDr, doctor } = useContext(StoreContext);
   const { handleNext } = props;
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searched, setSearched] = useState("");
   const [displayDoctor, setDisplayDoctor] = useState([]);
-  console.log("🚀 ~ file: doctorTableHeadDr.js ~ line 34 ~ DoctorTableHeadDr ~ displayDoctor", displayDoctor)
-  // const [displayScheduleDr, setDisplayScheduleDr] = useState([]);
+  const [displayScheduleDr, setDisplayScheduleDr] = useState([]);
 
-  const doctors = useSelector((state) => state.doctors);
-  const schedules = useSelector((state) => state.schedules)
+  const doctors = useSelector(state => state.doctors);
+  const schedules = useSelector(state => state.schedules)
   const dispatch = useDispatch();
 
 
@@ -56,13 +56,15 @@ export default function DoctorTableHeadDr(props) {
     getDoctorsAll()
   }, [getDoctorsAll])
 
+
+
   const dataSchedule = () => {
-    const rows = doctors.length > 0 && doctors.map((data) => {
+    const rows = displayDoctor.length > 0 && displayDoctor.map((data) => {
       const historys = {
         Doc_id: data.Doc_id,
         name: data.name,
         schedule:
-          schedules.length > 0 && schedules.filter(function (item) {
+          displayScheduleDr.length > 0 && displayScheduleDr.filter(function (item) {
             return item.Doc_id === data.Doc_id;
           }).map(function (item) {
             return {
@@ -131,14 +133,14 @@ export default function DoctorTableHeadDr(props) {
     }
   };
 
-  // //แสดงผลหลังจาก get api 
-  // React.useEffect(() => {
-  //   setDisplayDoctor([...doctor])
-  // }, [doctor])
+  //แสดงผลหลังจาก get api 
+  React.useEffect(() => {
+    setDisplayDoctor(doctors)
+  }, [doctors])
 
-  // React.useEffect(() => {
-  //   setDisplayScheduleDr([...scheduleDr])
-  // }, [scheduleDr])
+  React.useEffect(() => {
+    setDisplayScheduleDr(schedules)
+  }, [schedules])
 
   return (
 

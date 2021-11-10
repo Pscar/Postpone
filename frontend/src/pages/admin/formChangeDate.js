@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
 
 //component
-import DialogChangeDate from '../../components/Dialog/DialogChangeDate';
+import DialogChangeDate from '../../components/Dialog/dialogChangeDate';
 import FieldFormChangeDate from '../../components/Admin/fieldFormChangeDate';
 
 import { getPostPonesById } from '../../services/postpone-serveice';

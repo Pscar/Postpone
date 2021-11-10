@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -11,22 +11,29 @@ import {
 } from "@material-ui/core";
 import Alert from '@material-ui/lab/Alert';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { StoreContext } from '../Context/Store';
 import { loginSuccess } from '../slices/userLoginSlice';
-import { useDispatch } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserAll } from '../services/redux-service';
 export default function LoginsForm() {
 
   let history = useHistory();
   const classes = useStyles();
-  const dispatch = useDispatch()
-  const { dataUser } = useContext(StoreContext)
 
   const [stateEvent, setStateEvent] = useState({ email: '', password: '' });
   const [isLogin, setIsLogin] = useState(false);
   const [alert, setAlert] = useState(false);
   const [alertContent, setAlertContent] = useState('');
 
+  const users = useSelector((state) => state.users);
+  const dispatch = useDispatch()
+
+  const getUsersAll = React.useCallback(() => {
+    dispatch(getUserAll());
+  }, [dispatch])
+
+  React.useEffect(() => {
+    getUsersAll()
+  }, [getUsersAll])
 
 
   const handleClick = () => {
@@ -42,18 +49,18 @@ export default function LoginsForm() {
 
   const submitUser = (event) => {
     event.preventDefault();
-    for (let i = 0; i < dataUser.data.length; i++) {
-      if (stateEvent.email === dataUser.data[i].email && stateEvent.password === dataUser.data[i].password) {
+    for (let i = 0; i < users.data.length; i++) {
+      if (stateEvent.email === users.data[i].email && stateEvent.password === users.data[i].password) {
         setIsLogin(true)
-        dispatch(loginSuccess(dataUser.data[i]))
+        dispatch(loginSuccess(users.data[i]))
       }
       else if (stateEvent.email === 'admin@admin.com' && stateEvent.password === '147258369') {
         setIsLogin(true)
         history.push("/admin");
-      } else if (stateEvent.email !== dataUser.data[i].email) {
+      } else if (stateEvent.email !== users.data[i].email) {
         setAlert(true)
         setAlertContent("กรุณากรอก email ใหม่")
-      } else if (stateEvent.password !== dataUser.data[i].password) {
+      } else if (stateEvent.password !== users.data[i].password) {
         setAlert(true)
         setAlertContent("กรุณากรอก password ใหม่")
       }

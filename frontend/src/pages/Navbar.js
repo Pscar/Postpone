@@ -9,7 +9,7 @@ import {
   IconButton,
 } from '@material-ui/core';
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import DialogLogout from '../components/Dialog/DialogLogout';
+import DialogLogout from '../components/Dialog/dialogLogout';
 import { logoutSuccess } from '../slices/userLoginSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
