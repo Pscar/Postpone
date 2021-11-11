@@ -60,13 +60,13 @@ export default function DoctorSchedule() {
     if (args.requestType === 'eventCreate') {
       const eventData = args.addedRecords[0];
       createSchedules(eventData)
-      const eventField = rfcScheduleDr.eventFields;
-      const startDate = eventData[eventField.startTime];
-      const endDate = eventData[eventField.endTime];
+      // const eventField = rfcScheduleDr.eventFields;
+      // const startDate = eventData[eventField.startTime];
+      // const endDate = eventData[eventField.endTime];
 
-      if (!rfcScheduleDr.isSlotAvailable(startDate, endDate)) {
-        args.cancel = true;
-      }
+      // if (!rfcScheduleDr.isSlotAvailable(startDate, endDate)) {
+      //   args.cancel = true;
+      // }
     } else if (args.requestType === "eventChange") {
       const Id = args.changedRecords[0].Id
 
@@ -90,6 +90,7 @@ export default function DoctorSchedule() {
   useEffect(() => {
     if (saveScheduleDr) {
       setScheduleDr([...scheduleDr, saveScheduleDr])
+      console.log(saveScheduleDr)
     }
   }, [saveScheduleDr])
 
