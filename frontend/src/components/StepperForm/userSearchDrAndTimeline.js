@@ -16,7 +16,6 @@ export default function UserSearchDrAndTimeline(props) {
 
   const { handleNext } = props
   const { doctors } = useSelector((state) => state.doctors);
-  console.log("🚀 ~ file: doctorTableHeadDr.js ~ line 35 ~ TimelineDr ~ doctors", doctors)
 
   const conditionPostPone = [
     {

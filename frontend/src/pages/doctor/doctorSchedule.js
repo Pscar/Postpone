@@ -17,42 +17,79 @@ import {
   ResourceDirective,
   ResourcesDirective
 } from '@syncfusion/ej2-react-schedule';
-import { StoreContext } from '../../Context/Store';
-import { createSchedule, updateScheduleById, deleteScheduleById } from '../../services/postpone-serveice';
+import { getDoctorAll, getScheduleAll, createSchedule, updateScheduleById, deleteScheduleById } from '../../services/redux-service';
+import { useDispatch, useSelector } from "react-redux";
 
 export default function DoctorSchedule() {
 
-  const { scheduleDr, setScheduleDr, doctor } = useContext(StoreContext);
+  // const { scheduleDr, setScheduleDr, doctor } = useContext(StoreContext);
   const [saveScheduleDr, setSaveScheduleDr] = useState([]);
   const [rfcScheduleDr, setRfcScheduleDr] = useState();
   const [editScheduleDr, setEditScheduleDr] = useState([]);
 
-  const createSchedules = (data) => {
-    createSchedule(data)
-      .then(res => {
-        setSaveScheduleDr(res.data.data)
-      })
-      .catch(e => {
-        console.log(e);
-      });
+  const [scheduleDr, setScheduleDr] = useState();
+  const [displayDoctor, setDisplayDoctor] = useState([]);
+  const [displayScheduleDr, setDisplayScheduleDr] = useState([]);
+
+  const doctors = useSelector(state => state.doctors);
+  const schedules = useSelector(state => state.schedules)
+  const dispatch = useDispatch();
+
+
+  const getSchedulesAll = React.useCallback(() => {
+    dispatch(getScheduleAll());
+  }, [dispatch])
+
+  React.useEffect(() => {
+    getSchedulesAll()
+  }, [getSchedulesAll])
+
+
+  const getDoctorsAll = React.useCallback(() => {
+    dispatch(getDoctorAll());
+  }, [dispatch])
+
+  React.useEffect(() => {
+    getDoctorsAll()
+  }, [getDoctorsAll])
+
+  // // แสดงผลหลังจาก get api 
+  //   React.useEffect(() => {
+  //     setDisplayDoctor(doctors)
+  //   }, [doctors])
+
+  //   React.useEffect(() => {
+  //     setDisplayScheduleDr(schedules)
+  //   }, [schedules])
+
+  const createSchedules = async (data) => {
+    return await dispatch(createSchedule({
+      Description: data.Description,
+      EndTime: data.EndTime,
+      Location: data.Location,
+      locations: data.locations,
+      StartTime: data.StartTime,
+      Subject: data.Subject,
+      Doc_id: data.Doc_id,
+    }))
   }
-  const updateSchedules = (Id, data) => {
-    updateScheduleById(Id, data)
-      .then(res => {
-        setEditScheduleDr(data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+  const updateSchedules = async (Id, data) => {
+
+    const updateItem = await dispatch(updateScheduleById({
+      Id: Id,
+      Description: data.Description,
+      EndTime: data.EndTime,
+      Location: data.Location,
+      locations: data.locations,
+      StartTime: data.StartTime,
+      Subject: data.Subject,
+      Doc_id: data.Doc_id,
+    }))
+    setEditScheduleDr(updateItem)
+    return updateItem
   }
-  const DeleteSchedule = (Id) => {
-    deleteScheduleById(Id)
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+  const DeleteSchedule = async (Id) => {
+    await dispatch(deleteScheduleById(Id))
   }
 
   const onActionBegin = (args) => {
@@ -89,13 +126,11 @@ export default function DoctorSchedule() {
 
   useEffect(() => {
     if (saveScheduleDr) {
-      setScheduleDr([...scheduleDr, saveScheduleDr])
+      setDisplayScheduleDr([schedules, saveScheduleDr])
     }
   }, [saveScheduleDr])
 
-  // useEffect(() => {
-  //   console.log("🚀 ~ file: Schedule.js ~ line 131 ~ Schedule ~ editScheduleDr", editScheduleDr)
-  // }, [editScheduleDr])
+
 
   return (
     <React.Fragment>
@@ -105,7 +140,7 @@ export default function DoctorSchedule() {
         selectedDate={new Date()}
         ref={schedule => setRfcScheduleDr(schedule)}
         eventSettings={{
-          dataSource: scheduleDr,
+          dataSource: schedules,
           fields: {
             id: 'Id',
             subject: { title: 'Summary', name: 'Subject' },
@@ -139,7 +174,7 @@ export default function DoctorSchedule() {
             title="Doctor"
             name="Doctors"
             allowMultiple={true}
-            dataSource={doctor}
+            dataSource={doctors}
             textField="name"
             idField="Doc_id"
             colorField="DocColor"

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { getDoctorAll } from '../services/redux-service';
 
 export const doctorSlice = createSlice({
-  name: "postpones",
+  name: "doctors",
   initialState: {
     doctors: [],
     loading: false,
