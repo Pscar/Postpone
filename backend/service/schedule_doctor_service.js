@@ -33,11 +33,12 @@ exports.getAll = async () => {
 
 exports.editByID = async (Id, data) => {
   try {
-    return await Schedule.update(data, {
+    await Schedule.update(data, {
       where: {
         Id: Id,
       },
     });
+    return data
   } catch (err) {
     throw err;
   }
