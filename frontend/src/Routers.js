@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route, } from "react-router-dom";
 
 import PrivateRoute from './PrivateRoute';
 import Navbar from './pages/Navbar';
-import loginsForm from './pages/loginsForm';
+import loginsForm from './pages/LoginsForm';
 
 //doctor
 import doctorSchedule from './pages/doctor/doctorSchedule';
