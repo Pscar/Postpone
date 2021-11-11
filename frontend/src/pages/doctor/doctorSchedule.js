@@ -25,7 +25,7 @@ export default function DoctorSchedule() {
   const { scheduleDr, setScheduleDr, doctor } = useContext(StoreContext);
   const [saveScheduleDr, setSaveScheduleDr] = useState([]);
   const [rfcScheduleDr, setRfcScheduleDr] = useState();
-  const [editScheduleDr, setEditScheduleDr] = useState([]);
+  const [setEditScheduleDr] = useState([]);
 
   const createSchedules = (data) => {
     createSchedule(data)
@@ -93,9 +93,6 @@ export default function DoctorSchedule() {
     }
   }, [saveScheduleDr])
 
-  // useEffect(() => {
-  //   console.log("🚀 ~ file: Schedule.js ~ line 131 ~ Schedule ~ editScheduleDr", editScheduleDr)
-  // }, [editScheduleDr])
 
   return (
     <React.Fragment>

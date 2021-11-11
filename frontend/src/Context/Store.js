@@ -10,7 +10,6 @@ export const StoreContextProvider = ({ children }) => {
 
   const [scheduleDr, setScheduleDr] = useState([]);
   const [doctor, setDoctor] = useState([]);
-  const [postPoneById, setPostPoneById] = useState();
 
 
   React.useEffect(() => {
@@ -41,8 +40,6 @@ export const StoreContextProvider = ({ children }) => {
     setDoctor,
     postPoneEdit,
     setPostPoneEdit,
-    postPoneById,
-    setPostPoneById,
 
   }}>{children}</StoreContext.Provider>
 }
