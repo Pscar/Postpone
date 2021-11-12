@@ -8,6 +8,7 @@ import {
   TableRow,
   TableCell,
   TableBody,
+  TablePagination,
   Button,
   TextField,
   DialogTitle,
@@ -15,12 +16,24 @@ import {
   DialogContent,
   DialogContentText
 } from '@material-ui/core';
-
+import moment from 'moment';
 export default function DoctorSelectModel(props) {
   const classes = useStyles();
   const { register, formState: { errors }, } = useFormContext();
 
   const { row, handleNext } = props
+
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(3);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
 
   return (
     <Container maxwidth="md" className={classes.paper}>
@@ -37,44 +50,55 @@ export default function DoctorSelectModel(props) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {row.schedule.map((historyRow) => (
-                  <TableRow key={historyRow.Id}>
-                    <TableCell align="center">
-                      <TextField
-                        id="appointments"
-                        label="ชื่อ"
-                        variant="outlined"
-                        fullWidth
-                        disabled
-                        {...register("appointments", { value: row.name })}
-                        error={Boolean(errors?.appointments)}
-                        helperText={errors.appointments?.message}
-                      />
-                    </TableCell>
-                    <TableCell align="center">
-                      <TextField
-                        id="dateNew"
-                        label="เวลานัดใหม่ที่คนไข้ต้องการ"
-                        variant="outlined"
-                        fullWidth
-                        disabled
-                        {...register("dateNew", { value: historyRow.StartTime })}
-                        error={Boolean(errors?.dateNew)}
-                        helperText={errors.dateNew?.message}
-                      />
-                    </TableCell>
+                {row.schedule.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((historyRow) => {
+                  return (
+                    <TableRow hover role="checkbox" tabIndex={-1} key={historyRow.Id}>
+                      <TableCell align="center">
+                        <TextField
+                          id="appointments"
+                          label="ชื่อ"
+                          variant="outlined"
+                          fullWidth
+                          disabled
+                          {...register("appointments", { value: row.name })}
+                          error={Boolean(errors?.appointments)}
+                          helperText={errors.appointments?.message}
+                        />
+                      </TableCell>
+                      <TableCell align="center">
+                        <TextField
+                          id="dateNew"
+                          label="เวลานัดใหม่ที่คนไข้ต้องการ"
+                          variant="outlined"
+                          fullWidth
+                          disabled
+                          {...register("dateNew", { value: historyRow.StartTime })}
+                          error={Boolean(errors?.dateNew)}
+                          helperText={errors.dateNew?.message}
+                        />
+                      </TableCell>
 
-                    <TableCell align="center">
-                      <Button variant="contained" color="primary" onClick={() => handleNext({ appointments: row.name, dateNew: historyRow.StartTime })}>เลือกเวลานัด</Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                      <TableCell align="center">
+                        <Button variant="contained" color="primary" onClick={() => handleNext({ appointments: row.name, dateNew: historyRow.StartTime })}>เลือกเวลานัด</Button>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[3, 5]}
+            component="div"
+            count={row.schedule.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
         </DialogContentText>
       </DialogContent>
-    </Container>
+    </Container >
   )
 }
 const useStyles = makeStyles((theme) => ({
@@ -84,6 +108,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
     width: '70%',
     textAlign: 'center',
-    borderRadius: '2rem'
+    borderRadius: '2rem',
+    overflowX: 'auto',
+
   },
 }));

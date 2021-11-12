@@ -29,6 +29,7 @@ export default function UserRegister() {
   const { setPostPoneEdit } = useContext(StoreContext)
 
   const dispatch = useDispatch();
+  const { postpones } = useSelector((state) => state.postpones);
 
   const methods = useForm({
     defaultValues: {
@@ -88,7 +89,6 @@ export default function UserRegister() {
     }));
     return await dispatch(getPostPoneNow())
   }
-  const { postpones } = useSelector((state) => state.postpones);
 
   const updateUserPostPone = async (postpone_id, data) => {
     // send data to redux toolkit

@@ -28,13 +28,13 @@ export default function UserPostPone() {
   const { users } = useSelector(state => state.users);
   const postpones = useSelector(state => state.postpones);
 
-  const initFetch = React.useCallback(() => {
+  const getPostsPoneAll = React.useCallback(() => {
     dispatch(getPostPoneAll());
   }, [dispatch])
 
   React.useEffect(() => {
-    initFetch()
-  }, [initFetch])
+    getPostsPoneAll()
+  }, [getPostsPoneAll])
 
 
   const dataPostPone = () => {

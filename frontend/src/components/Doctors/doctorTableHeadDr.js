@@ -183,7 +183,13 @@ export default function DoctorTableHeadDr(props) {
             <TableBody>
               {data.length > 0 && data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                 return (
-                  <DoctortTableRow key={row.Doc_id} row={row} searched={searched} scheduleDr={schedules} handleNext={handleNext} />
+                  <DoctortTableRow
+                    key={row.Doc_id}
+                    row={row}
+                    searched={searched}
+                    scheduleDr={schedules}
+                    handleNext={handleNext}
+                  />
                 );
               })}
             </TableBody>

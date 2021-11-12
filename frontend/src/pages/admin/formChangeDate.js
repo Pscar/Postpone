@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
 
@@ -16,7 +16,6 @@ export default function FormChangeDate(props) {
 
   const [open, setOpen] = useState(false);
   const [postPoneById, setPostPoneById] = useState()
-
   const dispatch = useDispatch();
   const postpones = useSelector(state => state.postpones);
 
@@ -91,7 +90,7 @@ export default function FormChangeDate(props) {
   // }
 
   const handleNext = async (data) => {
-    const updateItem = {
+    const updateItem = await dispatch(updatePostPoneById({
       postpone_id: postPoneById.postpone_id,
       Doc_id: postPoneById.Doc_id,
       appointments: postPoneById.appointments,
@@ -106,8 +105,25 @@ export default function FormChangeDate(props) {
       user_id: postPoneById.user_id,
       status: data.status,
       dateNew: data.dateNew,
-    }
-    await dispatch(updatePostPoneById(updateItem))
+    }));
+    return updateItem
+    // const updateItem = {
+    //   postpone_id: postPoneById.postpone_id,
+    //   Doc_id: postPoneById.Doc_id,
+    //   appointments: postPoneById.appointments,
+    //   course: postPoneById.course,
+    //   dateOld: postPoneById.dateOld,
+    //   email: postPoneById.email,
+    //   firstname: postPoneById.firstname,
+    //   hn: postPoneById.hn,
+    //   lastname: postPoneById.lastname,
+    //   locations: postPoneById.locations,
+    //   phone: postPoneById.phone,
+    //   user_id: postPoneById.user_id,
+    //   status: data.status,
+    //   dateNew: data.dateNew,
+    // }
+    // await dispatch(updatePostPoneById(updateItem))
     // await postPoneSendEmail(data)
   }
   const handleClickOpen = () => {

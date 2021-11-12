@@ -31,6 +31,7 @@ import moment from 'moment';
 
 export default function DoctortTableRow(props) {
   const { row, searched, scheduleDr, handleNext } = props;
+  console.log("🚀 ~ file: doctortTableRow.js ~ line 34 ~ DoctortTableRow ~ row", row)
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
 
@@ -43,6 +44,7 @@ export default function DoctortTableRow(props) {
   const handleClose = () => {
     setOpenModel(false);
   };
+  
 
   return (
     <React.Fragment>
@@ -75,7 +77,7 @@ export default function DoctortTableRow(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.schedule.map((historyRow) => (
+                  {row.schedule.slice(-1).map((historyRow) => (
                     <TableRow key={historyRow.Id}>
                       <TableCell align="center">
                         {row.name}
@@ -135,6 +137,7 @@ const useRowStyles = makeStyles({
     '& > *': {
       borderBottom: 'unset',
     },
+    
   },
   modal: {
     display: 'flex',
