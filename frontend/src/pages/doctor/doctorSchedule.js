@@ -122,7 +122,7 @@ export default function DoctorSchedule() {
           resources: ['Doctors'],
           enableCompactView: false
         }}
-        currentView="TimelineDay"
+        currentView="Day"
       >
         <ViewsDirective>
           <ViewDirective option="TimelineDay" />
