@@ -9,6 +9,7 @@ export const StoreContextProvider = ({ children }) => {
   const [scheduleDr, setScheduleDr] = useState([]);
   const [doctor, setDoctor] = useState([]);
 
+
   React.useEffect(() => {
     getScheduleAll()
       .then(res => {
@@ -23,12 +24,12 @@ export const StoreContextProvider = ({ children }) => {
   }, [])
 
   return <StoreContext.Provider value={{
-    postPoneEdit,
-    setPostPoneEdit,
     scheduleDr,
     setScheduleDr,
     doctor,
-    setDoctor
-  }}>{children}</StoreContext.Provider>
+    setDoctor,
+    postPoneEdit,
+    setPostPoneEdit,
 
+  }}>{children}</StoreContext.Provider>
 }
