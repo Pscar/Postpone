@@ -30,7 +30,6 @@ export const deletePostPoneById = createAsyncThunk("postpones/deletePostPoneById
 });
 
 export const deleteScheduleById = createAsyncThunk("schedules/deleteScheduleeById", async (Id) => {
-  console.log("redux respones",Id)
   const response = await axios.delete(`${baseURL}/schedule/deletebyid?Id=${Id}`);
   return response
 });

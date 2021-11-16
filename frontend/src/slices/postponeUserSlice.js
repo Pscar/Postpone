@@ -22,8 +22,11 @@ export const postPoneSlice = createSlice({
       }
     },
     [deletePostPoneById.fulfilled]: (state, action) => {
-      let index = state.findIndex(({ postpone_id }) => postpone_id === action.payload.postpone_id);
-      state.splice(index, 1);
+      state = {
+        loading: true,
+        state: action.payload,
+        error: {}
+      }
     },
     [getPostPoneNow.fulfilled]: (state, action) => {
       state.postpones = action.payload;

@@ -29,8 +29,8 @@ export default function Routers() {
       <Switch>
         <Route exact path="/" component={userRegister} />
         <Route path="/login" component={loginsForm} />
-        <Route path="/doctor" component={doctorSchedule} />
 
+        <PrivateRoute path="/doctor" users={users} component={doctorSchedule} />
         <PrivateRoute path="/postpone" users={users} component={userPostPone} />
         <PrivateRoute path="/admin" users={users} component={adminPage} />
         <PrivateRoute path="/detail/:id" users={users} component={userPostPoneDetail} />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import {
   AppBar,
@@ -47,6 +47,9 @@ export default function Navbar() {
           </Typography>
           {users ?
             <React.Fragment>
+              <Link to="/doctor" style={{ color: '#ffffff', textDecoration: 'none' }}>
+                <Button color="inherit">ตารางเวลาหมอ</Button>
+              </Link>
               <IconButton
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
@@ -59,6 +62,7 @@ export default function Navbar() {
               {users ? users.email : ""}
               <Button color="inherit" onClick={handleClickOpen}>Logout</Button>
               <DialogLogout handleClose={handleClose} handleLogout={handleLogout} open={open} />
+
             </React.Fragment>
             : <Button color="inherit" onClick={handlLogin}>ตรวจสอบผลการเลื่อนนัด</Button>
           }

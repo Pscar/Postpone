@@ -23,13 +23,5 @@ export const StoreContextProvider = ({ children }) => {
   //     });
   // }, [])
 
-  return <StoreContext.Provider value={{
-    // scheduleDr,
-    // setScheduleDr,
-    // doctor,
-    // setDoctor,
-    postPoneEdit,
-    setPostPoneEdit,
-
-  }}>{children}</StoreContext.Provider>
+  return <StoreContext.Provider value={{ postPoneEdit, setPostPoneEdit }}>{children}</StoreContext.Provider>
 }

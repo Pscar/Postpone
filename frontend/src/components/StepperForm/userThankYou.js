@@ -1,7 +1,4 @@
 import React from 'react';
-
-
-import { StoreContext } from '../../Context/Store';
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from 'react-redux';
 
@@ -15,9 +12,9 @@ import {
 
 import CheckIcon from '@material-ui/icons/Check';
 
-export default function UserThankYou() {
+export default function UserThankYou(props) {
+  const { postPoneEdit } = props;
   const classes = useStyles();
-  const { postPoneEdit } = React.useContext(StoreContext)
   const { postpones } = useSelector((state) => state.postpones);
 
   React.useEffect(() => {

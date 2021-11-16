@@ -6,37 +6,36 @@ export const getPostPonesById = async (postpone_id) => {
   return response
 }
 
-export const createSchedule = async (data) => {
-  const response = await http.post('/schedule/create', data);
-  return response
-};
-export const updateScheduleById = async (Id, data) => {
-  const response = await http.put('/schedule/editbyid', {
-    Id: Id,
-    Description: data.Description,
-    EndTime: data.EndTime,
-    Location: data.Location,
-    locations: data.locations,
-    StartTime: data.StartTime,
-    Subject: data.Subject,
-    Doc_id: data.Doc_id,
-  })
-  return response
-}
-export const deleteScheduleById = async (Id) => {
-  const response = await http.delete(`/schedule/deletebyid?Id=${Id}`)
-  return response
-}
+// export const createSchedule = async (data) => {
+//   const response = await http.post('/schedule/create', data);
+//   return response
+// };
+// export const updateScheduleById = async (Id, data) => {
+//   const response = await http.put('/schedule/editbyid', {
+//     Id: Id,
+//     Description: data.Description,
+//     EndTime: data.EndTime,
+//     Location: data.Location,
+//     locations: data.locations,
+//     StartTime: data.StartTime,
+//     Subject: data.Subject,
+//     Doc_id: data.Doc_id,
+//   })
+//   return response
+// }
+// export const deleteScheduleById = async (Id) => {
+//   const response = await http.delete(`/schedule/deletebyid?Id=${Id}`)
+//   return response
+// }
 
-export const getDoctorAll = async () => {
-  const response = await http.get(`/doctor/get`)
-  return response
-}
-export const getScheduleAll = async () => {
-  const response = await http.get(`/schedule/get`)
-  console.log("🚀 ~ file: postpone-serveice.js ~ line 41 ~ getScheduleAll ~ response", response)
-  return response
-}
+// export const getDoctorAll = async () => {
+//   const response = await http.get(`/doctor/get`)
+//   return response
+// }
+// export const getScheduleAll = async () => {
+//   const response = await http.get(`/schedule/get`)
+//   return response
+// }
 // export const getUserAll = async () => {
 //   const response = await http.get(`/user/get`)
 //   return response
