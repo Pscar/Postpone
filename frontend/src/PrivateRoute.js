@@ -1,10 +1,18 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
 
-export default function PrivateRoute({ users, component: Component, ...rest }) {
-  return (
-    <Route {...rest} render={props => users.email ? <Component {...props} users={users} /> : <h1>login</h1>} />
-  )
+export default function PrivateRoute({ users, component: Component, ...path }) {
+
+  if (users != null) {
+    return (
+      <Route {...path} render={props => users.email ? <Component {...props} users={users} /> : ""} />
+    )
+  } else {
+    return (
+      <Redirect to="login" />
+    )
+  }
+
 }
 

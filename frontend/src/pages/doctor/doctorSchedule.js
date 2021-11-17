@@ -124,13 +124,6 @@ export default function DoctorSchedule() {
     console.log("save")
   }, [saveScheduleDr])
 
-  // useEffect(() => {
-  //   if (editScheduleDr) {
-  //     setDisplayScheduleDr([schedules, editScheduleDr])
-  //   }
-  //   console.log("edit")
-
-  // }, [editScheduleDr])
   return (
     <React.Fragment>
       <ScheduleComponent
@@ -139,7 +132,7 @@ export default function DoctorSchedule() {
         selectedDate={new Date()}
         ref={schedule => setRfcScheduleDr(schedule)}
         eventSettings={{
-          dataSource: JSON.parse(JSON.stringify(schedules)), displayScheduleDr,
+          dataSource: JSON.parse(JSON.stringify(schedules)),displayScheduleDr,
           fields: {
             id: 'Id',
             subject: { title: 'Summary', name: 'Subject' },

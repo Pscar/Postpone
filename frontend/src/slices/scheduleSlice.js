@@ -22,11 +22,8 @@ export const scheduleSlice = createSlice({
       }
     },
     [deleteScheduleById.fulfilled]: (state, action) => {
-      state = {
-        loading: true,
-        state: action.payload,
-        error: {}
-      }
+      state.splice(state.findIndex((Id) => Id === action.payload));
+
     },
     [getScheduleAll.fulfilled]: (state, action) => {
       return [...action.payload];

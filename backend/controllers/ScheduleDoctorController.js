@@ -36,6 +36,7 @@ exports.CreateScheduleDoctor = async (req, res) => {
       Doc_id: Doc_id,
       name: getDoctor.name
     });
+    console.log("🚀 ~ file: ScheduleDoctorController.js ~ line 44 ~ returnres.status ~ createNewScheduleDoctor", createNewScheduleDoctor)
 
     return res.status(200).send({
       status: "success",
@@ -112,6 +113,7 @@ exports.EditScheduleByID = async (req, res) => {
       Doc_id: Doc_id,
       name: getDoctor.name
     });
+    console.log("🚀 ~ file: ScheduleDoctorController.js ~ line 116 ~ exports.EditScheduleByID= ~ editScheduleByID", editScheduleByID)
 
     return res.status(200).send({
       status: "success",

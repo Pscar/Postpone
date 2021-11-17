@@ -19,6 +19,10 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
         field: "password",
       },
+      role: {
+        type: Sequelize.STRING,
+        field: "role",
+      },
     },
     {
       freezeTableName: true,
