@@ -30,7 +30,6 @@ export default function DoctorSchedule() {
   const [rfcScheduleDr, setRfcScheduleDr] = useState();
   const [editScheduleDr, setEditScheduleDr] = useState();
   const [saveScheduleDr, setSaveScheduleDr] = useState([]);
-  const [displayDoctor, setDisplayDoctor] = useState([]);
   const [displayScheduleDr, setDisplayScheduleDr] = useState([]);
 
   const returnSchedule = React.useCallback(() => {
@@ -119,10 +118,10 @@ export default function DoctorSchedule() {
 
   useEffect(() => {
     if (saveScheduleDr) {
-      setDisplayScheduleDr([schedules, saveScheduleDr])
+      setDisplayScheduleDr([schedules, saveScheduleDr, editScheduleDr])
     }
     console.log("save")
-  }, [saveScheduleDr])
+  }, [saveScheduleDr, editScheduleDr])
 
   return (
     <React.Fragment>
@@ -132,7 +131,7 @@ export default function DoctorSchedule() {
         selectedDate={new Date()}
         ref={schedule => setRfcScheduleDr(schedule)}
         eventSettings={{
-          dataSource: JSON.parse(JSON.stringify(schedules)),displayScheduleDr,
+          dataSource: JSON.parse(JSON.stringify(schedules)), displayScheduleDr,
           fields: {
             id: 'Id',
             subject: { title: 'Summary', name: 'Subject' },

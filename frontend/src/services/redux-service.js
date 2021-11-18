@@ -4,7 +4,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 const baseURL = 'http://localhost:5000/api';
 
 
-export const createPostPone = createAsyncThunk("schedules/createSchedule", async (postpones) => {
+export const createPostPone = createAsyncThunk("postpones/createPostPone", async (postpones) => {
   const response = await axios.post(`${baseURL}/postpone/create`, postpones);
   return response.data.data
 });
@@ -19,7 +19,7 @@ export const updatePostPoneById = createAsyncThunk("postpones/updatePostPoneById
   return response.data.data
 });
 
-export const updateScheduleById = createAsyncThunk("schedules/updateScheduleeById", async (Id, schedules) => {
+export const updateScheduleById = createAsyncThunk("schedules/updateScheduleById", async (Id, schedules) => {
   const response = await axios.put(`${baseURL}/schedule/editbyid`, Id, schedules);
   return response.data.data
 });

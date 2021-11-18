@@ -44,7 +44,7 @@ export default function DoctortTableRow(props) {
   const handleClose = () => {
     setOpenModel(false);
   };
-  
+
 
   return (
     <React.Fragment>
@@ -77,7 +77,7 @@ export default function DoctortTableRow(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.schedule.slice(-1).map((historyRow) => (
+                  {row.schedule ? row.schedule.slice(-1).map((historyRow) => (
                     <TableRow key={historyRow.Id}>
                       <TableCell align="center">
                         {row.name}
@@ -121,7 +121,7 @@ export default function DoctortTableRow(props) {
                         </Modal>
                       </TableCell>
                     </TableRow>
-                  ))}
+                  )) : null}
                 </TableBody>
               </Table>
             </Box>
@@ -137,7 +137,7 @@ const useRowStyles = makeStyles({
     '& > *': {
       borderBottom: 'unset',
     },
-    
+
   },
   modal: {
     display: 'flex',
