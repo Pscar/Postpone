@@ -158,9 +158,7 @@ export default function UserRegister() {
     }
     setActiveStep(activeStep + 1);
   };
-  // const handleReset = () => {
-  //   setActiveStep(0);
-  // };
+
   const getStepContent = (step) => {
     switch (step) {
       case 0:
@@ -207,9 +205,6 @@ export default function UserRegister() {
       {activeStep === steps.length ? (
         <React.Fragment>
           <UserThankYou />
-          {/* <Button variant="contained" color="primary" onClick={handleReset} className={classes.button}>
-            กลับสู่หน้าหลัก
-          </Button> */}
         </React.Fragment>
 
       ) : (

@@ -12,7 +12,7 @@ export const postPoneSlice = createSlice({
   },
   extraReducers: {
     [createPostPone.fulfilled]: (state, action) => {
-      state.postpones.shift(action.payload);
+      state.postpones.push(action.payload);
     },
     [updatePostPoneById.fulfilled]: (state, action) => {
       state = {

@@ -107,23 +107,6 @@ export default function FormChangeDate(props) {
       dateNew: data.dateNew,
     }));
     return updateItem
-    // const updateItem = {
-    //   postpone_id: postPoneById.postpone_id,
-    //   Doc_id: postPoneById.Doc_id,
-    //   appointments: postPoneById.appointments,
-    //   course: postPoneById.course,
-    //   dateOld: postPoneById.dateOld,
-    //   email: postPoneById.email,
-    //   firstname: postPoneById.firstname,
-    //   hn: postPoneById.hn,
-    //   lastname: postPoneById.lastname,
-    //   locations: postPoneById.locations,
-    //   phone: postPoneById.phone,
-    //   user_id: postPoneById.user_id,
-    //   status: data.status,
-    //   dateNew: data.dateNew,
-    // }
-    // await dispatch(updatePostPoneById(updateItem))
     // await postPoneSendEmail(data)
   }
   const handleClickOpen = () => {

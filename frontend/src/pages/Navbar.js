@@ -47,9 +47,12 @@ export default function Navbar() {
           </Typography>
           {users ?
             <React.Fragment>
-              <Link to="/doctor" style={{ color: '#ffffff', textDecoration: 'none' }}>
-                <Button color="inherit">ตารางเวลาหมอ</Button>
-              </Link>
+              {users.role === 'admin' &&
+                <Link to="/doctor" style={{ color: '#ffffff', textDecoration: 'none' }}>
+                  <Button color="inherit">ตารางเวลาหมอ</Button>
+                </Link>
+              }
+
               <IconButton
                 aria-label="account of current user"
                 aria-controls="menu-appbar"

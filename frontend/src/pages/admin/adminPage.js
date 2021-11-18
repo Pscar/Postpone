@@ -54,7 +54,6 @@ export default function AdminPage() {
         status: data.status,
         locations: data.locations,
         appointments: data.appointments,
-        appointmentsNew: data.appointmentsNew,
         dateOld: data.dateOld,
         dateNew: data.dateNew,
         course: data.course,

@@ -14,8 +14,10 @@ import {
   DialogTitle,
   Container,
   DialogContent,
-  DialogContentText
+  DialogContentText,
+  Grid,
 } from '@material-ui/core';
+import moment from 'moment';
 
 export default function DoctorSelectModel(props) {
   const classes = useStyles();
@@ -66,13 +68,15 @@ export default function DoctorSelectModel(props) {
                         />
                       </TableCell>
                       <TableCell align="center">
-                        <TextField
+                        <input
                           id="dateNew"
-                          label="เวลานัดใหม่ที่คนไข้ต้องการ"
-                          variant="outlined"
+                          className={classes.textField}
                           fullWidth
                           disabled
-                          {...register("dateNew", { value: historyRow.StartTime })}
+                          InputLabelProps={{ shrink: true }}
+                          type='datetime'
+                          defaultValue={moment(historyRow.StartTime).format('DD-MM-YYYY hh:mm')}
+                          // {...register("dateNew", { value: historyRow.StartTime })}
                           error={Boolean(errors?.dateNew)}
                           helperText={errors.dateNew?.message}
                         />
@@ -110,6 +114,11 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     borderRadius: '2rem',
     overflowX: 'auto',
-
   },
+  textField: {
+    width: '100%',
+    height: 50,
+    fontSize: 16,
+    textAlign: 'center'
+  }
 }));
