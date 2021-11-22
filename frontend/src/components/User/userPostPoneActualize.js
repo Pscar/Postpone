@@ -18,7 +18,6 @@ import {
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import NoteIcon from '@material-ui/icons/Note';
-import UserPostPoneSucceed from './userPostPoneSucceed';
 
 export default function UserPostPoneActualize(props) {
   const { row } = props;
@@ -71,6 +70,11 @@ export default function UserPostPoneActualize(props) {
                     </TableCell>
                     <TableCell>
                       <Typography variant="h6" gutterBottom component="div" align='center'>
+                        สถานะ
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="h6" gutterBottom component="div" align='center'>
                         รายละเอียด
                       </Typography>
                     </TableCell>
@@ -98,6 +102,27 @@ export default function UserPostPoneActualize(props) {
                         <Typography variant="body" component="div" align='center'>
                           {historyRow.dateNew}
                         </Typography>
+                      </TableCell>
+                      <TableCell align="center">
+                        {(() => {
+                          switch (historyRow.status) {
+                            case 'อยู่ระหว่างดำเนินการ':
+                              return (
+                                <Typography style={{ color: 'blue' }}>{historyRow.status}</Typography>
+                              )
+                            case 'ยืนยันแบบฟอร์มการเลื่อนนัด':
+                              return (
+                                <Typography style={{ color: 'green' }}>{historyRow.status}</Typography>
+                              )
+                            case 'ไม่สามารถเลื่อนนัดได้':
+                              return (
+                                <Typography style={{ color: 'red' }}>{historyRow.status}</Typography>
+                              )
+                            default:
+                              return null
+                          }
+                        })()
+                        }
                       </TableCell>
                       <TableCell align='center'>
                         {

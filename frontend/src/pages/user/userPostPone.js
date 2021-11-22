@@ -14,7 +14,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import SearchBar from "material-ui-search-bar";
 import UserPostPoneActualize from "../../components/User/userPostPoneActualize";
-import UserPostPoneSucceed from "../../components/User/userPostPoneSucceed";
 import moment from "moment";
 import { useDispatch, useSelector } from 'react-redux'
 import { getPostPoneAll } from "../../services/redux-service";
@@ -109,7 +108,7 @@ export default function UserPostPone() {
                 <TableBody>
                   <UserPostPoneActualize key={row.postpone_id} row={row} users={users} />
                 </TableBody>
-              ) : <UserPostPoneSucceed key={row.postpone_id} row={row} users={users} />
+              ) : null
               ))}
             </Table>
           </TableContainer>
