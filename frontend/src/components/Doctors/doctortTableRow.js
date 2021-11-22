@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import {
@@ -31,11 +31,10 @@ import moment from 'moment';
 
 export default function DoctortTableRow(props) {
   const { row, searched, scheduleDr, handleNext } = props;
-  console.log("🚀 ~ file: doctortTableRow.js ~ line 34 ~ DoctortTableRow ~ row", row)
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const classes = useRowStyles();
 
-  const [openModel, setOpenModel] = React.useState(false);
+  const [openModel, setOpenModel] = useState(false);
 
   const handleOpen = () => {
     setOpenModel(true);

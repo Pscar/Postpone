@@ -1,12 +1,5 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
-import { StoreContext } from "../../Context/Store";
-
-import UserSearchDrAndTimeline from "../../components/StepperForm/userSearchDrAndTimeline";
-import UserFieldFormRegister from "../../components/StepperForm/userFieldFormRegister";
-import UserSubmitForm from "../../components/StepperForm/userSubmitForm";
-import UserThankYou from "../../components/StepperForm/userThankYou";
-
 import {
   Typography,
   Button,
@@ -18,6 +11,12 @@ import {
 
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from 'react-redux'
+
+import UserSearchDrAndTimeline from "../../components/StepperForm/userSearchDrAndTimeline";
+import UserFieldFormRegister from "../../components/StepperForm/userFieldFormRegister";
+import UserSubmitForm from "../../components/StepperForm/userSubmitForm";
+import UserThankYou from "../../components/StepperForm/userThankYou";
+
 import { createPostPone, getPostPoneNow, updatePostPoneById } from "../../services/redux-service";
 
 export default function UserRegister() {
@@ -26,7 +25,7 @@ export default function UserRegister() {
   const [isEditing, setEditing] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [skippedSteps, setSkippedSteps] = useState([]);
-  const { setPostPoneEdit } = useContext(StoreContext)
+  const [editPostPone, setPostPoneEdit] = useState();
 
   const dispatch = useDispatch();
   const { postpones } = useSelector((state) => state.postpones);
@@ -34,19 +33,19 @@ export default function UserRegister() {
   const methods = useForm({
     defaultValues: {
       hn: "",
-      Doc_id: parseInt,
+      // Doc_id: parseInt,
       firstname: "",
       lastname: "",
       locations: "",
       appointments: "",
       dateOld: "",
-      dateNew: "",
+      // dateNew: "",
       course: "",
       email: "",
       phone: "",
       password: "",
       confirmpassword: "",
-      status: ""
+      status: "อยู่ระหว่างดำเนินการ"
     }
   });
 
@@ -113,6 +112,7 @@ export default function UserRegister() {
   }
 
   const handleNext = (data) => {
+  console.log("🚀 ~ file: userRegister.js ~ line 115 ~ handleNext ~ data", data)
     const postpone_id = postpones ? postpones.postpone_id : "";
 
     if (activeStep === steps.length - 1) {
@@ -142,7 +142,6 @@ export default function UserRegister() {
       setSkippedSteps(
         skippedSteps.filter((skipItem) => skipItem !== activeStep)
       );
-
     }
   };
 
@@ -166,7 +165,7 @@ export default function UserRegister() {
       case 1:
         return <UserFieldFormRegister />;
       case 2:
-        return <UserSubmitForm />;
+        return <UserSubmitForm editPostPone={editPostPone}/>;
       default:
         return "unknown step";
     }
@@ -204,7 +203,7 @@ export default function UserRegister() {
       </Stepper>
       {activeStep === steps.length ? (
         <React.Fragment>
-          <UserThankYou />
+          <UserThankYou editPostPone={editPostPone}/>
         </React.Fragment>
 
       ) : (

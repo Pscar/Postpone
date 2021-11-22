@@ -13,9 +13,9 @@ import {
 import CheckIcon from '@material-ui/icons/Check';
 
 export default function UserThankYou(props) {
-  const { postPoneEdit } = props;
   const classes = useStyles();
   const { postpones } = useSelector((state) => state.postpones);
+  const { editPostPone } = props;
 
   React.useEffect(() => {
     setInterval(() => {
@@ -35,7 +35,7 @@ export default function UserThankYou(props) {
                 <b>บันทึกข้อมูลการเลื่อนนัดเรียบร้อย</b>
               </Typography>
               <Typography variant="h5">
-                ระบบจะตอบกลับคุณ {postPoneEdit ? postPoneEdit.meta.arg.firstname : postpones.firstname} ภายใน 1 วันทำการ
+                ระบบจะตอบกลับคุณ {editPostPone ? editPostPone.meta.arg.firstname : postpones.firstname} ภายใน 1 วันทำการ
               </Typography>
             </Grid>
           </Grid>

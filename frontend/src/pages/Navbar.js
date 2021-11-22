@@ -32,9 +32,10 @@ export default function Navbar() {
     setOpen(false);
   };
 
-  const handleLogout = () => {
-    dispatch(logoutSuccess());
-    history.push("/");
+  const handleLogout = async () => {
+    await dispatch(logoutSuccess());
+    await history.push("/");
+    await window.location.reload(true);
     setOpen(false);
   }
 

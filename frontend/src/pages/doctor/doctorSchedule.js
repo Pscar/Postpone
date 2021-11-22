@@ -116,12 +116,24 @@ export default function DoctorSchedule() {
     }
   }
 
+  // useEffect(() => {
+  //   if (saveScheduleDr) {
+  //     setDisplayScheduleDr([...schedules, saveScheduleDr])
+  //   }
+  //   console.log("save")
+  // }, [saveScheduleDr])
+
   useEffect(() => {
     if (saveScheduleDr) {
-      setDisplayScheduleDr([schedules, saveScheduleDr, editScheduleDr])
+      setDisplayScheduleDr([schedules, saveScheduleDr])
     }
-    console.log("save")
-  }, [saveScheduleDr, editScheduleDr])
+  }, [saveScheduleDr])
+  // useEffect(() => {
+  //   if (editScheduleDr) {
+  //     setDisplayScheduleDr([...schedules, editScheduleDr])
+  //   }
+  //   console.log("save")
+  // }, [editScheduleDr])
 
   return (
     <React.Fragment>
