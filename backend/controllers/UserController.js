@@ -17,7 +17,7 @@ exports.CreateUser = async (req, res) => {
   const {
     email,
     password,
-
+    role,
   } = req.body;
 
   try {
@@ -33,7 +33,8 @@ exports.CreateUser = async (req, res) => {
     } else {
       const createNewUser = await UserService.create({
         email: email,
-        password: password
+        password: password,
+        role: 'user',
       });
 
       return res.status(200).send({
@@ -122,6 +123,7 @@ exports.EditUserByID = async (req, res) => {
     user_id,
     email,
     password,
+    role
 
   } = req.body;
 
@@ -129,6 +131,7 @@ exports.EditUserByID = async (req, res) => {
     const editUserByID = await UserService.editByID(user_id, {
       email: email,
       password: password,
+      role:'user',
     });
 
     return res.status(200).send({

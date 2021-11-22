@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -10,15 +11,18 @@ import {
   Box,
   Collapse,
   IconButton,
+  Button,
   Typography
 } from "@material-ui/core";
 
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import NoteIcon from '@material-ui/icons/Note';
+import UserPostPoneSucceed from './userPostPoneSucceed';
 
-export default function PostPoneRow(props) {
+export default function UserPostPoneActualize(props) {
   const { row } = props;
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const classes = useRowStyles();
   return (
     <React.Fragment>
@@ -36,73 +40,92 @@ export default function PostPoneRow(props) {
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-          {row.history.map((historyRow) => (
-            historyRow.status !== 'อยู่ระหว่างดำเนินการ' ? (
-              <Collapse in={open} timeout="auto" unmountOnExit>
-                <Box margin={1}>
-                  <Typography variant="h6" gutterBottom component="div">
-                    รายละเอียด
-                  </Typography>
-                  <Table size="small" aria-label="purchases">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>
-                          <Typography variant="h6" gutterBottom component="div" align='center'>
-                            ลำดับ
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography variant="h6" gutterBottom component="div" align='center'>
-                            สถานที่ตรวจ
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography variant="h6" gutterBottom component="div" align='center'>
-                            แพทย์ที่ตรวจ
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography variant="h6" gutterBottom component="div" align='center'>
-                            วันที่นัดล่าสุด
-                          </Typography>
-                        </TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
 
-                      <TableRow>
-                        <TableCell>
-                          <Typography variant="body" component="div" align='center'>
-                            {historyRow.id}
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography variant="body" component="div" align='center'>
-                            {historyRow.locations}
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography variant="body" component="div" align='center'>
-                            {historyRow.appointments}
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography variant="body" component="div" align='center'>
-                            {historyRow.dateNew}
-                          </Typography>
-                        </TableCell>
-                      </TableRow>
-
-                    </TableBody>
-                  </Table>
-                </Box>
-              </Collapse>
-            ) : null
-          ))}
-
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <Box margin={1}>
+              <Typography variant="h6" gutterBottom component="div">
+                รายละเอียด
+              </Typography>
+              <Table size="small" aria-label="purchases">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>
+                      <Typography variant="h6" gutterBottom component="div" align='center'>
+                        ลำดับ
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="h6" gutterBottom component="div" align='center'>
+                        สถานที่ตรวจ
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="h6" gutterBottom component="div" align='center'>
+                        แพทย์ที่ตรวจ
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="h6" gutterBottom component="div" align='center'>
+                        วันที่นัดล่าสุด
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="h6" gutterBottom component="div" align='center'>
+                        รายละเอียด
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {row.history.map((historyRow) => (
+                    <TableRow>
+                      <TableCell>
+                        <Typography variant="body" component="div" align='center'>
+                          {historyRow.id}
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography variant="body" component="div" align='center'>
+                          {historyRow.locations}
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography variant="body" component="div" align='center'>
+                          {historyRow.appointments}
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography variant="body" component="div" align='center'>
+                          {historyRow.dateNew}
+                        </Typography>
+                      </TableCell>
+                      <TableCell align='center'>
+                        {
+                          historyRow.status !== 'อยู่ระหว่างดำเนินการ' ? (
+                            <Link
+                              to={`/detail/${row.postpone_id}`}
+                              style={{
+                                textDecoration: 'none', color: 'white'
+                              }}>
+                              <Button variant="outlined" color="primary">
+                                <NoteIcon />
+                              </Button>
+                            </Link>
+                          ) :
+                            <Button variant="outlined" color="primary" disabled={historyRow.status === 'อยู่ระหว่างดำเนินการ'}>
+                              <NoteIcon />
+                            </Button>
+                        }
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Box>
+          </Collapse>
         </TableCell>
       </TableRow>
-    </React.Fragment >
+    </React.Fragment>
   );
 }
 

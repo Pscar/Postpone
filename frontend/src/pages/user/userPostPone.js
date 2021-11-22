@@ -13,8 +13,8 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import SearchBar from "material-ui-search-bar";
-import PostPoneRow from "../../components/User/userPostPoneActualize";
-import PostPoneNoRow from "../../components/User/userPostPoneSucceed";
+import UserPostPoneActualize from "../../components/User/userPostPoneActualize";
+import UserPostPoneSucceed from "../../components/User/userPostPoneSucceed";
 import moment from "moment";
 import { useDispatch, useSelector } from 'react-redux'
 import { getPostPoneAll } from "../../services/redux-service";
@@ -47,7 +47,7 @@ export default function UserPostPone() {
         lastname: data.lastname,
         status: data.status,
         history:
-          displaySearch.filter(function (item) {
+          postpones.filter(function (item) {
             return item.user_id === data.user_id;
           }).map(function (item) {
             return {
@@ -105,11 +105,11 @@ export default function UserPostPone() {
                   <TableCell align="center">Action</TableCell>
                 </TableRow>
               </TableHead>
-              {data && data.map((row) => (row.user_id === users.user_id && row.status === 'อยู่ระหว่างดำเนินการ' ? (
+              {data && data.slice(-1).map((row) => (row.user_id === users.user_id && row.status === 'อยู่ระหว่างดำเนินการ' ? (
                 <TableBody>
-                  <PostPoneRow key={row.postpone_id} row={row} users={users} />
+                  <UserPostPoneActualize key={row.postpone_id} row={row} users={users} />
                 </TableBody>
-              ) : <PostPoneNoRow key={row.postpone_id} row={row} users={users} />
+              ) : <UserPostPoneSucceed key={row.postpone_id} row={row} users={users} />
               ))}
             </Table>
           </TableContainer>
@@ -139,7 +139,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
 }));
-PostPoneRow.propTypes = {
+UserPostPoneActualize.propTypes = {
   row: PropTypes.shape({
     id: PropTypes.number.isRequired,
     HN: PropTypes.string.isRequired,

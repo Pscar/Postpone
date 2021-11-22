@@ -33,13 +33,11 @@ export default function UserRegister() {
   const methods = useForm({
     defaultValues: {
       hn: "",
-      // Doc_id: parseInt,
       firstname: "",
       lastname: "",
       locations: "",
       appointments: "",
       dateOld: "",
-      // dateNew: "",
       course: "",
       email: "",
       phone: "",

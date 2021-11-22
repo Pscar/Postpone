@@ -65,6 +65,7 @@ exports.CreatePostPone = async (req, res) => {
       const createNewUser = await UserService.create({
         email: email,
         password: password,
+        role:'user',
       });
 
       const createNewPostPone = await PostPoneService.create({
@@ -204,6 +205,7 @@ exports.EditPostPoneByID = async (req, res) => {
       const createNewUser = await UserService.create({
         email: email,
         password: password,
+        role:'user',
       });
       const editPostPoneByID = await PostPoneService.editByID(postpone_id, {
         postpone_id: postpone_id,

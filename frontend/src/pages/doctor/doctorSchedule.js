@@ -24,40 +24,32 @@ export default function DoctorSchedule() {
 
   const doctors = useSelector(state => state.doctors);
   const schedules = useSelector(state => state.schedules)
-  console.log("🚀 ~ file: doctorSchedule.js ~ line 27 ~ DoctorSchedule ~ schedules", schedules)
   const dispatch = useDispatch();
 
   const [rfcScheduleDr, setRfcScheduleDr] = useState();
+  const [deleteScheduleDr, setDeleteScheduleDr] = useState();
   const [editScheduleDr, setEditScheduleDr] = useState();
   const [saveScheduleDr, setSaveScheduleDr] = useState([]);
   const [displayScheduleDr, setDisplayScheduleDr] = useState([]);
 
   const returnSchedule = React.useCallback(() => {
     dispatch(getScheduleAll());
-    console.log("1")
   }, [dispatch])
 
   useEffect(() => {
-
     returnSchedule();
-    console.log("2")
-
   }, [returnSchedule])
 
   const returnDoctor = React.useCallback(() => {
     dispatch(getDoctorAll());
-    console.log("3")
-
   }, [dispatch])
 
   useEffect(() => {
     returnDoctor();
-    console.log("4")
-
   }, [returnDoctor])
 
   const createSchedules = async (data) => {
-    return await dispatch(createSchedule({
+    const createItem = await dispatch(createSchedule({
       Description: data.Description,
       EndTime: data.EndTime,
       Location: data.Location,
@@ -66,6 +58,8 @@ export default function DoctorSchedule() {
       Subject: data.Subject,
       Doc_id: data.Doc_id,
     }))
+    setSaveScheduleDr(createItem)
+    return createItem
   }
   const updateSchedules = async (Id, data) => {
     const updateItem = await dispatch(updateScheduleById({
@@ -82,7 +76,9 @@ export default function DoctorSchedule() {
     return updateItem
   }
   const DeleteSchedule = async (Id) => {
-    return await dispatch(deleteScheduleById(Id))
+    const deleteItem = await dispatch(deleteScheduleById(Id))
+    setDeleteScheduleDr(deleteItem)
+    return deleteItem
   }
   const onActionBegin = (args) => {
 
@@ -116,24 +112,27 @@ export default function DoctorSchedule() {
     }
   }
 
-  // useEffect(() => {
-  //   if (saveScheduleDr) {
-  //     setDisplayScheduleDr([...schedules, saveScheduleDr])
-  //   }
-  //   console.log("save")
-  // }, [saveScheduleDr])
 
   useEffect(() => {
     if (saveScheduleDr) {
       setDisplayScheduleDr([schedules, saveScheduleDr])
     }
+    console.log("save")
   }, [saveScheduleDr])
-  // useEffect(() => {
-  //   if (editScheduleDr) {
-  //     setDisplayScheduleDr([...schedules, editScheduleDr])
-  //   }
-  //   console.log("save")
-  // }, [editScheduleDr])
+
+  useEffect(() => {
+    if (editScheduleDr) {
+      setDisplayScheduleDr([schedules, editScheduleDr])
+    }
+    console.log("edit")
+  }, [editScheduleDr])
+
+  useEffect(() => {
+    if (deleteScheduleDr) {
+      setDisplayScheduleDr([schedules, deleteScheduleDr])
+    }
+    console.log("delete")
+  }, [deleteScheduleDr])
 
   return (
     <React.Fragment>
@@ -143,7 +142,7 @@ export default function DoctorSchedule() {
         selectedDate={new Date()}
         ref={schedule => setRfcScheduleDr(schedule)}
         eventSettings={{
-          dataSource: JSON.parse(JSON.stringify(schedules)), displayScheduleDr,
+          dataSource: JSON.parse(JSON.stringify(schedules)),
           fields: {
             id: 'Id',
             subject: { title: 'Summary', name: 'Subject' },

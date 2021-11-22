@@ -6,7 +6,8 @@ import {
   Button,
 } from "@material-ui/core";
 import { useSelector } from 'react-redux';
-export default function PostPoneNoRow(props) {
+
+export default function UserPostPoneSucceed(props) {
 
   const { row } = props
   const { users } = useSelector(state => state.users);
