@@ -67,11 +67,9 @@ export default function Navbar() {
               </IconButton>
 
               {users.role === 'admin' ? (
-                <Typography variant="h6" className={classes.title}>
-                  <Link to="/admin" style={{ color: '#ffffff', textDecoration: 'none' }}>
-                    {users.email}
-                  </Link>
-                </Typography>
+                <Link to="/admin" style={{ color: '#ffffff', textDecoration: 'none' }}>
+                  <Button color="inherit">{users.email}</Button>
+                </Link>
 
               ) :
                 <Link to="/postpone" style={{ color: '#ffffff', textDecoration: 'none' }}>
