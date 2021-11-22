@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getScheduleAll, createSchedule, updateScheduleById, deleteScheduleById } from '../services/redux-service';
+import { getScheduleAll, createSchedule, updateScheduleById, deleteScheduleById } from '../services/schedule-redux';
 
 
 export const scheduleSlice = createSlice({

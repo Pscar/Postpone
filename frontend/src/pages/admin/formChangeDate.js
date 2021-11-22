@@ -6,9 +6,8 @@ import { useForm, FormProvider } from "react-hook-form";
 import DialogChangeDate from '../../components/Dialog/dialogChangeDate';
 import FieldFormChangeDate from '../../components/Admin/fieldFormChangeDate';
 
-import { getPostPonesById } from '../../services/postpone-serveice';
 import { useSelector, useDispatch } from 'react-redux'
-import { updatePostPoneById } from '../../services/redux-service';
+import { updatePostPoneById, getPostPonesById } from '../../services/postpone-redux';
 
 export default function FormChangeDate(props) {
 

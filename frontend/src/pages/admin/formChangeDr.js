@@ -9,10 +9,8 @@ import DialogChangeDr from '../../components/Dialog/dialogChangeDr';
 
 import FieldFormChangeDr from '../../components/Admin/fieldFormChangeDr';
 
-//service
-import { getPostPonesById } from '../../services/postpone-serveice';
 import { useSelector, useDispatch } from 'react-redux'
-import { updatePostPoneById } from '../../services/redux-service';
+import { updatePostPoneById, getPostPonesById } from '../../services/postpone-redux';
 
 export default function FormChangeDr(props) {
   let history = useHistory();

@@ -13,7 +13,7 @@ import Alert from '@material-ui/lab/Alert';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { loginSuccess } from '../slices/userLoginSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserAll } from '../services/redux-service';
+import { getUserAll } from '../services/user-redux';
 export default function LoginsForm() {
 
   let history = useHistory();

@@ -9,7 +9,7 @@ import {
   Container
 } from "@material-ui/core";
 import moment from 'moment';
-import { getPostPonesById } from '../../services/postpone-serveice';
+import { getPostPonesById } from '../../services/postpone-redux';
 
 export default function UserPostPoneDetail() {
   const { id } = useParams();

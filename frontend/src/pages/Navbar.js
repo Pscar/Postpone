@@ -44,8 +44,11 @@ export default function Navbar() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            ระบบเลื่อนนัดออนไลน์
+            <Link to="/" style={{ color: '#ffffff', textDecoration: 'none' }}>
+              ระบบเลื่อนนัดออนไลน์
+            </Link>
           </Typography>
+
           {users ?
             <React.Fragment>
               {users.role === 'admin' &&
@@ -63,10 +66,20 @@ export default function Navbar() {
                 <AccountCircle />
               </IconButton>
 
-              {users ? users.email : ""}
+              {users.role === 'admin' ? (
+                <Typography variant="h6" className={classes.title}>
+                  <Link to="/admin" style={{ color: '#ffffff', textDecoration: 'none' }}>
+                    {users.email}
+                  </Link>
+                </Typography>
+
+              ) :
+                <Link to="/postpone" style={{ color: '#ffffff', textDecoration: 'none' }}>
+                  <Button color="inherit">{users.email}</Button>
+                </Link>
+              }
               <Button color="inherit" onClick={handleClickOpen}>Logout</Button>
               <DialogLogout handleClose={handleClose} handleLogout={handleLogout} open={open} />
-
             </React.Fragment>
             : <Button color="inherit" onClick={handlLogin}>ตรวจสอบผลการเลื่อนนัด</Button>
           }

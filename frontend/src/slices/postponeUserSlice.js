@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createPostPone, getPostPoneNow, updatePostPoneById, deletePostPoneById, getPostPoneAll } from '../services/redux-service';
+import { createPostPone, getPostPoneNow, updatePostPoneById, deletePostPoneById, getPostPoneAll } from '../services/postpone-redux';
 
 
 export const postPoneSlice = createSlice({
@@ -7,6 +7,7 @@ export const postPoneSlice = createSlice({
   initialState: {
     postpones: [],
     postponesEdit: [],
+    postponeId: [],
     loading: false,
     error: null,
   },

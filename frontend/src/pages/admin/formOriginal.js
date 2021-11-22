@@ -6,10 +6,8 @@ import { useHistory } from "react-router-dom";
 import FieldFormOriginal from '../../components/Admin/fieldFormOriginal';
 import DialogChangeOrinal from '../../components/Dialog/dialogChangeOriginal';
 
-
-import { getPostPonesById } from '../../services/postpone-serveice';
 import { useSelector, useDispatch } from 'react-redux'
-import { updatePostPoneById } from '../../services/redux-service';
+import { updatePostPoneById, getPostPonesById } from '../../services/postpone-redux';
 
 // import emailjs from 'emailjs-com';
 // import moment from 'moment';
@@ -19,7 +17,7 @@ export default function FormOriginal(props) {
 
   const [open, setOpen] = useState(false);
   const [postPoneById, setPostPoneById] = useState()
-  
+
   const dispatch = useDispatch();
   const postpones = useSelector(state => state.postpones);
 

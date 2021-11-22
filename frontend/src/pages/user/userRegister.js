@@ -17,7 +17,7 @@ import UserFieldFormRegister from "../../components/StepperForm/userFieldFormReg
 import UserSubmitForm from "../../components/StepperForm/userSubmitForm";
 import UserThankYou from "../../components/StepperForm/userThankYou";
 
-import { createPostPone, getPostPoneNow, updatePostPoneById } from "../../services/redux-service";
+import { createPostPone, getPostPoneNow, updatePostPoneById } from "../../services/postpone-redux";
 
 export default function UserRegister() {
 
@@ -69,7 +69,7 @@ export default function UserRegister() {
   };
 
   const createUserPostPone = async (data) => {
-    await dispatch(createPostPone({
+    const createItem = {
       hn: data.hn,
       firstname: data.firstname,
       lastname: data.lastname,
@@ -83,13 +83,14 @@ export default function UserRegister() {
       password: data.password,
       confirmpassword: data.confirmpassword,
       status: "อยู่ระหว่างดำเนินการ"
-    }));
+    }
+    await dispatch(createPostPone(createItem));
     return await dispatch(getPostPoneNow())
   }
 
   const updateUserPostPone = async (postpone_id, data) => {
     // send data to redux toolkit
-    const updateItem = await dispatch(updatePostPoneById({
+    const updateItem = {
       postpone_id: postpone_id,
       hn: data.hn,
       firstname: data.firstname,
@@ -104,13 +105,13 @@ export default function UserRegister() {
       password: data.password,
       confirmpassword: data.confirmpassword,
       status: "อยู่ระหว่างดำเนินการ"
-    }));
+    }
+    await dispatch(updatePostPoneById(updateItem));
     setPostPoneEdit(updateItem)
     return updateItem
   }
 
   const handleNext = (data) => {
-  console.log("🚀 ~ file: userRegister.js ~ line 115 ~ handleNext ~ data", data)
     const postpone_id = postpones ? postpones.postpone_id : "";
 
     if (activeStep === steps.length - 1) {
@@ -163,7 +164,7 @@ export default function UserRegister() {
       case 1:
         return <UserFieldFormRegister />;
       case 2:
-        return <UserSubmitForm editPostPone={editPostPone}/>;
+        return <UserSubmitForm editPostPone={editPostPone} />;
       default:
         return "unknown step";
     }
@@ -201,7 +202,7 @@ export default function UserRegister() {
       </Stepper>
       {activeStep === steps.length ? (
         <React.Fragment>
-          <UserThankYou editPostPone={editPostPone}/>
+          <UserThankYou editPostPone={editPostPone} />
         </React.Fragment>
 
       ) : (

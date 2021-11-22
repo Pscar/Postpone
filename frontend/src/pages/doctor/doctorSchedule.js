@@ -17,7 +17,8 @@ import {
   ResourcesDirective
 } from '@syncfusion/ej2-react-schedule';
 
-import { getScheduleAll, getDoctorAll, createSchedule, updateScheduleById, deleteScheduleById } from '../../services/redux-service';
+import { getScheduleAll, createSchedule, updateScheduleById, deleteScheduleById } from '../../services/schedule-redux';
+import { getDoctorAll } from '../../services/doctor-redux';
 import { useDispatch, useSelector } from "react-redux";
 
 export default function DoctorSchedule() {
@@ -80,8 +81,8 @@ export default function DoctorSchedule() {
     setDeleteScheduleDr(deleteItem)
     return deleteItem
   }
-  const onActionBegin = (args) => {
 
+  const onActionBegin = (args) => {
     if (args.requestType === 'eventCreate') {
       const eventData = args.addedRecords[0];
       createSchedules(eventData)
@@ -94,7 +95,6 @@ export default function DoctorSchedule() {
       // }
     } else if (args.requestType === "eventChange") {
       const Id = args.changedRecords[0].Id
-
       updateSchedules(Id, {
         Description: args.changedRecords[0].Description,
         EndTime: args.changedRecords[0].EndTime,
@@ -142,7 +142,7 @@ export default function DoctorSchedule() {
         selectedDate={new Date()}
         ref={schedule => setRfcScheduleDr(schedule)}
         eventSettings={{
-          dataSource: JSON.parse(JSON.stringify(schedules)),
+          dataSource: JSON.parse(JSON.stringify(schedules)), displayScheduleDr,
           fields: {
             id: 'Id',
             subject: { title: 'Summary', name: 'Subject' },

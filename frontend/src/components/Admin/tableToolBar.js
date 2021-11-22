@@ -11,7 +11,32 @@ import clsx from 'clsx';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DialogDelete from '../Dialog/dialogDelete';
 import { useDispatch } from "react-redux";
-import { deletePostPoneById } from '../../services/redux-service';
+import { deletePostPoneById } from '../../services/postpone-redux';
+
+const useToolbarStyles = makeStyles((theme) => ({
+  root: {
+    margin: '1rem',
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(1),
+  },
+  highlight:
+    theme.palette.type === 'light'
+      ? {
+        color: theme.palette.secondary.main,
+        backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+      }
+      : {
+        color: theme.palette.text.primary,
+        backgroundColor: theme.palette.secondary.dark,
+      },
+  title: {
+    flex: '1 1 100%',
+    textAlign: 'center',
+    margin: '1rem',
+    padding: theme.spacing(2)
+  },
+}));
+
 export default function TableToolBar(props) {
 
   const classes = useToolbarStyles();
@@ -44,17 +69,10 @@ export default function TableToolBar(props) {
       })}
     >
       {numSelected > 0 ? (
-        <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <Typography className={classes.title} variant="h4" id="tableTitle" component="div">
-          ตารางรายชื่อคนไข้
-        </Typography>
-      )}
-
-      {numSelected > 0 ? (
         <React.Fragment>
+          <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
+            {numSelected} selected
+          </Typography>
           <Tooltip title="Delete" disableFocusListener={true}>
             <IconButton aria-label="delete">
               <DeleteIcon onClick={handleDeleteClick} />
@@ -62,35 +80,13 @@ export default function TableToolBar(props) {
           </Tooltip>
           <DialogDelete handleClose={handleClose} handleSubmit={handleSubmit} open={open} />
         </React.Fragment>
-
-
       ) : (
-        null
+        <React.Fragment>
+          <Typography className={classes.title} variant="h4" id="tableTitle" component="div">
+            ตารางรายชื่อคนไข้
+          </Typography>
+        </React.Fragment>
       )}
     </Toolbar>
   );
 }
-
-const useToolbarStyles = makeStyles((theme) => ({
-  root: {
-    margin: '1rem',
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(1),
-  },
-  highlight:
-    theme.palette.type === 'light'
-      ? {
-        color: theme.palette.secondary.main,
-        backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-      }
-      : {
-        color: theme.palette.text.primary,
-        backgroundColor: theme.palette.secondary.dark,
-      },
-  title: {
-    flex: '1 1 100%',
-    textAlign: 'center',
-    margin: '1rem',
-    padding: theme.spacing(2)
-  },
-}));

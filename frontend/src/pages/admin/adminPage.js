@@ -21,7 +21,28 @@ import {
 import TableHeads from '../../components/Admin/tableHeads';
 import TableToolBar from '../../components/Admin/tableToolBar';
 import { useDispatch, useSelector } from "react-redux";
-import { getPostPoneAll } from '../../services/redux-service';
+import { getPostPoneAll } from '../../services/postpone-redux';
+
+
+
+TableHeads.propTypes = {
+  numSelected: PropTypes.number.isRequired,
+  onSelectAllClick: PropTypes.func.isRequired,
+  rowCount: PropTypes.number.isRequired,
+};
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+  },
+  paper: {
+    width: '100%',
+    marginBottom: theme.spacing(2),
+  },
+  table: {
+    minWidth: 750,
+  },
+}));
 
 export default function AdminPage() {
 
@@ -66,7 +87,6 @@ export default function AdminPage() {
   }
 
   const data = dataPostPone();
-
 
 
   const stableSort = (array, comparator) => {
@@ -260,23 +280,4 @@ export default function AdminPage() {
     </React.Fragment>
   );
 }
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-  },
-  paper: {
-    width: '100%',
-    marginBottom: theme.spacing(2),
-  },
-  table: {
-    minWidth: 750,
-  },
-}));
-
-TableHeads.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
-  rowCount: PropTypes.number.isRequired,
-};
 

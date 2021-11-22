@@ -16,7 +16,7 @@ import {
 
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { useSelector, useDispatch } from 'react-redux'
-import { getDoctorAll } from '../../services/redux-service';
+import { getDoctorAll } from '../../services/doctor-redux';
 
 import moment from 'moment';
 export default function FieldFormChangeDr(props) {

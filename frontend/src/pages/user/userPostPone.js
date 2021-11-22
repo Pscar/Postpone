@@ -16,7 +16,55 @@ import SearchBar from "material-ui-search-bar";
 import UserPostPoneActualize from "../../components/User/userPostPoneActualize";
 import moment from "moment";
 import { useDispatch, useSelector } from 'react-redux'
-import { getPostPoneAll } from "../../services/redux-service";
+import { getPostPoneAll } from "../../services/postpone-redux";
+
+
+UserPostPoneActualize.propTypes = {
+  row: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    HN: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+    history: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        locations: PropTypes.string.isRequired,
+        appointments: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+        password: PropTypes.string.isRequired,
+        course: PropTypes.string.isRequired,
+        MUIPickerOld: PropTypes.instanceOf(Date).isRequired,
+        MUIPickerNew: PropTypes.instanceOf(Date).isRequired,
+      }),
+    ).isRequired,
+    course: PropTypes.string.isRequired,
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    marginTop: '1rem'
+  },
+  container: {
+    maxHeight: '100vh',
+  },
+  search: {
+    height: 60,
+  },
+  paper: {
+    padding: '1rem',
+    marginTop: '1rem',
+    marginBottom: '1rem',
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+}));
+
 
 export default function UserPostPone() {
   const classes = useStyles();
@@ -75,7 +123,6 @@ export default function UserPostPone() {
       setDisplaySearch(filteredRows);
     } else {
       setDisplaySearch(postpones);
-
     }
   };
 
@@ -119,47 +166,3 @@ export default function UserPostPone() {
   );
 }
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    marginTop: '1rem'
-  },
-  container: {
-    maxHeight: '100vh',
-  },
-  search: {
-    height: 60,
-  },
-  paper: {
-    padding: '1rem',
-    marginTop: '1rem',
-    marginBottom: '1rem',
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
-}));
-UserPostPoneActualize.propTypes = {
-  row: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    HN: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
-    history: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        locations: PropTypes.string.isRequired,
-        appointments: PropTypes.string.isRequired,
-        email: PropTypes.string.isRequired,
-        password: PropTypes.string.isRequired,
-        course: PropTypes.string.isRequired,
-        MUIPickerOld: PropTypes.instanceOf(Date).isRequired,
-        MUIPickerNew: PropTypes.instanceOf(Date).isRequired,
-      }),
-    ).isRequired,
-    course: PropTypes.string.isRequired,
-    firstName: PropTypes.string.isRequired,
-    lastName: PropTypes.string.isRequired,
-    phone: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
-  }).isRequired,
-};
