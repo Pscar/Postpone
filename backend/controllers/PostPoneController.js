@@ -2,24 +2,9 @@ const PostPoneService = require('../service/postpone_service');
 const UserService = require('../service/user_service');
 const DoctorService = require('../service/doctor_service');
 
-const get_nowdate = new Date();
-let get_date = ("0" + get_nowdate.getDate()).slice(-2);
-let get_month = ("0" + (get_nowdate.getMonth() + 1)).slice(-2);
-let get_year = get_nowdate.getFullYear();
-
-let get_hour = get_nowdate.getHours();
-let get_minute = get_nowdate.getMinutes();
-let get_second = get_nowdate.getSeconds();
-
-var date_now = (`${get_date}/${get_month}/${get_year}`);
-var time_now = (`${get_hour}:${get_minute}:${get_second}`);
-
-
 exports.CreatePostPone = async (req, res) => {
-
   const {
     hn,
-    Doc_id,
     firstname,
     lastname,
     locations,
@@ -31,6 +16,7 @@ exports.CreatePostPone = async (req, res) => {
     status,
     email,
     password,
+    confirmpassword,
   } = req.body;
 
   try {
@@ -53,6 +39,8 @@ exports.CreatePostPone = async (req, res) => {
         phone: phone,
         status: status,
         email: getUserExist.email,
+        password: getUserExist.password,
+        confirmpassword: getUserExist.confirmpassword,
       });
 
       return res.status(200).send({
@@ -65,7 +53,8 @@ exports.CreatePostPone = async (req, res) => {
       const createNewUser = await UserService.create({
         email: email,
         password: password,
-        role:'user',
+        confirmpassword: confirmpassword,
+        role: 'user',
       });
 
       const createNewPostPone = await PostPoneService.create({
@@ -82,7 +71,8 @@ exports.CreatePostPone = async (req, res) => {
         phone: phone,
         status: status,
         email: createNewUser.email,
-        password: createNewUser.password
+        password: createNewUser.password,
+        confirmpassword: createNewUser.confirmpassword,
       });
 
       return res.status(200).send({
@@ -166,6 +156,7 @@ exports.EditPostPoneByID = async (req, res) => {
     appointments,
     email,
     password,
+    confirmpassword,
     dateOld,
     dateNew,
     course,
@@ -192,6 +183,7 @@ exports.EditPostPoneByID = async (req, res) => {
         course: course,
         email: getUserExist.email,
         password: getUserExist.password,
+        confirmpassword: getUserExist.confirmpassword,
         phone: phone,
         Doc_id: getDoctorByName.Doc_id,
         status: status
@@ -205,7 +197,8 @@ exports.EditPostPoneByID = async (req, res) => {
       const createNewUser = await UserService.create({
         email: email,
         password: password,
-        role:'user',
+        confirmpassword: confirmpassword,
+        role: 'user',
       });
       const editPostPoneByID = await PostPoneService.editByID(postpone_id, {
         postpone_id: postpone_id,
@@ -220,6 +213,7 @@ exports.EditPostPoneByID = async (req, res) => {
         course: course,
         email: createNewUser.email,
         password: createNewUser.password,
+        confirmpassword: createNewUser.confirmpassword,
         phone: phone,
         Doc_id: getDoctorByName.Doc_id,
         status: status
@@ -243,6 +237,7 @@ exports.EditPostPoneByID = async (req, res) => {
         course: course,
         email: email,
         password: password,
+        confirmpassword: confirmpassword,
         phone: phone,
         Doc_id: getDoctorByName.Doc_id,
         status: status

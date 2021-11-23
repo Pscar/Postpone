@@ -35,7 +35,25 @@ export default function UserPostPoneActualize(props) {
           {row.hn}
         </TableCell>
         <TableCell align="center">{row.firstname} - {row.lastname}</TableCell>
-        <TableCell align="center">{row.status}</TableCell>
+        <TableCell align="center"> {(() => {
+          switch (row.status) {
+            case 'อยู่ระหว่างดำเนินการ':
+              return (
+                <Typography style={{ color: 'blue' }}>{row.status}</Typography>
+              )
+            case 'ยืนยันแบบฟอร์มการเลื่อนนัด':
+              return (
+                <Typography style={{ color: 'green' }}>{row.status}</Typography>
+              )
+            case 'ไม่สามารถเลื่อนนัดได้':
+              return (
+                <Typography style={{ color: 'red' }}>{row.status}</Typography>
+              )
+            default:
+              return null
+          }
+        })()
+        }</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>

@@ -30,4 +30,3 @@ app.get("/", (req, res) => {
 app.use("/api", routes)
 
 module.exports = app
-// app.listen(config.port, () => console.log(`server run listening on port ${config.port}`));

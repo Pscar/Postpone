@@ -26,6 +26,7 @@ export default function UserRegister() {
   const [activeStep, setActiveStep] = useState(0);
   const [skippedSteps, setSkippedSteps] = useState([]);
   const [editPostPone, setPostPoneEdit] = useState();
+  console.log("🚀 ~ file: userRegister.js ~ line 29 ~ UserRegister ~ editPostPone", editPostPone)
 
   const dispatch = useDispatch();
   const { postpones } = useSelector((state) => state.postpones);
@@ -90,7 +91,7 @@ export default function UserRegister() {
 
   const updateUserPostPone = async (postpone_id, data) => {
     // send data to redux toolkit
-    const updateItem = {
+    const updateItem = await dispatch(updatePostPoneById({
       postpone_id: postpone_id,
       hn: data.hn,
       firstname: data.firstname,
@@ -105,13 +106,13 @@ export default function UserRegister() {
       password: data.password,
       confirmpassword: data.confirmpassword,
       status: "อยู่ระหว่างดำเนินการ"
-    }
-    await dispatch(updatePostPoneById(updateItem));
+    }));
     setPostPoneEdit(updateItem)
     return updateItem
   }
 
   const handleNext = (data) => {
+  console.log("🚀 ~ file: userRegister.js ~ line 115 ~ handleNext ~ data", data)
     const postpone_id = postpones ? postpones.postpone_id : "";
 
     if (activeStep === steps.length - 1) {

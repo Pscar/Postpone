@@ -151,7 +151,7 @@ export default function UserPostPone() {
                   <TableCell align="center">Action</TableCell>
                 </TableRow>
               </TableHead>
-              {data && data.slice(-1).map((row) => (row.user_id === users.user_id && row.status === 'อยู่ระหว่างดำเนินการ' ? (
+              {data && data.slice(-1).map((row) => (row.user_id === users.user_id ? (
                 <TableBody>
                   <UserPostPoneActualize key={row.postpone_id} row={row} users={users} />
                 </TableBody>

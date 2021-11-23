@@ -1,6 +1,3 @@
-//import lib
-const { Op } = require("sequelize");
-const moment = require("moment");
 const database = require("../util/database");
 const Postpone = database.postpone;
 
@@ -33,7 +30,6 @@ exports.getByIdNow = async (postpone_id) => {
   };
 };
 
-
 exports.getAll = async () => {
   try {
     return await Postpone.findAll();
@@ -41,8 +37,6 @@ exports.getAll = async () => {
     throw err;
   }
 };
-
-
 exports.editByID = async (postpone_id, data) => {
   try {
     await Postpone.update(data, {

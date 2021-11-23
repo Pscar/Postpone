@@ -1,6 +1,3 @@
-//import lib
-const { Op } = require("sequelize");
-const moment = require("moment");
 const database = require("../util/database");
 const Schedule = database.schdule_doctor;
 
@@ -12,17 +9,6 @@ exports.create = async (data) => {
   }
 };
 
-exports.getByID = async (Id) => {
-  try {
-    return await Schedule.findOne({
-      where: {
-        Id: Id,
-      },
-    });
-  } catch (err) {
-    throw err;
-  };
-};
 exports.getAll = async () => {
   try {
     return await Schedule.findAll({});
