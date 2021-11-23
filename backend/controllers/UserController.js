@@ -100,5 +100,33 @@ exports.GetUserByEmail = async (req, res) => {
       message: err.message,
     });
   }
+}
+
+exports.EditUserByEmail = async (req, res) => {
+
+  const {
+    email,
+    password,
+    confirmpassword,
+  } = req.body;
+
+  try {
+    const editUserByEmail = await UserService.editByEmail(email, {
+      email: email,
+      password: password,
+      confirmpassword: confirmpassword,
+    });
+
+    return res.status(200).send({
+      status: "success",
+      data: editUserByEmail
+    });
+  } catch (err) {
+    console.log("==== ERROR =====", err);
+    return res.status(500).send({
+      status: "error",
+      message: err.message,
+    });
+  }
 
 }

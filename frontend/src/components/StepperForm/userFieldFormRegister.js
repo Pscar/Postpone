@@ -21,7 +21,8 @@ import MomentUtils from '@date-io/moment';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import moment from 'moment';
 
-export default function UserFieldFormRegister() {
+export default function UserFieldFormRegister(props) {
+  const { activeStep, isEditing } = props
   const password = React.useRef({});
   const classes = useStyles();
   const { register, control, formState: { errors }, watch } = useFormContext();
@@ -218,6 +219,7 @@ export default function UserFieldFormRegister() {
                     variant="outlined"
                     fullWidth
                     {...field}
+                    disabled={!isEditing ? "" : activeStep === 1}
                     error={Boolean(errors?.email)}
                     helperText={errors.email?.message}
                   />

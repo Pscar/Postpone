@@ -41,3 +41,16 @@ exports.getByEmail = async (email) => {
   };
 };
 
+exports.editByEmail = async (email, data) => {
+  try {
+    await User.update(data, {
+      where: {
+        email: email,
+      },
+    });
+    return data
+
+  } catch (err) {
+    throw err;
+  }
+};

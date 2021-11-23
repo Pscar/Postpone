@@ -33,16 +33,11 @@ const db = {};
 
 db.sequelize = sequelize;
 
-
 //! Models
-
 db.user = require("../model/user")(sequelize, Sequelize);
 db.postpone = require("../model/postpone_users")(sequelize, Sequelize);
 db.doctor = require("../model/doctors")(sequelize, Sequelize);
 db.schdule_doctor = require("../model/schedule_doctor")(sequelize, Sequelize);
-
-
-/////////////////////////////// Relation //////////////////////////////////////
 
 //User relations
 db.user.hasMany(db.postpone, {

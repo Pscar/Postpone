@@ -16,7 +16,8 @@ router.get("/user/get", UserController.GetUserAll);
 router.get("/user/getbyid", UserController.GetUserByID);
 // //!API 104 - Get User By email
 router.get("/user/getbyemail", UserController.GetUserByEmail);
-// //!API 105 - Edit User By ID
+// //!API 105 - Edit User By email
+router.put("/user/editbyemail", UserController.EditUserByEmail);
 
 
 
@@ -26,6 +27,7 @@ router.get("/user/getbyemail", UserController.GetUserByEmail);
 router.post("/postpone/create", PostPoneController.CreatePostPone);
 //!API 202 - Get Postpone All
 router.get("/postpone/get", PostPoneController.GetPostPoneAll);
+//!API 202 - Get Postpone Now
 router.get("/postpone/now", PostPoneController.GetPostPoneNow);
 //!API 203 - Get Postpone By ID
 router.get("/postpone/getbyid", PostPoneController.GetPostPoneByID);

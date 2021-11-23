@@ -163,7 +163,7 @@ export default function UserRegister() {
       case 0:
         return <UserSearchDrAndTimeline handleNext={handleNext} />;
       case 1:
-        return <UserFieldFormRegister />;
+        return <UserFieldFormRegister activeStep={activeStep} isEditing={isEditing} />;
       case 2:
         return <UserSubmitForm editPostPone={editPostPone} />;
       default:
