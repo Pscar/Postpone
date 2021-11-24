@@ -1,14 +1,14 @@
-const PostPoneService = require('../service/postpone_service');
+const AppointmentService = require('../service/appointments_service');
 const UserService = require('../service/user_service');
 const DoctorService = require('../service/doctor_service');
 
-exports.CreatePostPone = async (req, res) => {
+exports.CreateAppointment = async (req, res) => {
   const {
     hn,
     firstname,
     lastname,
     locations,
-    appointments,
+    doctor_name,
     dateOld,
     dateNew,
     course,
@@ -20,8 +20,9 @@ exports.CreatePostPone = async (req, res) => {
   } = req.body;
 
   try {
+    
     const getUserExist = await UserService.getByEmail(email);
-    const getDoctorByName = await DoctorService.getByName(appointments);
+    const getDoctorByName = await DoctorService.getByName(doctor_name);
 
     if (getUserExist) {
 
@@ -32,15 +33,15 @@ exports.CreatePostPone = async (req, res) => {
         confirmpassword: confirmpassword,
         role: getUserExist.role,
       });
-      
-      const createPostPone = await PostPoneService.create({
+
+      const createAppointment = await AppointmentService.create({
         user_id: editUserByEmail.user_id,
         hn: hn,
-        Doc_id: getDoctorByName.Doc_id,
+        doc_id: getDoctorByName.doc_id,
         firstname: firstname,
         lastname: lastname,
         locations: locations,
-        appointments: appointments,
+        doctor_name: doctor_name,
         dateOld: dateOld,
         dateNew: dateNew,
         course: course,
@@ -53,9 +54,8 @@ exports.CreatePostPone = async (req, res) => {
 
       return res.status(200).send({
         status: "success",
-        data: [createPostPone]
+        data: createAppointment
       });
-
     } else {
 
       const createNewUser = await UserService.create({
@@ -64,15 +64,14 @@ exports.CreatePostPone = async (req, res) => {
         confirmpassword: confirmpassword,
         role: 'user',
       });
-
-      const createNewPostPone = await PostPoneService.create({
+      const createAppointment = await AppointmentService.create({
         user_id: createNewUser.user_id,
         hn: hn,
-        Doc_id: getDoctorByName.Doc_id,
+        doc_id: getDoctorByName.doc_id,
         firstname: firstname,
         lastname: lastname,
         locations: locations,
-        appointments: appointments,
+        doctor_name: doctor_name,
         dateOld: dateOld,
         dateNew: dateNew,
         course: course,
@@ -85,11 +84,12 @@ exports.CreatePostPone = async (req, res) => {
 
       return res.status(200).send({
         status: "success",
-        data: [createNewPostPone]
+        data: createAppointment
       });
-
     }
 
+
+
   } catch (err) {
     console.log("==== ERROR =====", err);
     return res.status(500).send({
@@ -99,14 +99,14 @@ exports.CreatePostPone = async (req, res) => {
   }
 
 }
-exports.GetPostPoneNow = async (req, res) => {
+exports.GetAppointmentNow = async (req, res) => {
 
   try {
-    const getPostPoneByNow = await PostPoneService.getByIdNow();
+    const getAppointmentNow = await AppointmentService.getByIdNow();
 
     return res.status(200).send({
       status: "success",
-      data: getPostPoneByNow
+      data: getAppointmentNow
     });
   } catch (err) {
     console.log("==== ERROR =====", err);
@@ -116,16 +116,16 @@ exports.GetPostPoneNow = async (req, res) => {
     });
   }
 }
-exports.GetPostPoneByID = async (req, res) => {
+exports.GetAppointmentByID = async (req, res) => {
 
-  const postpone_id = req.query.postpone_id;
+  const appointments_id = req.params.appointments_id;
 
   try {
-    const getPostPoneByID = await PostPoneService.getByID(postpone_id);
+    const getAppointmentID = await AppointmentService.getByID(appointments_id);
 
     return res.status(200).send({
       status: "success",
-      data: getPostPoneByID
+      data: getAppointmentID
     });
   } catch (err) {
     console.log("==== ERROR =====", err);
@@ -135,14 +135,14 @@ exports.GetPostPoneByID = async (req, res) => {
     });
   }
 }
-exports.GetPostPoneAll = async (req, res) => {
+exports.GetAppointmentAll = async (req, res) => {
 
   try {
-    const getPostPoneAll = await PostPoneService.getAll();
+    const getAppointmentAll = await AppointmentService.getAll();
 
     return res.status(200).send({
       status: "success",
-      data: getPostPoneAll
+      data: getAppointmentAll
     });
   } catch (err) {
     console.log("==== ERROR =====", err);
@@ -152,16 +152,15 @@ exports.GetPostPoneAll = async (req, res) => {
     });
   }
 }
-exports.EditPostPoneByID = async (req, res) => {
+exports.EditAppointmentByID = async (req, res) => {
 
   const {
-    postpone_id,
-    user_id,
+    appointments_id,
     hn,
     firstname,
     lastname,
     locations,
-    appointments,
+    doctor_name,
     email,
     password,
     confirmpassword,
@@ -173,10 +172,10 @@ exports.EditPostPoneByID = async (req, res) => {
 
   } = req.body;
 
-  const getDoctorByName = await DoctorService.getByName(appointments);
+  const getDoctorByName = await DoctorService.getByName(doctor_name);
   const getUserExist = await UserService.getByEmail(email);
+
   try {
-    // เมื่อ user ต้องการแก้ไข อีเมล พาสเวิร์ด ในกรณีที่เคยสมัครไว้แล้ว
     if (getUserExist) {
       const editUserByEmail = await UserService.editByEmail(email, {
         user_id: getUserExist.user_id,
@@ -185,14 +184,14 @@ exports.EditPostPoneByID = async (req, res) => {
         confirmpassword: confirmpassword,
         role: getUserExist.role,
       });
-      const editPostPoneByID = await PostPoneService.editByID(postpone_id, {
-        postpone_id: postpone_id,
+      const editAppointmentByID = await AppointmentService.editByID(appointments_id, {
+        appointments_id: appointments_id,
         user_id: getUserExist.user_id,
         hn: hn,
         firstname: firstname,
         lastname: lastname,
         locations: locations,
-        appointments: appointments,
+        doctor_name: doctor_name,
         dateOld: dateOld,
         dateNew: dateNew,
         course: course,
@@ -205,24 +204,23 @@ exports.EditPostPoneByID = async (req, res) => {
       });
       return res.status(200).send({
         status: "success",
-        data: editPostPoneByID
+        data: editAppointmentByID
       });
     } else {
-      //เมื่อ user ต้องการแก้ไข อีเมล พาสเวิร์ด แต่ไม่เคยลงทะเบียนไว้เลย
       const createNewUser = await UserService.create({
         email: email,
         password: password,
         confirmpassword: confirmpassword,
         role: 'user',
       });
-      const editPostPoneByID = await PostPoneService.editByID(postpone_id, {
-        postpone_id: postpone_id,
+      const editAppointmentByID = await AppointmentService.editByID(appointments_id, {
+        appointments_id: appointments_id,
         user_id: createNewUser.user_id,
         hn: hn,
         firstname: firstname,
         lastname: lastname,
         locations: locations,
-        appointments: appointments,
+        doctor_name: doctor_name,
         dateOld: dateOld,
         dateNew: dateNew,
         course: course,
@@ -235,7 +233,7 @@ exports.EditPostPoneByID = async (req, res) => {
       });
       return res.status(200).send({
         status: "success",
-        data: editPostPoneByID
+        data: editAppointmentByID
       });
     }
   } catch (err) {
@@ -247,16 +245,16 @@ exports.EditPostPoneByID = async (req, res) => {
   }
 
 }
-exports.DeletePostPoneID = async (req, res) => {
+exports.DeleteAppointmenteByID = async (req, res) => {
 
-  const postpone_id = req.query.postpone_id;
+  const appointments_id = req.params.appointments_id;
 
   try {
-    const deletePostPoneByID = await PostPoneService.DeleteByID(postpone_id);
+    const deleteAppointmenteByID = await AppointmentService.DeleteByID(appointments_id);
 
     return res.status(200).send({
       status: "success",
-      data: deletePostPoneByID
+      data: deleteAppointmenteByID
     });
   } catch (err) {
     console.log("==== ERROR =====", err);

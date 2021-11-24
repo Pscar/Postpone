@@ -33,37 +33,33 @@ const db = {};
 
 db.sequelize = sequelize;
 
-//! Models
 db.user = require("../model/user")(sequelize, Sequelize);
-db.postpone = require("../model/postpone_users")(sequelize, Sequelize);
+db.appointments_user = require("../model/appointments_user")(sequelize, Sequelize);
 db.doctor = require("../model/doctors")(sequelize, Sequelize);
 db.schdule_doctor = require("../model/schedule_doctor")(sequelize, Sequelize);
 
-//User relations
-db.user.hasMany(db.postpone, {
-  foreignKey: "user_id",
-  // onDelete: "cascade",
-  // constraints : true,
-});
-
-db.postpone.belongsTo(db.user, {
+db.user.hasMany(db.appointments_user, {
   foreignKey: "user_id",
 });
 
-db.doctor.hasMany(db.postpone, {
-  foreignKey: "Doc_id",
+db.appointments_user.belongsTo(db.user, {
+  foreignKey: "user_id",
 });
 
-db.postpone.belongsTo(db.doctor, {
-  foreignKey: "Doc_id",
+db.doctor.hasMany(db.appointments_user, {
+  foreignKey: "doc_id",
+});
+
+db.appointments_user.belongsTo(db.doctor, {
+  foreignKey: "doc_id",
 });
 
 db.doctor.hasMany(db.schdule_doctor,{
-  foreignKey: "Doc_id",
+  foreignKey: "doc_id",
 });
 
 db.schdule_doctor.belongsTo(db.doctor, {
-  foreignKey: "Doc_id",
+  foreignKey: "doc_id",
 });
 
 

@@ -32,6 +32,7 @@ export default function DoctorSchedule() {
   const [editScheduleDr, setEditScheduleDr] = useState();
   const [saveScheduleDr, setSaveScheduleDr] = useState([]);
   const [displayScheduleDr, setDisplayScheduleDr] = useState([]);
+  console.log("🚀 ~ file: doctorSchedule.js ~ line 35 ~ DoctorSchedule ~ displayScheduleDr", displayScheduleDr)
 
   const returnSchedule = React.useCallback(() => {
     dispatch(getScheduleAll());
@@ -51,33 +52,31 @@ export default function DoctorSchedule() {
 
   const createSchedules = async (data) => {
     const createItem = await dispatch(createSchedule({
-      Description: data.Description,
-      EndTime: data.EndTime,
-      Location: data.Location,
-      locations: data.locations,
-      StartTime: data.StartTime,
-      Subject: data.Subject,
-      Doc_id: data.Doc_id,
+      description: data.description,
+      endtime: data.endtime,
+      location: data.location,
+      starttime: data.starttime,
+      subject: data.subject,
+      doc_id: data.doc_id,
     }))
     setSaveScheduleDr(createItem)
     return createItem
   }
-  const updateSchedules = async (Id, data) => {
+  const updateSchedules = async (id, data) => {
     const updateItem = await dispatch(updateScheduleById({
-      Id: Id,
-      Description: data.Description,
-      EndTime: data.EndTime,
-      Location: data.Location,
-      locations: data.locations,
-      StartTime: data.StartTime,
-      Subject: data.Subject,
-      Doc_id: data.Doc_id,
+      id: id,
+      description: data.description,
+      endtime: data.endtime,
+      location: data.location,
+      starttime: data.starttime,
+      subject: data.subject,
+      doc_id: data.doc_id,
     }))
     setEditScheduleDr(updateItem)
     return updateItem
   }
-  const DeleteSchedule = async (Id) => {
-    const deleteItem = await dispatch(deleteScheduleById(Id))
+  const DeleteSchedule = async (id) => {
+    const deleteItem = await dispatch(deleteScheduleById(id))
     setDeleteScheduleDr(deleteItem)
     return deleteItem
   }
@@ -86,52 +85,39 @@ export default function DoctorSchedule() {
     if (args.requestType === 'eventCreate') {
       const eventData = args.addedRecords[0];
       createSchedules(eventData)
-      // const eventField = rfcScheduleDr.eventFields;
-      // const startDate = eventData[eventField.startTime];
-      // const endDate = eventData[eventField.endTime];
-
-      // if (!rfcScheduleDr.isSlotAvailable(startDate, endDate)) {
-      //   args.cancel = true;
-      // }
     } else if (args.requestType === "eventChange") {
-      const Id = args.changedRecords[0].Id
-      updateSchedules(Id, {
-        Description: args.changedRecords[0].Description,
-        EndTime: args.changedRecords[0].EndTime,
-        Location: args.changedRecords[0].Location,
-        locations: args.changedRecords[0].locations,
-        StartTime: args.changedRecords[0].StartTime,
-        Doc_id: args.changedRecords[0].Doc_id,
-        Subject: args.changedRecords[0].Subject,
-
+      const id = args.changedRecords[0].id
+      updateSchedules(id, {
+        doc_id: args.changedRecords[0].doc_id,
+        description: args.changedRecords[0].description,
+        endtime: args.changedRecords[0].endtime,
+        location: args.changedRecords[0].location,
+        starttime: args.changedRecords[0].starttime,
+        subject: args.changedRecords[0].subject,
       })
 
     } else if (args.requestType === "eventRemove") {
-      const eventData = args.deletedRecords[0].Id
+      const eventData = args.deletedRecords[0].id
       DeleteSchedule(eventData)
     }
   }
-
 
   useEffect(() => {
     if (saveScheduleDr) {
       setDisplayScheduleDr([schedules, saveScheduleDr])
     }
-    console.log("save")
   }, [saveScheduleDr])
 
   useEffect(() => {
     if (editScheduleDr) {
       setDisplayScheduleDr([schedules, editScheduleDr])
     }
-    console.log("edit")
   }, [editScheduleDr])
 
   useEffect(() => {
     if (deleteScheduleDr) {
       setDisplayScheduleDr([schedules, deleteScheduleDr])
     }
-    console.log("delete")
   }, [deleteScheduleDr])
 
   return (
@@ -144,12 +130,12 @@ export default function DoctorSchedule() {
         eventSettings={{
           dataSource: JSON.parse(JSON.stringify(schedules)), displayScheduleDr,
           fields: {
-            id: 'Id',
-            subject: { title: 'Summary', name: 'Subject' },
-            location: { title: 'Location', name: 'Location' },
-            description: { title: 'Comments', name: 'Description' },
-            startTime: { title: 'From', name: 'StartTime' },
-            endTime: { title: 'To', name: 'EndTime' }
+            id: 'id',
+            subject: { title: 'subject', name: 'subject' },
+            location: { title: 'location', name: 'location' },
+            description: { title: 'description', name: 'description' },
+            startTime: { title: 'starttime', name: 'starttime' },
+            endTime: { title: 'endtime', name: 'endtime' }
           },
           allowAdding: true,
           enableTooltip: true
@@ -172,14 +158,14 @@ export default function DoctorSchedule() {
         </ViewsDirective>
         <ResourcesDirective>
           <ResourceDirective
-            field="Doc_id"
+            field="doc_id"
             title="Doctor"
             name="Doctors"
             allowMultiple={true}
             dataSource={doctors}
-            textField="name"
-            idField="Doc_id"
-            colorField="DocColor"
+            textField="doctor_name"
+            idField="doc_id"
+            colorField="doc_color"
           />
         </ResourcesDirective>
         <Inject

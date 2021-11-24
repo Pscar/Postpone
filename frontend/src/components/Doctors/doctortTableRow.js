@@ -54,10 +54,10 @@ export default function DoctortTableRow(props) {
           </IconButton>
         </TableCell>
         <TableCell align="center">
-          {row.Doc_id}
+          {row.doc_id}
         </TableCell>
         <TableCell align="center">
-          {searched ? scheduleDr.name : row.name}
+          {searched ? scheduleDr.doctor_name : row.doctor_name}
         </TableCell>
       </TableRow>
       <TableRow>
@@ -79,7 +79,7 @@ export default function DoctortTableRow(props) {
                   {row.schedule ? row.schedule.slice(-1).map((historyRow) => (
                     <TableRow key={historyRow.Id}>
                       <TableCell align="center">
-                        {row.name}
+                        {row.doctor_name}
                       </TableCell>
                       <TableCell>
                         <Timeline>

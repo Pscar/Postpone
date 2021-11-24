@@ -4,7 +4,6 @@ const multer = require("multer")
 const routes = require("./route/index")
 const app = express()
 
-//! Config App
 const multerMid = multer({
   storage: multer.memoryStorage(),
   limits: {
@@ -26,7 +25,6 @@ app.get("/", (req, res) => {
   res.send("Ala Mood")
 })
 
-//! Route API
 app.use("/api", routes)
 
 module.exports = app

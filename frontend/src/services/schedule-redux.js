@@ -5,17 +5,17 @@ const baseURL = 'http://localhost:5000/api';
 
 
 export const createSchedule = createAsyncThunk("schedules/createSchedule", async (schedules) => {
-  const response = await axios.post(`${baseURL}/schedule/create`, schedules);
+  const response = await axios.post(`${baseURL}/schedule`, schedules);
   return response.data.data
 });
 
-export const updateScheduleById = createAsyncThunk("schedules/updateScheduleById", async (Id, schedules) => {
-  const response = await axios.put(`${baseURL}/schedule/editbyid`, Id, schedules);
+export const updateScheduleById = createAsyncThunk("schedules/updateScheduleById", async (id, schedules) => {
+  const response = await axios.put(`${baseURL}/schedule/${id}`, id, schedules);
   return response.data.data
 });
 
-export const deleteScheduleById = createAsyncThunk("schedules/deleteScheduleeById", async (Id) => {
-  const response = await axios.delete(`${baseURL}/schedule/deletebyid?Id=${Id}`);
+export const deleteScheduleById = createAsyncThunk("schedules/deleteScheduleeById", async (id) => {
+  const response = await axios.delete(`${baseURL}/schedule/${id}`);
   return response
 });
 

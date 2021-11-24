@@ -43,15 +43,15 @@ export default function DoctorSelectModel(props) {
               <TableBody>
                 {row.schedule.slice(-1).map((historyRow) => {
                   return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={historyRow.Id}>
+                    <TableRow hover role="checkbox" tabIndex={-1} key={historyRow.id}>
                       <TableCell align="center">
                         <TextField
-                          id="appointments"
+                          id="doctor_name"
                           label="ชื่อ"
                           variant="outlined"
                           fullWidth
                           disabled
-                          {...register("appointments", { value: row.name })}
+                          {...register("doctor_name", { value: row.doctor_name })}
                           error={Boolean(errors?.appointments)}
                           helperText={errors.appointments?.message}
                         />
@@ -62,7 +62,7 @@ export default function DoctorSelectModel(props) {
                           render={() => (
                             <FormControl variant="outlined" className={classes.formControl}>
                               <Select
-                                defaultValue={historyRow.StartTime}
+                                defaultValue={historyRow.starttime}
                                 name="dateNew"
                                 {...register("dateNew")}
                                 error={Boolean(errors?.dateNew)}
@@ -70,8 +70,8 @@ export default function DoctorSelectModel(props) {
                               >
                                 {row.schedule.map(option => {
                                   return (
-                                    <MenuItem key={option.Doc_id} value={option.StartTime}>
-                                      {moment(option.StartTime).format('DD-MM-YYYY hh:mm')}
+                                    <MenuItem key={option.doc_id} value={option.starttime}>
+                                      {moment(option.starttime).format('DD-MM-YYYY hh:mm')}
                                     </MenuItem>
                                   );
                                 })}

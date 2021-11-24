@@ -1,43 +1,40 @@
 module.exports = (sequelize, Sequelize) => {
-  // ชื่อ ตัวแปร ที่ให้เหมือนกับชื่อ table
   const schedule_doctor = sequelize.define(
-    //ชื่อ ตาราง
     "schedule_doctor",
     {
-      // แต่ละ column พร้อมประเภทตัวแปร
-      Id: {
+      id: {
         type: Sequelize.INTEGER,
-        field: "Id",
+        field: "id",
         primaryKey: true,
         autoIncrement: true,
       },
-      Description: {
+      description: {
         type: Sequelize.STRING,
-        field: "Description",
+        field: "description",
       },
-      Subject: {
+      subject: {
         type: Sequelize.STRING,
-        field: "Subject"
+        field: "subject"
       },
-      Location: {
+      location: {
         type: Sequelize.STRING,
-        field: "Location"
+        field: "location"
       },
-      StartTime: {
+      starttime: {
         type: Sequelize.STRING,
-        field: "StartTime"
+        field: "starttime"
       },
-      EndTime: {
+      endtime: {
         type: Sequelize.STRING,
-        field: "EndTime"
+        field: "endtime"
       },
-      Doc_id: {
+      doc_id: {
         type: Sequelize.INTEGER,
-        field: "Doc_id",
+        field: "doc_id",
       },
-      name: {
+      doctor_name:{
         type: Sequelize.STRING,
-        field: "name"
+        field: "doctor_name",
       }
     },
     {

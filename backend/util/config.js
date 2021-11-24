@@ -20,14 +20,4 @@ module.exports = {
         port_db: process.env.DB_PORT,
         port: process.env.PORT,
     },
-    // production:{
-    //     // environment: process.env.NODE_ENV,
-    //     database: "file-management-system",
-    //     username: "root",
-    //     password: ",usy;.0.0.0",
-    //     host: "localhost",
-    //     dialect: "mysql",
-    //     port_db: 3306,
-    //     port: 7115,
-    // },
 };

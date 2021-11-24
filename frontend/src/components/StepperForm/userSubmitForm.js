@@ -21,7 +21,7 @@ export default function UserSubmitForm(props) {
     <Container maxWidth="md">
       <Paper className={classes.paper}>
         <React.Fragment>
-          <Grid container spacing={2} key={editPostPone ? editPostPone.payload.postpone_id : postpones.postpone_id}>
+          <Grid container spacing={2} key={editPostPone ? editPostPone.payload.appointments_id : postpones.appointments_id}>
             <Grid item xs={12} md={4}>
               <Typography variant="h6">
                 HN
@@ -59,7 +59,7 @@ export default function UserSubmitForm(props) {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                {editPostPone ? editPostPone.payload.appointments : postpones.appointments}
+                {editPostPone ? editPostPone.payload.doctor_name : postpones.doctor_name}
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>

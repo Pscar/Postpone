@@ -60,19 +60,20 @@ export default function DoctorTableHeadDr(props) {
   const dataSchedule = () => {
     const rows = displayDoctor.length > 0 && displayDoctor.map((data) => {
       const historys = {
-        Doc_id: data.Doc_id,
-        name: data.name,
+        doc_id: data.doc_id,
+        doctor_name: data.doctor_name,
         schedule:
           displayScheduleDr.length > 0 && displayScheduleDr.filter(function (item) {
-            return item.Doc_id === data.Doc_id;
+            return item.doc_id === data.doc_id;
           }).map(function (item) {
             return {
-              Id: item.Id,
-              Doc_id: item.Doc_id,
-              Description: item.Description,
-              EndTime: item.EndTime,
-              StartTime: item.StartTime,
-              Subject: item.Subject,
+              id	: item.id	,
+              doc_id: item.doc_id,
+              description: item.description,
+              location:item.location,
+              endtime: item.endtime,
+              starttime: item.starttime,
+              subject: item.subject,
             }
           })
       }
@@ -87,7 +88,7 @@ export default function DoctorTableHeadDr(props) {
   const requestSearch = (searchedVal) => {
     if (searchedVal) {
       const filteredRows = data.length > 0 && data.filter((row) => {
-        const filterName = row.name.toLowerCase().includes(searchedVal.toLowerCase());
+        const filterName = row.doctor_name.toLowerCase().includes(searchedVal.toLowerCase());
         return filterName
       });
       setDisplayDoctor(filteredRows);

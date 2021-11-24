@@ -5,17 +5,17 @@ const baseURL = 'http://localhost:5000/api';
 
 
 export const createPostPone = createAsyncThunk("postpones/createPostPone", async (postpones) => {
-  const response = await axios.post(`${baseURL}/postpone/create`, postpones);
+  const response = await axios.post(`${baseURL}/postpone`, postpones);
   return response.data.data
 });
 
-export const updatePostPoneById = createAsyncThunk("postpones/updatePostPoneById", async (postpone_id, postpones) => {
-  const response = await axios.put(`${baseURL}/postpone/editbyid`, postpone_id, postpones);
+export const updatePostPoneById = createAsyncThunk("postpones/updatePostPoneById", async (appointments_id, postpones) => {
+  const response = await axios.put(`${baseURL}/postpone/${appointments_id}`, appointments_id, postpones);
   return response.data.data
 });
 
-export const deletePostPoneById = createAsyncThunk("postpones/deletePostPoneById", async (postpone_id) => {
-  const response = await axios.delete(`${baseURL}/postpone/deletebyid?postpone_id=${postpone_id}`);
+export const deletePostPoneById = createAsyncThunk("postpones/deletePostPoneById", async (appointments_id) => {
+  const response = await axios.delete(`${baseURL}/postpone/${appointments_id}`);
   return response
 });
 
@@ -26,11 +26,11 @@ export const getPostPoneNow = createAsyncThunk("postpones/getPostPoneNow", async
 
 
 export const getPostPoneAll = createAsyncThunk("postpones/getPostPoneAll", async () => {
-  const response = await axios.get(`${baseURL}/postpone/get`);
+  const response = await axios.get(`${baseURL}/postpone`);
   return response.data.data
 });
 
-export const getPostPonesById = async (postpone_id) => {
-  const response = await axios.get(`${baseURL}/postpone/getbyid?postpone_id=${postpone_id}`)
+export const getPostPonesById = async (appointments_id) => {
+  const response = await axios.get(`${baseURL}/postpone/${appointments_id}`)
   return response
 }

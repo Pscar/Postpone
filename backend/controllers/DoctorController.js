@@ -2,10 +2,10 @@ const DoctorService = require('../service/doctor_service');
 
 exports.GetDoctorByName = async (req, res) => {
 
-  const name = req.query.name;
+  const doctor_name = req.query.name;
 
   try {
-    const getDoctorByName = await DoctorService.getByID(name);
+    const getDoctorByName = await DoctorService.getByID(doctor_name);
 
     return res.status(200).send({
       status: "success",

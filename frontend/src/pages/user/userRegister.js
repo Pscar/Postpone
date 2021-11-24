@@ -26,7 +26,6 @@ export default function UserRegister() {
   const [activeStep, setActiveStep] = useState(0);
   const [skippedSteps, setSkippedSteps] = useState([]);
   const [editPostPone, setPostPoneEdit] = useState();
-  console.log("🚀 ~ file: userRegister.js ~ line 29 ~ UserRegister ~ editPostPone", editPostPone)
 
   const dispatch = useDispatch();
   const { postpones } = useSelector((state) => state.postpones);
@@ -37,7 +36,7 @@ export default function UserRegister() {
       firstname: "",
       lastname: "",
       locations: "",
-      appointments: "",
+      doctor_name: "",
       dateOld: "",
       course: "",
       email: "",
@@ -75,7 +74,7 @@ export default function UserRegister() {
       firstname: data.firstname,
       lastname: data.lastname,
       locations: data.locations,
-      appointments: data.appointments,
+      doctor_name: data.doctor_name,
       dateOld: data.dateOld,
       dateNew: data.dateNew,
       course: data.course,
@@ -89,15 +88,15 @@ export default function UserRegister() {
     return await dispatch(getPostPoneNow())
   }
 
-  const updateUserPostPone = async (postpone_id, data) => {
+  const updateUserPostPone = async (appointments_id, data) => {
     // send data to redux toolkit
     const updateItem = await dispatch(updatePostPoneById({
-      postpone_id: postpone_id,
+      appointments_id: appointments_id,
       hn: data.hn,
       firstname: data.firstname,
       lastname: data.lastname,
       locations: data.locations,
-      appointments: data.appointments,
+      doctor_name: data.doctor_name,
       dateOld: data.dateOld,
       dateNew: data.dateNew,
       course: data.course,
@@ -112,8 +111,7 @@ export default function UserRegister() {
   }
 
   const handleNext = (data) => {
-  console.log("🚀 ~ file: userRegister.js ~ line 115 ~ handleNext ~ data", data)
-    const postpone_id = postpones ? postpones.postpone_id : "";
+    const appointments_id = postpones ? postpones.appointments_id : "";
 
     if (activeStep === steps.length - 1) {
       setActiveStep(activeStep + 1);
@@ -121,13 +119,13 @@ export default function UserRegister() {
       setActiveStep(activeStep + 1);
       // แก้ไขข้อมูลในส่วนของ frontend
       return !isEditing ? createUserPostPone(data)
-        : updateUserPostPone(postpone_id, {
-          postpone_id: postpone_id,
+        : updateUserPostPone(appointments_id, {
+          appointments_id: appointments_id,
           hn: data.hn,
           firstname: data.firstname,
           lastname: data.lastname,
           locations: data.locations,
-          appointments: data.appointments,
+          doctor_name: data.doctor_name,
           dateOld: data.dateOld,
           dateNew: data.dateNew,
           course: data.course,

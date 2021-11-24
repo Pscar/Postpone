@@ -12,7 +12,6 @@ exports.CreateUser = async (req, res) => {
     const getUserExist = await UserService.getByEmail(email);
 
     if (getUserExist) {
-      console.log("User already registered");
 
       return res.status(200).send({
         status: "error",
@@ -46,8 +45,7 @@ exports.CreateUser = async (req, res) => {
 
 exports.GetUserByID = async (req, res) => {
 
-  const user_id = req.query.user_id;
-
+  const user_id = req.params.user_id;
   try {
     const getUserAccountByID = await UserService.getByID(user_id);
 
@@ -84,10 +82,9 @@ exports.GetUserAll = async (req, res) => {
 
 exports.GetUserByEmail = async (req, res) => {
 
-  const user_email = req.query.email;
-
+  const email = req.query.email;
   try {
-    const getUserAccountByEmail = await UserService.getByEmail(user_email);
+    const getUserAccountByEmail = await UserService.getByEmail(email);
 
     return res.status(200).send({
       status: "success",
