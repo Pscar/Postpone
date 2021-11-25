@@ -17,8 +17,8 @@ import {
   ResourcesDirective
 } from '@syncfusion/ej2-react-schedule';
 
-import { getScheduleAll, createSchedule, updateScheduleById, deleteScheduleById } from '../../services/schedule-redux';
-import { getDoctorAll } from '../../services/doctor-redux';
+import { getScheduleAll, createSchedule, updateScheduleById, deleteScheduleById } from '../../services/scheduleService';
+import { getDoctorAll } from '../../services/doctorService';
 import { useDispatch, useSelector } from "react-redux";
 
 export default function DoctorSchedule() {

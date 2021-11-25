@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { makeStyles } from "@material-ui/core/styles";
 import {
   CssBaseline,
@@ -8,12 +8,13 @@ import {
   TextField,
   Container,
   Typography,
+  Grid,
 } from "@material-ui/core";
 import Alert from '@material-ui/lab/Alert';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { loginSuccess } from '../slices/userLoginSlice';
+import { loginSuccess } from '../slices/LoginSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserAll } from '../services/user-redux';
+import { getPatientAll } from '../services/patientService';
 export default function LoginsForm() {
 
   let history = useHistory();
@@ -24,16 +25,16 @@ export default function LoginsForm() {
   const [alert, setAlert] = useState(false);
   const [alertContent, setAlertContent] = useState('');
 
-  const users = useSelector((state) => state.users);
+  const patients = useSelector((state) => state.patients);
   const dispatch = useDispatch()
 
-  const returnGetUserAll = React.useCallback(() => {
-    dispatch(getUserAll());
+  const returnGetPatientAll = React.useCallback(() => {
+    dispatch(getPatientAll());
   }, [dispatch])
 
   React.useEffect(() => {
-    returnGetUserAll()
-  }, [returnGetUserAll])
+    returnGetPatientAll()
+  }, [returnGetPatientAll])
 
 
   const handleClick = () => {
@@ -49,18 +50,18 @@ export default function LoginsForm() {
 
   const submitUser = (event) => {
     event.preventDefault();
-    for (let i = 0; i < users.data.length; i++) {
-      if (stateEvent.email === users.data[i].email && stateEvent.password === users.data[i].password) {
+    for (let i = 0; i < patients.length; i++) {
+      if (stateEvent.email === patients[i].email && stateEvent.password === patients[i].password) {
         setIsLogin(true)
-        dispatch(loginSuccess(users.data[i]))
+        dispatch(loginSuccess(patients[i]))
       }
       else if (stateEvent.email === 'admin@admin.com' && stateEvent.password === '147258369') {
         setIsLogin(true)
         history.push("/admin");
-      } else if (stateEvent.email !== users.data[i].email) {
+      } else if (stateEvent.email !== patients[i].email) {
         setAlert(true)
         setAlertContent("กรุณากรอก email ใหม่")
-      } else if (stateEvent.password !== users.data[i].password) {
+      } else if (stateEvent.password !== patients[i].password) {
         setAlert(true)
         setAlertContent("กรุณากรอก password ใหม่")
       }
@@ -112,7 +113,13 @@ export default function LoginsForm() {
             ตรวจสอบ
           </Button>
           {alert ? <Alert variant="filled" severity="error">{alertContent}</Alert> : <></>}
-
+          <Grid container>
+            <Grid item>
+              <Link to={`/register`} className={classes.link}>
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
         </form>
       </div>
     </Container>
@@ -136,4 +143,8 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  link: {
+    textDecoration: 'none',
+    color: 'blue'
+  }
 }));

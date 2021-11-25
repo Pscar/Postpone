@@ -8,29 +8,17 @@ module.exports = (sequelize, Sequelize) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      user_id: {
+      patient_id: {
         type: Sequelize.INTEGER,
-        field: "user_id",
+        field: "patient_id",
       },
       hn: {
         type: Sequelize.STRING,
         field: "hn",
       },
-      email: {
-        type: Sequelize.STRING,
-        field: "email"
-      },
       doctor_name:{
         type: Sequelize.STRING,
         field: "doctor_name"
-      },
-      firstname: {
-        type: Sequelize.STRING,
-        field: "firstname"
-      },
-      lastname: {
-        type: Sequelize.STRING,
-        field: "lastname"
       },
       locations: {
         type: Sequelize.STRING,
@@ -51,10 +39,6 @@ module.exports = (sequelize, Sequelize) => {
       course: {
         type: Sequelize.STRING,
         field: "course"
-      },
-      phone: {
-        type: Sequelize.STRING,
-        field: "phone"
       },
       status: {
         type: Sequelize.STRING,

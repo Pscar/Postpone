@@ -21,7 +21,7 @@ import {
 import TableHeads from '../../components/Admin/tableHeads';
 import TableToolBar from '../../components/Admin/tableToolBar';
 import { useDispatch, useSelector } from "react-redux";
-import { getAppointmentAll } from '../../services/appointment-redux';
+import { getAppointmentAll } from '../../services/appointmentService';
 
 
 

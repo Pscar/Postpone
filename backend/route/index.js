@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
 
-const UserController = require('../controllers/UserController');
-const AppointmentsController = require('../controllers/AppointmentsController');
-const DoctorController = require('../controllers/DoctorController');
-const ScheduleDoctorController = require('../controllers/ScheduleDoctorController');
+const PatientController = require('../controllers/patientController');
+const AppointmentsController = require('../controllers/appointmentsController');
+const DoctorController = require('../controllers/doctorController');
+const ScheduleDoctorController = require('../controllers/scheduleDoctorController');
 
 
-router.post("/user", UserController.CreateUser);
-router.get("/user", UserController.GetUserAll);
-router.get("/user/:user_id", UserController.GetUserByID);
+router.post("/user", PatientController.CreatePatient);
+router.get("/user", PatientController.GetPatientAll);
+router.get("/user/:user_id", PatientController.GetPatientByID);
 
 
 router.post("/appointment", AppointmentsController.CreateAppointment);

@@ -6,7 +6,7 @@ import DialogChangeDr from '../../components/Dialog/dialogChangeDr';
 import FieldFormChangeDr from '../../components/Admin/fieldFormChangeDr';
 
 import { useSelector, useDispatch } from 'react-redux'
-import { updateAppointmentById, getAppointmentById } from '../../services/appointment-redux';
+import { updateAppointmentById, getAppointmentById } from '../../services/appointmentService';
 
 export default function FormChangeDr(props) {
   let history = useHistory();

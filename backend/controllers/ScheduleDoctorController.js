@@ -1,5 +1,5 @@
-const ScheduleDoctorService = require('../service/schedule_doctor_service');
-const DoctorService = require('../service/doctor_service');
+const ScheduleDoctorService = require('../service/scheduleDoctorService');
+const DoctorService = require('../service/doctorService');
 
 exports.CreateScheduleDoctor = async (req, res) => {
 

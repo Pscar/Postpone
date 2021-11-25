@@ -1,10 +1,11 @@
-const DoctorService = require('../service/doctor_service');
+const DoctorService = require('../service/doctorService');
 
 exports.GetDoctorByName = async (req, res) => {
 
   const doctor_name = req.query.name;
 
   try {
+    
     const getDoctorByName = await DoctorService.getByID(doctor_name);
 
     return res.status(200).send({

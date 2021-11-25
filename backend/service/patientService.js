@@ -1,9 +1,9 @@
 const database = require("../util/database");
-const User = database.user;
+const Patient = database.patient;
 
 exports.create = async (data) => {
   try {
-    return await User.create(data);
+    return await Patient.create(data);
   } catch (err) {
     throw err;
   }
@@ -11,7 +11,7 @@ exports.create = async (data) => {
 
 exports.getAll = async () => {
   try {
-    return await User.findAll();
+    return await Patient.findAll();
   } catch (err) {
     throw err;
   }
@@ -19,7 +19,7 @@ exports.getAll = async () => {
 
 exports.getByID = async (user_id) => {
   try {
-    return await User.findOne({
+    return await Patient.findOne({
       where: {
         user_id: user_id,
       },
@@ -31,7 +31,7 @@ exports.getByID = async (user_id) => {
 
 exports.getByEmail = async (email) => {
   try {
-    return await User.findOne({
+    return await Patient.findOne({
       where: {
         email: email,
       },
@@ -43,7 +43,7 @@ exports.getByEmail = async (email) => {
 
 exports.editByEmail = async (email, data) => {
   try {
-    await User.update(data, {
+    await Patient.update(data, {
       where: {
         email: email,
       },

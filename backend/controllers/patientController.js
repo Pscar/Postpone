@@ -1,38 +1,44 @@
-const UserService = require('../service/user_service');
+const PatientService = require('../service/patientService');
 
-exports.CreateUser = async (req, res) => {
+exports.CreatePatient = async (req, res) => {
 
   const {
     email,
+    firstname,
+    lastname,
+    confirmpassword,
     password,
-    role,
+    phone,
   } = req.body;
 
   try {
-    const getUserExist = await UserService.getByEmail(email);
 
-    if (getUserExist) {
-
+    const getPatientAccountByEmail = await PatientService.getByEmail(email);
+    
+    if (getPatientAccountByEmail) {
       return res.status(200).send({
         status: "error",
-        data: "Not Data"
+        data: "มีข้อมูลอยู่แล้ว"
       });
     } else {
-      const createNewUser = await UserService.create({
+      const createNewPatient = await PatientService.create({
         email: email,
         password: password,
-        role: 'user',
+        firstname: firstname,
+        lastname: lastname,
+        confirmpassword: confirmpassword,
+        phone: phone,
+        role: 'patient',
       });
 
       return res.status(200).send({
         status: "success",
-        data: createNewUser
+        data: createNewPatient
       });
 
     }
 
 
-
   } catch (err) {
     console.log("==== ERROR =====", err);
     return res.status(500).send({
@@ -43,15 +49,15 @@ exports.CreateUser = async (req, res) => {
 
 }
 
-exports.GetUserByID = async (req, res) => {
+exports.GetPatientByID = async (req, res) => {
 
-  const user_id = req.params.user_id;
+  const patient_id = req.params.patient_id;
   try {
-    const getUserAccountByID = await UserService.getByID(user_id);
+    const getPatientAccountByID = await PatientService.getByID(patient_id);
 
     return res.status(200).send({
       status: "success",
-      data: getUserAccountByID
+      data: getPatientAccountByID
     });
   } catch (err) {
     console.log("==== ERROR =====", err);
@@ -62,14 +68,14 @@ exports.GetUserByID = async (req, res) => {
   }
 }
 
-exports.GetUserAll = async (req, res) => {
+exports.GetPatientAll = async (req, res) => {
 
   try {
-    const getUserAccountAll = await UserService.getAll();
+    const getPatientAccountAll = await PatientService.getAll();
 
     return res.status(200).send({
       status: "success",
-      data: getUserAccountAll
+      data: getPatientAccountAll
     });
   } catch (err) {
     console.log("==== ERROR =====", err);
@@ -80,15 +86,15 @@ exports.GetUserAll = async (req, res) => {
   }
 }
 
-exports.GetUserByEmail = async (req, res) => {
+exports.GetPatientByEmail = async (req, res) => {
 
   const email = req.query.email;
   try {
-    const getUserAccountByEmail = await UserService.getByEmail(email);
+    const getPatientAccountByEmail = await PatientService.getByEmail(email);
 
     return res.status(200).send({
       status: "success",
-      data: getUserAccountByEmail
+      data: getPatientAccountByEmail
     });
   } catch (err) {
     console.log("==== ERROR =====", err);
@@ -99,7 +105,7 @@ exports.GetUserByEmail = async (req, res) => {
   }
 }
 
-exports.EditUserByEmail = async (req, res) => {
+exports.EditPatientByEmail = async (req, res) => {
 
   const {
     email,
@@ -108,7 +114,7 @@ exports.EditUserByEmail = async (req, res) => {
   } = req.body;
 
   try {
-    const editUserByEmail = await UserService.editByEmail(email, {
+    const editPatientByEmail = await PatientService.editByEmail(email, {
       email: email,
       password: password,
       confirmpassword: confirmpassword,
@@ -116,7 +122,7 @@ exports.EditUserByEmail = async (req, res) => {
 
     return res.status(200).send({
       status: "success",
-      data: editUserByEmail
+      data: editPatientByEmail
     });
   } catch (err) {
     console.log("==== ERROR =====", err);

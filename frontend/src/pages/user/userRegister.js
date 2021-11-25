@@ -17,7 +17,7 @@ import UserFieldFormRegister from "../../components/StepperForm/userFieldFormReg
 import UserSubmitForm from "../../components/StepperForm/userSubmitForm";
 import UserThankYou from "../../components/StepperForm/userThankYou";
 
-import { createAppointment, getAppointmentNow, updateAppointmentById } from "../../services/appointment-redux";
+import { createAppointment, getAppointmentNow, updateAppointmentById } from "../../services/appointmentService";
 
 export default function UserRegister() {
 

@@ -10,12 +10,12 @@ import {
 } from '@material-ui/core';
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import DialogLogout from '../components/Dialog/dialogLogout';
-import { logoutSuccess } from '../slices/userLoginSlice';
+import { logoutSuccess } from '../slices/LoginSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function Navbar() {
   const dispatch = useDispatch()
-  const { users } = useSelector((state) => state.users);
+  const logins = useSelector((state) => state.logins.login);
 
   let history = useHistory();
   const classes = useStyles();
@@ -23,7 +23,7 @@ export default function Navbar() {
   const [open, setOpen] = React.useState(false);
 
   const handlLogin = () => {
-    history.push("/login");
+    history.push("/");
   }
   const handleClickOpen = () => {
     setOpen(true);
@@ -49,9 +49,9 @@ export default function Navbar() {
             </Link>
           </Typography>
 
-          {users ?
+          {logins ?
             <React.Fragment>
-              {users.role === 'admin' &&
+              {logins.role === 'admin' &&
                 <Link to="/doctor" style={{ color: '#ffffff', textDecoration: 'none' }}>
                   <Button color="inherit">ตารางเวลาหมอ</Button>
                 </Link>
@@ -66,14 +66,14 @@ export default function Navbar() {
                 <AccountCircle />
               </IconButton>
 
-              {users.role === 'admin' ? (
+              {logins.role === 'admin' ? (
                 <Link to="/admin" style={{ color: '#ffffff', textDecoration: 'none' }}>
-                  <Button color="inherit">{users.email}</Button>
+                  <Button color="inherit">{logins.email}</Button>
                 </Link>
 
               ) :
                 <Link to="/postpone" style={{ color: '#ffffff', textDecoration: 'none' }}>
-                  <Button color="inherit">{users.email}</Button>
+                  <Button color="inherit">{logins.email}</Button>
                 </Link>
               }
               <Button color="inherit" onClick={handleClickOpen}>Logout</Button>

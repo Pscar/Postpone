@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createAppointment, updateAppointmentById, deleteAppointmentById, getAppointmentNow, getAppointmentAll } from '../services/appointment-redux';
+import { createAppointment, updateAppointmentById, deleteAppointmentById, getAppointmentNow, getAppointmentAll } from '../services/appointmentService';
 
 
 export const appointmentSlice = createSlice({

@@ -16,7 +16,7 @@ import SearchBar from "material-ui-search-bar";
 import UserAppointmentActualize from "../../components/User/userAppointmentActualize";
 import moment from "moment";
 import { useDispatch, useSelector } from 'react-redux'
-import { getAppointmentAll } from "../../services/appointment-redux";
+import { getAppointmentAll } from "../../services/appointmentService";
 
 
 UserAppointmentActualize.propTypes = {
@@ -72,7 +72,7 @@ export default function UserAppointment() {
   const [displaySearch, setDisplaySearch] = useState([])
 
   const dispatch = useDispatch();
-  const { users } = useSelector(state => state.users);
+  const { logins } = useSelector(state => state.logins.login);
   const appointment = useSelector(state => state.appointment);
 
   const returnAppointmentAll = React.useCallback(() => {
@@ -151,9 +151,9 @@ export default function UserAppointment() {
                   <TableCell align="center">Action</TableCell>
                 </TableRow>
               </TableHead>
-              {data && data.slice(-1).map((row) => (row.user_id === users.user_id ? (
+              {data && data.slice(-1).map((row) => (row.user_id === logins.user_id ? (
                 <TableBody>
-                  <UserAppointmentActualize key={row.appointments_id} row={row} users={users} />
+                  <UserAppointmentActualize key={row.appointments_id} row={row} users={logins} />
                 </TableBody>
               ) : null
               ))}

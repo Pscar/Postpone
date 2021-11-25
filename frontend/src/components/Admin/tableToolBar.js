@@ -11,7 +11,7 @@ import clsx from 'clsx';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DialogDelete from '../Dialog/dialogDelete';
 import { useDispatch } from "react-redux";
-import { deleteAppointmentById } from '../../services/appointment-redux';
+import { deleteAppointmentById } from '../../services/appointmentService';
 
 const useToolbarStyles = makeStyles((theme) => ({
   root: {

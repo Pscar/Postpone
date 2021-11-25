@@ -9,7 +9,7 @@ import {
   Container
 } from "@material-ui/core";
 import moment from 'moment';
-import { getAppointmentById } from '../../services/appointment-redux';
+import { getAppointmentById } from '../../services/appointmentService';
 
 export default function UserAppointmentDetail() {
   const { id } = useParams();

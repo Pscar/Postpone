@@ -5,7 +5,7 @@ import DialogChangeDate from '../../components/Dialog/dialogChangeDate';
 import FieldFormChangeDate from '../../components/Admin/fieldFormChangeDate';
 
 import { useSelector, useDispatch } from 'react-redux'
-import { updateAppointmentById, getAppointmentById } from '../../services/appointment-redux';
+import { updateAppointmentById, getAppointmentById } from '../../services/appointmentService';
 
 export default function FormChangeDate(props) {
 

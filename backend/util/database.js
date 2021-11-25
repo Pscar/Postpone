@@ -33,17 +33,17 @@ const db = {};
 
 db.sequelize = sequelize;
 
-db.user = require("../model/user")(sequelize, Sequelize);
-db.appointments_user = require("../model/appointments_user")(sequelize, Sequelize);
+db.patient = require("../model/patient")(sequelize, Sequelize);
+db.appointments_user = require("../model/appointmentUser")(sequelize, Sequelize);
 db.doctor = require("../model/doctors")(sequelize, Sequelize);
-db.schdule_doctor = require("../model/schedule_doctor")(sequelize, Sequelize);
+db.schdule_doctor = require("../model/scheduleDoctor")(sequelize, Sequelize);
 
-db.user.hasMany(db.appointments_user, {
-  foreignKey: "user_id",
+db.patient.hasMany(db.appointments_user, {
+  foreignKey: "patient_id",
 });
 
-db.appointments_user.belongsTo(db.user, {
-  foreignKey: "user_id",
+db.appointments_user.belongsTo(db.patient, {
+  foreignKey: "patient_id",
 });
 
 db.doctor.hasMany(db.appointments_user, {

@@ -4,8 +4,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 const baseURL = 'http://localhost:5000/api';
 
 
-export const createAppointment = createAsyncThunk("createAppointment", async (postpones) => {
-  const response = await axios.post(`${baseURL}/appointment`, postpones);
+export const createAppointment = createAsyncThunk("createAppointment", async (appointments) => {
+  const response = await axios.post(`${baseURL}/appointment`, appointments);
   return response.data.data
 });
 

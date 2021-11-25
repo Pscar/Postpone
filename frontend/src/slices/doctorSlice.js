@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getDoctorAll } from '../services/doctor-redux';
+import { getDoctorAll } from '../services/doctorService';
 
 export const doctorSlice = createSlice({
   name: "doctors",

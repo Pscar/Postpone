@@ -18,8 +18,8 @@ import {
 import moment from 'moment';
 import { DateRangePickerComponent } from '@syncfusion/ej2-react-calendars';
 import { useDispatch, useSelector } from "react-redux";
-import { getScheduleAll } from '../../services/schedule-redux';
-import { getDoctorAll } from '../../services/doctor-redux';
+import { getScheduleAll } from '../../services/scheduleService';
+import { getDoctorAll } from '../../services/doctorService';
 import DoctortTableRow from './doctortTableRow';
 
 export default function DoctorTableHeadDr(props) {
