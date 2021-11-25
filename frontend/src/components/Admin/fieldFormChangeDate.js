@@ -23,6 +23,7 @@ import moment from 'moment';
 export default function FieldFormChangeDate(props) {
 
   const { data, handleClickOpen } = props
+  console.log("🚀 ~ file: fieldFormChangeDate.js ~ line 26 ~ FieldFormChangeDate ~ data", data)
   const classes = useStyles();
   const { register, control, formState: { errors } } = useFormContext();
 
@@ -30,7 +31,7 @@ export default function FieldFormChangeDate(props) {
     <React.Fragment>
       <Container maxWidth="md">
         <Paper variant="outlined" square className={classes.paper}>
-          แก้ไขสถานะ และ วันที่เลื่อนนัด # {data.postpone_id}
+          แก้ไขสถานะ และ วันที่เลื่อนนัด # {data.appointments_id}
         </Paper>
         <Paper variant="outlined" className={classes.paper}>
           <Grid container spacing={3}>
@@ -83,7 +84,7 @@ export default function FieldFormChangeDate(props) {
                 required
                 id="filled-required-appointments"
                 label="นัดพบแพทย์ คนเดิมของคนไข้"
-                defaultValue={data.appointments}
+                defaultValue={data.doctor_name}
                 variant="filled"
                 disabled
                 fullWidth

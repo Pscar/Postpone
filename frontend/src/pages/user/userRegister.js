@@ -17,7 +17,7 @@ import UserFieldFormRegister from "../../components/StepperForm/userFieldFormReg
 import UserSubmitForm from "../../components/StepperForm/userSubmitForm";
 import UserThankYou from "../../components/StepperForm/userThankYou";
 
-import { createPostPone, getPostPoneNow, updatePostPoneById } from "../../services/postpone-redux";
+import { createAppointment, getAppointmentNow, updateAppointmentById } from "../../services/appointment-redux";
 
 export default function UserRegister() {
 
@@ -25,10 +25,10 @@ export default function UserRegister() {
   const [isEditing, setEditing] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [skippedSteps, setSkippedSteps] = useState([]);
-  const [editPostPone, setPostPoneEdit] = useState();
+  const [editAppointment, setAppointmentEdit] = useState();
 
   const dispatch = useDispatch();
-  const { postpones } = useSelector((state) => state.postpones);
+  const { appointment } = useSelector((state) => state.appointment);
 
   const methods = useForm({
     defaultValues: {
@@ -68,7 +68,7 @@ export default function UserRegister() {
     return skippedSteps.includes(step);
   };
 
-  const createUserPostPone = async (data) => {
+  const createAppointments = async (data) => {
     const createItem = {
       hn: data.hn,
       firstname: data.firstname,
@@ -84,13 +84,12 @@ export default function UserRegister() {
       confirmpassword: data.confirmpassword,
       status: "อยู่ระหว่างดำเนินการ"
     }
-    await dispatch(createPostPone(createItem));
-    return await dispatch(getPostPoneNow())
+    await dispatch(createAppointment(createItem));
+    return await dispatch(getAppointmentNow())
   }
 
-  const updateUserPostPone = async (appointments_id, data) => {
-    // send data to redux toolkit
-    const updateItem = await dispatch(updatePostPoneById({
+  const updateAppointments = async (appointments_id, data) => {
+    const updateItem = await dispatch(updateAppointmentById({
       appointments_id: appointments_id,
       hn: data.hn,
       firstname: data.firstname,
@@ -106,20 +105,19 @@ export default function UserRegister() {
       confirmpassword: data.confirmpassword,
       status: "อยู่ระหว่างดำเนินการ"
     }));
-    setPostPoneEdit(updateItem)
+    setAppointmentEdit(updateItem)
     return updateItem
   }
 
   const handleNext = (data) => {
-    const appointments_id = postpones ? postpones.appointments_id : "";
+    const appointments_id = appointment ? appointment.appointments_id : "";
 
     if (activeStep === steps.length - 1) {
       setActiveStep(activeStep + 1);
     } else if (activeStep === 1) {
       setActiveStep(activeStep + 1);
-      // แก้ไขข้อมูลในส่วนของ frontend
-      return !isEditing ? createUserPostPone(data)
-        : updateUserPostPone(appointments_id, {
+      return !isEditing ? createAppointments(data)
+        : updateAppointments(appointments_id, {
           appointments_id: appointments_id,
           hn: data.hn,
           firstname: data.firstname,
@@ -163,7 +161,7 @@ export default function UserRegister() {
       case 1:
         return <UserFieldFormRegister activeStep={activeStep} isEditing={isEditing} />;
       case 2:
-        return <UserSubmitForm editPostPone={editPostPone} />;
+        return <UserSubmitForm editAppointment={editAppointment} />;
       default:
         return "unknown step";
     }
@@ -201,7 +199,7 @@ export default function UserRegister() {
       </Stepper>
       {activeStep === steps.length ? (
         <React.Fragment>
-          <UserThankYou editPostPone={editPostPone} />
+          <UserThankYou editAppointment={editAppointment} />
         </React.Fragment>
 
       ) : (

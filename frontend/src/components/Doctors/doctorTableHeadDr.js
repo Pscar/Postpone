@@ -38,22 +38,22 @@ export default function DoctorTableHeadDr(props) {
   const dispatch = useDispatch();
 
 
-  const getSchedulesAll = React.useCallback(() => {
+  const returnGetScheduleAll = React.useCallback(() => {
     dispatch(getScheduleAll());
   }, [dispatch])
 
   React.useEffect(() => {
-    getSchedulesAll()
-  }, [getSchedulesAll])
+    returnGetScheduleAll()
+  }, [returnGetScheduleAll])
 
 
-  const getDoctorsAll = React.useCallback(() => {
+  const returnGetDoctorAll = React.useCallback(() => {
     dispatch(getDoctorAll());
   }, [dispatch])
 
   React.useEffect(() => {
-    getDoctorsAll()
-  }, [getDoctorsAll])
+    returnGetDoctorAll()
+  }, [returnGetDoctorAll])
 
 
 
@@ -67,7 +67,7 @@ export default function DoctorTableHeadDr(props) {
             return item.doc_id === data.doc_id;
           }).map(function (item) {
             return {
-              id	: item.id	,
+              schedule_id	: item.schedule_id	,
               doc_id: item.doc_id,
               description: item.description,
               location:item.location,
@@ -93,7 +93,6 @@ export default function DoctorTableHeadDr(props) {
       });
       setDisplayDoctor(filteredRows);
     } else {
-      //ถ้าไม่มีค่า searchedVal จะแสดงค่าใน useContext
       setDisplayDoctor(doctors);
     }
   };
@@ -121,9 +120,9 @@ export default function DoctorTableHeadDr(props) {
       const endDate = moment(e.endDate).format('DD-MM-YYYY');
 
       const filterDateRow = schedules.length > 0 && schedules.filter((row) => {
-        const StartTime = moment(row.StartTime).format('DD-MM-YYYY');
-        const EndTime = moment(row.EndTime).format('DD-MM-YYYY');
-        const filterdate = StartTime >= startDate && EndTime <= endDate
+        const starttime = moment(row.starttime).format('DD-MM-YYYY');
+        const endtime = moment(row.endtime).format('DD-MM-YYYY');
+        const filterdate = starttime >= startDate && endtime <= endDate
         return filterdate
       });
 
@@ -184,7 +183,7 @@ export default function DoctorTableHeadDr(props) {
               {data.length > 0 && data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                 return (
                   <DoctortTableRow
-                    key={row.Doc_id}
+                    key={row.doc_id}
                     row={row}
                     searched={searched}
                     scheduleDr={schedules}

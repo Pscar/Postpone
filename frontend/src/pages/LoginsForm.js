@@ -27,18 +27,18 @@ export default function LoginsForm() {
   const users = useSelector((state) => state.users);
   const dispatch = useDispatch()
 
-  const getUsersAll = React.useCallback(() => {
+  const returnGetUserAll = React.useCallback(() => {
     dispatch(getUserAll());
   }, [dispatch])
 
   React.useEffect(() => {
-    getUsersAll()
-  }, [getUsersAll])
+    returnGetUserAll()
+  }, [returnGetUserAll])
 
 
   const handleClick = () => {
     if (isLogin === true) {
-      history.push("/postpone");
+      history.push("/appointment");
     }
   }
   const handleChange = event => {

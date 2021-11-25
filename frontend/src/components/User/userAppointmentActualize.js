@@ -19,7 +19,7 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import NoteIcon from '@material-ui/icons/Note';
 
-export default function UserPostPoneActualize(props) {
+export default function UserAppointmentActualize(props) {
   const { row } = props;
   const [open, setOpen] = useState(false);
   const classes = useRowStyles();
@@ -103,7 +103,7 @@ export default function UserPostPoneActualize(props) {
                     <TableRow>
                       <TableCell>
                         <Typography variant="body" component="div" align='center'>
-                          {historyRow.id}
+                          {historyRow.appointments_id}
                         </Typography>
                       </TableCell>
                       <TableCell>
@@ -113,7 +113,7 @@ export default function UserPostPoneActualize(props) {
                       </TableCell>
                       <TableCell>
                         <Typography variant="body" component="div" align='center'>
-                          {historyRow.appointments}
+                          {historyRow.doctor_name}
                         </Typography>
                       </TableCell>
                       <TableCell>
@@ -146,7 +146,7 @@ export default function UserPostPoneActualize(props) {
                         {
                           historyRow.status !== 'อยู่ระหว่างดำเนินการ' ? (
                             <Link
-                              to={`/detail/${row.postpone_id}`}
+                              to={`/detail/${row.appointments_id}`}
                               style={{
                                 textDecoration: 'none', color: 'white'
                               }}>

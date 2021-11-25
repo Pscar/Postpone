@@ -9,18 +9,18 @@ import {
   Container
 } from "@material-ui/core";
 import moment from 'moment';
-import { getPostPonesById } from '../../services/postpone-redux';
+import { getAppointmentById } from '../../services/appointment-redux';
 
-export default function UserPostPoneDetail() {
+export default function UserAppointmentDetail() {
   const { id } = useParams();
   const classes = useStyles();
 
-  const [postPoneById, setPostPoneById] = useState()
+  const [appointmentById, setAppointmentById] = useState()
 
   const getDataPostPone = (id) => {
-    getPostPonesById(id)
+    getAppointmentById(id)
       .then(response => {
-        setPostPoneById(response.data.data);
+        setAppointmentById(response.data.data);
       })
   }
 
@@ -44,7 +44,7 @@ export default function UserPostPoneDetail() {
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="h6" gutterBottom>
-                {postPoneById ? postPoneById.hn : ""}
+                {appointmentById ? appointmentById.hn : ""}
               </Typography>
             </Grid>
             <Grid item xs={12} md={6}>
@@ -54,7 +54,7 @@ export default function UserPostPoneDetail() {
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="h6" gutterBottom>
-                {postPoneById ? postPoneById.firstname : ""} &#160; {postPoneById ? postPoneById.lastname : ""}
+                {appointmentById ? appointmentById.firstname : ""} &#160; {appointmentById ? appointmentById.lastname : ""}
               </Typography>
             </Grid>
             <Grid item xs={12} md={6}>
@@ -64,7 +64,7 @@ export default function UserPostPoneDetail() {
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="h6" gutterBottom>
-                {postPoneById ? postPoneById.locations : ""}
+                {appointmentById ? appointmentById.locations : ""}
               </Typography>
             </Grid>
             <Grid item xs={12} md={6}>
@@ -74,7 +74,7 @@ export default function UserPostPoneDetail() {
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="h6" gutterBottom>
-                {postPoneById ? postPoneById.appointments : ""}
+                {appointmentById ? appointmentById.doctor_name : ""}
               </Typography>
             </Grid>
             <Grid item xs={12} md={6}>
@@ -84,7 +84,7 @@ export default function UserPostPoneDetail() {
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="h6" gutterBottom>
-                {moment(postPoneById ? postPoneById.dateNew : "").format('DD-MM-YYYY HH:mm')}
+                {moment(appointmentById ? appointmentById.dateNew : "").format('DD-MM-YYYY HH:mm')}
               </Typography>
             </Grid>
           </Grid>

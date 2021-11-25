@@ -28,19 +28,19 @@ export default function FieldFormChangeDr(props) {
   const doctors = useSelector(state => state.doctors);
   const dispatch = useDispatch();
 
-  const getDoctorsAll = React.useCallback(() => {
+  const returnGetDoctorAll = React.useCallback(() => {
     dispatch(getDoctorAll());
   }, [dispatch])
 
   React.useEffect(() => {
-    getDoctorsAll()
-  }, [getDoctorsAll])
+    returnGetDoctorAll()
+  }, [returnGetDoctorAll])
 
   return (
     <React.Fragment>
       <Container maxWidth="md">
         <Paper variant="outlined" square className={classes.paper}>
-          แก้ไขสถานะ และ เปลี่ยนแพทย์ # {data.postpone_id}
+          แก้ไขสถานะ และ เปลี่ยนแพทย์ # {data.appointments_id}
         </Paper>
         <Paper variant="outlined" className={classes.paper}>
           <Grid container spacing={3}>
@@ -93,7 +93,7 @@ export default function FieldFormChangeDr(props) {
                 required
                 id="filled-required-appointments"
                 label="นัดพบแพทย์ คนเดิมของคนไข้"
-                defaultValue={data.appointments}
+                defaultValue={data.doctor_name}
                 variant="filled"
                 disabled
                 fullWidth
@@ -159,7 +159,7 @@ export default function FieldFormChangeDr(props) {
                 id="custom-appointments"
                 options={doctors}
                 fullWidth
-                getOptionLabel={(option) => `${option.name}`}
+                getOptionLabel={(option) => `${option.doctor_name}`}
                 renderInput={(params) => {
                   return (
                     <TextField
@@ -167,15 +167,15 @@ export default function FieldFormChangeDr(props) {
                       variant="outlined"
                       label="นัดพบแพทย์"
                       name="appointments"
-                      {...register("appointments")}
-                      error={errors.appointments ? true : false}
-                      helperText={errors.appointments?.message}
+                      {...register("doctor_name")}
+                      error={errors.doctor_name ? true : false}
+                      helperText={errors.doctor_name?.message}
 
                     />
                   );
                 }}
                 renderOption={(option) => {
-                  return <h4>{`${option.name}`}</h4>;
+                  return <h4>{`${option.doctor_name}`}</h4>;
                 }}
               />
             </Grid>

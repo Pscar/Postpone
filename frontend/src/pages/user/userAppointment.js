@@ -13,13 +13,13 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import SearchBar from "material-ui-search-bar";
-import UserPostPoneActualize from "../../components/User/userPostPoneActualize";
+import UserAppointmentActualize from "../../components/User/userAppointmentActualize";
 import moment from "moment";
 import { useDispatch, useSelector } from 'react-redux'
-import { getPostPoneAll } from "../../services/postpone-redux";
+import { getAppointmentAll } from "../../services/appointment-redux";
 
 
-UserPostPoneActualize.propTypes = {
+UserAppointmentActualize.propTypes = {
   row: PropTypes.shape({
     id: PropTypes.number.isRequired,
     HN: PropTypes.string.isRequired,
@@ -66,39 +66,39 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function UserPostPone() {
+export default function UserAppointment() {
   const classes = useStyles();
   const [searched, setSearched] = useState("");
   const [displaySearch, setDisplaySearch] = useState([])
 
   const dispatch = useDispatch();
   const { users } = useSelector(state => state.users);
-  const postpones = useSelector(state => state.postpones);
+  const appointment = useSelector(state => state.appointment);
 
-  const getPostsPoneAll = React.useCallback(() => {
-    dispatch(getPostPoneAll());
+  const returnAppointmentAll = React.useCallback(() => {
+    dispatch(getAppointmentAll());
   }, [dispatch])
 
   React.useEffect(() => {
-    getPostsPoneAll()
-  }, [getPostsPoneAll])
+    returnAppointmentAll()
+  }, [returnAppointmentAll])
 
 
-  const dataPostPone = () => {
-    const rows = postpones.length > 0 && postpones.map((data) => {
+  const dataAppointment = () => {
+    const rows = appointment.length > 0 && appointment.map((data) => {
       const historys = {
-        postpone_id: data.postpone_id,
+        appointments_id: data.appointments_id,
         user_id: data.user_id,
         hn: data.hn,
         firstname: data.firstname,
         lastname: data.lastname,
         status: data.status,
         history:
-          postpones.filter(function (item) {
+          appointment.filter(function (item) {
             return item.user_id === data.user_id;
           }).map(function (item) {
             return {
-              id: item.postpone_id,
+              appointments_id: item.appointments_id,
               user_id: item.user_id,
               locations: item.locations,
               appointments: data.appointments,
@@ -113,7 +113,7 @@ export default function UserPostPone() {
     return rows
   }
 
-  const data = dataPostPone();
+  const data = dataAppointment();
 
   const requestSearch = (searchedVal) => {
     if (searchedVal) {
@@ -122,7 +122,7 @@ export default function UserPostPone() {
       });
       setDisplaySearch(filteredRows);
     } else {
-      setDisplaySearch(postpones);
+      setDisplaySearch(appointment);
     }
   };
 
@@ -153,7 +153,7 @@ export default function UserPostPone() {
               </TableHead>
               {data && data.slice(-1).map((row) => (row.user_id === users.user_id ? (
                 <TableBody>
-                  <UserPostPoneActualize key={row.postpone_id} row={row} users={users} />
+                  <UserAppointmentActualize key={row.appointments_id} row={row} users={users} />
                 </TableBody>
               ) : null
               ))}

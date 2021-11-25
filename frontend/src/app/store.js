@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import postponeUserSlice from '../slices/postponeUserSlice';
+import appointmentSlice from '../slices/appointmentUserSlice';
 import userLoginSlice from '../slices/userLoginSlice';
 import doctorSlice from '../slices/doctorSlice';
 import scheduleSlice from '../slices/scheduleSlice';
 //object แสดงผล frontend
 const reducer = {
-  postpones: postponeUserSlice,
+  appointment: appointmentSlice,
   doctors: doctorSlice,
   schedules:scheduleSlice,
   users: userLoginSlice

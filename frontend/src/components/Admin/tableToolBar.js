@@ -11,7 +11,7 @@ import clsx from 'clsx';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DialogDelete from '../Dialog/dialogDelete';
 import { useDispatch } from "react-redux";
-import { deletePostPoneById } from '../../services/postpone-redux';
+import { deleteAppointmentById } from '../../services/appointment-redux';
 
 const useToolbarStyles = makeStyles((theme) => ({
   root: {
@@ -50,7 +50,7 @@ export default function TableToolBar(props) {
   }
 
   const DeletePostPone = async () => {
-    await dispatch(deletePostPoneById(selected))
+    await dispatch(deleteAppointmentById(selected))
   }
 
   const handleSubmit = async () => {

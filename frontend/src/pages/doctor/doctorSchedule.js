@@ -25,6 +25,7 @@ export default function DoctorSchedule() {
 
   const doctors = useSelector(state => state.doctors);
   const schedules = useSelector(state => state.schedules)
+  console.log("🚀 ~ file: doctorSchedule.js ~ line 28 ~ DoctorSchedule ~ schedules", schedules)
   const dispatch = useDispatch();
 
   const [rfcScheduleDr, setRfcScheduleDr] = useState();
@@ -32,7 +33,6 @@ export default function DoctorSchedule() {
   const [editScheduleDr, setEditScheduleDr] = useState();
   const [saveScheduleDr, setSaveScheduleDr] = useState([]);
   const [displayScheduleDr, setDisplayScheduleDr] = useState([]);
-  console.log("🚀 ~ file: doctorSchedule.js ~ line 35 ~ DoctorSchedule ~ displayScheduleDr", displayScheduleDr)
 
   const returnSchedule = React.useCallback(() => {
     dispatch(getScheduleAll());
@@ -62,9 +62,9 @@ export default function DoctorSchedule() {
     setSaveScheduleDr(createItem)
     return createItem
   }
-  const updateSchedules = async (id, data) => {
+  const updateSchedules = async (schedule_id, data) => {
     const updateItem = await dispatch(updateScheduleById({
-      id: id,
+      schedule_id: schedule_id,
       description: data.description,
       endtime: data.endtime,
       location: data.location,
@@ -75,8 +75,8 @@ export default function DoctorSchedule() {
     setEditScheduleDr(updateItem)
     return updateItem
   }
-  const DeleteSchedule = async (id) => {
-    const deleteItem = await dispatch(deleteScheduleById(id))
+  const DeleteSchedule = async (schedule_id) => {
+    const deleteItem = await dispatch(deleteScheduleById(schedule_id))
     setDeleteScheduleDr(deleteItem)
     return deleteItem
   }
@@ -86,8 +86,8 @@ export default function DoctorSchedule() {
       const eventData = args.addedRecords[0];
       createSchedules(eventData)
     } else if (args.requestType === "eventChange") {
-      const id = args.changedRecords[0].id
-      updateSchedules(id, {
+      const schedule_id = args.changedRecords[0].schedule_id
+      updateSchedules(schedule_id, {
         doc_id: args.changedRecords[0].doc_id,
         description: args.changedRecords[0].description,
         endtime: args.changedRecords[0].endtime,
@@ -97,7 +97,7 @@ export default function DoctorSchedule() {
       })
 
     } else if (args.requestType === "eventRemove") {
-      const eventData = args.deletedRecords[0].id
+      const eventData = args.deletedRecords[0].schedule_id
       DeleteSchedule(eventData)
     }
   }
@@ -112,6 +112,7 @@ export default function DoctorSchedule() {
     if (editScheduleDr) {
       setDisplayScheduleDr([schedules, editScheduleDr])
     }
+
   }, [editScheduleDr])
 
   useEffect(() => {
@@ -128,9 +129,9 @@ export default function DoctorSchedule() {
         selectedDate={new Date()}
         ref={schedule => setRfcScheduleDr(schedule)}
         eventSettings={{
-          dataSource: JSON.parse(JSON.stringify(schedules)), displayScheduleDr,
+          dataSource: JSON.parse(JSON.stringify(schedules)),
           fields: {
-            id: 'id',
+            schedule_id: 'schedule_id',
             subject: { title: 'subject', name: 'subject' },
             location: { title: 'location', name: 'location' },
             description: { title: 'description', name: 'description' },

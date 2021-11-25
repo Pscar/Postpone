@@ -77,7 +77,7 @@ export default function DoctortTableRow(props) {
                 </TableHead>
                 <TableBody>
                   {row.schedule ? row.schedule.slice(-1).map((historyRow) => (
-                    <TableRow key={historyRow.Id}>
+                    <TableRow key={historyRow.doc_id}>
                       <TableCell align="center">
                         {row.doctor_name}
                       </TableCell>
@@ -88,13 +88,13 @@ export default function DoctortTableRow(props) {
                               <TimelineDot variant="outlined" />
                               <TimelineConnector />
                             </TimelineSeparator>
-                            <TimelineContent>{moment(historyRow.StartTime).format('DD-MM-YYYY HH:mm')}</TimelineContent>
+                            <TimelineContent>{moment(historyRow.starttime).format('DD-MM-YYYY HH:mm')}</TimelineContent>
                           </TimelineItem>
                           <TimelineItem>
                             <TimelineSeparator>
                               <TimelineDot />
                             </TimelineSeparator>
-                            <TimelineContent>{moment(historyRow.EndTime).format('DD-MM-YYYY HH:mm')}</TimelineContent>
+                            <TimelineContent>{moment(historyRow.endtime).format('DD-MM-YYYY HH:mm')}</TimelineContent>
                           </TimelineItem>
                         </Timeline>
                       </TableCell>

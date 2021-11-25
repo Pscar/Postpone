@@ -13,15 +13,15 @@ import { useSelector } from 'react-redux';
 export default function UserSubmitForm(props) {
 
   const classes = useStyles();
-  const { postpones } = useSelector((state) => state.postpones);
-  const { editPostPone } = (props)
+  const { appointment } = useSelector((state) => state.appointment);
+  const { editAppointment } = (props)
 
 
   return (
     <Container maxWidth="md">
       <Paper className={classes.paper}>
         <React.Fragment>
-          <Grid container spacing={2} key={editPostPone ? editPostPone.payload.appointments_id : postpones.appointments_id}>
+          <Grid container spacing={2} key={editAppointment ? editAppointment.payload.appointments_id : appointment.appointments_id}>
             <Grid item xs={12} md={4}>
               <Typography variant="h6">
                 HN
@@ -29,7 +29,7 @@ export default function UserSubmitForm(props) {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                {editPostPone ? editPostPone.payload.hn : postpones.hn}
+                {editAppointment ? editAppointment.payload.hn : appointment.hn}
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -39,7 +39,7 @@ export default function UserSubmitForm(props) {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                {editPostPone ? editPostPone.payload.firstname : postpones.firstname} &#160; {editPostPone ? editPostPone.payload.lastname : postpones.lastname}
+                {editAppointment ? editAppointment.payload.firstname : appointment.firstname} &#160; {editAppointment ? editAppointment.payload.lastname : appointment.lastname}
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -49,7 +49,7 @@ export default function UserSubmitForm(props) {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                {editPostPone ? editPostPone.payload.locations : postpones.locations}
+                {editAppointment ? editAppointment.payload.locations : appointment.locations}
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -59,7 +59,7 @@ export default function UserSubmitForm(props) {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                {editPostPone ? editPostPone.payload.doctor_name : postpones.doctor_name}
+                {editAppointment ? editAppointment.payload.doctor_name : appointment.doctor_name}
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -69,7 +69,7 @@ export default function UserSubmitForm(props) {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                <Moment format="DD-MM-YYYY HH:mm" date={editPostPone ? editPostPone.payload.dateOld : postpones.dateOld} />
+                <Moment format="DD-MM-YYYY HH:mm" date={editAppointment ? editAppointment.payload.dateOld : appointment.dateOld} />
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -79,7 +79,7 @@ export default function UserSubmitForm(props) {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                {editPostPone ? editPostPone.payload.phone : postpones.phone}
+                {editAppointment ? editAppointment.payload.phone : appointment.phone}
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -89,7 +89,7 @@ export default function UserSubmitForm(props) {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                {editPostPone ? editPostPone.payload.email : postpones.email}
+                {editAppointment ? editAppointment.payload.email : appointment.email}
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -99,7 +99,7 @@ export default function UserSubmitForm(props) {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                {moment(editPostPone ? editPostPone.payload.dateNew : postpones.dateNew).format('DD-MM-YYYY hh:mm')}
+                {moment(editAppointment ? editAppointment.payload.dateNew : appointment.dateNew).format('DD-MM-YYYY hh:mm')}
               </Typography>
             </Grid>
 
@@ -110,7 +110,7 @@ export default function UserSubmitForm(props) {
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="body" gutterBottom>
-                {editPostPone ? editPostPone.payload.course : postpones.course}
+                {editAppointment ? editAppointment.payload.course : appointment.course}
               </Typography>
             </Grid>
           </Grid>

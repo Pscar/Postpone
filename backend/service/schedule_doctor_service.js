@@ -17,11 +17,11 @@ exports.getAll = async () => {
   }
 };
 
-exports.editByID = async (id, data) => {
+exports.editByID = async (schedule_id, data) => {
   try {
     await Schedule.update(data, {
       where: {
-        id: id,
+        schedule_id: schedule_id,
       },
     });
     return data
@@ -30,11 +30,11 @@ exports.editByID = async (id, data) => {
   }
 };
 
-exports.DeleteByID = async (id) => {
+exports.DeleteByID = async (schedule_id) => {
   try {
     return await Schedule.destroy({
       where: {
-        id: id,
+        schedule_id: schedule_id,
       }
     })
   } catch (err) {

@@ -12,12 +12,12 @@ router.get("/user", UserController.GetUserAll);
 router.get("/user/:user_id", UserController.GetUserByID);
 
 
-router.post("/postpone", AppointmentsController.CreateAppointment);
-router.get("/postpone", AppointmentsController.GetAppointmentAll);
-router.get("/postpone/now", AppointmentsController.GetAppointmentNow);
-router.get("/postpone/:appointments_id", AppointmentsController.GetAppointmentByID);
-router.put("/postpone/:appointments_id", AppointmentsController.EditAppointmentByID);
-router.delete("/postpone/:appointments_id", AppointmentsController.DeleteAppointmenteByID)
+router.post("/appointment", AppointmentsController.CreateAppointment);
+router.get("/appointment", AppointmentsController.GetAppointmentAll);
+router.get("/appointment/now", AppointmentsController.GetAppointmentNow);
+router.get("/appointment/:appointments_id", AppointmentsController.GetAppointmentByID);
+router.put("/appointment/:appointments_id", AppointmentsController.EditAppointmentByID);
+router.delete("/appointment/:appointments_id", AppointmentsController.DeleteAppointmenteByID)
 
 
 router.get("/doctor", DoctorController.GetDoctorAll);
@@ -25,7 +25,7 @@ router.get("/doctor", DoctorController.GetDoctorAll);
 
 router.post("/schedule", ScheduleDoctorController.CreateScheduleDoctor);
 router.get("/schedule/get", ScheduleDoctorController.GetScheduleDoctorAll);
-router.put("/schedule/:id", ScheduleDoctorController.EditScheduleByID);
-router.delete("/schedule/:id", ScheduleDoctorController.DeleteScheduleByID)
+router.put("/schedule/:schedule_id", ScheduleDoctorController.EditScheduleByID);
+router.delete("/schedule/:schedule_id", ScheduleDoctorController.DeleteScheduleByID)
 
 module.exports = router;

@@ -5,8 +5,6 @@ import { getScheduleAll, createSchedule, updateScheduleById, deleteScheduleById 
 export const scheduleSlice = createSlice({
   name: "schedules",
   initialState: {
-    schedules: [],
-    schedulesEdit: [],
     loading: false,
     error: null,
   },
@@ -17,7 +15,7 @@ export const scheduleSlice = createSlice({
     [updateScheduleById.fulfilled]: (state, action) => {
       state = {
         loading: true,
-        schedulesEdit: action.payload,
+        state: action.payload,
         error: {}
       }
     },

@@ -24,7 +24,7 @@ export default function FieldFormOriginal(props) {
     <React.Fragment>
       <Container maxWidth="md">
         <Paper variant="outlined" square className={classes.paper}>
-          แก้ไขสถานะ  # {data.postpone_id}
+          แก้ไขสถานะ  # {data.appointments_id}
         </Paper>
         <Paper variant="outlined" className={classes.paper}>
           <Grid container spacing={3}>
@@ -77,7 +77,7 @@ export default function FieldFormOriginal(props) {
                 required
                 id="filled-required-appointments"
                 label="นัดพบแพทย์ คนเดิมของคนไข้"
-                defaultValue={data.appointments}
+                defaultValue={data.doctor_name}
                 variant="filled"
                 disabled
                 fullWidth

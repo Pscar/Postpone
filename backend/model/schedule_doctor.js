@@ -2,9 +2,9 @@ module.exports = (sequelize, Sequelize) => {
   const schedule_doctor = sequelize.define(
     "schedule_doctor",
     {
-      id: {
+      schedule_id: {
         type: Sequelize.INTEGER,
-        field: "id",
+        field: "schedule_id",
         primaryKey: true,
         autoIncrement: true,
       },

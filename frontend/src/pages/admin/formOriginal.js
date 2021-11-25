@@ -2,37 +2,32 @@ import React, { useState, useEffect } from 'react';
 import { useForm, FormProvider } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 
-//component
 import FieldFormOriginal from '../../components/Admin/fieldFormOriginal';
 import DialogChangeOrinal from '../../components/Dialog/dialogChangeOriginal';
 
 import { useSelector, useDispatch } from 'react-redux'
-import { updatePostPoneById, getPostPonesById } from '../../services/postpone-redux';
-
-// import emailjs from 'emailjs-com';
-// import moment from 'moment';
+import { updateAppointmentById, getAppointmentById } from '../../services/appointment-redux';
 
 export default function FormOriginal(props) {
   let history = useHistory();
 
   const [open, setOpen] = useState(false);
-  const [postPoneById, setPostPoneById] = useState()
+  const [appointmentById, setAppointmentById] = useState()
 
   const dispatch = useDispatch();
-  const postpones = useSelector(state => state.postpones);
+  const appointment = useSelector(state => state.appointment);
 
-  const dataPostPone = () => {
-    const rows = postpones.length > 0 && postpones.map((data) => {
+  const dataAppointment = () => {
+    const rows = appointment.length > 0 && appointment.map((data) => {
       const historys = {
-        id: data.postpone_id,
+        id: data.appointments_id,
         user_id: data.user_id,
         hn: data.hn,
         firstname: data.firstname,
         lastname: data.lastname,
         status: data.status,
         locations: data.locations,
-        appointments: data.appointments,
-        appointmentsNew: data.appointmentsNew,
+        doctor_name: data.doctor_name,
         dateOld: data.dateOld,
         dateNew: data.dateNew,
         course: data.course,
@@ -43,7 +38,7 @@ export default function FormOriginal(props) {
     return rows
   }
 
-  const data = dataPostPone();
+  const data = dataAppointment();
 
   const methods = useForm({
     defaultValues: {
@@ -61,58 +56,37 @@ export default function FormOriginal(props) {
     }
   });
 
-  const getDataPostPone = (id) => {
-    getPostPonesById(id)
+  const getAppointment = (id) => {
+    getAppointmentById(id)
       .then(response => {
-        setPostPoneById(response.data.data);
+        setAppointmentById(response.data.data);
       })
   }
 
   useEffect(() => {
-    getDataPostPone(props.match.params.id)
+    getAppointment(props.match.params.id)
   }, [props.match.params.id])
 
 
-  // const postPoneSendEmail = () => {
-  //   let templateParams = {
-  //     name: data.firstName,
-  //     lastname: data.lastName,
-  //     HN: data.HN,
-  //     dateOld: moment(data.MUIPickerOld).format('DD/MM/YYYY HH:mm'),
-  //     dateNew: moment(data.MUIPickerNew).format('DD/MM/YYYY HH:mm'),
-  //     appDr: data.appointments,
-  //     check: data.status,
-  //     to: data.email
-  //   };
-
-  //   emailjs.send('service_apfny9b', 'template_oliy0om', templateParams, 'user_Khbgb7HTDcAO6gFQnuCFU')
-  //     .then(function (response) {
-  //       console.log('SUCCESS!', response.status, response.text);
-  //     }, function (error) {
-  //       console.log('FAILED...', error);
-  //     });
-  // }
-
   const handleNext = async (data) => {
     const updateItem = {
-      postpone_id: postPoneById.postpone_id,
-      Doc_id: postPoneById.Doc_id,
-      course: postPoneById.course,
-      dateOld: postPoneById.dateOld,
-      email: postPoneById.email,
-      firstname: postPoneById.firstname,
-      hn: postPoneById.hn,
-      lastname: postPoneById.lastname,
-      locations: postPoneById.locations,
-      phone: postPoneById.phone,
-      user_id: postPoneById.user_id,
-      dateNew: postPoneById.dateNew,
-      appointments: postPoneById.appointments,
+      appointments_id: appointmentById.appointments_id,
+      doc_id: appointmentById.doc_id,
+      course: appointmentById.course,
+      dateOld: appointmentById.dateOld,
+      email: appointmentById.email,
+      firstname: appointmentById.firstname,
+      hn: appointmentById.hn,
+      lastname: appointmentById.lastname,
+      locations: appointmentById.locations,
+      phone: appointmentById.phone,
+      user_id: appointmentById.user_id,
+      dateNew: appointmentById.dateNew,
+      doctor_name: appointmentById.doctor_name,
       status: data.status,
     }
 
-    await dispatch(updatePostPoneById(updateItem))
-    // await postPoneSendEmail(data)
+    await dispatch(updateAppointmentById(updateItem))
   }
 
   const handleClickOpen = () => {
@@ -127,12 +101,12 @@ export default function FormOriginal(props) {
     setOpen(false);
     history.push("/admin");
   };
-  if (postPoneById) {
+  if (appointmentById) {
     return (
       <React.Fragment>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(handleNext)}>
-            <FieldFormOriginal data={postPoneById} handleClickOpen={handleClickOpen} />
+            <FieldFormOriginal data={appointmentById} handleClickOpen={handleClickOpen} />
             <DialogChangeOrinal handleClose={handleClose} handleSubmitChangOriginal={handleSubmitChangOriginal} open={open} />
           </form>
         </FormProvider>

@@ -1,27 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
-
-//component
 import DialogChangeDate from '../../components/Dialog/dialogChangeDate';
 import FieldFormChangeDate from '../../components/Admin/fieldFormChangeDate';
 
 import { useSelector, useDispatch } from 'react-redux'
-import { updatePostPoneById, getPostPonesById } from '../../services/postpone-redux';
+import { updateAppointmentById, getAppointmentById } from '../../services/appointment-redux';
 
 export default function FormChangeDate(props) {
 
   let history = useHistory();
 
   const [open, setOpen] = useState(false);
-  const [postPoneById, setPostPoneById] = useState()
+  const [appointmentById, setAppointmentById] = useState()
   const dispatch = useDispatch();
-  const postpones = useSelector(state => state.postpones);
+  const appointment = useSelector(state => state.appointment);
 
-  const dataPostPone = () => {
-    const rows = postpones.length > 0 && postpones.map((data) => {
+  const dataAppointment = () => {
+    const rows = appointment.length > 0 && appointment.map((data) => {
       const historys = {
-        postpone_id: data.postpone_id,
+        appointments_id: data.appointments_id,
         user_id: data.user_id,
         hn: data.hn,
         firstname: data.firstname,
@@ -39,7 +37,7 @@ export default function FormChangeDate(props) {
     return rows
   }
 
-  const data = dataPostPone();
+  const data = dataAppointment();
 
   const methods = useForm({
     defaultValues: {
@@ -57,56 +55,35 @@ export default function FormChangeDate(props) {
     }
   });
 
-  const getDataPostPone = (id) => {
-    getPostPonesById(id)
+  const getAppointment = (id) => {
+    getAppointmentById(id)
       .then(response => {
-        setPostPoneById(response.data.data);
+        setAppointmentById(response.data.data);
       })
   }
 
   useEffect(() => {
-    getDataPostPone(props.match.params.id)
+    getAppointment(props.match.params.id)
   }, [props.match.params.id])
 
-  // const postPoneSendEmail = (data) => {
-  //   let templateParams = {
-  //     name: data.firstName,
-  //     lastname: data.lastName,
-  //     HN: data.HN,
-  //     dateOld: moment(data.MUIPickerOld).format('DD/MM/YYYY HH:mm'),
-  //     dateNew: moment(data.MUIPickerNew).format('DD/MM/YYYY HH:mm'),
-  //     appDr: data.appointments,
-  //     check: data.status,
-  //     to: data.email
-  //   };
-
-  //   emailjs.send('service_apfny9b', 'template_oliy0om', templateParams, 'user_Khbgb7HTDcAO6gFQnuCFU')
-  //     .then(function (response) {
-  //       console.log('SUCCESS!', response.status, response.text);
-  //     }, function (error) {
-  //       console.log('FAILED...', error);
-  //     });
-  // }
-
   const handleNext = async (data) => {
-    const updateItem = await dispatch(updatePostPoneById({
-      postpone_id: postPoneById.postpone_id,
-      Doc_id: postPoneById.Doc_id,
-      appointments: postPoneById.appointments,
-      course: postPoneById.course,
-      dateOld: postPoneById.dateOld,
-      email: postPoneById.email,
-      firstname: postPoneById.firstname,
-      hn: postPoneById.hn,
-      lastname: postPoneById.lastname,
-      locations: postPoneById.locations,
-      phone: postPoneById.phone,
-      user_id: postPoneById.user_id,
+    const updateItem = await dispatch(updateAppointmentById({
+      appointments_id: appointmentById.appointments_id,
+      doc_id: appointmentById.doc_id,
+      doctor_name: appointmentById.doctor_name,
+      course: appointmentById.course,
+      dateOld: appointmentById.dateOld,
+      email: appointmentById.email,
+      firstname: appointmentById.firstname,
+      hn: appointmentById.hn,
+      lastname: appointmentById.lastname,
+      locations: appointmentById.locations,
+      phone: appointmentById.phone,
+      user_id: appointmentById.user_id,
       status: data.status,
       dateNew: data.dateNew,
     }));
     return updateItem
-    // await postPoneSendEmail(data)
   }
   const handleClickOpen = () => {
     setOpen(true);
@@ -120,12 +97,12 @@ export default function FormChangeDate(props) {
     history.push("/admin");
   };
 
-  if (postPoneById) {
+  if (appointmentById) {
     return (
       <React.Fragment>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(handleNext)}>
-            <FieldFormChangeDate data={postPoneById} handleClickOpen={handleClickOpen} />
+            <FieldFormChangeDate data={appointmentById} handleClickOpen={handleClickOpen} />
             <DialogChangeDate handleClose={handleClose} handleSubmitChangeDate={handleSubmitChangeDate} open={open} />
           </form>
         </FormProvider>

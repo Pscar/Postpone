@@ -58,7 +58,7 @@ exports.GetScheduleDoctorAll = async (req, res) => {
 }
 exports.EditScheduleByID = async (req, res) => {
   const {
-    id,
+    schedule_id,
     description,
     subject,
     location,
@@ -70,8 +70,8 @@ exports.EditScheduleByID = async (req, res) => {
   try {
     const getDoctor = await DoctorService.getByID(doc_id);
 
-    const editScheduleByID = await ScheduleDoctorService.editByID(id, {
-      id: id,
+    const editScheduleByID = await ScheduleDoctorService.editByID(schedule_id, {
+      schedule_id: schedule_id,
       description: description,
       subject: subject,
       location: location,
@@ -80,6 +80,7 @@ exports.EditScheduleByID = async (req, res) => {
       doc_id: doc_id,
       doctor_name: getDoctor.doctor_name
     });
+    console.log("🚀 ~ file: ScheduleDoctorController.js ~ line 83 ~ exports.EditScheduleByID= ~ editScheduleByID", editScheduleByID)
 
     return res.status(200).send({
       status: "success",
@@ -97,10 +98,10 @@ exports.EditScheduleByID = async (req, res) => {
 }
 exports.DeleteScheduleByID = async (req, res) => {
 
-  const id = req.params.id;
+  const schedule_id = req.params.schedule_id;
 
   try {
-    const deleteScheduleByID = await ScheduleDoctorService.DeleteByID(id);
+    const deleteScheduleByID = await ScheduleDoctorService.DeleteByID(schedule_id);
 
     return res.status(200).send({
       status: "success",
