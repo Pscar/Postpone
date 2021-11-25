@@ -28,21 +28,19 @@ export default function UserRegister() {
   const [editAppointment, setAppointmentEdit] = useState();
 
   const dispatch = useDispatch();
+  const logins = useSelector((state) => state.logins.login);
+
   const { appointment } = useSelector((state) => state.appointment);
 
   const methods = useForm({
     defaultValues: {
       hn: "",
-      firstname: "",
-      lastname: "",
+      email: logins.email,
       locations: "",
       doctor_name: "",
       dateOld: "",
       course: "",
-      email: "",
-      phone: "",
-      password: "",
-      confirmpassword: "",
+
       status: "อยู่ระหว่างดำเนินการ"
     }
   });
@@ -70,18 +68,13 @@ export default function UserRegister() {
 
   const createAppointments = async (data) => {
     const createItem = {
+      email: data.email,
       hn: data.hn,
-      firstname: data.firstname,
-      lastname: data.lastname,
       locations: data.locations,
       doctor_name: data.doctor_name,
       dateOld: data.dateOld,
       dateNew: data.dateNew,
       course: data.course,
-      email: data.email,
-      phone: data.phone,
-      password: data.password,
-      confirmpassword: data.confirmpassword,
       status: "อยู่ระหว่างดำเนินการ"
     }
     await dispatch(createAppointment(createItem));
@@ -92,18 +85,12 @@ export default function UserRegister() {
     const updateItem = await dispatch(updateAppointmentById({
       appointments_id: appointments_id,
       hn: data.hn,
-      firstname: data.firstname,
-      lastname: data.lastname,
       locations: data.locations,
       doctor_name: data.doctor_name,
       dateOld: data.dateOld,
       dateNew: data.dateNew,
       course: data.course,
-      email: data.email,
-      phone: data.phone,
-      password: data.password,
-      confirmpassword: data.confirmpassword,
-      status: "อยู่ระหว่างดำเนินการ"
+      status: data.status
     }));
     setAppointmentEdit(updateItem)
     return updateItem
@@ -120,18 +107,12 @@ export default function UserRegister() {
         : updateAppointments(appointments_id, {
           appointments_id: appointments_id,
           hn: data.hn,
-          firstname: data.firstname,
-          lastname: data.lastname,
           locations: data.locations,
           doctor_name: data.doctor_name,
           dateOld: data.dateOld,
           dateNew: data.dateNew,
           course: data.course,
-          email: data.email,
-          phone: data.phone,
-          password: data.password,
-          confirmpassword: data.confirmpassword,
-          status: "อยู่ระหว่างดำเนินการ"
+          status: data.status
         })
     } else {
       setActiveStep(activeStep + 1);

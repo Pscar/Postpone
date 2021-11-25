@@ -32,11 +32,12 @@ export default function Routers() {
 
         <PrivateRoute path="/doctor" users={logins} component={doctorSchedule} />
         <PrivateRoute path="/appointment" users={logins} component={userAppointment} />
-        {/* <PrivateRoute path="/admin" users={logins} component={adminPage} />
+        <PrivateRoute path="/create" users={logins} component={userRegister} />
+        <PrivateRoute path="/admin" users={logins} component={adminPage} />
         <PrivateRoute path="/detail/:id" users={logins} component={userAppointmentDetail} />
         <PrivateRoute path="/change_dr/:id" users={logins} component={formChangeDr} />
         <PrivateRoute path="/original/:id" users={logins} component={formOriginal} />
-        <PrivateRoute path="/change_date/:id" users={logins} component={formChangeDate} /> */}
+        <PrivateRoute path="/change_date/:id" users={logins} component={formChangeDate} />
       </Switch>
     </Router>
   )

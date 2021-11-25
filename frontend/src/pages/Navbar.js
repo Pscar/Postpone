@@ -23,7 +23,7 @@ export default function Navbar() {
   const [open, setOpen] = React.useState(false);
 
   const handlLogin = () => {
-    history.push("/");
+    history.push("/create");
   }
   const handleClickOpen = () => {
     setOpen(true);
@@ -68,12 +68,12 @@ export default function Navbar() {
 
               {logins.role === 'admin' ? (
                 <Link to="/admin" style={{ color: '#ffffff', textDecoration: 'none' }}>
-                  <Button color="inherit">{logins.email}</Button>
+                  <Button color="inherit">{logins.firstname} &#160; {logins.lastname}</Button>
                 </Link>
 
               ) :
-                <Link to="/postpone" style={{ color: '#ffffff', textDecoration: 'none' }}>
-                  <Button color="inherit">{logins.email}</Button>
+                <Link to="/appointment" style={{ color: '#ffffff', textDecoration: 'none' }}>
+                  <Button color="inherit">{logins.firstname} &#160; {logins.lastname} </Button>
                 </Link>
               }
               <Button color="inherit" onClick={handleClickOpen}>Logout</Button>

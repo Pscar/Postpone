@@ -21,12 +21,17 @@ import MomentUtils from '@date-io/moment';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import moment from 'moment';
 
+import { useSelector } from 'react-redux'
+
 export default function UserFieldFormRegister(props) {
   const { activeStep, isEditing } = props
   const password = React.useRef({});
   const classes = useStyles();
   const { register, control, formState: { errors }, watch } = useFormContext();
   password.current = watch("password", "");
+
+  const logins = useSelector((state) => state.logins.login);
+  console.log("🚀 ~ file: userFieldFormRegister.js ~ line 34 ~ UserFieldFormRegister ~ logins", logins)
 
   const locations = [
     { id: 'SPASTIC	(1006)', name: 'คลินิกลดเกร็ง' },
@@ -74,7 +79,16 @@ export default function UserFieldFormRegister(props) {
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Controller
+              <TextField
+                required
+                id="firstname"
+                label="firstname"
+                defaultValue={logins.firstname}
+                variant="filled"
+                disabled
+                fullWidth
+              />
+              {/* <Controller
                 control={control}
                 name="firstname"
                 rules={{
@@ -96,10 +110,10 @@ export default function UserFieldFormRegister(props) {
                     helperText={errors.firstname?.message}
                   />
                 )}
-              />
+              /> */}
             </Grid>
             <Grid item xs={12} md={6}>
-              <Controller
+              {/* <Controller
                 control={control}
                 name="lastname"
                 rules={{
@@ -122,6 +136,15 @@ export default function UserFieldFormRegister(props) {
                     helperText={errors.lastname?.message}
                   />
                 )}
+              /> */}
+              <TextField
+                required
+                id="lastname"
+                label="lastname"
+                defaultValue={logins.lastname}
+                variant="filled"
+                disabled
+                fullWidth
               />
             </Grid>
             <Grid item xs={12} md={12}>
@@ -177,7 +200,7 @@ export default function UserFieldFormRegister(props) {
               </MuiPickersUtilsProvider>
             </Grid>
             <Grid item xs={12} md={6}>
-              <Controller
+              {/* <Controller
                 control={control}
                 name="phone"
                 rules={{
@@ -199,10 +222,19 @@ export default function UserFieldFormRegister(props) {
                     helperText={errors.phone?.message}
                   />
                 )}
+              /> */}
+              <TextField
+                required
+                id="phone"
+                label="phone"
+                defaultValue={logins.phone}
+                variant="filled"
+                disabled
+                fullWidth
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Controller
+              {/* <Controller
                 control={control}
                 name="email"
                 rules={{
@@ -224,10 +256,19 @@ export default function UserFieldFormRegister(props) {
                     helperText={errors.email?.message}
                   />
                 )}
+              /> */}
+              <TextField
+                required
+                id="email"
+                label="email"
+                defaultValue={logins.email}
+                variant="filled"
+                disabled
+                fullWidth
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Controller
+              {/* <Controller
                 control={control}
                 name="password"
                 rules={{
@@ -249,10 +290,20 @@ export default function UserFieldFormRegister(props) {
                     helperText={errors.password?.message}
                   />
                 )}
+              /> */}
+              <TextField
+                required
+                id="password"
+                label="password"
+                type="password"
+                defaultValue={logins.password}
+                variant="filled"
+                disabled
+                fullWidth
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Controller
+              {/* <Controller
                 control={control}
                 name="confirmpassword"
                 rules={{
@@ -273,6 +324,16 @@ export default function UserFieldFormRegister(props) {
                     helperText={errors.confirmpassword?.message}
                   />
                 )}
+              /> */}
+              <TextField
+                required
+                id="confirmpassword"
+                label="confirmpassword"
+                type="confirmpassword"
+                defaultValue={logins.confirmpassword}
+                variant="filled"
+                disabled
+                fullWidth
               />
             </Grid>
             <Grid item xs={12} md={6}>

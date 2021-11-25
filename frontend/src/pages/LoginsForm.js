@@ -39,7 +39,7 @@ export default function LoginsForm() {
 
   const handleClick = () => {
     if (isLogin === true) {
-      history.push("/appointment");
+      history.push("/create");
     }
   }
   const handleChange = event => {

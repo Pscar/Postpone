@@ -14,6 +14,8 @@ export default function UserSubmitForm(props) {
 
   const classes = useStyles();
   const { appointment } = useSelector((state) => state.appointment);
+  const logins = useSelector((state) => state.logins.login);
+
   const { editAppointment } = (props)
 
 
@@ -21,6 +23,7 @@ export default function UserSubmitForm(props) {
     <Container maxWidth="md">
       <Paper className={classes.paper}>
         <React.Fragment>
+
           <Grid container spacing={2} key={editAppointment ? editAppointment.payload.appointments_id : appointment.appointments_id}>
             <Grid item xs={12} md={4}>
               <Typography variant="h6">
@@ -39,7 +42,7 @@ export default function UserSubmitForm(props) {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                {editAppointment ? editAppointment.payload.firstname : appointment.firstname} &#160; {editAppointment ? editAppointment.payload.lastname : appointment.lastname}
+                {logins.firstname} &#160; {logins.lastname}
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -79,7 +82,7 @@ export default function UserSubmitForm(props) {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                {editAppointment ? editAppointment.payload.phone : appointment.phone}
+                {logins.phone}
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -89,7 +92,7 @@ export default function UserSubmitForm(props) {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                {editAppointment ? editAppointment.payload.email : appointment.email}
+                {logins.email}
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>

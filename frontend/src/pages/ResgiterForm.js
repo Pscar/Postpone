@@ -43,7 +43,7 @@ export default function ResgiterForm() {
     phone: Yup.string().required('phone is required')
   });
   const [alert, setAlert] = useState(false);
-  const [alertContent, setAlertContent] = useState([]);
+  const [alertContent, setAlertContent] = useState("");
 
   const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(validationSchema) });
   const dispatch = useDispatch();
@@ -59,9 +59,9 @@ export default function ResgiterForm() {
 
   const createPatients = async (data) => {
     for (const item of patients) {
-      if (item.email !== data.email) {
+      if (item.email !== data.email ) {
         setAlert(true)
-        setAlertContent(item)
+        setAlertContent("มีข้อมูลในระบบแล้ว")
         break
       }
     }

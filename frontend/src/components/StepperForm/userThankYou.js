@@ -14,8 +14,7 @@ import CheckIcon from '@material-ui/icons/Check';
 
 export default function UserThankYou(props) {
   const classes = useStyles();
-  const { appointment } = useSelector((state) => state.appointment);
-  const { editAppointment } = props;
+  const logins = useSelector((state) => state.logins.login);
 
   React.useEffect(() => {
     setInterval(() => {
@@ -35,7 +34,7 @@ export default function UserThankYou(props) {
                 <b>บันทึกข้อมูลการเลื่อนนัดเรียบร้อย</b>
               </Typography>
               <Typography variant="h5">
-                ระบบจะตอบกลับคุณ {editAppointment ? editAppointment.payload.firstname : appointment.firstname} ภายใน 1 วันทำการ
+                ระบบจะตอบกลับคุณ {logins.firstname} ภายใน 1 วันทำการ
               </Typography>
             </Grid>
           </Grid>
