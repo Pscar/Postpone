@@ -14,7 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import SearchBar from "material-ui-search-bar";
 import PatientAppointmentActualize from "../../components/Patient/patientAppointmentActualize";
-import moment from "moment";
+
 import { useDispatch, useSelector } from 'react-redux'
 import { getAppointmentAll } from "../../services/appointmentService";
 

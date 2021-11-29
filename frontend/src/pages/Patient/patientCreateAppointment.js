@@ -17,7 +17,7 @@ import PatientFieldFormRegister from "../../components/StepperForm/patientFieldF
 import PatientSubmitForm from "../../components/StepperForm/patientSubmitForm";
 import PatientThankYou from "../../components/StepperForm/patientThankYou";
 
-import { createAppointment, getAppointmentNow, updateAppointmentById } from "../../services/appointmentService";
+import { createAppointment } from "../../services/appointmentService";
 
 export default function PatientCreateAppointment() {
 
@@ -25,12 +25,10 @@ export default function PatientCreateAppointment() {
   const [isEditing, setEditing] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [skippedSteps, setSkippedSteps] = useState([]);
-  const [editAppointment, setAppointmentEdit] = useState();
+  const [createDataAppointments, setCreateDataAppointments] = useState({});
 
   const dispatch = useDispatch();
   const logins = useSelector((state) => state.logins.login);
-
-  const { appointment } = useSelector((state) => state.appointment);
 
   const methods = useForm({
     defaultValues: {
@@ -40,7 +38,6 @@ export default function PatientCreateAppointment() {
       doctor_name: "",
       dateOld: "",
       course: "",
-
       status: "อยู่ระหว่างดำเนินการ"
     }
   });
@@ -67,53 +64,18 @@ export default function PatientCreateAppointment() {
   };
 
   const createAppointments = async (data) => {
-    const createItem = {
-      email: data.email,
-      hn: data.hn,
-      locations: data.locations,
-      doctor_name: data.doctor_name,
-      dateOld: data.dateOld,
-      dateNew: data.dateNew,
-      course: data.course,
-      status: "อยู่ระหว่างดำเนินการ"
-    }
-    await dispatch(createAppointment(createItem));
-    return await dispatch(getAppointmentNow())
+    return await dispatch(createAppointment(data));
   }
 
-  const updateAppointments = async (appointments_id, data) => {
-    const updateItem = await dispatch(updateAppointmentById({
-      appointments_id: appointments_id,
-      hn: data.hn,
-      locations: data.locations,
-      doctor_name: data.doctor_name,
-      dateOld: data.dateOld,
-      dateNew: data.dateNew,
-      course: data.course,
-      status: data.status
-    }));
-    setAppointmentEdit(updateItem)
-    return updateItem
-  }
 
   const handleNext = (data) => {
-    const appointments_id = appointment ? appointment.appointments_id : "";
-
     if (activeStep === steps.length - 1) {
       setActiveStep(activeStep + 1);
+      createAppointments(data)
     } else if (activeStep === 1) {
       setActiveStep(activeStep + 1);
-      return !isEditing ? createAppointments(data)
-        : updateAppointments(appointments_id, {
-          appointments_id: appointments_id,
-          hn: data.hn,
-          locations: data.locations,
-          doctor_name: data.doctor_name,
-          dateOld: data.dateOld,
-          dateNew: data.dateNew,
-          course: data.course,
-          status: data.status
-        })
+      return !isEditing ? setCreateDataAppointments(data) :
+        setCreateDataAppointments(data)
     } else {
       setActiveStep(activeStep + 1);
       setSkippedSteps(
@@ -142,7 +104,7 @@ export default function PatientCreateAppointment() {
       case 1:
         return <PatientFieldFormRegister activeStep={activeStep} isEditing={isEditing} />;
       case 2:
-        return <PatientSubmitForm editAppointment={editAppointment} />;
+        return <PatientSubmitForm createDataAppointments={createDataAppointments} />;
       default:
         return "unknown step";
     }
@@ -180,7 +142,7 @@ export default function PatientCreateAppointment() {
       </Stepper>
       {activeStep === steps.length ? (
         <React.Fragment>
-          <PatientThankYou editAppointment={editAppointment} />
+          <PatientThankYou />
         </React.Fragment>
 
       ) : (

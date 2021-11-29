@@ -13,18 +13,15 @@ import { useSelector } from 'react-redux';
 export default function PatientSubmitForm(props) {
 
   const classes = useStyles();
-  const { appointment } = useSelector((state) => state.appointment);
   const logins = useSelector((state) => state.logins.login);
 
-  const { editAppointment } = (props)
-
+  const { createDataAppointments } = (props)
 
   return (
     <Container maxWidth="md">
       <Paper className={classes.paper}>
         <React.Fragment>
-
-          <Grid container spacing={2} key={editAppointment ? editAppointment.payload.appointments_id : appointment.appointments_id}>
+          <Grid container spacing={2} key={createDataAppointments.appointments_id}>
             <Grid item xs={12} md={4}>
               <Typography variant="h6">
                 HN
@@ -32,7 +29,7 @@ export default function PatientSubmitForm(props) {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                {editAppointment ? editAppointment.payload.hn : appointment.hn}
+                {createDataAppointments.hn}
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -52,7 +49,7 @@ export default function PatientSubmitForm(props) {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                {editAppointment ? editAppointment.payload.locations : appointment.locations}
+                {createDataAppointments.locations}
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -62,7 +59,7 @@ export default function PatientSubmitForm(props) {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                {editAppointment ? editAppointment.payload.doctor_name : appointment.doctor_name}
+                {createDataAppointments.doctor_name}
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -72,7 +69,7 @@ export default function PatientSubmitForm(props) {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                <Moment format="DD-MM-YYYY HH:mm" date={editAppointment ? editAppointment.payload.dateOld : appointment.dateOld} />
+                <Moment format="DD-MM-YYYY HH:mm" date={createDataAppointments.dateOld} />
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -102,7 +99,7 @@ export default function PatientSubmitForm(props) {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                {moment(editAppointment ? editAppointment.payload.dateNew : appointment.dateNew).format('DD-MM-YYYY hh:mm')}
+                {moment(createDataAppointments.dateNew).format('DD-MM-YYYY hh:mm')}
               </Typography>
             </Grid>
 
@@ -113,7 +110,7 @@ export default function PatientSubmitForm(props) {
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="body" gutterBottom>
-                {editAppointment ? editAppointment.payload.course : appointment.course}
+                {createDataAppointments.course}
               </Typography>
             </Grid>
           </Grid>
