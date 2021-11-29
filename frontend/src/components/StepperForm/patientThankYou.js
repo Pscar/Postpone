@@ -12,7 +12,7 @@ import {
 
 import CheckIcon from '@material-ui/icons/Check';
 
-export default function UserThankYou(props) {
+export default function PatientThankYou(props) {
   const classes = useStyles();
   const logins = useSelector((state) => state.logins.login);
 

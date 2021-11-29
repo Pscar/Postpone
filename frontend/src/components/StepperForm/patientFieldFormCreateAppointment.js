@@ -23,7 +23,7 @@ import moment from 'moment';
 
 import { useSelector } from 'react-redux'
 
-export default function UserFieldFormRegister(props) {
+export default function PatientFieldFormCreateAppointment(props) {
   const { activeStep, isEditing } = props
   const password = React.useRef({});
   const classes = useStyles();

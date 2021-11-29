@@ -4,7 +4,8 @@ import {
   Grid,
   Typography
 } from '@material-ui/core';
-export default function UserCondition({ data }) {
+
+export default function PatientCondition({ data }) {
 
   return (
     <Grid container spacing={2}>

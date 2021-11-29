@@ -10,12 +10,14 @@ import {
 } from "@material-ui/core";
 import moment from 'moment';
 import { getAppointmentById } from '../../services/appointmentService';
+import { useSelector } from 'react-redux';
 
-export default function UserAppointmentDetail() {
+export default function PatientAppointmentDetail() {
   const { id } = useParams();
   const classes = useStyles();
 
   const [appointmentById, setAppointmentById] = useState()
+  const logins = useSelector((state) => state.logins.login);
 
   const getDataPostPone = (id) => {
     getAppointmentById(id)
@@ -54,7 +56,7 @@ export default function UserAppointmentDetail() {
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="h6" gutterBottom>
-                {appointmentById ? appointmentById.firstname : ""} &#160; {appointmentById ? appointmentById.lastname : ""}
+                {logins.firstname} &#160; {logins.lastname}
               </Typography>
             </Grid>
             <Grid item xs={12} md={6}>

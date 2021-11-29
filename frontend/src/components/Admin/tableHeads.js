@@ -10,10 +10,10 @@ export default function TableHeads(props) {
   const {  onSelectAllClick,  numSelected, rowCount } = props;
 
   const headCells = [
-    { id: 'postpone_id', numeric: false, disablePadding: true, label: 'ลำดับ' },
+    { id: 'appointments_id', numeric: false, disablePadding: true, label: 'ลำดับ' },
     { id: 'firstName', numeric: false, disablePadding: false, label: 'รายชื่อคนไข้' },
+    { id: 'phone', numeric: false, disablePadding: false, label: 'เบอร์ติดต่อคนไข้' },  
     { id: 'course', numeric: false, disablePadding: false, label: 'เงื่อนไขของคนไข้' },
-    { id: 'phone', numeric: false, disablePadding: false, label: 'เบอร์ติดต่อคนไข้' },
     { id: 'status', numeric: false, disablePadding: false, label: 'สถานะใบเลื่อนนัด' },
     { id: 'action', numeric: false, disablePadding: false, label: 'Action' },
   ];

@@ -18,9 +18,11 @@ import {
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import NoteIcon from '@material-ui/icons/Note';
+import moment from 'moment';
 
-export default function UserAppointmentActualize(props) {
-  const { row } = props;
+export default function PatientAppointmentActualize(props) {
+  const { row, patient } = props;
+
   const [open, setOpen] = useState(false);
   const classes = useRowStyles();
   return (
@@ -34,7 +36,7 @@ export default function UserAppointmentActualize(props) {
         <TableCell align="center" component="th" scope="row">
           {row.hn}
         </TableCell>
-        <TableCell align="center">{row.firstname} - {row.lastname}</TableCell>
+        <TableCell align="center">{patient.firstname} - {patient.lastname}</TableCell>
         <TableCell align="center"> {(() => {
           switch (row.status) {
             case 'อยู่ระหว่างดำเนินการ':
@@ -99,69 +101,67 @@ export default function UserAppointmentActualize(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow>
-                      <TableCell>
-                        <Typography variant="body" component="div" align='center'>
-                          {historyRow.appointments_id}
-                        </Typography>
-                      </TableCell>
-                      <TableCell>
-                        <Typography variant="body" component="div" align='center'>
-                          {historyRow.locations}
-                        </Typography>
-                      </TableCell>
-                      <TableCell>
-                        <Typography variant="body" component="div" align='center'>
-                          {historyRow.doctor_name}
-                        </Typography>
-                      </TableCell>
-                      <TableCell>
-                        <Typography variant="body" component="div" align='center'>
-                          {historyRow.dateNew}
-                        </Typography>
-                      </TableCell>
-                      <TableCell align="center">
-                        {(() => {
-                          switch (historyRow.status) {
-                            case 'อยู่ระหว่างดำเนินการ':
-                              return (
-                                <Typography style={{ color: 'blue' }}>{historyRow.status}</Typography>
-                              )
-                            case 'ยืนยันแบบฟอร์มการเลื่อนนัด':
-                              return (
-                                <Typography style={{ color: 'green' }}>{historyRow.status}</Typography>
-                              )
-                            case 'ไม่สามารถเลื่อนนัดได้':
-                              return (
-                                <Typography style={{ color: 'red' }}>{historyRow.status}</Typography>
-                              )
-                            default:
-                              return null
-                          }
-                        })()
+                  <TableRow>
+                    <TableCell>
+                      <Typography variant="body" component="div" align='center'>
+                        {row.appointments_id}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="body" component="div" align='center'>
+                        {row.locations}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="body" component="div" align='center'>
+                        {row.doctor_name}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="body" component="div" align='center'>
+                        {moment(row.dateNew).format('DD-MM-YYYY hh:mm')}
+                      </Typography>
+                    </TableCell>
+                    <TableCell align="center">
+                      {(() => {
+                        switch (row.status) {
+                          case 'อยู่ระหว่างดำเนินการ':
+                            return (
+                              <Typography style={{ color: 'blue' }}>{row.status}</Typography>
+                            )
+                          case 'ยืนยันแบบฟอร์มการเลื่อนนัด':
+                            return (
+                              <Typography style={{ color: 'green' }}>{row.status}</Typography>
+                            )
+                          case 'ไม่สามารถเลื่อนนัดได้':
+                            return (
+                              <Typography style={{ color: 'red' }}>{row.status}</Typography>
+                            )
+                          default:
+                            return null
                         }
-                      </TableCell>
-                      <TableCell align='center'>
-                        {
-                          historyRow.status !== 'อยู่ระหว่างดำเนินการ' ? (
-                            <Link
-                              to={`/detail/${row.appointments_id}`}
-                              style={{
-                                textDecoration: 'none', color: 'white'
-                              }}>
-                              <Button variant="outlined" color="primary">
-                                <NoteIcon />
-                              </Button>
-                            </Link>
-                          ) :
-                            <Button variant="outlined" color="primary" disabled={historyRow.status === 'อยู่ระหว่างดำเนินการ'}>
+                      })()
+                      }
+                    </TableCell>
+                    <TableCell align='center'>
+                      {
+                        row.status !== 'อยู่ระหว่างดำเนินการ' ? (
+                          <Link
+                            to={`/detail/${row.appointments_id}`}
+                            style={{
+                              textDecoration: 'none', color: 'white'
+                            }}>
+                            <Button variant="outlined" color="primary">
                               <NoteIcon />
                             </Button>
-                        }
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                          </Link>
+                        ) :
+                          <Button variant="outlined" color="primary" disabled={row.status === 'อยู่ระหว่างดำเนินการ'}>
+                            <NoteIcon />
+                          </Button>
+                      }
+                    </TableCell>
+                  </TableRow>
                 </TableBody>
               </Table>
             </Box>

@@ -31,6 +31,6 @@ export const getAppointmentAll = createAsyncThunk("getAppointmentAll", async () 
 });
 
 export const getAppointmentById = async (appointments_id) => {
-  const response = await axios.get(`${baseURL}/appointment/${appointments_id}`)
+  const response = await axios.get(`${baseURL}/appointments/${appointments_id}`)
   return response
 }

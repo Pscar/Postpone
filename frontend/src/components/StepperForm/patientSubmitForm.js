@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import { useSelector } from 'react-redux';
 
-export default function UserSubmitForm(props) {
+export default function PatientSubmitForm(props) {
 
   const classes = useStyles();
   const { appointment } = useSelector((state) => state.appointment);

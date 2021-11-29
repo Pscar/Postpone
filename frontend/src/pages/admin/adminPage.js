@@ -22,6 +22,7 @@ import TableHeads from '../../components/Admin/tableHeads';
 import TableToolBar from '../../components/Admin/tableToolBar';
 import { useDispatch, useSelector } from "react-redux";
 import { getAppointmentAll } from '../../services/appointmentService';
+import { getPatientAll } from '../../services/patientService';
 
 
 
@@ -53,8 +54,10 @@ export default function AdminPage() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
+  const patients = useSelector(state => state.patients);
   const appointment = useSelector(state => state.appointment);
   const dispatch = useDispatch();
+
 
   const returnAppointmentAll = useCallback(() => {
     dispatch(getAppointmentAll());
@@ -64,31 +67,39 @@ export default function AdminPage() {
     returnAppointmentAll()
   }, [returnAppointmentAll])
 
+  const returnGetPatientAll = React.useCallback(() => {
+    dispatch(getPatientAll());
+  }, [dispatch])
+
+  React.useEffect(() => {
+    returnGetPatientAll()
+  }, [returnGetPatientAll])
+
+
   const dataAppointment = () => {
     const rows = appointment.length > 0 && appointment.map((data) => {
-      const historys = {
+      const appointments = {
         appointments_id: data.appointments_id,
-        user_id: data.user_id,
+        patient_id: data.patient_id,
         hn: data.hn,
-        firstname: data.firstname,
-        lastname: data.lastname,
         status: data.status,
-        locations: data.locations,
-        doctor_name: data.doctor_name,
-        dateOld: data.dateOld,
-        dateNew: data.dateNew,
         course: data.course,
-        email: data.email,
-        phone: data.phone
+        patients: patients.length > 0 && patients.filter((item) => {
+          return item.patient_id === data.patient_id;
+        }).map(function (item) {
+          return {
+            firstname: item.firstname,
+            lastname: item.lastname,
+            phone: item.phone,
+          }
+        })
       }
-      return historys
+      return appointments
     })
     return rows
   }
 
-  const data = dataAppointment();
-  console.log("🚀 ~ file: adminPage.js ~ line 90 ~ AdminPage ~ data", data)
-
+  const dataAppointments = dataAppointment();
 
   const stableSort = (array, comparator) => {
     const stabilizedThis = Object.entries(array).map((el) => [...el]);
@@ -116,7 +127,7 @@ export default function AdminPage() {
   }
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = data.map((n) => n.id);
+      const newSelecteds = dataAppointments.map((n) => n.id);
       setSelected(newSelecteds);
       return;
     }
@@ -160,7 +171,7 @@ export default function AdminPage() {
         <Paper className={classes.paper}>
           <TableToolBar
             numSelected={selected.length}
-            data={data}
+            data={dataAppointments}
             selected={selected}
           />
           <TableContainer>
@@ -175,10 +186,10 @@ export default function AdminPage() {
                 order={order}
                 orderBy={orderBy}
                 onSelectAllClick={handleSelectAllClick}
-                rowCount={data.length}
+                rowCount={dataAppointments.length}
               />
               <TableBody>
-                {stableSort(data, getComparator(order, orderBy))
+                {stableSort(dataAppointments, getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row) => {
                     const isItemSelected = isSelected(row[1].appointments_id);
@@ -202,9 +213,15 @@ export default function AdminPage() {
                         <TableCell align="center" component="th" id={labelId} scope="row" padding="none">
                           {row[1].appointments_id}
                         </TableCell>
-                        <TableCell align="center">{row[1].firstname}-{row[1].lastname}</TableCell>
+                        {
+                          row[1].patients.length > 0 && row[1].patients.map((item) => (
+                            <>
+                              <TableCell align="center">{item.firstname}-{item.lastname}</TableCell>
+                              <TableCell align="center">{item.phone}</TableCell>
+                            </>
+                          ))
+                        }
                         <TableCell align="center">{row[1].course}</TableCell>
-                        <TableCell align="center">{row[1].phone}</TableCell>
                         <TableCell align="center">
                           {(() => {
                             switch (row[1].status) {
@@ -228,38 +245,11 @@ export default function AdminPage() {
                         </TableCell>
 
                         <TableCell align="center">
-                          {(() => {
-                            switch (row[1].course) {
-                              case 'ขอพบแพทย์ท่านเดิม วันเวลาใดก็ได้':
-                                return (
-                                  <Link to={`/change_date/${row[1].appointments_id}`} style={{ textDecoration: 'none', color: 'white' }}>
-                                    <Fab color="primary" aria-label="edit" size="small">
-                                      <EditIcon />
-                                    </Fab>
-                                  </Link>
-
-                                )
-                              case 'เลือกตามวันเวลาเป็นหลัก พบแพทย์ท่านใดก็ได้':
-                                return (
-                                  <Link to={`/change_dr/${row[1].appointments_id}`} style={{ textDecoration: 'none', color: 'white' }}>
-                                    <Fab color="primary" aria-label="edit" size="small">
-                                      <EditIcon id={row[1].id} />
-                                    </Fab>
-                                  </Link>
-                                )
-                              case 'ขอรับการรักษาตามวันนัดหมายเดิม และ พบแพทย์ท่านเดิม':
-                                return (
-                                  <Link to={`/original/${row[1].appointments_id}`} style={{ textDecoration: 'none', color: 'white' }}>
-                                    <Fab color="primary" aria-label="edit" size="small">
-                                      <EditIcon id={row[1].id} />
-                                    </Fab>
-                                  </Link>
-                                )
-                              default:
-                                return null
-                            }
-                          })()
-                          }
+                          <Link to={`/edit/${row[1].appointments_id}`} style={{ textDecoration: 'none', color: 'white' }}>
+                            <Fab color="primary" aria-label="edit" size="small">
+                              <EditIcon id={row[1].id} />
+                            </Fab>
+                          </Link>
                         </TableCell>
                       </TableRow>
                     );
@@ -270,7 +260,7 @@ export default function AdminPage() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={data.length}
+            count={dataAppointments.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

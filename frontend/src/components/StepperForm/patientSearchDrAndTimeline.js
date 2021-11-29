@@ -7,15 +7,15 @@ import {
   Typography
 } from '@material-ui/core';
 
-import UserCondition from './userCondition';
+import PatientCondition from './patientCondition';
 import DoctorTableHeadDr from '../Doctors/doctorTableHeadDr';
 
-export default function UserSearchDrAndTimeline(props) {
+export default function PatientSearchDrAndTimeline(props) {
   const classes = useStyles();
 
   const { handleNext } = props
 
-  const conditionPostPone = [
+  const conditions = [
     {
       id: 1,
       title: 'ผู้ใช้งานเป็นผู้ป่วยที่มีนัดเดิมอยู่ก่อนแล้ว'
@@ -47,7 +47,7 @@ export default function UserSearchDrAndTimeline(props) {
         <Grid item xs={12} md={12}>
           <Paper className={classes.paper}>
             <Typography variant="h6" className={classes.typography}>เงื่อนไขการเลื่อนนัดออนไลน์</Typography>
-            <UserCondition data={conditionPostPone} />
+            <PatientCondition data={conditions} />
           </Paper>
         </Grid>
       </Grid>

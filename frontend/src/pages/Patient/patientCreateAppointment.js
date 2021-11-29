@@ -12,14 +12,14 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from 'react-redux'
 
-import UserSearchDrAndTimeline from "../../components/StepperForm/userSearchDrAndTimeline";
-import UserFieldFormRegister from "../../components/StepperForm/userFieldFormRegister";
-import UserSubmitForm from "../../components/StepperForm/userSubmitForm";
-import UserThankYou from "../../components/StepperForm/userThankYou";
+import PatientSearchDrAndTimeline from "../../components/StepperForm/patientSearchDrAndTimeline";
+import PatientFieldFormRegister from "../../components/StepperForm/patientFieldFormCreateAppointment";
+import PatientSubmitForm from "../../components/StepperForm/patientSubmitForm";
+import PatientThankYou from "../../components/StepperForm/patientThankYou";
 
 import { createAppointment, getAppointmentNow, updateAppointmentById } from "../../services/appointmentService";
 
-export default function UserRegister() {
+export default function PatientCreateAppointment() {
 
   const classes = useStyles();
   const [isEditing, setEditing] = useState(false);
@@ -138,11 +138,11 @@ export default function UserRegister() {
   const getStepContent = (step) => {
     switch (step) {
       case 0:
-        return <UserSearchDrAndTimeline handleNext={handleNext} />;
+        return <PatientSearchDrAndTimeline handleNext={handleNext} />;
       case 1:
-        return <UserFieldFormRegister activeStep={activeStep} isEditing={isEditing} />;
+        return <PatientFieldFormRegister activeStep={activeStep} isEditing={isEditing} />;
       case 2:
-        return <UserSubmitForm editAppointment={editAppointment} />;
+        return <PatientSubmitForm editAppointment={editAppointment} />;
       default:
         return "unknown step";
     }
@@ -180,7 +180,7 @@ export default function UserRegister() {
       </Stepper>
       {activeStep === steps.length ? (
         <React.Fragment>
-          <UserThankYou editAppointment={editAppointment} />
+          <PatientThankYou editAppointment={editAppointment} />
         </React.Fragment>
 
       ) : (

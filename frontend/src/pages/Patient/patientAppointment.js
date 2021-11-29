@@ -13,16 +13,16 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import SearchBar from "material-ui-search-bar";
-import UserAppointmentActualize from "../../components/User/userAppointmentActualize";
+import PatientAppointmentActualize from "../../components/Patient/patientAppointmentActualize";
 import moment from "moment";
 import { useDispatch, useSelector } from 'react-redux'
 import { getAppointmentAll } from "../../services/appointmentService";
 
 
-UserAppointmentActualize.propTypes = {
+PatientAppointmentActualize.propTypes = {
   row: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    HN: PropTypes.string.isRequired,
+    hn: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
     history: PropTypes.arrayOf(
       PropTypes.shape({
@@ -32,8 +32,8 @@ UserAppointmentActualize.propTypes = {
         email: PropTypes.string.isRequired,
         password: PropTypes.string.isRequired,
         course: PropTypes.string.isRequired,
-        MUIPickerOld: PropTypes.instanceOf(Date).isRequired,
-        MUIPickerNew: PropTypes.instanceOf(Date).isRequired,
+        dateOld: PropTypes.instanceOf(Date).isRequired,
+        dateNew: PropTypes.instanceOf(Date).isRequired,
       }),
     ).isRequired,
     course: PropTypes.string.isRequired,
@@ -66,13 +66,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function UserAppointment() {
+export default function PatientAppointment() {
   const classes = useStyles();
   const [searched, setSearched] = useState("");
   const [displaySearch, setDisplaySearch] = useState([])
 
   const dispatch = useDispatch();
-  const { logins } = useSelector(state => state.logins.login);
+  const logins = useSelector(state => state.logins.login);
   const appointment = useSelector(state => state.appointment);
 
   const returnAppointmentAll = React.useCallback(() => {
@@ -84,41 +84,10 @@ export default function UserAppointment() {
   }, [returnAppointmentAll])
 
 
-  const dataAppointment = () => {
-    const rows = appointment.length > 0 && appointment.map((data) => {
-      const historys = {
-        appointments_id: data.appointments_id,
-        user_id: data.user_id,
-        hn: data.hn,
-        firstname: data.firstname,
-        lastname: data.lastname,
-        status: data.status,
-        history:
-          appointment.filter(function (item) {
-            return item.user_id === data.user_id;
-          }).map(function (item) {
-            return {
-              appointments_id: item.appointments_id,
-              user_id: item.user_id,
-              locations: item.locations,
-              appointments: data.appointments,
-              status: item.status,
-              dateOld: item.dateOld,
-              dateNew: moment(item.dateNew).format('DD-MM-YYYY HH:mm'),
-            }
-          })
-      }
-      return historys
-    })
-    return rows
-  }
-
-  const data = dataAppointment();
-
   const requestSearch = (searchedVal) => {
     if (searchedVal) {
-      const filteredRows = data.filter((row) => {
-        return row.firstname.toLowerCase().includes(searchedVal.toLowerCase());
+      const filteredRows = appointment.length > 0 && appointment.filter((row) => {
+        return row.hn.toLowerCase().includes(searchedVal.toLowerCase());
       });
       setDisplaySearch(filteredRows);
     } else {
@@ -151,9 +120,9 @@ export default function UserAppointment() {
                   <TableCell align="center">Action</TableCell>
                 </TableRow>
               </TableHead>
-              {data && data.slice(-1).map((row) => (row.user_id === logins.user_id ? (
+              {displaySearch.length > 0 && displaySearch.slice(-1).map((row) => (row.patient_id === logins.patient_id ? (
                 <TableBody>
-                  <UserAppointmentActualize key={row.appointments_id} row={row} users={logins} />
+                  <PatientAppointmentActualize key={row.appointments_id} row={row} patient={logins} />
                 </TableBody>
               ) : null
               ))}
