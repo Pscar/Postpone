@@ -100,6 +100,10 @@ export default function PatientAppointment() {
     requestSearch(searched);
   };
 
+  React.useEffect(() => {
+    setDisplaySearch(appointment)
+  }, [appointment])
+
   return (
     <Container maxWidth="md">
       <Grid container className={classes.root}>
@@ -120,7 +124,7 @@ export default function PatientAppointment() {
                   <TableCell align="center">Action</TableCell>
                 </TableRow>
               </TableHead>
-              {displaySearch.length > 0 && displaySearch.slice(-1).map((row) => (row.patient_id === logins.patient_id ? (
+              {displaySearch.length > 0 && displaySearch.map((row) => (row.patient_id === logins.patient_id ? (
                 <TableBody>
                   <PatientAppointmentActualize key={row.appointments_id} row={row} patient={logins} />
                 </TableBody>

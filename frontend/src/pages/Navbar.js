@@ -23,7 +23,7 @@ export default function Navbar() {
   const [open, setOpen] = React.useState(false);
 
   const handlLogin = () => {
-    history.push("/create");
+    history.push("/");
   }
   const handleClickOpen = () => {
     setOpen(true);

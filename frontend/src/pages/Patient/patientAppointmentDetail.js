@@ -17,6 +17,7 @@ export default function PatientAppointmentDetail() {
   const classes = useStyles();
 
   const [appointmentById, setAppointmentById] = useState()
+  console.log("🚀 ~ file: patientAppointmentDetail.js ~ line 20 ~ PatientAppointmentDetail ~ appointmentById", appointmentById)
   const logins = useSelector((state) => state.logins.login);
 
   const getDataPostPone = (id) => {

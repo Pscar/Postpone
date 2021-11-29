@@ -28,7 +28,7 @@ export default function Routers() {
         <PrivateRoute path="/appointment" users={logins} component={patientAppointment} />
         <PrivateRoute path="/create" users={logins} component={patientCreateAppointment} />
         <PrivateRoute path="/admin" users={logins} component={adminPage} />
-        <PrivateRoute path="/appointment/:id" users={logins} component={patientAppointmentDetail} />
+        <PrivateRoute path="/detail/:id" users={logins} component={patientAppointmentDetail} />
         <PrivateRoute path="/edit/:id" users={logins} component={formEditAppointment} />
       </Switch>
     </Router>

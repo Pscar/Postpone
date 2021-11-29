@@ -31,7 +31,6 @@ export default function PatientFieldFormCreateAppointment(props) {
   password.current = watch("password", "");
 
   const logins = useSelector((state) => state.logins.login);
-  console.log("🚀 ~ file: userFieldFormRegister.js ~ line 34 ~ UserFieldFormRegister ~ logins", logins)
 
   const locations = [
     { id: 'SPASTIC	(1006)', name: 'คลินิกลดเกร็ง' },
@@ -88,55 +87,10 @@ export default function PatientFieldFormCreateAppointment(props) {
                 disabled
                 fullWidth
               />
-              {/* <Controller
-                control={control}
-                name="firstname"
-                rules={{
-                  required: "this field is required.",
-                  maxLength: {
-                    value: 20,
-                    message: "firstname must have at least 20 characters"
-                  }
-                }}
-                render={({ field }) => (
-                  <TextField
-                    id="firstname"
-                    label="ชื่อ"
-                    variant="outlined"
-                    placeholder="ชื่อ"
-                    fullWidth
-                    {...field}
-                    error={Boolean(errors?.firstname)}
-                    helperText={errors.firstname?.message}
-                  />
-                )}
-              /> */}
+           
             </Grid>
             <Grid item xs={12} md={6}>
-              {/* <Controller
-                control={control}
-                name="lastname"
-                rules={{
-                  required: "this field is required.",
-                  maxLength: {
-                    value: 20,
-                    message: "lastname must have at least 20 characters"
-
-                  }
-                }}
-                render={({ field }) => (
-                  <TextField
-                    id="lastname"
-                    label="นามสกุล"
-                    variant="outlined"
-                    placeholder="นามสกุล"
-                    fullWidth
-                    {...field}
-                    error={Boolean(errors?.lastname)}
-                    helperText={errors.lastname?.message}
-                  />
-                )}
-              /> */}
+           
               <TextField
                 required
                 id="lastname"
@@ -200,29 +154,7 @@ export default function PatientFieldFormCreateAppointment(props) {
               </MuiPickersUtilsProvider>
             </Grid>
             <Grid item xs={12} md={6}>
-              {/* <Controller
-                control={control}
-                name="phone"
-                rules={{
-                  required: "this field is required.",
-                  pattern: /[0-9]{3}/,
-                  maxLength: {
-                    value: 10,
-                    message: "phone must have at least 10 characters"
-                  }
-                }}
-                render={({ field }) => (
-                  <TextField
-                    id="phone"
-                    label="เบอร์โทรศัพท์ติดต่อผู้ป่วย"
-                    variant="outlined"
-                    fullWidth
-                    {...field}
-                    error={Boolean(errors?.phone)}
-                    helperText={errors.phone?.message}
-                  />
-                )}
-              /> */}
+           
               <TextField
                 required
                 id="phone"
@@ -234,29 +166,7 @@ export default function PatientFieldFormCreateAppointment(props) {
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              {/* <Controller
-                control={control}
-                name="email"
-                rules={{
-                  required: "this field is required.",
-                  maxLength: {
-                    value: 30,
-                    message: "email must have at least 30 characters"
-                  }
-                }}
-                render={({ field }) => (
-                  <TextField
-                    id="email"
-                    label="Email"
-                    variant="outlined"
-                    fullWidth
-                    {...field}
-                    disabled={!isEditing ? "" : activeStep === 1}
-                    error={Boolean(errors?.email)}
-                    helperText={errors.email?.message}
-                  />
-                )}
-              /> */}
+           
               <TextField
                 required
                 id="email"
@@ -268,29 +178,7 @@ export default function PatientFieldFormCreateAppointment(props) {
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              {/* <Controller
-                control={control}
-                name="password"
-                rules={{
-                  required: "this field is required.", minLength: {
-                    value: 8,
-                    message: "Password must have at least 8 characters"
-                  }
-                }}
-                render={({ field }) => (
-                  <TextField
-                    id="password"
-                    label="รหัสผ่าน"
-                    type="password"
-                    variant="outlined"
-                    fullWidth
-                    {...field}
-
-                    error={Boolean(errors?.password)}
-                    helperText={errors.password?.message}
-                  />
-                )}
-              /> */}
+            
               <TextField
                 required
                 id="password"
@@ -303,33 +191,12 @@ export default function PatientFieldFormCreateAppointment(props) {
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              {/* <Controller
-                control={control}
-                name="confirmpassword"
-                rules={{
-                  required: "this field is required.",
-                  validate: value =>
-                    value === password.current || "The passwords do not match"
-                }}
-                render={({ field }) => (
-                  <TextField
-                    id="outlined-password-input-confirmPassword"
-                    label="ยืนยันรหัสผ่าน"
-                    type="password"
-                    fullWidth
-                    autoComplete="current-password-confirmPassword"
-                    variant="outlined"
-                    {...field}
-                    error={Boolean(errors?.confirmpassword)}
-                    helperText={errors.confirmpassword?.message}
-                  />
-                )}
-              /> */}
+           
               <TextField
                 required
                 id="confirmpassword"
                 label="confirmpassword"
-                type="confirmpassword"
+                type="password"
                 defaultValue={logins.confirmpassword}
                 variant="filled"
                 disabled

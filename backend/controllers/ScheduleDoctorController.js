@@ -80,7 +80,6 @@ exports.EditScheduleByID = async (req, res) => {
       doc_id: doc_id,
       doctor_name: getDoctor.doctor_name
     });
-    console.log("🚀 ~ file: ScheduleDoctorController.js ~ line 83 ~ exports.EditScheduleByID= ~ editScheduleByID", editScheduleByID)
 
     return res.status(200).send({
       status: "success",
