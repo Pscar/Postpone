@@ -21,7 +21,7 @@ import { getPatientAll } from '../../services/patientService';
 import moment from 'moment';
 import {
   MuiPickersUtilsProvider,
-  DateTimePicker
+  KeyboardDateTimePicker
 } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 
@@ -132,15 +132,35 @@ export default function FieldFormEditAppointment(props) {
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <TextField
-                required
-                id="filled-required-dateOld"
-                label="วัน/เดือน/ปี ที่นัดตรวจเดิม"
-                defaultValue={moment(data.dateOld).format('DD-MM-YYYY HH:mm')}
-                variant="filled"
-                disabled
-                fullWidth
-              />
+              {(() => {
+                switch (data.course) {
+                  case 'ขอพบแพทย์ท่านเดิม วันเวลาใดก็ได้':
+                    return (
+                      <TextField
+                        required
+                        id="dateNew"
+                        label="วัน/เดือน/ปี ที่นัดตรวจเดิมที่คนไข้"
+                        defaultValue={moment(data.dateNew).format('DD-MM-YYYY HH:mm')}
+                        variant="filled"
+                        disabled
+                        fullWidth
+                      />
+                    )
+                  default:
+                    return (
+                      <TextField
+                        required
+                        id="filled-required-dateOld"
+                        label="วัน/เดือน/ปี ที่นัดตรวจเดิม"
+                        defaultValue={moment(data.dateOld).format('DD-MM-YYYY HH:mm')}
+                        variant="filled"
+                        disabled
+                        fullWidth
+                      />
+                    )
+                }
+              })()
+              }
             </Grid>
             <Grid item xs={12} md={6}>
               {(() => {
@@ -152,19 +172,18 @@ export default function FieldFormEditAppointment(props) {
                           name="dateNew"
                           control={control}
                           render={({ field: { ref, ...datetimenew } }) => (
-                            <DateTimePicker
-                              margin="none"
+                            <KeyboardDateTimePicker
                               id="date-picker-dialog-datetimenew"
-                              label="วัน/เดือน/ปี เลื่อนนัดถัดไปใหม่"
+                              label="วัน/เดือน/ปี ที่นัดตรวจเดิมที่คนไข้ต้องการ"
                               inputVariant="outlined"
-                              format="DD-MM-YYYY HH:mm"
+                              format="DD/MM/YYYY HH:mm"
                               KeyboardButtonProps={{
                                 "aria-label": "change date"
                               }}
+                              onError={console.log}
+                              defaultValue={moment(new Date()).format('DD-MM-YYYY')}
                               {...datetimenew}
-                              minDate={new Date()}
                               fullWidth
-                              defaultValue="01/01/1999"
                               error={Boolean(errors.dateNew)}
                               helperText={errors.dateNew?.message}
                             />
@@ -172,32 +191,18 @@ export default function FieldFormEditAppointment(props) {
                         />
                       </MuiPickersUtilsProvider>
                     )
-                  case 'เลือกตามวันเวลาเป็นหลัก พบแพทย์ท่านใดก็ได้':
-                    return (
-                      <TextField
-                        required
-                        id="dateNew"
-                        label="วัน/เดือน/ปี ที่นัดตรวจเดิมที่คนไข้ต้องการ"
-                        defaultValue={moment(data.dateNew).format('DD-MM-YYYY HH:mm')}
-                        variant="filled"
-                        disabled
-                        fullWidth
-                      />
-                    )
-                  case 'ขอรับการรักษาตามวันนัดหมายเดิม และ พบแพทย์ท่านเดิม':
-                    return (
-                      <TextField
-                        required
-                        id="dateNew"
-                        label="วัน/เดือน/ปี ที่นัดตรวจเดิมที่คนไข้ต้องการ"
-                        defaultValue={moment(data.dateNew).format('DD-MM-YYYY HH:mm')}
-                        variant="filled"
-                        disabled
-                        fullWidth
-                      />
-                    )
                   default:
-                    return null
+                    return (
+                      <TextField
+                        required
+                        id="dateNew"
+                        label="วัน/เดือน/ปี ที่นัดตรวจเดิมที่คนไข้ต้องการ"
+                        defaultValue={moment(data.dateNew).format('DD-MM-YYYY HH:mm')}
+                        variant="filled"
+                        disabled
+                        fullWidth
+                      />
+                    )
                 }
               })()
               }
@@ -216,19 +221,6 @@ export default function FieldFormEditAppointment(props) {
             <Grid item xs={12} md={6}>
               {(() => {
                 switch (data.course) {
-                  case 'ขอพบแพทย์ท่านเดิม วันเวลาใดก็ได้':
-                    return (
-                      <TextField
-                        required
-                        id="filled-required-course"
-                        label="นัดพบแพทย์ คนเดิมของคนไข้"
-                        defaultValue={data.doctor_name}
-                        variant="filled"
-                        disabled
-                        fullWidth
-                      />
-
-                    )
                   case 'เลือกตามวันเวลาเป็นหลัก พบแพทย์ท่านใดก็ได้':
                     return (
                       <Autocomplete
@@ -254,20 +246,16 @@ export default function FieldFormEditAppointment(props) {
                         }}
                       />
                     )
-                  case 'ขอรับการรักษาตามวันนัดหมายเดิม และ พบแพทย์ท่านเดิม':
-                    return (
-                      <TextField
-                        required
-                        id="filled-required-doctor_name"
-                        label="นัดพบแพทย์ คนเดิมของคนไข้"
-                        defaultValue={data.doctor_name}
-                        variant="filled"
-                        disabled
-                        fullWidth
-                      />
-                    )
                   default:
-                    return null
+                    return <TextField
+                      required
+                      id="filled-required-doctor_name"
+                      label="นัดพบแพทย์ คนเดิมของคนไข้"
+                      defaultValue={data.doctor_name}
+                      variant="filled"
+                      disabled
+                      fullWidth
+                    />
                 }
               })()
               }

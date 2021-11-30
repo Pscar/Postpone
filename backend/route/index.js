@@ -24,7 +24,7 @@ router.get("/doctors", DoctorController.GetDoctorAll);
 
 
 router.post("/schedules", ScheduleDoctorController.CreateScheduleDoctor);
-router.get("/schedules/get", ScheduleDoctorController.GetScheduleDoctorAll);
+router.get("/schedules", ScheduleDoctorController.GetScheduleDoctorAll);
 router.put("/schedules/:schedule_id", ScheduleDoctorController.EditScheduleByID);
 router.delete("/schedules/:schedule_id", ScheduleDoctorController.DeleteScheduleByID)
 

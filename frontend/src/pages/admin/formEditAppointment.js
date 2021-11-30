@@ -15,7 +15,7 @@ export default function FormEditAppointment(props) {
 
   const dispatch = useDispatch();
   const appointment = useSelector(state => state.appointment);
-  
+
   const dataAppointment = () => {
     const rows = appointment.length > 0 && appointment.map((data) => {
       const appointments = {
@@ -55,14 +55,28 @@ export default function FormEditAppointment(props) {
   }, [props.match.params.id])
 
   const handleNext = async (data) => {
-    const updateItem = {
-      appointments_id: appointmentById.appointments_id,
-      course: appointmentById.course,
-      dateNew: appointmentById.dateNew,
-      status: data.status,
-      doctor_name: data.doctor_name,
+    if (data.course === 'เลือกตามวันเวลาเป็นหลัก พบแพทย์ท่านใดก็ได้') {
+      const updateItem = {
+        appointments_id: appointmentById.appointments_id,
+        course: appointmentById.course,
+        dateNew: appointmentById.dateNew,
+        status: data.status,
+        doctor_name: data.doctor_name,
+      }
+      await dispatch(updateAppointmentById(updateItem))
+
+    } else {
+      const updateItem = {
+        appointments_id: appointmentById.appointments_id,
+        course: appointmentById.course,
+        doctor_name: appointmentById.doctor_name,
+        dateNew: data.dateNew,
+        status: data.status,
+      }
+      await dispatch(updateAppointmentById(updateItem))
     }
-    await dispatch(updateAppointmentById(updateItem))
+
+
   }
   const handleSubmitChangDr = async () => {
     await window.location.reload(true);

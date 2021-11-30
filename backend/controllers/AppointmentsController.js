@@ -107,8 +107,8 @@ exports.EditAppointmentByID = async (req, res) => {
     dateNew,
     course,
     status
-
   } = req.body;
+  console.log("🚀 ~ file: appointmentsController.js ~ line 111 ~ exports.EditAppointmentByID= ~ req.body", req.body)
 
   const getDoctorByName = await DoctorService.getByName(doctor_name);
 

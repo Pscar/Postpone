@@ -1,9 +1,8 @@
-import axios from "axios";
+import axiosInstance from "./axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const baseURL = 'http://localhost:5000/api';
 
 export const getDoctorAll = createAsyncThunk("getDoctorAll", async () => {
-  const response = await axios.get(`${baseURL}/doctors`);
+  const response = await axiosInstance.get(`/doctors`);
   return response.data.data
 });
