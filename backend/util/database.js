@@ -9,7 +9,7 @@ console.log(config);
 
 const sequelize = new Sequelize(
   config.database,
-  config.username,
+  config.db_user,
   config.password,
   {
     host: config.host,

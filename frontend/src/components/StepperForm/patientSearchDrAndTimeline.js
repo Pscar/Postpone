@@ -47,7 +47,7 @@ export default function PatientSearchDrAndTimeline(props) {
         </Grid>
         <Grid item xs={12} md={12}>
           <Paper className={classes.paper}>
-            <Typography variant="h6" className={classes.typography}>{process.env.REACT_APP_API_URL}</Typography>
+            <Typography variant="h6" className={classes.typography}>เงื่อนไขการเลื่อนนัดออนไลน์</Typography>
             <PatientCondition data={conditions} />
           </Paper>
         </Grid>
