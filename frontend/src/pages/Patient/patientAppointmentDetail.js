@@ -17,10 +17,9 @@ export default function PatientAppointmentDetail() {
   const classes = useStyles();
 
   const [appointmentById, setAppointmentById] = useState()
-  console.log("🚀 ~ file: patientAppointmentDetail.js ~ line 20 ~ PatientAppointmentDetail ~ appointmentById", appointmentById)
   const logins = useSelector((state) => state.logins.login);
 
-  const getDataPostPone = (id) => {
+  const getDataAppointmentById = (id) => {
     getAppointmentById(id)
       .then(response => {
         setAppointmentById(response.data.data);
@@ -28,13 +27,13 @@ export default function PatientAppointmentDetail() {
   }
 
   useEffect(() => {
-    getDataPostPone(id)
+    getDataAppointmentById(id)
   }, [id])
   return (
     <React.Fragment>
       <Container fixed>
         <Paper className={classes.paper}>
-          <Grid container spacing={2} className={classes.gridController}>
+          <Grid container spacing={2}>
             <Grid item xs={12}>
               <Typography variant="h3">
                 ใบนัดผู้ป่วย
@@ -103,13 +102,8 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
-    color: theme.palette.text.secondary,
     margin: '2rem',
     fontSize: 45,
     textAlign: 'center'
   },
-  button: {
-    display: 'flex',
-    marginTop: '1rem',
-  }
 }));

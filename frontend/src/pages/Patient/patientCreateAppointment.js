@@ -58,16 +58,12 @@ export default function PatientCreateAppointment() {
   const isStepFalied = () => {
     return Boolean(Object.keys(methods.formState.errors).length);
   };
-
   const isStepSkipped = (step) => {
     return skippedSteps.includes(step);
   };
-
   const createAppointments = async (data) => {
     return await dispatch(createAppointment(data));
   }
-
-
   const handleNext = (data) => {
     if (activeStep === steps.length - 1) {
       setActiveStep(activeStep + 1);
@@ -83,7 +79,6 @@ export default function PatientCreateAppointment() {
       );
     }
   };
-
   const handleBack = () => {
     if (activeStep === 2) {
       setEditing(true)

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { makeStyles } from "@material-ui/core/styles";
+import bcrypt from 'bcryptjs'
 import {
   CssBaseline,
   Avatar,
@@ -15,6 +16,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { loginSuccess } from '../slices/LoginSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPatientAll } from '../services/patientService';
+
 export default function LoginsForm() {
 
   let history = useHistory();
@@ -51,8 +53,11 @@ export default function LoginsForm() {
   const submitUser = (event) => {
     event.preventDefault();
     for (let i = 0; i < patients.length; i++) {
-      if (stateEvent.email === patients[i].email && stateEvent.password === patients[i].password) {
+      const hashedPassword = bcrypt.hashSync(stateEvent.password, patients[i].password) 
+
+      if (stateEvent.email === patients[i].email && hashedPassword === patients[i].password) {
         setIsLogin(true)
+
         dispatch(loginSuccess(patients[i]))
       }
       else if (stateEvent.email === 'admin@admin.com' && stateEvent.password === '147258369') {

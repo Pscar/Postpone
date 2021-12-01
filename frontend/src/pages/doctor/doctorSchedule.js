@@ -25,7 +25,6 @@ export default function DoctorSchedule() {
 
   const doctors = useSelector(state => state.doctors);
   const schedules = useSelector(state => state.schedules)
-  console.log("🚀 ~ file: doctorSchedule.js ~ line 28 ~ DoctorSchedule ~ schedules", schedules)
   const dispatch = useDispatch();
 
   const [rfcScheduleDr, setRfcScheduleDr] = useState();
@@ -129,7 +128,7 @@ export default function DoctorSchedule() {
         selectedDate={new Date()}
         ref={schedule => setRfcScheduleDr(schedule)}
         eventSettings={{
-          dataSource: JSON.parse(JSON.stringify(schedules)),
+          dataSource: JSON.parse(JSON.stringify(schedules)),displayScheduleDr,
           fields: {
             schedule_id: 'schedule_id',
             subject: { title: 'subject', name: 'subject' },

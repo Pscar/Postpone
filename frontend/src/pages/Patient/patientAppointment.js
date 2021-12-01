@@ -124,12 +124,13 @@ export default function PatientAppointment() {
                   <TableCell align="center">Action</TableCell>
                 </TableRow>
               </TableHead>
-              {displaySearch.length > 0 && displaySearch.map((row) => (row.patient_id === logins.patient_id ? (
-                <TableBody>
+              <TableBody>
+                {displaySearch.length > 0 && displaySearch.map((row) => (row.patient_id === logins.patient_id ? (
                   <PatientAppointmentActualize key={row.appointments_id} row={row} patient={logins} />
-                </TableBody>
-              ) : null
-              ))}
+                ) : null
+                ))}
+              </TableBody>
+
             </Table>
           </TableContainer>
         </Grid>
