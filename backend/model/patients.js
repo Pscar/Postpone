@@ -1,10 +1,10 @@
 const bcrypt = require('bcrypt');
 
 module.exports = (sequelize, DataTypes) => {
-  const patient = sequelize.define('patient', {
-    patient_id: {
+  const patients = sequelize.define('patients', {
+    patientId: {
       type: DataTypes.INTEGER,
-      field: "patient_id",
+      field: "patientId",
       primaryKey: true,
       autoIncrement: true,
     },
@@ -12,13 +12,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       field: "email",
     },
-    firstname: {
+    firstName: {
       type: DataTypes.STRING,
-      field: "firstname"
+      field: "firstName"
     },
-    lastname: {
+    lastName: {
       type: DataTypes.STRING,
-      field: "lastname"
+      field: "lastName"
     },
     phone: {
       type: DataTypes.STRING,
@@ -28,9 +28,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       field: "password",
     },
-    confirmpassword: {
+    confirmPassword: {
       type: DataTypes.STRING,
-      field: "confirmpassword",
+      field: "confirmPassword",
     },
     role: {
       type: DataTypes.STRING,
@@ -40,18 +40,18 @@ module.exports = (sequelize, DataTypes) => {
     {
       freezeTableName: true,
       hooks: {
-        beforeCreate: async (patient) => {
-          if (patient.password) {
+        beforeCreate: async (patients) => {
+          if (patients.password) {
             const salt = await bcrypt.genSaltSync(2);
-            patient.password = bcrypt.hashSync(patient.password, salt);
-            patient.confirmpassword = bcrypt.hashSync(patient.confirmpassword, salt);
+            patients.password = bcrypt.hashSync(patients.password, salt);
+            patients.confirmPassword = bcrypt.hashSync(patients.confirmPassword, salt);
           }
         },
-        beforeUpdate: async (patient) => {
-          if (patient.password) {
+        beforeUpdate: async (patients) => {
+          if (patients.password) {
             const salt = await bcrypt.genSaltSync(2);
-            patient.password = bcrypt.hashSync(patient.password, salt);
-            patient.confirmpassword = bcrypt.hashSync(patient.confirmpassword, salt);
+            patients.password = bcrypt.hashSync(patients.password, salt);
+            patients.confirmPassword = bcrypt.hashSync(patients.confirmPassword, salt);
 
           }
         }
@@ -64,6 +64,7 @@ module.exports = (sequelize, DataTypes) => {
           return bcrypt.compare(password, password);
         }
       }
-    });
-  return patient;
+    }
+  );
+  return patients;
 };

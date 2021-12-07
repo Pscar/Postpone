@@ -7,13 +7,13 @@ export const createAppointment = createAsyncThunk("createAppointment", async (ap
   return response.data.data
 });
 
-export const updateAppointmentById = createAsyncThunk("updateAppointmentById", async (appointments_id, appointments) => {
-  const response = await axiosInstance.put(`/appointments/${appointments_id}`, appointments_id, appointments);
+export const updateAppointmentById = createAsyncThunk("updateAppointmentById", async (appointmentsId, appointments) => {
+  const response = await axiosInstance.put(`/appointments/${appointmentsId}`, appointmentsId, appointments);
   return response.data.data
 });
 
-export const deleteAppointmentById = createAsyncThunk("deleteAppointmentById", async (appointments_id) => {
-  const response = await axiosInstance.delete(`/appointments/${appointments_id}`);
+export const deleteAppointmentById = createAsyncThunk("deleteAppointmentById", async (appointmentsId) => {
+  const response = await axiosInstance.delete(`/appointments/${appointmentsId}`);
   return response
 });
 
@@ -28,7 +28,7 @@ export const getAppointmentAll = createAsyncThunk("getAppointmentAll", async () 
   return response.data.data
 });
 
-export const getAppointmentById = async (appointments_id) => {
-  const response = await axiosInstance.get(`/appointments/${appointments_id}`)
+export const getAppointmentById = async (appointmentsId) => {
+  const response = await axiosInstance.get(`/appointments/${appointmentsId}`)
   return response
 }

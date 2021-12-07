@@ -1,28 +1,28 @@
 const database = require("../util/database");
-const Appointment = database.appointments_user;
+const appointments = database.appointments;
 
 exports.create = async (data) => {
   try {
-    return await Appointment.create(data);
+    return await appointments.create(data);
   } catch (err) {
     throw err;
   }
 };
-exports.getByID = async (appointments_id) => {
+exports.getByID = async (appointmentsId) => {
   try {
-    return await Appointment.findOne({
+    return await appointments.findOne({
       where: {
-        appointments_id: appointments_id,
+        appointmentsId: appointmentsId,
       },
     });
   } catch (err) {
     throw err;
   };
 };
-exports.getByIdNow = async (appointments_id) => {
+exports.getByIdNow = async (appointmentsId) => {
   try {
-    return await Appointment.findOne({
-      key: appointments_id,
+    return await appointments.findOne({
+      key: appointmentsId,
       order: [['created_at', 'DESC']]
     });
   } catch (err) {
@@ -32,16 +32,16 @@ exports.getByIdNow = async (appointments_id) => {
 
 exports.getAll = async () => {
   try {
-    return await Appointment.findAll();
+    return await appointments.findAll();
   } catch (err) {
     throw err;
   }
 };
-exports.editByID = async (appointments_id, data) => {
+exports.editByID = async (appointmentsId, data) => {
   try {
-    await Appointment.update(data, {
+    await appointments.update(data, {
       where: {
-        appointments_id: appointments_id,
+        appointmentsId: appointmentsId,
       },
     });
     return data
@@ -50,11 +50,11 @@ exports.editByID = async (appointments_id, data) => {
   }
 };
 
-exports.DeleteByID = async (appointments_id) => {
+exports.deleteByID = async (appointmentsId) => {
   try {
-    return await Appointment.destroy({
+    return await appointments.destroy({
       where: {
-        appointments_id: appointments_id,
+        appointmentsId: appointmentsId,
       }
     })
   } catch (err) {

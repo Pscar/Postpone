@@ -2,19 +2,19 @@ module.exports = (sequelize, Sequelize) => {
   const doctors = sequelize.define(
     "doctors",
     {
-      doc_id: {
+      doctorId: {
         type: Sequelize.INTEGER,
-        field: "doc_id",
+        field: "doctorId",
         primaryKey: true,
         autoIncrement: true,
       },
-      doctor_name: {
+      doctorName: {
         type: Sequelize.STRING,
-        field: "doctor_name",
+        field: "doctorName",
       },
-      doc_color: {
+      doctorColor: {
         type: Sequelize.STRING,
-        field: "doc_color"
+        field: "doctorColor"
       },
     },
     {

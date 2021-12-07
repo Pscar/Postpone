@@ -49,7 +49,7 @@ export default function AdminPage() {
 
   const classes = useStyles();
   const [order] = useState('asc');
-  const [orderBy] = useState('postpone_id');
+  const [orderBy] = useState('patientId');
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -79,17 +79,17 @@ export default function AdminPage() {
   const dataAppointment = () => {
     const rows = appointment.length > 0 && appointment.map((data) => {
       const appointments = {
-        appointments_id: data.appointments_id,
-        patient_id: data.patient_id,
+        appointmentsId: data.appointmentsId,
+        patientId: data.patientId,
         hn: data.hn,
         status: data.status,
         course: data.course,
         patients: patients.length > 0 && patients.filter((item) => {
-          return item.patient_id === data.patient_id;
+          return item.patientId === data.patientId;
         }).map(function (item) {
           return {
-            firstname: item.firstname,
-            lastname: item.lastname,
+            firstName: item.firstName,
+            lastName: item.lastName,
             phone: item.phone,
           }
         })
@@ -127,19 +127,19 @@ export default function AdminPage() {
   }
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = dataAppointments.map((n) => n.id);
+      const newSelecteds = dataAppointments.map((n) => n.appointmentsId);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, appointments_id) => {
-    const selectedIndex = selected.indexOf(appointments_id);
+  const handleClick = (event, appointmentsId) => {
+    const selectedIndex = selected.indexOf(appointmentsId);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, appointments_id);
+      newSelected = newSelected.concat(selected, appointmentsId);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -163,7 +163,7 @@ export default function AdminPage() {
     setPage(0);
   };
 
-  const isSelected = (appointments_id) => selected.indexOf(appointments_id) !== -1;
+  const isSelected = (appointmentsId) => selected.indexOf(appointmentsId) !== -1;
 
   return (
     <React.Fragment>
@@ -192,16 +192,16 @@ export default function AdminPage() {
                 {stableSort(dataAppointments, getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row) => {
-                    const isItemSelected = isSelected(row[1].appointments_id);
-                    const labelId = `enhanced-table-checkbox-${row[1].appointments_id}`;
+                    const isItemSelected = isSelected(row[1].appointmentsId);
+                    const labelId = `enhanced-table-checkbox-${row[1].appointmentsId}`;
                     return (
                       <TableRow
                         hover
-                        onClick={(event) => handleClick(event, row[1].appointments_id)}
+                        onClick={(event) => handleClick(event, row[1].appointmentsId)}
                         role="checkbox"
                         aria-checked={isItemSelected}
                         tabIndex={-1}
-                        key={row[1].appointments_id}
+                        key={row[1].appointmentsId}
                         selected={isItemSelected}
                       >
                         <TableCell padding="checkbox">
@@ -211,12 +211,12 @@ export default function AdminPage() {
                           />
                         </TableCell>
                         <TableCell align="center" component="th" id={labelId} scope="row" padding="none">
-                          {row[1].appointments_id}
+                          {row[1].appointmentsId}
                         </TableCell>
                         {
                           row[1].patients.length > 0 && row[1].patients.map((item) => (
                             <>
-                              <TableCell align="center">{item.firstname}-{item.lastname}</TableCell>
+                              <TableCell align="center">{item.firstName}-{item.lastName}</TableCell>
                               <TableCell align="center">{item.phone}</TableCell>
                             </>
                           ))
@@ -245,9 +245,9 @@ export default function AdminPage() {
                         </TableCell>
 
                         <TableCell align="center">
-                          <Link to={`/edit/${row[1].appointments_id}`} style={{ textDecoration: 'none', color: 'white' }}>
+                          <Link to={`/edit/${row[1].appointmentsId}`} style={{ textDecoration: 'none', color: 'white' }}>
                             <Fab color="primary" aria-label="edit" size="small">
-                              <EditIcon id={row[1].id} />
+                              <EditIcon />
                             </Fab>
                           </Link>
                         </TableCell>

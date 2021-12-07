@@ -1,16 +1,16 @@
-const DoctorService = require('../service/doctorService');
+const doctorsService = require('../service/doctorsService');
 
-exports.GetDoctorByName = async (req, res) => {
+exports.getDoctorByName = async (req, res) => {
 
-  const doctor_name = req.query.name;
+  const doctorName = req.query.name;
 
   try {
     
-    const getDoctorByName = await DoctorService.getByID(doctor_name);
+    const listDoctorName = await doctorsService.getByID(doctorName);
 
     return res.status(200).send({
       status: "success",
-      data: getDoctorByName
+      data: listDoctorName
     });
   } catch (err) {
     console.log("==== ERROR =====", err);
@@ -20,14 +20,14 @@ exports.GetDoctorByName = async (req, res) => {
     });
   }
 }
-exports.GetDoctorAll = async (req, res) => {
+exports.getDoctorAll = async (req, res) => {
 
   try {
-    const getDoctorAccountAll = await DoctorService.getAll();
+    const doctors = await doctorsService.getAll();
 
     return res.status(200).send({
       status: "success",
-      data: getDoctorAccountAll
+      data: doctors
     });
   } catch (err) {
     console.log("==== ERROR =====", err);

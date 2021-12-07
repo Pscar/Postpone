@@ -1,32 +1,32 @@
 module.exports = (sequelize, Sequelize) => {
-  const appointments_user = sequelize.define(
-    "appointments_user",
+  const appointments = sequelize.define(
+    "appointments",
     {
-      appointments_id: {
+      appointmentsId: {
         type: Sequelize.INTEGER,
-        field: "appointments_id",
+        field: "appointmentsId",
         primaryKey: true,
         autoIncrement: true,
       },
-      patient_id: {
+      patientId: {
         type: Sequelize.INTEGER,
-        field: "patient_id",
+        field: "patientId",
       },
       hn: {
         type: Sequelize.STRING,
         field: "hn",
       },
-      doctor_name:{
+      doctorName:{
         type: Sequelize.STRING,
-        field: "doctor_name"
+        field: "doctorName"
       },
-      locations: {
+      location: {
         type: Sequelize.STRING,
-        field: "locations"
+        field: "location"
       },
-      doc_id: {
+      doctorId: {
         type: Sequelize.INTEGER,
-        field: "doc_id"
+        field: "doctorId"
       },
       dateOld: {
         type: Sequelize.STRING,
@@ -50,5 +50,5 @@ module.exports = (sequelize, Sequelize) => {
       underscored: true,
     }
   );
-  return appointments_user;
+  return appointments;
 };

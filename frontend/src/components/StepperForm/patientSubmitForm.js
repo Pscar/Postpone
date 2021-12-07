@@ -39,7 +39,7 @@ export default function PatientSubmitForm(props) {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                {logins.firstname} &#160; {logins.lastname}
+                {logins.firstName} &#160; {logins.lastName}
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -49,7 +49,7 @@ export default function PatientSubmitForm(props) {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                {createDataAppointments.locations}
+                {createDataAppointments.location}
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -59,7 +59,7 @@ export default function PatientSubmitForm(props) {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body" gutterBottom>
-                {createDataAppointments.doctor_name}
+                {createDataAppointments.doctorName}
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>

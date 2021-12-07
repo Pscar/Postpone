@@ -22,7 +22,6 @@ import { createAppointment } from "../../services/appointmentService";
 export default function PatientCreateAppointment() {
 
   const classes = useStyles();
-  const [isEditing, setEditing] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [skippedSteps, setSkippedSteps] = useState([]);
   const [createDataAppointments, setCreateDataAppointments] = useState({});
@@ -34,8 +33,7 @@ export default function PatientCreateAppointment() {
     defaultValues: {
       hn: "",
       email: logins.email,
-      locations: "",
-      doctor_name: "",
+      location: "",
       dateOld: "",
       course: "",
       status: "อยู่ระหว่างดำเนินการ"
@@ -66,12 +64,15 @@ export default function PatientCreateAppointment() {
   }
   const handleNext = (data) => {
     if (activeStep === steps.length - 1) {
+
       setActiveStep(activeStep + 1);
       createAppointments(data)
+
     } else if (activeStep === 1) {
+
       setActiveStep(activeStep + 1);
-      return !isEditing ? setCreateDataAppointments(data) :
-        setCreateDataAppointments(data)
+      return setCreateDataAppointments(data)
+
     } else {
       setActiveStep(activeStep + 1);
       setSkippedSteps(
@@ -80,9 +81,6 @@ export default function PatientCreateAppointment() {
     }
   };
   const handleBack = () => {
-    if (activeStep === 2) {
-      setEditing(true)
-    }
     setActiveStep(activeStep - 1);
   };
   const handleSkip = () => {
@@ -97,7 +95,7 @@ export default function PatientCreateAppointment() {
       case 0:
         return <PatientSearchDrAndTimeline handleNext={handleNext} />;
       case 1:
-        return <PatientFieldFormRegister activeStep={activeStep} isEditing={isEditing} />;
+        return <PatientFieldFormRegister />;
       case 2:
         return <PatientSubmitForm createDataAppointments={createDataAppointments} />;
       default:

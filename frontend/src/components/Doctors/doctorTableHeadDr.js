@@ -60,19 +60,19 @@ export default function DoctorTableHeadDr(props) {
   const dataSchedule = () => {
     const rows = displayDoctor.length > 0 && displayDoctor.map((data) => {
       const historys = {
-        doc_id: data.doc_id,
-        doctor_name: data.doctor_name,
+        doctorId: data.doctorId,
+        doctorName: data.doctorName,
         schedule:
           displayScheduleDr.length > 0 && displayScheduleDr.filter(function (item) {
-            return item.doc_id === data.doc_id;
+            return item.doctorId === data.doctorId;
           }).map(function (item) {
             return {
-              schedule_id	: item.schedule_id	,
-              doc_id: item.doc_id,
+              scheduleId	: item.scheduleId	,
+              doctorId: item.doctorId,
               description: item.description,
               location:item.location,
-              endtime: item.endtime,
-              starttime: item.starttime,
+              startTime: item.startTime, 
+              endTime: item.endTime,
               subject: item.subject,
             }
           })
@@ -88,7 +88,7 @@ export default function DoctorTableHeadDr(props) {
   const requestSearch = (searchedVal) => {
     if (searchedVal) {
       const filteredRows = data.length > 0 && data.filter((row) => {
-        const filterName = row.doctor_name.toLowerCase().includes(searchedVal.toLowerCase());
+        const filterName = row.doctorName.toLowerCase().includes(searchedVal.toLowerCase());
         return filterName
       });
       setDisplayDoctor(filteredRows);
@@ -120,9 +120,9 @@ export default function DoctorTableHeadDr(props) {
       const endDate = moment(e.endDate).format('DD-MM-YYYY');
 
       const filterDateRow = schedules.length > 0 && schedules.filter((row) => {
-        const starttime = moment(row.starttime).format('DD-MM-YYYY');
-        const endtime = moment(row.endtime).format('DD-MM-YYYY');
-        const filterdate = starttime >= startDate && endtime <= endDate
+        const startTime = moment(row.startTime).format('DD-MM-YYYY');
+        const endTime = moment(row.endTime).format('DD-MM-YYYY');
+        const filterdate = startTime >= startDate && endTime <= endDate
         return filterdate
       });
 
@@ -183,7 +183,7 @@ export default function DoctorTableHeadDr(props) {
               {data.length > 0 && data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                 return (
                   <DoctortTableRow
-                    key={row.doc_id}
+                    key={row.doctorId}
                     row={row}
                     searched={searched}
                     scheduleDr={schedules}

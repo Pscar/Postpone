@@ -79,22 +79,42 @@ export default function PatientFieldFormCreateAppointment() {
             <Grid item xs={12} md={6}>
               <TextField
                 required
-                id="firstname"
-                label="firstname"
-                defaultValue={logins.firstname}
+                id="firstName"
+                label="ชื่อคนไข้"
+                defaultValue={logins.firstName}
                 variant="filled"
                 disabled
                 fullWidth
               />
-           
             </Grid>
             <Grid item xs={12} md={6}>
-           
               <TextField
                 required
-                id="lastname"
-                label="lastname"
-                defaultValue={logins.lastname}
+                id="lastName"
+                label="นามสกุลคนไข้"
+                defaultValue={logins.lastName}
+                variant="filled"
+                disabled
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <TextField
+                required
+                id="phone"
+                label="เบอร์ติดต่อคนไข้"
+                defaultValue={logins.phone}
+                variant="filled"
+                disabled
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <TextField
+                required
+                id="email"
+                label="อีเมลคนไข้"
+                defaultValue={logins.email}
                 variant="filled"
                 disabled
                 fullWidth
@@ -102,7 +122,7 @@ export default function PatientFieldFormCreateAppointment() {
             </Grid>
             <Grid item xs={12} md={12}>
               <Autocomplete
-                id="custom-locations"
+                id="custom-location"
                 options={locations}
                 rules={{ required: "this field is required." }}
                 fullWidth
@@ -113,10 +133,10 @@ export default function PatientFieldFormCreateAppointment() {
                       {...params}
                       variant="outlined"
                       label="สถานที่ตรวจ"
-                      name="locations"
-                      {...register("locations")}
-                      error={errors.locations ? true : false}
-                      helperText={errors.locations?.message}
+                      name="location"
+                      {...register("location")}
+                      error={errors.location ? true : false}
+                      helperText={errors.location?.message}
 
                     />
                   );
@@ -125,7 +145,6 @@ export default function PatientFieldFormCreateAppointment() {
                   return <h4>{`${option.id}: ${option.name}`}</h4>;
                 }}
               />
-
             </Grid>
             <Grid item xs={12} md={6}>
               <MuiPickersUtilsProvider utils={MomentUtils}>
@@ -151,56 +170,6 @@ export default function PatientFieldFormCreateAppointment() {
                   )}
                 />
               </MuiPickersUtilsProvider>
-            </Grid>
-            <Grid item xs={12} md={6}>
-           
-              <TextField
-                required
-                id="phone"
-                label="phone"
-                defaultValue={logins.phone}
-                variant="filled"
-                disabled
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-           
-              <TextField
-                required
-                id="email"
-                label="email"
-                defaultValue={logins.email}
-                variant="filled"
-                disabled
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-            
-              <TextField
-                required
-                id="password"
-                label="password"
-                type="password"
-                defaultValue={logins.password}
-                variant="filled"
-                disabled
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-           
-              <TextField
-                required
-                id="confirmpassword"
-                label="confirmpassword"
-                type="password"
-                defaultValue={logins.confirmpassword}
-                variant="filled"
-                disabled
-                fullWidth
-              />
             </Grid>
             <Grid item xs={12} md={6}>
               <FormControl className={classes.formControl}
@@ -233,6 +202,7 @@ export default function PatientFieldFormCreateAppointment() {
                 />
               </FormControl>
             </Grid>
+
           </Grid>
         </Paper>
       </Container>

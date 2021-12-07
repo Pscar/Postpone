@@ -33,33 +33,33 @@ const db = {};
 
 db.sequelize = sequelize;
 
-db.patient = require("../model/patient")(sequelize, Sequelize);
-db.appointments_user = require("../model/appointmentUser")(sequelize, Sequelize);
-db.doctor = require("../model/doctors")(sequelize, Sequelize);
-db.schdule_doctor = require("../model/scheduleDoctor")(sequelize, Sequelize);
+db.patients = require("../model/patients")(sequelize, Sequelize);
+db.appointments = require("../model/appointments")(sequelize, Sequelize);
+db.doctors = require("../model/doctors")(sequelize, Sequelize);
+db.schedules = require("../model/schedules")(sequelize, Sequelize);
 
-db.patient.hasMany(db.appointments_user, {
-  foreignKey: "patient_id",
+db.patients.hasMany(db.appointments, {
+  foreignKey: "patientId",
 });
 
-db.appointments_user.belongsTo(db.patient, {
-  foreignKey: "patient_id",
+db.appointments.belongsTo(db.patients, {
+  foreignKey: "patientId",
 });
 
-db.doctor.hasMany(db.appointments_user, {
-  foreignKey: "doc_id",
+db.doctors.hasMany(db.appointments, {
+  foreignKey: "doctorId",
 });
 
-db.appointments_user.belongsTo(db.doctor, {
-  foreignKey: "doc_id",
+db.appointments.belongsTo(db.doctors, {
+  foreignKey: "doctorId",
 });
 
-db.doctor.hasMany(db.schdule_doctor,{
-  foreignKey: "doc_id",
+db.doctors.hasMany(db.schedules,{
+  foreignKey: "doctorId",
 });
 
-db.schdule_doctor.belongsTo(db.doctor, {
-  foreignKey: "doc_id",
+db.schedules.belongsTo(db.doctors, {
+  foreignKey: "doctorId",
 });
 
 

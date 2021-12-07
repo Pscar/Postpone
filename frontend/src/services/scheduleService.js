@@ -7,13 +7,13 @@ export const createSchedule = createAsyncThunk("createSchedule", async (schedule
   return response.data.data
 });
 
-export const updateScheduleById = createAsyncThunk("updateScheduleById", async (schedule_id, schedules) => {
-  const response = await axiosInstance.put(`/schedules/${schedule_id}`, schedule_id, schedules);
+export const updateScheduleById = createAsyncThunk("updateScheduleById", async (scheduleId, schedules) => {
+  const response = await axiosInstance.put(`/schedules/${scheduleId}`, scheduleId, schedules);
   return response.data.data
 });
 
-export const deleteScheduleById = createAsyncThunk("deleteScheduleeById", async (schedule_id) => {
-  const response = await axiosInstance.delete(`/schedules/${schedule_id}`);
+export const deleteScheduleById = createAsyncThunk("deleteScheduleeById", async (scheduleId) => {
+  const response = await axiosInstance.delete(`/schedules/${scheduleId}`);
   return response
 });
 

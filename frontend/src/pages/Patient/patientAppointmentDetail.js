@@ -56,7 +56,7 @@ export default function PatientAppointmentDetail() {
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="h6" gutterBottom>
-                {logins.firstname} &#160; {logins.lastname}
+                {logins.firstName} &#160; {logins.lastName}
               </Typography>
             </Grid>
             <Grid item xs={12} md={6}>
@@ -66,7 +66,7 @@ export default function PatientAppointmentDetail() {
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="h6" gutterBottom>
-                {appointmentById ? appointmentById.locations : ""}
+                {appointmentById ? appointmentById.location : ""}
               </Typography>
             </Grid>
             <Grid item xs={12} md={6}>
@@ -76,7 +76,7 @@ export default function PatientAppointmentDetail() {
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="h6" gutterBottom>
-                {appointmentById ? appointmentById.doctor_name : ""}
+                {appointmentById ? appointmentById.doctorName : ""}
               </Typography>
             </Grid>
             <Grid item xs={12} md={6}>

@@ -21,27 +21,12 @@ import { getAppointmentAll } from "../../services/appointmentService";
 
 PatientAppointmentActualize.propTypes = {
   row: PropTypes.shape({
-    id: PropTypes.number.isRequired,
     hn: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
-    history: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        locations: PropTypes.string.isRequired,
-        appointments: PropTypes.string.isRequired,
-        email: PropTypes.string.isRequired,
-        password: PropTypes.string.isRequired,
-        course: PropTypes.string.isRequired,
-        dateOld: PropTypes.instanceOf(Date).isRequired,
-        dateNew: PropTypes.instanceOf(Date).isRequired,
-      }),
-    ).isRequired,
     course: PropTypes.string.isRequired,
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
     phone: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
   }).isRequired,
 };
 
@@ -125,8 +110,8 @@ export default function PatientAppointment() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {displaySearch.length > 0 && displaySearch.map((row) => (row.patient_id === logins.patient_id ? (
-                  <PatientAppointmentActualize key={row.appointments_id} row={row} patient={logins} />
+                {displaySearch.length > 0 && displaySearch.map((row) => (row.patientId === logins.patientId ? (
+                  <PatientAppointmentActualize key={row.appointmentsId} row={row} patient={logins} />
                 ) : null
                 ))}
               </TableBody>

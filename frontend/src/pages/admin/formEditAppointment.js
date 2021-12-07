@@ -19,8 +19,8 @@ export default function FormEditAppointment(props) {
   const dataAppointment = () => {
     const rows = appointment.length > 0 && appointment.map((data) => {
       const appointments = {
-        appointments_id: data.appointments_id,
-        patient_id: data.patient_id,
+        appointmentsId: data.appointmentsId,
+        patientId: data.patientId,
         hn: data.hn,
         status: data.status,
         course: data.course,
@@ -36,7 +36,7 @@ export default function FormEditAppointment(props) {
   const methods = useForm({
     defaultValues: {
       hn: dataAppointments.hn,
-      doctor_name: dataAppointments.doctor_name,
+      doctorName: dataAppointments.doctorName,
       dateNew: dataAppointments.dateNew,
       course: dataAppointments.course,
       status: dataAppointments.status
@@ -57,19 +57,19 @@ export default function FormEditAppointment(props) {
   const handleNext = async (data) => {
     if (data.course === 'เลือกตามวันเวลาเป็นหลัก พบแพทย์ท่านใดก็ได้') {
       const updateItem = {
-        appointments_id: appointmentById.appointments_id,
+        appointmentsId: appointmentById.appointmentsId,
         course: appointmentById.course,
         dateNew: appointmentById.dateNew,
         status: data.status,
-        doctor_name: data.doctor_name,
+        doctorName: data.doctorName,
       }
       await dispatch(updateAppointmentById(updateItem))
 
     } else {
       const updateItem = {
-        appointments_id: appointmentById.appointments_id,
+        appointmentsId: appointmentById.appointmentsId,
         course: appointmentById.course,
-        doctor_name: appointmentById.doctor_name,
+        doctorName: appointmentById.doctorName,
         dateNew: data.dateNew,
         status: data.status,
       }

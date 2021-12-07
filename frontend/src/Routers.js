@@ -2,9 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route, } from "react-router-dom";
 
 import PrivateRoute from './PrivateRoute';
-import Navbar from './pages/Navbar';
-import loginsForm from './pages/LoginsForm';
-import resgiterForm from './pages/ResgiterForm';
+import Navbar from './components/Navbar';
+import loginForm from './pages/Login';
+import resgiterForm from './pages/Register';
 import doctorSchedule from './pages/Doctor/doctorSchedule';
 import adminPage from './pages/Admin/adminPage';
 import formEditAppointment from './pages/Admin/formEditAppointment';
@@ -21,7 +21,7 @@ export default function Routers() {
     <Router>
       <Navbar />
       <Switch>
-        <Route exact path="/" component={loginsForm} />
+        <Route exact path="/" component={loginForm} />
         <Route path="/register" component={resgiterForm} />
 
         <PrivateRoute path="/doctor" users={logins} component={doctorSchedule} />

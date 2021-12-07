@@ -18,18 +18,18 @@ import Alert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { useDispatch, useSelector } from 'react-redux'
-import { createPatient, getPatientAll } from '../services/patientService';
+import { createPatient, getPatientAll } from '../../services/patientService';
 
-export default function ResgiterForm() {
+function ResgiterForm() {
 
   const classes = useStyles();
 
   const validationSchema = Yup.object().shape({
-    firstname: Yup.string().required('firstname is required'),
-    lastname: Yup.string()
-      .required('lastname is required')
-      .min(6, 'lastname must be at least 6 characters')
-      .max(20, 'lastname must not exceed 20 characters'),
+    firstName: Yup.string().required('firstName is required'),
+    lastName: Yup.string()
+      .required('lastName is required')
+      .min(6, 'lastName must be at least 6 characters')
+      .max(20, 'lastName must not exceed 20 characters'),
     email: Yup.string()
       .required('Email is required')
       .email('Email is invalid'),
@@ -37,7 +37,7 @@ export default function ResgiterForm() {
       .required('Password is required')
       .min(6, 'Password must be at least 6 characters')
       .max(40, 'Password must not exceed 40 characters'),
-    confirmpassword: Yup.string()
+    confirmPassword: Yup.string()
       .required('Confirm Password is required')
       .oneOf([Yup.ref('password'), null], 'Confirm Password does not match'),
     phone: Yup.string().required('phone is required')
@@ -59,22 +59,26 @@ export default function ResgiterForm() {
 
   const createPatients = async (data) => {
     for (const item of patients) {
-      if (item.email !== data.email ) {
+      if (item.email !== data.email) {
         setAlert(true)
         setAlertContent("มีข้อมูลในระบบแล้ว")
         break
+      } else {
+        setAlert(true)
+        setAlertContent("สมัครสมาชิกเรียบร้อยแล้ว")
       }
     }
     const createItem = {
-      firstname: data.firstname,
-      lastname: data.lastname,
+      firstName: data.firstName,
+      lastName: data.lastName,
       email: data.email,
       phone: data.phone,
       password: data.password,
-      confirmpassword: data.confirmpassword,
+      confirmPassword: data.confirmPassword,
     }
     await dispatch(createPatient(createItem));
   }
+
 
   const onSubmit = async (data) => {
     await createPatients(data)
@@ -94,25 +98,25 @@ export default function ResgiterForm() {
                 <Grid item xs={12} md={6}>
                   <TextField
                     required
-                    id="firstname"
-                    name="firstname"
+                    id="firstName"
+                    name="firstName"
                     label="ชื่อ"
                     fullWidth
                     variant="outlined"
-                    {...register('firstname')}
-                    error={errors.firstname ? true : false}
+                    {...register('firstName')}
+                    error={errors.firstName ? true : false}
                   />
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <TextField
                     required
-                    id="lastname"
-                    name="lastname"
+                    id="lastName"
+                    name="lastName"
                     label="นามสกุล"
                     fullWidth
                     variant="outlined"
-                    {...register('lastname')}
-                    error={errors.lastname ? true : false}
+                    {...register('lastName')}
+                    error={errors.lastName ? true : false}
                   />
                 </Grid>
                 <Grid item xs={12} md={6}>
@@ -155,14 +159,14 @@ export default function ResgiterForm() {
                 <Grid item xs={12} md={6}>
                   <TextField
                     required
-                    id="confirmpassword"
-                    name="confirmpassword"
+                    id="confirmPassword"
+                    name="confirmPassword"
                     label="ยืนยันรหัสผ่าน"
                     type="password"
                     fullWidth
                     variant="outlined"
-                    {...register('confirmpassword')}
-                    error={errors.confirmpassword ? true : false}
+                    {...register('confirmPassword')}
+                    error={errors.confirmPassword ? true : false}
                   />
                 </Grid>
               </Grid>
@@ -177,16 +181,18 @@ export default function ResgiterForm() {
                   </Button>
                 </Grid>
                 <Grid item xs={12} md={6}>
-                  {alert ? <Alert variant="filled" severity="error">{alertContent}</Alert> : <></>}
+                  {alert ? <Alert variant="filled" severity="error">{alertContent}</Alert> : null}
                 </Grid>
               </Box>
             </Box>
           </Paper>
         </form>
       </div>
-    </Container >
+    </Container>
   )
 }
+
+export default ResgiterForm;
 
 const useStyles = makeStyles((theme) => ({
   paper: {

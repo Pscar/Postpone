@@ -36,7 +36,7 @@ export default function PatientAppointmentActualize(props) {
         <TableCell align="center" component="th" scope="row">
           {row.hn}
         </TableCell>
-        <TableCell align="center">{patient.firstname} - {patient.lastname}</TableCell>
+        <TableCell align="center">{patient.firstName} - {patient.lastName}</TableCell>
         <TableCell align="center"> {(() => {
           switch (row.status) {
             case 'อยู่ระหว่างดำเนินการ':
@@ -100,21 +100,20 @@ export default function PatientAppointmentActualize(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-
                   <TableRow>
                     <TableCell>
                       <Typography variant="body" component="div" align='center'>
-                        {row.appointments_id}
+                        {row.appointmentsId}
                       </Typography>
                     </TableCell>
                     <TableCell>
                       <Typography variant="body" component="div" align='center'>
-                        {row.locations}
+                        {row.location}
                       </Typography>
                     </TableCell>
                     <TableCell>
                       <Typography variant="body" component="div" align='center'>
-                        {row.doctor_name}
+                        {row.doctorName}
                       </Typography>
                     </TableCell>
                     <TableCell>
@@ -147,7 +146,7 @@ export default function PatientAppointmentActualize(props) {
                       {
                         row.status !== 'อยู่ระหว่างดำเนินการ' ? (
                           <Link
-                            to={`/detail/${row.appointments_id}`}
+                            to={`/detail/${row.appointmentsId}`}
                             style={{
                               textDecoration: 'none', color: 'white'
                             }}>

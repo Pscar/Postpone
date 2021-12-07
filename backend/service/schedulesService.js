@@ -1,9 +1,9 @@
 const database = require("../util/database");
-const Schedule = database.schdule_doctor;
+const schedules = database.schedules;
 
 exports.create = async (data) => {
   try {
-    return await Schedule.create(data);
+    return await schedules.create(data);
   } catch (err) {
     throw err;
   }
@@ -11,17 +11,17 @@ exports.create = async (data) => {
 
 exports.getAll = async () => {
   try {
-    return await Schedule.findAll({});
+    return await schedules.findAll({});
   } catch (err) {
     throw err;
   }
 };
 
-exports.editByID = async (schedule_id, data) => {
+exports.editByID = async (scheduleId, data) => {
   try {
-    await Schedule.update(data, {
+    await schedules.update(data, {
       where: {
-        schedule_id: schedule_id,
+        scheduleId: scheduleId,
       },
     });
     return data
@@ -30,11 +30,11 @@ exports.editByID = async (schedule_id, data) => {
   }
 };
 
-exports.DeleteByID = async (schedule_id) => {
+exports.deleteByID = async (scheduleId) => {
   try {
-    return await Schedule.destroy({
+    return await schedules.destroy({
       where: {
-        schedule_id: schedule_id,
+        scheduleId: scheduleId,
       }
     })
   } catch (err) {

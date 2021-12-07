@@ -1,13 +1,13 @@
-const AppointmentService = require('../service/appointmentsService');
-const PatientService = require('../service/patientService');
-const DoctorService = require('../service/doctorService');
+const appointmentsService = require('../service/appointmentsService');
+const patienstService = require('../service/patientsService');
+const doctorsService = require('../service/doctorsService');
 
-exports.CreateAppointment = async (req, res) => {
+exports.createAppointment = async (req, res) => {
   const {
     hn,
     email,
-    locations,
-    doctor_name,
+    location,
+    doctorName,
     dateOld,
     dateNew,
     course,
@@ -15,15 +15,15 @@ exports.CreateAppointment = async (req, res) => {
   } = req.body;
 
   try {
-    const getDoctorByName = await DoctorService.getByName(doctor_name);
-    const getPatientAccountByEmail = await PatientService.getByEmail(email);
+    const listDoctorName = await doctorsService.getByName(doctorName);
+    const listPatientEmail = await patienstService.getByEmail(email);
 
-    const createAppointment = await AppointmentService.create({
-      patient_id: getPatientAccountByEmail.patient_id,
+    const newappointment = await appointmentsService.create({
+      patientId: listPatientEmail.patientId,
       hn: hn,
-      locations: locations,
-      doc_id: getDoctorByName.doc_id,
-      doctor_name: doctor_name,
+      location: location,
+      doctorId: listDoctorName.doctorId,
+      doctorName: doctorName,
       dateOld: dateOld,
       dateNew: dateNew,
       course: course,
@@ -32,7 +32,7 @@ exports.CreateAppointment = async (req, res) => {
 
     return res.status(200).send({
       status: "success",
-      data: createAppointment
+      data: newappointment
     });
   } catch (err) {
     console.log("==== ERROR =====", err);
@@ -43,14 +43,14 @@ exports.CreateAppointment = async (req, res) => {
   }
 
 }
-exports.GetAppointmentNow = async (req, res) => {
+exports.getAppointmentAll = async (req, res) => {
 
   try {
-    const getAppointmentNow = await AppointmentService.getByIdNow();
+    const appointments = await appointmentsService.getAll();
 
     return res.status(200).send({
       status: "success",
-      data: getAppointmentNow
+      data: appointments
     });
   } catch (err) {
     console.log("==== ERROR =====", err);
@@ -60,16 +60,15 @@ exports.GetAppointmentNow = async (req, res) => {
     });
   }
 }
-exports.GetAppointmentByID = async (req, res) => {
+exports.getAppointmentByID = async (req, res) => {
 
-  const appointments_id = req.params.appointments_id;
+  const appointmentsId = req.params.appointmentsId;
 
   try {
-    const getAppointmentID = await AppointmentService.getByID(appointments_id);
-
+    const appointment = await appointmentsService.getByID(appointmentsId);
     return res.status(200).send({
       status: "success",
-      data: getAppointmentID
+      data: appointment
     });
   } catch (err) {
     console.log("==== ERROR =====", err);
@@ -79,53 +78,37 @@ exports.GetAppointmentByID = async (req, res) => {
     });
   }
 }
-exports.GetAppointmentAll = async (req, res) => {
 
-  try {
-    const getAppointmentAll = await AppointmentService.getAll();
-
-    return res.status(200).send({
-      status: "success",
-      data: getAppointmentAll
-    });
-  } catch (err) {
-    console.log("==== ERROR =====", err);
-    return res.status(500).send({
-      status: "error",
-      message: err.message,
-    });
-  }
-}
-exports.EditAppointmentByID = async (req, res) => {
+exports.editAppointmentByID = async (req, res) => {
 
   const {
-    appointments_id,
+    appointmentsId,
     hn,
-    locations,
-    doctor_name,
+    location,
+    doctorName,
     dateOld,
     dateNew,
     course,
     status
   } = req.body;
 
-  const getDoctorByName = await DoctorService.getByName(doctor_name);
+  const listDoctorName = await doctorsService.getByName(doctorName);
 
   try {
-    const editAppointmentByID = await AppointmentService.editByID(appointments_id, {
-      appointments_id: appointments_id,
+    const editappointment = await appointmentsService.editByID(appointmentsId, {
+      appointmentsId: appointmentsId,
       hn: hn,
-      locations: locations,
-      doctor_name: doctor_name,
+      location: location,
+      doctorName: doctorName,
       dateOld: dateOld,
       dateNew: dateNew,
       course: course,
-      doc_id: getDoctorByName.doc_id,
+      doctorId: listDoctorName.doctorId,
       status: status
     });
     return res.status(200).send({
       status: "success",
-      data: editAppointmentByID
+      data: editappointment
     });
   } catch (err) {
     console.log("==== ERROR =====", err);
@@ -136,16 +119,16 @@ exports.EditAppointmentByID = async (req, res) => {
   }
 
 }
-exports.DeleteAppointmenteByID = async (req, res) => {
+exports.deleteAppointmenteByID = async (req, res) => {
 
-  const appointments_id = req.params.appointments_id;
+  const appointmentsId = req.params.appointmentsId;
 
   try {
-    const deleteAppointmenteByID = await AppointmentService.DeleteByID(appointments_id);
+    const deleteappointment = await appointmentsService.deleteByID(appointmentsId);
 
     return res.status(200).send({
       status: "success",
-      data: deleteAppointmenteByID
+      data: deleteappointment
     });
   } catch (err) {
     console.log("==== ERROR =====", err);

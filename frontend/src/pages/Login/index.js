@@ -13,11 +13,11 @@ import {
 } from "@material-ui/core";
 import Alert from '@material-ui/lab/Alert';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { loginSuccess } from '../slices/LoginSlice';
+import { loginSuccess } from '../../slices/LoginSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPatientAll } from '../services/patientService';
+import { getPatientAll } from '../../services/patientService';
 
-export default function LoginsForm() {
+function LoginsForm() {
 
   let history = useHistory();
   const classes = useStyles();
@@ -52,21 +52,27 @@ export default function LoginsForm() {
 
   const submitUser = (event) => {
     event.preventDefault();
-    for (let i = 0; i < patients.length; i++) {
-      const hashedPassword = bcrypt.hashSync(stateEvent.password, patients[i].password) 
+    for (const item of patients) {
 
-      if (stateEvent.email === patients[i].email && hashedPassword === patients[i].password) {
+      const hashedPassword = bcrypt.hashSync(stateEvent.password, item.password)
+
+      if (stateEvent.email === item.email && hashedPassword === item.password) {
         setIsLogin(true)
-
-        dispatch(loginSuccess(patients[i]))
+        dispatch(loginSuccess(item))
       }
-      else if (stateEvent.email === 'admin@admin.com' && stateEvent.password === '147258369') {
+      if (stateEvent.email === 'admin@admin.com' && hashedPassword === item.password) {
         setIsLogin(true)
         history.push("/admin");
-      } else if (stateEvent.email !== patients[i].email) {
+      }
+      if (stateEvent.email !== item.email) {
+        setTimeout(() => {
+          setAlert(false)
+          setAlertContent("")
+        }, 1000)
         setAlert(true)
         setAlertContent("กรุณากรอก email ใหม่")
-      } else if (stateEvent.password !== patients[i].password) {
+      }
+      if (hashedPassword === item.password) {
         setAlert(true)
         setAlertContent("กรุณากรอก password ใหม่")
       }
@@ -130,6 +136,9 @@ export default function LoginsForm() {
     </Container>
   )
 }
+
+export default LoginsForm;
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),

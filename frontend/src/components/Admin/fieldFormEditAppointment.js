@@ -55,7 +55,7 @@ export default function FieldFormEditAppointment(props) {
     <React.Fragment>
       <Container maxWidth="md">
         <Paper variant="outlined" square className={classes.paper}>
-          แก้ไขสถานะ และ เปลี่ยนแพทย์ # {data.appointments_id}
+          แก้ไขสถานะ และ เปลี่ยนแพทย์ # {data.appointmentsId}
         </Paper>
         <Paper variant="outlined" className={classes.paper}>
           <Grid container spacing={3}>
@@ -71,14 +71,14 @@ export default function FieldFormEditAppointment(props) {
               />
             </Grid>
             {patients.length > 0 && patients.map((item) => (
-              item.patient_id === data.patient_id ? (
+              item.patientId === data.patientId ? (
                 <React.Fragment>
                   <Grid item xs={12} md={6}>
                     <TextField
                       required
                       id="filled-required-firstname"
-                      label="ชื่อ"
-                      defaultValue={item.firstname}
+                      label="ชื่อคนไข้"
+                      defaultValue={item.firstName}
                       variant="filled"
                       disabled
                       fullWidth
@@ -88,8 +88,8 @@ export default function FieldFormEditAppointment(props) {
                     <TextField
                       required
                       id="filled-required-lastname"
-                      label="นามสกุล"
-                      defaultValue={item.lastname}
+                      label="นามสกุลคนไข้"
+                      defaultValue={item.lastName}
                       variant="filled"
                       disabled
                       fullWidth
@@ -110,7 +110,7 @@ export default function FieldFormEditAppointment(props) {
                     <TextField
                       required
                       id="email"
-                      label="email"
+                      label="อีเมล"
                       defaultValue={item.email}
                       variant="filled"
                       disabled
@@ -123,9 +123,9 @@ export default function FieldFormEditAppointment(props) {
             <Grid item xs={12} md={12}>
               <TextField
                 required
-                id="filled-required-locations"
+                id="filled-required-location"
                 label="สถานที่ตรวจ"
-                defaultValue={data.locations}
+                defaultValue={data.location}
                 variant="filled"
                 disabled
                 fullWidth
@@ -227,7 +227,7 @@ export default function FieldFormEditAppointment(props) {
                         id="custom-appointments"
                         options={doctors}
                         fullWidth
-                        getOptionLabel={(option) => `${option.doctor_name}`}
+                        getOptionLabel={(option) => `${option.doctorName}`}
                         renderInput={(params) => {
                           return (
                             <TextField
@@ -235,23 +235,23 @@ export default function FieldFormEditAppointment(props) {
                               variant="outlined"
                               label="นัดพบแพทย์"
                               name="appointments"
-                              {...register("doctor_name")}
-                              error={errors.doctor_name ? true : false}
-                              helperText={errors.doctor_name?.message}
+                              {...register("doctorName")}
+                              error={errors.doctorName ? true : false}
+                              helperText={errors.doctorName?.message}
                             />
                           );
                         }}
                         renderOption={(option) => {
-                          return <h4>{`${option.doctor_name}`}</h4>;
+                          return <h4>{`${option.doctorName}`}</h4>;
                         }}
                       />
                     )
                   default:
                     return <TextField
                       required
-                      id="filled-required-doctor_name"
+                      id="filled-required-doctorName"
                       label="นัดพบแพทย์ คนเดิมของคนไข้"
-                      defaultValue={data.doctor_name}
+                      defaultValue={data.doctorName}
                       variant="filled"
                       disabled
                       fullWidth

@@ -1,10 +1,10 @@
 module.exports = (sequelize, Sequelize) => {
-  const schedule_doctor = sequelize.define(
-    "schedule_doctor",
+  const schedules = sequelize.define(
+    "schedules",
     {
-      schedule_id: {
+      scheduleId: {
         type: Sequelize.INTEGER,
-        field: "schedule_id",
+        field: "scheduleId",
         primaryKey: true,
         autoIncrement: true,
       },
@@ -20,21 +20,21 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
         field: "location"
       },
-      starttime: {
+      startTime: {
         type: Sequelize.STRING,
-        field: "starttime"
+        field: "startTime"
       },
-      endtime: {
+      endTime: {
         type: Sequelize.STRING,
-        field: "endtime"
+        field: "endTime"
       },
-      doc_id: {
+      doctorId: {
         type: Sequelize.INTEGER,
-        field: "doc_id",
+        field: "doctorId",
       },
-      doctor_name:{
+      doctorName:{
         type: Sequelize.STRING,
-        field: "doctor_name",
+        field: "doctorName",
       }
     },
     {
@@ -42,5 +42,5 @@ module.exports = (sequelize, Sequelize) => {
       underscored: true,
     }
   );
-  return schedule_doctor;
+  return schedules;
 };

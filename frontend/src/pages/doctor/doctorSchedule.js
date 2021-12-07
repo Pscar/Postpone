@@ -52,30 +52,30 @@ export default function DoctorSchedule() {
   const createSchedules = async (data) => {
     const createItem = await dispatch(createSchedule({
       description: data.description,
-      endtime: data.endtime,
+      endTime: data.endTime,
       location: data.location,
-      starttime: data.starttime,
+      startTime: data.startTime,
       subject: data.subject,
-      doc_id: data.doc_id,
+      doctorId: data.doctorId,
     }))
     setSaveScheduleDr(createItem)
     return createItem
   }
-  const updateSchedules = async (schedule_id, data) => {
+  const updateSchedules = async (scheduleId, data) => {
     const updateItem = await dispatch(updateScheduleById({
-      schedule_id: schedule_id,
+      scheduleId: scheduleId,
       description: data.description,
-      endtime: data.endtime,
+      endTime: data.endTime,
       location: data.location,
-      starttime: data.starttime,
+      startTime: data.startTime,
       subject: data.subject,
-      doc_id: data.doc_id,
+      doctorId: data.doctorId,
     }))
     setEditScheduleDr(updateItem)
     return updateItem
   }
-  const DeleteSchedule = async (schedule_id) => {
-    const deleteItem = await dispatch(deleteScheduleById(schedule_id))
+  const deleteSchedule = async (scheduleId) => {
+    const deleteItem = await dispatch(deleteScheduleById(scheduleId))
     setDeleteScheduleDr(deleteItem)
     return deleteItem
   }
@@ -85,19 +85,19 @@ export default function DoctorSchedule() {
       const eventData = args.addedRecords[0];
       createSchedules(eventData)
     } else if (args.requestType === "eventChange") {
-      const schedule_id = args.changedRecords[0].schedule_id
-      updateSchedules(schedule_id, {
-        doc_id: args.changedRecords[0].doc_id,
+      const scheduleId = args.changedRecords[0].scheduleId
+      updateSchedules(scheduleId, {
+        doctorId: args.changedRecords[0].doctorId,
         description: args.changedRecords[0].description,
-        endtime: args.changedRecords[0].endtime,
+        endTime: args.changedRecords[0].endTime,
         location: args.changedRecords[0].location,
-        starttime: args.changedRecords[0].starttime,
+        startTime: args.changedRecords[0].startTime,
         subject: args.changedRecords[0].subject,
       })
 
     } else if (args.requestType === "eventRemove") {
-      const eventData = args.deletedRecords[0].schedule_id
-      DeleteSchedule(eventData)
+      const eventData = args.deletedRecords[0].scheduleId
+      deleteSchedule(eventData)
     }
   }
 
@@ -130,12 +130,12 @@ export default function DoctorSchedule() {
         eventSettings={{
           dataSource: JSON.parse(JSON.stringify(schedules)),displayScheduleDr,
           fields: {
-            schedule_id: 'schedule_id',
+            scheduleId: 'scheduleId',
             subject: { title: 'subject', name: 'subject' },
             location: { title: 'location', name: 'location' },
             description: { title: 'description', name: 'description' },
-            startTime: { title: 'starttime', name: 'starttime' },
-            endTime: { title: 'endtime', name: 'endtime' }
+            startTime: { title: 'startTime', name: 'startTime' },
+            endTime: { title: 'endTime', name: 'endTime' }
           },
           allowAdding: true,
           enableTooltip: true
@@ -158,14 +158,14 @@ export default function DoctorSchedule() {
         </ViewsDirective>
         <ResourcesDirective>
           <ResourceDirective
-            field="doc_id"
+            field="doctorId"
             title="Doctor"
             name="Doctors"
             allowMultiple={true}
             dataSource={doctors}
-            textField="doctor_name"
-            idField="doc_id"
-            colorField="doc_color"
+            textField="doctorName"
+            idField="doctorId"
+            colorField="doctorColor"
           />
         </ResourcesDirective>
         <Inject

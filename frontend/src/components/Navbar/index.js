@@ -9,11 +9,11 @@ import {
   IconButton,
 } from '@material-ui/core';
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import DialogLogout from '../components/Dialog/dialogLogout';
-import { logoutSuccess } from '../slices/LoginSlice';
+import DialogLogout from '../Dialog/dialogLogout';
+import { logoutSuccess } from '../../slices/LoginSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function Navbar() {
+function Navbar() {
   const dispatch = useDispatch()
   const logins = useSelector((state) => state.logins.login);
 
@@ -68,12 +68,12 @@ export default function Navbar() {
 
               {logins.role === 'admin' ? (
                 <Link to="/admin" style={{ color: '#ffffff', textDecoration: 'none' }}>
-                  <Button color="inherit">{logins.firstname} &#160; {logins.lastname}</Button>
+                  <Button color="inherit">{logins.firstName} &#160; {logins.lastName}</Button>
                 </Link>
 
               ) :
                 <Link to="/appointment" style={{ color: '#ffffff', textDecoration: 'none' }}>
-                  <Button color="inherit">{logins.firstname} &#160; {logins.lastname} </Button>
+                  <Button color="inherit">{logins.firstName} &#160; {logins.lastName} </Button>
                 </Link>
               }
               <Button color="inherit" onClick={handleClickOpen}>Logout</Button>
@@ -87,7 +87,7 @@ export default function Navbar() {
 
   );
 }
-
+export default Navbar
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,

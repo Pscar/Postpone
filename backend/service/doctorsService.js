@@ -1,23 +1,23 @@
 const database = require("../util/database");
-const Doctor = database.doctor;
+const doctors = database.doctors;
 
 
-exports.getByID = async (doc_id) => {
+exports.getByID = async (doctorId) => {
   try {
-    return await Doctor.findOne({
+    return await doctors.findOne({
       where: {
-        doc_id: doc_id,
+        doctorId: doctorId,
       },
     });
   } catch (err) {
     throw err;
   };
 };
-exports.getByName = async (doctor_name) => {
+exports.getByName = async (doctorName) => {
   try {
-    return await Doctor.findOne({
+    return await doctors.findOne({
       where: {
-        doctor_name: doctor_name,
+        doctorName: doctorName,
       },
     });
   } catch (err) {
@@ -26,7 +26,7 @@ exports.getByName = async (doctor_name) => {
 };
 exports.getAll = async () => {
   try {
-    return await Doctor.findAll({});
+    return await doctors.findAll({});
   } catch (err) {
     throw err;
   }

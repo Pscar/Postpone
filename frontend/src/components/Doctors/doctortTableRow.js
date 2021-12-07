@@ -54,10 +54,10 @@ export default function DoctortTableRow(props) {
           </IconButton>
         </TableCell>
         <TableCell align="center">
-          {row.doc_id}
+          {row.doctorId}
         </TableCell>
         <TableCell align="center">
-          {searched ? scheduleDr.doctor_name : row.doctor_name}
+          {searched ? scheduleDr.doctorName : row.doctorName}
         </TableCell>
       </TableRow>
       <TableRow>
@@ -77,9 +77,9 @@ export default function DoctortTableRow(props) {
                 </TableHead>
                 <TableBody>
                   {row.schedule ? row.schedule.slice(-1).map((historyRow) => (
-                    <TableRow key={historyRow.doc_id}>
+                    <TableRow key={historyRow.doctorId}>
                       <TableCell align="center">
-                        {row.doctor_name}
+                        {row.doctorName}
                       </TableCell>
                       <TableCell>
                         <Timeline>
@@ -88,13 +88,13 @@ export default function DoctortTableRow(props) {
                               <TimelineDot variant="outlined" />
                               <TimelineConnector />
                             </TimelineSeparator>
-                            <TimelineContent>{moment(historyRow.starttime).format('DD-MM-YYYY HH:mm')}</TimelineContent>
+                            <TimelineContent>{moment(historyRow.startTime).format('DD-MM-YYYY HH:mm')}</TimelineContent>
                           </TimelineItem>
                           <TimelineItem>
                             <TimelineSeparator>
                               <TimelineDot />
                             </TimelineSeparator>
-                            <TimelineContent>{moment(historyRow.endtime).format('DD-MM-YYYY HH:mm')}</TimelineContent>
+                            <TimelineContent>{moment(historyRow.endTime).format('DD-MM-YYYY HH:mm')}</TimelineContent>
                           </TimelineItem>
                         </Timeline>
                       </TableCell>
