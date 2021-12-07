@@ -13,13 +13,14 @@ exports.createPatient = async (req, res) => {
 
   try {
 
-    const listPatientEmail = await patientsService.getByEmail(email);
-    
-    if (listPatientEmail) {
+    const emailExists = await patientsService.getByEmail(email);
+
+    if (emailExists) {
       return res.status(200).send({
         status: "error",
         data: "มีข้อมูลอยู่แล้ว"
       });
+
     } else {
       const newpatient = await patientsService.create({
         email: email,
@@ -71,7 +72,7 @@ exports.getPatientByID = async (req, res) => {
 exports.getPatientAll = async (req, res) => {
 
   try {
-    const patients= await patientsService.getAll();
+    const patients = await patientsService.getAll();
 
     return res.status(200).send({
       status: "success",

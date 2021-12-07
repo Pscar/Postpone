@@ -23,7 +23,6 @@ function LoginsForm() {
   const classes = useStyles();
 
   const [stateEvent, setStateEvent] = useState({ email: '', password: '' });
-  const [isLogin, setIsLogin] = useState(false);
   const [alert, setAlert] = useState(false);
   const [alertContent, setAlertContent] = useState('');
 
@@ -39,11 +38,6 @@ function LoginsForm() {
   }, [returnGetPatientAll])
 
 
-  const handleClick = () => {
-    if (isLogin === true) {
-      history.push("/create");
-    }
-  }
   const handleChange = event => {
     setStateEvent({
       ...stateEvent, [event.target.name]: event.target.value
@@ -53,15 +47,13 @@ function LoginsForm() {
   const submitUser = (event) => {
     event.preventDefault();
     for (const item of patients) {
-
       const hashedPassword = bcrypt.hashSync(stateEvent.password, item.password)
 
       if (stateEvent.email === item.email && hashedPassword === item.password) {
-        setIsLogin(true)
         dispatch(loginSuccess(item))
+        history.push("/create");
       }
       if (stateEvent.email === 'admin@admin.com' && hashedPassword === item.password) {
-        setIsLogin(true)
         history.push("/admin");
       }
       if (stateEvent.email !== item.email) {
@@ -72,7 +64,11 @@ function LoginsForm() {
         setAlert(true)
         setAlertContent("กรุณากรอก email ใหม่")
       }
-      if (hashedPassword === item.password) {
+      if (hashedPassword !== item.password) {
+        setTimeout(() => {
+          setAlert(false)
+          setAlertContent("")
+        }, 1000)
         setAlert(true)
         setAlertContent("กรุณากรอก password ใหม่")
       }
@@ -119,10 +115,10 @@ function LoginsForm() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={handleClick}
           >
             ตรวจสอบ
           </Button>
+
           {alert ? <Alert variant="filled" severity="error">{alertContent}</Alert> : <></>}
           <Grid container>
             <Grid item>

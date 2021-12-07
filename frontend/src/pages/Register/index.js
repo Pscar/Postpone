@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+import { useHistory } from 'react-router-dom';
 
 import {
   CssBaseline,
@@ -21,15 +22,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { createPatient, getPatientAll } from '../../services/patientService';
 
 function ResgiterForm() {
+  let history = useHistory();
 
   const classes = useStyles();
 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required('firstName is required'),
     lastName: Yup.string()
-      .required('lastName is required')
-      .min(6, 'lastName must be at least 6 characters')
-      .max(20, 'lastName must not exceed 20 characters'),
+      .required('lastname is required')
+      .min(6, 'lastname must be at least 6 characters')
+      .max(20, 'lastname must not exceed 20 characters'),
     email: Yup.string()
       .required('Email is required')
       .email('Email is invalid'),
@@ -59,15 +61,37 @@ function ResgiterForm() {
 
   const createPatients = async (data) => {
     for (const item of patients) {
-      if (item.email !== data.email) {
+      if (item.email === data.email) {
+        setTimeout(() => {
+          setAlert(false)
+          setAlertContent("")
+        }, 2000)
         setAlert(true)
-        setAlertContent("มีข้อมูลในระบบแล้ว")
-        break
-      } else {
+        setAlertContent("มีอีเมลนี้ในระบบ")
+      }
+      if (item.firstName === data.firstName) {
+        setTimeout(() => {
+          setAlert(false)
+          setAlertContent("")
+        }, 2000)
         setAlert(true)
-        setAlertContent("สมัครสมาชิกเรียบร้อยแล้ว")
+        setAlertContent("มีชื่อนี้อยู่ในระบบ")
+      }
+      if (item.phone === data.phone) {
+        setTimeout(() => {
+          setAlert(false)
+          setAlertContent("")
+        }, 2000)
+        setAlert(true)
+        setAlertContent("มีเบอร์โทรศัพท์นี้ในระบบ")
       }
     }
+  }
+
+
+  const onSubmit = async (data) => {
+    await createPatients(data)
+
     const createItem = {
       firstName: data.firstName,
       lastName: data.lastName,
@@ -79,10 +103,6 @@ function ResgiterForm() {
     await dispatch(createPatient(createItem));
   }
 
-
-  const onSubmit = async (data) => {
-    await createPatients(data)
-  }
   return (
     <Container component="main" maxWidth="md">
       <CssBaseline />
@@ -160,7 +180,7 @@ function ResgiterForm() {
                   <TextField
                     required
                     id="confirmPassword"
-                    name="confirmPassword"
+                    name="confirmpassword"
                     label="ยืนยันรหัสผ่าน"
                     type="password"
                     fullWidth
@@ -173,9 +193,9 @@ function ResgiterForm() {
               <Box mt={3}>
                 <Grid item xs={12} md={6}>
                   <Button
+                    type="submit"
                     variant="contained"
                     color="primary"
-                    onClick={handleSubmit(onSubmit)}
                   >
                     Register
                   </Button>

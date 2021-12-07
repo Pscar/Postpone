@@ -33,9 +33,10 @@ function Navbar() {
   };
 
   const handleLogout = async () => {
-    await dispatch(logoutSuccess());
     await history.push("/");
+    await dispatch(logoutSuccess());
     await window.location.reload(true);
+
     setOpen(false);
   }
 
