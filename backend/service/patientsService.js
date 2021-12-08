@@ -11,7 +11,6 @@ exports.create = async (data) => {
       return bcrypt.hash(plainTextPassword1, salt);
     })
     .then(hash => {
-      console.log(`Hash: ${hash}`);
       const itemCreate = {
         email: data.email,
         password: hash,
