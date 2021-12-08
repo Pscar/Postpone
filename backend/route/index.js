@@ -11,16 +11,13 @@ router.post("/patients", PatientsController.createPatient);
 router.get("/patients", PatientsController.getPatientAll);
 router.get("/patients/:patientId", PatientsController.getPatientByID);
 
-
 router.post("/appointments", AppointmentsController.createAppointment);
 router.get("/appointments", AppointmentsController.getAppointmentAll);
 router.get("/appointments/:appointmentsId", AppointmentsController.getAppointmentByID);
 router.put("/appointments/:appointmentsId", AppointmentsController.editAppointmentByID);
 router.delete("/appointments/:appointmentsId", AppointmentsController.deleteAppointmenteByID)
 
-
 router.get("/doctors", DoctorsController.getDoctorAll);
-
 
 router.post("/schedules", SchedulesController.createScheduleDoctor);
 router.get("/schedules", SchedulesController.getScheduleDoctorAll);

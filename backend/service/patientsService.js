@@ -8,7 +8,7 @@ exports.create = async (data) => {
   bcrypt
     .genSalt(saltRounds)
     .then(salt => {
-      return bcrypt.hash(plainTextPassword1, salt);
+      return bcrypt.hash(data.password, salt);
     })
     .then(hash => {
       const itemCreate = {
@@ -18,7 +18,7 @@ exports.create = async (data) => {
         lastName: data.lastName,
         confirmPassword: hash,
         phone: data.phone,
-        role:data.role
+        role: data.role
       }
       return patients.create(itemCreate);
     })
