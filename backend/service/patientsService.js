@@ -1,12 +1,30 @@
 const database = require("../util/database");
 const patients = database.patients;
+const bcrypt = require('bcrypt');
 
 exports.create = async (data) => {
-  try {
-    return await patients.create(data);
-  } catch (err) {
-    throw err;
-  }
+  const saltRounds = 10;
+
+  bcrypt
+    .genSalt(saltRounds)
+    .then(salt => {
+      return bcrypt.hash(plainTextPassword1, salt);
+    })
+    .then(hash => {
+      console.log(`Hash: ${hash}`);
+      const itemCreate = {
+        email: data.email,
+        password: hash,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        confirmPassword: hash,
+        phone: data.phone,
+        role:data.role
+      }
+      return patients.create(itemCreate);
+    })
+    .catch(err => console.error(err.message));
+
 };
 
 exports.getAll = async () => {

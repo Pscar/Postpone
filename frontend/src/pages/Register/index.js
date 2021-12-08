@@ -68,6 +68,7 @@ function ResgiterForm() {
         }, 2000)
         setAlert(true)
         setAlertContent("มีอีเมลนี้ในระบบ")
+        break;
       }
       if (item.firstName === data.firstName) {
         setTimeout(() => {
@@ -76,6 +77,7 @@ function ResgiterForm() {
         }, 2000)
         setAlert(true)
         setAlertContent("มีชื่อนี้อยู่ในระบบ")
+        break;
       }
       if (item.phone === data.phone) {
         setTimeout(() => {
@@ -84,6 +86,11 @@ function ResgiterForm() {
         }, 2000)
         setAlert(true)
         setAlertContent("มีเบอร์โทรศัพท์นี้ในระบบ")
+        break;
+      }
+      if (data.email !== item.email && data.firstName !== item.firstName && data.phone !== item.phone) {
+        history.push("/")
+        break;
       }
     }
   }
@@ -101,6 +108,7 @@ function ResgiterForm() {
       confirmPassword: data.confirmPassword,
     }
     await dispatch(createPatient(createItem));
+
   }
 
   return (
